@@ -8,8 +8,12 @@
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^4.6.0",
     "cross-env": "^7.0.3",
+<<<<<<< HEAD
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
+=======
+    "mariadb": "^2.5.3",
+>>>>>>> backend initial setup
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
