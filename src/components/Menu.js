@@ -1,6 +1,6 @@
 import React from "react";
 // import { NavLink } from "react-router-dom";
-import {Nav, NavLink, Bars, NavMenu} from './NavbarElements';
+import {Nav, NavLink, Bars, NavMenu} from '../pages/pageComponents/NavbarElements';
 
 const Menu = () => {
   // const activeStyle = {
