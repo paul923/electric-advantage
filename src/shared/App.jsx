@@ -16,7 +16,6 @@ export default class App extends Component {
               <Route path="/sign-in" component={SignIn} />
             </Switch>
         </Router>
-        <img src="../../images/background.png" alt="?"/>
       </div>
     );
   }
