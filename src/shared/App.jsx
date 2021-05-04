@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, About, Posts } from "../pages";
+import { Home, About, Posts, Testing } from "../pages";
 import Menu from "../components/Menu";
 
 export default class App extends Component {
@@ -14,6 +14,7 @@ export default class App extends Component {
           <Route path="/about" component={About} />
         </Switch>
         <Route path="/posts" component={Posts} />
+        <Route path="/testing" component={Testing} />
       </div>
     );
   }
