@@ -42,7 +42,6 @@ export default class App extends Component {
       </div>
     ) : (
       <div>
-<<<<<<< HEAD
         <Menu />
         <Route exact path="/" component={HomePage} />
         <Switch>
@@ -57,18 +56,7 @@ export default class App extends Component {
         </Switch>
         {/* CurrentUser.UserType == TYPE.ADMIN*/}
         <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
-=======
-        <Router>
-          <Menu />
-            <Route exact path="/" exact component={Home} />
-            <Switch>
-              <Route path="/who-we-are" component={WhoWeAre} />
-              <Route path="/contact-us" component={ContactUs} />
-              <Route path="/sign-in" component={SignIn} />
-            </Switch>
-        </Router>
-        <img src="../../images/background.png" alt="?"/>
->>>>>>> changed menus and added a navbar
+        <img src="../../images/background.png" alt="?" />
       </div>
     );
   }
