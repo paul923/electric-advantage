@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./css/Home.css";
 import SignUpModal from "./pageComponents/SignUpModal";
 
