@@ -10,7 +10,11 @@ export default function Home() {
   const [modalState, setModalState] = useState(false);
 
   return (
-    <div>
+    <div style={{display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '90vh',
+    }}>
       <Button className="btn-success" onClick={() => setModalState(true)}>
         Sign Up
       </Button>

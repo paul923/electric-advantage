@@ -1,4 +1,4 @@
 export { default as Home } from "./Home";
-export { default as About } from "./About";
-export { default as Posts } from "./Posts";
-export { default as Post } from "./Post";
+export { default as SignIn} from "./SignIn";
+export { default as WhoWeAre } from "./WhoWeAre";
+export { default as ContactUs } from "./ContactUs";
