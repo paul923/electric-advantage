@@ -1,0 +1,103 @@
+.customer {
+    display: none;
+  }
+  
+  .modal-header {
+    background-color: green;
+  }
+  
+  .content {
+    margin-top: 5%;
+    position: relative;
+    height: 50%;
+    width: 90%;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 30% 80%;
+    margin: 0 auto;
+    max-width: 960px;
+    vertical-align: top;
+    padding-left: 0;
+    padding-bottom: 5%;
+  }
+  
+  .homeContent {
+    position: relative;
+    height: 50%;
+    width: 95%;
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    margin: 0 auto;
+    vertical-align: top;
+  }
+  
+  .TopImage {
+    position: relative;
+    height: 50%;
+    width: 100vw;
+    margin-bottom: 3%;
+  }
+  
+  .registrationText {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 8vh;
+  }
+  
+  .rightColumn {
+    padding-left: 20%;
+    text-align: left;
+  }
+  
+  .leftColumnChildren {
+    margin-top: 2.5vh;
+    text-align: left;
+  }
+  
+  .signUpButtons {
+    margin-right: 3vw;
+    margin-top: 3vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    width: 10vw;
+    text-align: left;
+  }
+  
+  * {
+    font-family: "Sora", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .background {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .logo {
+    width: 12vh;
+    height: 10vh;
+  }
+  
+  h2 {
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+    margin-left: 3vw;
+  
+    font-weight: bold;
+  
+  }
+  
+  .btn-send {
+    margin-top: 5vh;
+    margin-left: 50vw;
+    margin-right: 50vw;
+    background-color: green;
+    border: none;
+    color: white;
+    font-size: 1.2vw;
+  }
+
