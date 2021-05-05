@@ -35,6 +35,11 @@ const Menu = () => {
             Test Page
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/signup" activeStyle={activeStyle}>
+            Sign up
+          </NavLink>
+        </li>
       </ul>
       <hr />
     </div>
