@@ -30,6 +30,11 @@ const Menu = () => {
             Posts
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/testing" activeStyle={activeStyle}>
+            Test Page
+          </NavLink>
+        </li>
       </ul>
       <hr />
     </div>
