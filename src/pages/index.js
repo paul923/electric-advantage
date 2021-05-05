@@ -8,3 +8,7 @@ export { default as Signup } from "./Signup";
 export { default as Login } from "./Login";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Updateprofile } from "./UpdateProfile";
+export { default as AccountInfo } from "../dealerPages/AccountInfo";
+export { default as AddScreen } from "../dealerPages/AddList";
+export { default as Inventory } from "../dealerPages/Inventory";
+export { default as Subscription } from "../dealerPages/Subscription";
