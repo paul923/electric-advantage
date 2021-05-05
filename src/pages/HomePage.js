@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import "./css/Home.css";
-import SignUpModal from "./pageComponents/SignUpModal";
+import SignUpModal from "../components/SignUpModal";
 
 export default function Home() {
   const [registrationState, setRegistrationState] = useState(false);
