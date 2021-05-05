@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/Home.css";
+import background from "../images/background.jpg";
 
 const ContactUs = () => {
     return (
-        <div style={{display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '90vh',
-        }}>
+        
+        <div>
+            <img src={background} alt="background" className="background"/>
             <h1>Contact Us</h1>
         </div>
     )

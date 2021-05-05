@@ -12,7 +12,7 @@ const Menu = () => {
             <Bars />
             <NavMenu>
                 <NavLink to="/who-we-are" activeStyle>
-                    Who We Are
+                    Our History
                 </NavLink>
                 <NavLink to="/contact-us" activeStyle>
                     Contact Us
