@@ -17,7 +17,7 @@ const Menu = () => {
         <Bars />
         <NavMenu>
           <NavLink to="/who-we-are" activeStyle>
-            Who We Are
+            Our History
           </NavLink>
           <NavLink to="/contact-us" activeStyle>
             Contact Us
@@ -27,10 +27,6 @@ const Menu = () => {
           </NavLink>
           <NavLink to="/sign-in" activeStyle>
             Sign In
-          </NavLink>
-
-          <NavLink to="/testing" activeStyle={activeStyle}>
-            Test Page
           </NavLink>
         </NavMenu>
       </Nav>

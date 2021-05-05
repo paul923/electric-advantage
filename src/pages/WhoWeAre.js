@@ -1,13 +1,14 @@
-import React from 'react'
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/Home.css";
+import background from "../images/background.jpg";
 
 const WhoWeAre = () => {
     return (
-        <div style={{display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '90vh',
-        }}>
-            <h1>Who We Are</h1>
+        
+        <div>
+            <img src={background} alt="background" className="background"/>
+            <h1>Our History...</h1>
         </div>
     )
 }
