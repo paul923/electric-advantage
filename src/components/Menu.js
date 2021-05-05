@@ -17,6 +17,9 @@ const Menu = () => {
                 <NavLink to="/contact-us" activeStyle>
                     Contact Us
                 </NavLink>
+                <NavLink to="/profile" activeStyle>
+                    Profile
+                </NavLink>
                 <NavLink to="/sign-in" activeStyle>
                     Sign In
                 </NavLink>
