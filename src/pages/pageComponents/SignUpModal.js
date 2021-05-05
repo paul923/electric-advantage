@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Form, Button } from "react-bootstrap";
+import { useEffect } from "react";
 
 const SignUpModal = ({
   modalState,
@@ -12,6 +13,17 @@ const SignUpModal = ({
     setRegistrationState(e.target.value);
   };
 
+  let firstInDropDown = "";
+  let secondInDropdown = "";
+
+  if (registrationState === "customer") {
+    firstInDropDown = "Customer";
+    secondInDropdown = "Dealer";
+  } else {
+    firstInDropDown = "Dealer";
+    secondInDropdown = "Customer";
+  }
+
   return (
     <Modal show={modalState} aria-label="Close">
       <Modal.Header>
@@ -22,8 +34,8 @@ const SignUpModal = ({
           <Form.Group controlId="accountType">
             <Form.Label>Account Type</Form.Label>
             <Form.Control as="select" onChange={userRegistrationHandler}>
-              <option value="buyer">Buyer</option>
-              <option value="dealer">Dealer</option>
+              <option value="customer">{`${firstInDropDown}`}</option>
+              <option value="dealer">{`${secondInDropdown}`}</option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="formEmail">
@@ -37,7 +49,9 @@ const SignUpModal = ({
             <Form.Text />
           </Form.Group>
           <Form.Group
-            className={`${registrationState === "dealer" ? "dealer" : "buyer"}`}
+            className={`${
+              registrationState === "dealer" ? "dealer" : "customer"
+            }`}
             controlId="Subscription Plan"
           >
             <Form.Label> Plan </Form.Label>
@@ -56,7 +70,7 @@ const SignUpModal = ({
           variant="secondary"
           onClick={() => {
             setModalState(false);
-            setRegistrationState(false);
+            setRegistrationState("customer");
           }}
         >
           Close

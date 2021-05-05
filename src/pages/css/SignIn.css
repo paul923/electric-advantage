@@ -1,0 +1,60 @@
+.customer {
+  display: none;
+}
+
+.modal-header {
+  background-color: green;
+}
+
+.content {
+  margin-top: 5%;
+  position: relative;
+  height: 50%;
+  width: 90%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 30% 80%;
+  margin: 0 auto;
+  max-width: 960px;
+  vertical-align: top;
+  padding-left: 0;
+  padding-bottom: 5%;
+}
+
+.TopImage {
+  position: relative;
+  height: 50%;
+  width: 100vw;
+  margin-bottom: 3%;
+}
+
+.registrationText {
+  text-align: left;
+  font-weight: bold;
+}
+
+.rightColumn {
+  padding-left: 20%;
+  text-align: left;
+}
+
+.leftColumnChildren {
+  margin-top: 2.5vh;
+  text-align: left;
+}
+
+.signUpButtons {
+  margin-right: 3vw;
+  margin-top: 3vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  text-align: left;
+}
+
+* {
+  font-family: "Sora", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

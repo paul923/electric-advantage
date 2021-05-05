@@ -9,14 +9,14 @@ export default class App extends Component {
       <div>
         <Router>
           <Menu />
-            <Route exact path="/" exact component={Home} />
-            <Switch>
-              <Route path="/who-we-are" component={WhoWeAre} />
-              <Route path="/contact-us" component={ContactUs} />
-              <Route path="/sign-in" component={SignIn} />
-            </Switch>
+          <Route exact path="/" exact component={Home} />
+          <Switch>
+            <Route path="/who-we-are" component={WhoWeAre} />
+            <Route path="/contact-us" component={ContactUs} />
+            <Route path="/sign-in" component={SignIn} />
+          </Switch>
         </Router>
-        <img src="../../images/background.png" alt="?"/>
+        {/* <img src="../../images/background.png" alt="?"/> */}
       </div>
     );
   }
