@@ -9,51 +9,32 @@ import logo from "../images/logo.png";
 
 const Menu = () => {
   return (
-    <div>
-      <ul>
-        <li>
-          <NavLink exact to="/" activeStyle={activeStyle}>
-            Home
+    <>
+      <Nav>
+        <NavLink to="/">
+          <img src={logo} alt="logo" className="logo" />
+        </NavLink>
+        <Bars />
+        <NavMenu>
+          <NavLink to="/who-we-are" activeStyle>
+            Who We Are
           </NavLink>
-        </li>
-        <li>
-          <NavLink exact to="/about" activeStyle={activeStyle}>
-            About
+          <NavLink to="/contact-us" activeStyle>
+            Contact Us
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/about/foo" activeStyle={activeStyle}>
-            About Foo
+          <NavLink to="/profile" activeStyle>
+            Profile
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/posts" activeStyle={activeStyle}>
-            Posts
+          <NavLink to="/sign-in" activeStyle>
+            Sign In
           </NavLink>
-        </li>
-        <li>
+
           <NavLink to="/testing" activeStyle={activeStyle}>
             Test Page
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup" activeStyle={activeStyle}>
-            Sign up
-          </NavLink>
-        </li>
-
-        <NavLink to="/who-we-are" activeStyle>
-          Who We Are
-        </NavLink>
-        <NavLink to="/contact-us" activeStyle>
-          Contact Us
-        </NavLink>
-        <NavLink to="/sign-in" activeStyle>
-          Sign In
-        </NavLink>
-      </ul>
-      <hr />
-    </div>
+        </NavMenu>
+      </Nav>
+    </>
   );
 };
 
