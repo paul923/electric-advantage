@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, WhoWeAre, ContactUs, SignIn } from "../pages";
+import { Home, WhoWeAre, ContactUs, SignIn, SearchResult } from "../pages";
 import Menu from "../components/Menu";
 import {
   AboutPage,
@@ -53,6 +53,14 @@ export default class App extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
+        </Switch>
+
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/who-we-are" component={WhoWeAre} />
+          <Route path="/contact-us" component={ContactUs} />
+          <Route path="/sign-in" component={SignIn} />
+          <Route path="/search-result" component={SearchResult} />
         </Switch>
         {/* CurrentUser.UserType == TYPE.ADMIN*/}
         <ProtectedRoute path="/testing" component={TestingPage} auth={true} />

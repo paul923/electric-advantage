@@ -1,25 +1,41 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Home.css";
-<<<<<<< HEAD:src/pages/HomePage.js
-import SignUpModal from "../components/SignUpModal";
-=======
 import background from "../images/background.jpg";
+import carImage from "../images/tesla.jpg";
 import { Button } from "react-bootstrap";
-<<<<<<< HEAD:src/pages/HomePage.js
->>>>>>> homepage / search page created and logo added:src/pages/Home.js
-=======
 import { NavLink } from "react-router-dom";
->>>>>>> added search result page:src/pages/Home.js
+import { Card } from "react-bootstrap";
 
-export default function Home() {
+export default function SearchResult() {
+    const cardInfo = [
+        {image: carImage, title: "Tesla", price: "$40,000", distance: "3.5km away", range: "500km" },
+        {image: carImage, title: "Tesla", price: "$40,000", distance: "3.5km away", range: "500km" },
+        {image: carImage, title: "Tesla", price: "$40,000", distance: "3.5km away", range: "500km" },
+        {image: carImage, title: "Tesla", price: "$40,000", distance: "3.5km away", range: "500km" }
+    ]
+
+    const renderCard = (card, index) => {
+        return (
+            <Card className="carCard">
+                <Card.Img variant="top" src={card.image} className="carImage" />
+                <Card.Body>
+                    <Card.Title>{card.title}</Card.Title>
+                    <Card.Text>{card.price}</Card.Text>
+                    <Card.Text>{card.distance}</Card.Text>
+                    <Card.Text>{card.range}</Card.Text>
+                    <Button className="carDetailsButton">Details</Button>
+                    <Button className="carContactButton">Contact</Button>
+                </Card.Body>
+            </Card>
+        )
+    }
 
   return (
     <body>
-      <div>
-        <img src={background} alt="background" className="background"/>
-        <h2>Search for a Vehicle</h2>
-      <div className="homeContent">
+        <div>
+            <img src={background} alt="background" className="background"/>
+            <div className="searchResultContent">
         <div className="priceColumn">
           <h3>Price</h3>
           <select className="price-dropdown">
@@ -87,17 +103,22 @@ export default function Home() {
           <input type="text" className="postal"></input>
         </div>
 
-      </div>
-
-        <Button className="btn-search" 
+        <div className="searchButtonColumn">
+        <Button className="searchResultButton"
           style={{display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           }}>
           <NavLink to="/search-result" className="nav-search">Search</NavLink>
         </Button>
+        </div>
 
       </div>
+
+
+    </div>
+        <h2>Search Result</h2>
+        <div className="results"> {cardInfo.map(renderCard)} </div>
     </body>
   );
 }

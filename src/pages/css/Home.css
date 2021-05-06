@@ -33,6 +33,18 @@
   vertical-align: top;
 }
 
+.searchResultContent {
+  position: relative;
+  height: 50%;
+  width: 95%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  margin: 0 auto;
+  vertical-align: top;
+  margin-top: 5vh;
+}
+
 .TopImage {
   position: relative;
   height: 50%;
@@ -99,4 +111,50 @@ h2 {
   border: none;
   color: white;
   font-size: 1.2vw;
+}
+
+.nav-search {
+  color: white;
+}
+
+.searchResultButton {
+  background-color: green;
+  color: white;
+  font-size: 1.2vw;
+  margin-top: 3vh;
+}
+
+.carCard {
+  width: 40vw;
+  height: 40vh;
+  margin-bottom: 20vh;
+  margin-right: 5vw;
+  border: groove;
+}
+
+.carImage {
+  width: 20vw;
+  height: 20vh;
+}
+
+.carDetailsButton, .carContactButton {
+  margin-right: 3vw;
+  color: white;
+  background-color: green;
+}
+
+.results {
+  position: relative;
+  width: 95%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  max-width: 960px;
+  vertical-align: top;
+  padding-left: 0;
 }
