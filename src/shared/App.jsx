@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   Home,
   WhoWeAre,
@@ -12,6 +13,9 @@ import {
 =======
 import { Home, WhoWeAre, ContactUs, SignIn, Profile, SearchResult, SearchDetail } from "../pages";
 >>>>>>> updated routing path to Profile
+=======
+import { Home, WhoWeAre, ContactUs, SignIn, Profile, Search, SearchResult, SearchDetail } from "../pages";
+>>>>>>> added search page to fix routing
 import Menu from "../components/Menu";
 import {
   AboutPage,
@@ -66,17 +70,28 @@ export default class App extends Component {
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
 
-        <Switch>
-          <Route path="/" exact component={Home} />
           <Route path="/who-we-are" component={WhoWeAre} />
           <Route path="/contact-us" component={ContactUs} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/search-result" component={SearchResult} />
           <Route path="/search-detail" component={SearchDetail} />
-        </Switch>
+        <Router>
+          <Menu />
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/who-we-are" component={WhoWeAre} />
+              <Route path="/contact-us" component={ContactUs} />
+              <Route path="/sign-in" component={SignIn} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/search" component={Search} />
+              <Route path="/search-result" component={SearchResult} />
+              <Route path="/search-detail" component={SearchDetail} />
+            </Switch>
         {/* CurrentUser.UserType == TYPE.ADMIN*/}
         <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
         <img src="../../images/background.png" alt="?" />
+        </Router>
+>>>>>>> added search page to fix routing
       </div>
     );
   }
