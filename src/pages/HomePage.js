@@ -1,3 +1,4 @@
+
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Home.css";
@@ -11,6 +12,67 @@ import { Button } from "react-bootstrap";
 =======
 import { NavLink } from "react-router-dom";
 >>>>>>> added search result page:src/pages/Home.js
+
+export default function Home() {
+
+  return (
+    <body>
+      <div>
+        <img src={background} alt="background" className="background"/>
+        <h2>Choose Region</h2>
+      <div className="homeContent">
+        <div className="priceColumn">
+          <h3>Province</h3>
+          <select className="price-dropdown">
+            <option value="minprice">BC</option>
+            <option value="40000">Alberta</option>
+            <option value="60000">Sask</option>
+            <option value="80000">Manitoba</option>
+            <option value="100000">Quebec</option>
+            <option value="200000">US</option>
+            <option value="300000">UK</option>
+            <option value="400000">Korea</option>
+            <option value="500000">Japan</option>
+            <option value="maxprice">China</option>
+          </select> 
+        </div>
+
+        <div className="rangeColumn">
+          <h3>Region</h3>
+          <select className="range-dropdown">
+              <option value="200km">Vancouver</option>
+              <option value="300km">Burnaby</option>
+              <option value="400km">Coquitlam</option>
+              <option value="500km">North Van</option>
+              <option value="600km">West Van</option>
+          </select>
+        </div>
+       
+
+      </div>
+
+        <Button className="btn-search" 
+          style={{display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          }}>
+          Submit
+        </Button>
+
+      </div>
+    </body>
+  );
+}
+
+
+/**
+ * version that jack made
+ * 
+ * import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/Home.css";
+import background from "../images/background.jpg";
+import { Button } from "react-bootstrap";
 
 export default function Home() {
 
@@ -101,3 +163,8 @@ export default function Home() {
     </body>
   );
 }
+
+
+ */
+
+
