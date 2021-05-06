@@ -6,8 +6,6 @@ import { Button, Form, Carousel } from "react-bootstrap";
 
 const Profile = () => {
     return (
-
-
         <body className="body">
             <div className="TopImage">
                 <img className="d-block w-100" src={background} alt="background" />
@@ -28,6 +26,8 @@ const Profile = () => {
                             </Form.Group>
                         </Form>
                         <Button className="btn-success leftColumnChildren">Change Email/Password</Button>
+
+                    
                     </div>
                 </div>
                 </div>
