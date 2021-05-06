@@ -7,6 +7,8 @@ export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
+  const customerRef = useRef()
+  const dealerRef = useRef()
   const { signup } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -38,6 +40,10 @@ export default function Signup() {
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+            <div className="text-center">
+            <Form.Check inline label="Dealer" ref={dealerRef} />
+            <Form.Check inline label="Customer" ref={customerRef}  /> 
+            </div>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
@@ -50,6 +56,14 @@ export default function Signup() {
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
+            <Form.Group id="plan">
+            <Form.Label> Plan </Form.Label>
+            <Form.Control as="select" defaultValue="Basic Plan">
+              <option>Basic Plan</option>
+              <option>Advanced Plan</option>
+            </Form.Control>
+            </Form.Group>
+
             <Button disabled={loading} className="w-100" type="submit">
               Sign Up
             </Button>
