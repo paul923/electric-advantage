@@ -22,6 +22,11 @@
   padding-bottom: 5%;
 }
 
+h1,h3,h4 {
+  margin-top: 3vh;
+  margin-left: 3vw;
+}
+
 .homeContent {
   position: relative;
   height: 50%;
@@ -44,7 +49,7 @@
   vertical-align: top;
 }
 
-.searchResultContent {
+.searchResultContent, .carDetailsContent {
   position: relative;
   height: 50%;
   width: 95%;
@@ -53,7 +58,7 @@
   grid-template-columns: auto auto auto auto auto auto auto;
   margin: 0 auto;
   vertical-align: top;
-  margin-top: 5vh;
+  margin-top: 3vh;
 }
 
 .TopImage {
@@ -132,7 +137,7 @@ h2 {
   background-color: green;
   color: white;
   font-size: 1.2vw;
-  margin-top: 3vh;
+  margin-top: 5vh;
 }
 
 .carCard {
@@ -154,6 +159,13 @@ h2 {
   background-color: green;
 }
 
+.emailAlertButton {
+  margin-top: -3vh;
+  margin-left: 3vw;
+  color: white;
+  background-color: green;
+}
+
 .results {
   position: relative;
   width: 95%;
@@ -168,4 +180,42 @@ h2 {
   max-width: 960px;
   vertical-align: top;
   padding-left: 0;
+}
+
+.carDetailsImage {
+  width: 30vw;
+  height: 30vh;
+  margin-top: 1vh;
+  margin-left: 3vw;
+}
+
+.carDetailsWithImage {
+  position: relative;
+  height: 50%;
+  width: 95%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin: 0 auto;
+  vertical-align: top;
+}
+
+.carDetails, .carSpecific {
+  position: relative;
+  height: 50%;
+  width: 95%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto auto auto auto;
+  margin: 0 auto;
+  vertical-align: top;
+}
+
+.additionalInfo {
+  max-width: 30vw;
+}
+
+.infoCard {
+  margin-top: 5vh;
 }
