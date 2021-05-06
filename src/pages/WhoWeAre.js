@@ -8,7 +8,8 @@ const WhoWeAre = () => {
         
         <div>
             <img src={background} alt="background" className="background"/>
-            <h1>Our History...</h1>
+            <h1>Our History</h1>
+            <h10>We started our company x years ago......</h10>
         </div>
     )
 }
