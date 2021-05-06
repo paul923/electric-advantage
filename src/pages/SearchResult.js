@@ -24,7 +24,11 @@ export default function SearchResult() {
                     <Card.Text>{card.price}</Card.Text>
                     <Card.Text>{card.distance}</Card.Text>
                     <Card.Text>{card.range}</Card.Text>
-                    <Button className="carDetailsButton">Details</Button>
+                    <Button className="carDetailsButton">
+                      <NavLink to="/search-detail" className="nav-search">
+                        Details
+                      </NavLink>
+                    </Button>
                     <Button className="carContactButton">Contact</Button>
                 </Card.Body>
             </Card>
