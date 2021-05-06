@@ -54,7 +54,30 @@ router.get("/:userId", function (req, res, next) {
 
 // POST user
 router.post("/", function (req, res, next) {
-  res.send("new user. name: " + req.body.name);
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var user = req.body;
+    var sql = "INSERT INTO electric_advantage.user SET ?";
+    sql = mysql.format(sql, user);
+    console.log(sql);
+    connection.query(sql, function (error, results, fields) {
+      connection.release();
+      if (error) {
+        if (error.code == "ER_DUP_ENTRY") {
+          res.status(400).send({
+            body: error.sqlMessage,
+          });
+        } else {
+          res.status(500).send({ body: "Database Error" });
+        }
+      } else if (results.affectedRows > 0) {
+        res.status(201).send({
+          body: `User Created with UserId: ${user.UserID}`,
+        });
+      }
+    });
+  });
 });
 
 module.exports = router;
