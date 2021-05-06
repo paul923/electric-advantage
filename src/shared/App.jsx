@@ -14,7 +14,7 @@ import {
   Subscription,
   Cars,
   Dealers,
-} from "../UserPages";
+} from "../";
 import Menu from "../components/Menu";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PrivateRoute from "../components/PrivateRoute";
