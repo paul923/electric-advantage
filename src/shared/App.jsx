@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+<<<<<<< HEAD
 import {
   Home,
   WhoWeAre,
@@ -8,6 +9,9 @@ import {
   SearchResult,
   SearchDetail,
 } from "../pages";
+=======
+import { Home, WhoWeAre, ContactUs, SignIn, Profile, SearchResult, SearchDetail } from "../pages";
+>>>>>>> updated routing path to Profile
 import Menu from "../components/Menu";
 import {
   AboutPage,
