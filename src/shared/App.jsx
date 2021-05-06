@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import Menu from "../components/Menu";
 import {
-  HomePage,
   AboutPage,
+  ForgotPassword,
+  HomePage,
   PostsPage,
   TestingPage,
   Signup,
   Login,
-  ForgotPassword,
   UpdateProfile,
-  Inventory,
-  AccountInfo,
-  Subscription,
-  Cars,
-  Dealers,
-} from "../";
-import Menu from "../components/Menu";
+} from "../pages";
+import AccountInfo from "../pages/dealerPages/AccountInfo";
+import Inventory from "../pages/dealerPages/Inventory";
+import Subscription from "../pages/dealerPages/Subscription";
+import Cars from "../pages/adminPages/Cars";
+import Dealers from "../pages/adminPages/Dealers";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PrivateRoute from "../components/PrivateRoute";
 import DealerMenu from "../components/DealersMenu";
@@ -25,7 +25,7 @@ export default class App extends Component {
   render() {
     // Temporarily changes render with "dealer", "admin".
     // Plannign to use authorized account types to change render in the future.
-    const userType = "dealer";
+    const userType = "s";
     return userType === "admin" ? (
       <div>
         <AdminMenu />
