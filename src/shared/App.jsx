@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, WhoWeAre, ContactUs, SignIn } from "../pages";
+import { Home, WhoWeAre, ContactUs, SignIn, SearchResult } from "../pages";
 import Menu from "../components/Menu";
 
 export default class App extends Component {
@@ -9,11 +9,12 @@ export default class App extends Component {
       <div>
         <Router>
           <Menu />
-            <Route exact path="/" exact component={Home} />
             <Switch>
+              <Route path="/" exact component={Home} />
               <Route path="/who-we-are" component={WhoWeAre} />
               <Route path="/contact-us" component={ContactUs} />
               <Route path="/sign-in" component={SignIn} />
+              <Route path="/search-result" component={SearchResult} />
             </Switch>
         </Router>
       </div>
