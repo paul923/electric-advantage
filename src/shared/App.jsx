@@ -112,9 +112,10 @@ export default class App extends Component {
             component={Subscription}
           />
           <DealershipPrivateRoute path="/inventory" component={Inventory} />
-          <DealershipPrivateRoute path="/dealerprofile" component={DealershipProfilePage} />
-
-          
+          <DealershipPrivateRoute
+            path="/dealerprofile"
+            component={DealershipProfilePage}
+          />
         </div>
       </CoordinateContext.Provider>
     );
