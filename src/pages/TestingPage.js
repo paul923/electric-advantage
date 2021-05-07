@@ -1,18 +1,43 @@
 import React from "react";
 import { Button, TextField } from "@material-ui/core";
-import { getUsersList, getUserByUserId } from "../api/UserAPI";
+import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
+import { Select, MenuItem } from "@material-ui/core";
+import TYPE from "../constants/UserType";
 
 export default function TestingPage() {
   const [usersList, setUsersList] = React.useState(null);
   const [searchUserId, setSearchUserId] = React.useState("");
   const [searchedUser, setSearchedUser] = React.useState(null);
+  const [userId, setUserId] = React.useState("");
+  const [firstname, setFirstname] = React.useState("");
+  const [lastname, setLastname] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [userType, setUserType] = React.useState(TYPE.CUSTOMER);
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {});
 
+  const handleChange = (event) => {
+    setUserType(event.target.value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   async function onPressGetUsersList() {
     let resultUsers = await getUsersList();
-    console.log(resultUsers);
-    setUsersList(resultUsers);
+    let statusCode = resultUsers.status;
+    let body = resultUsers.body;
+    if (statusCode === 200) {
+      setUsersList(body);
+    } else {
+      alert(`Status : ${statusCode}, ${body}`);
+    }
   }
 
   async function onPressGetUserById() {
@@ -20,8 +45,26 @@ export default function TestingPage() {
       alert("no id entered!");
     } else {
       let resultUser = await getUserByUserId(searchUserId);
-      setSearchedUser(resultUser);
+      let statusCode = resultUser.status;
+      let body = resultUser.body[0];
+      if (statusCode === 200) {
+        setSearchedUser(body);
+      } else {
+        alert(`Status : ${statusCode}, ${body}`);
+      }
     }
+  }
+
+  async function onPressCreateUser() {
+    let userObj = {
+      UserID: userId,
+      FirstName: firstname,
+      LastName: lastname,
+      Email: email,
+      UserType: userType,
+    };
+    let result = await createUser(userObj);
+    alert(`Status : ${result.status}, ${result.body}`);
   }
 
   function formatUser(userObject) {
@@ -40,6 +83,62 @@ export default function TestingPage() {
       </div>
     );
   }
+
+  const createUserForm = () => {
+    return (
+      <form>
+        <h1>Create User</h1>
+        <TextField
+          id="outlined-basic"
+          label="userid"
+          variant="outlined"
+          value={userId}
+          onChange={(event) => setUserId(event.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="First name"
+          variant="outlined"
+          value={firstname}
+          onChange={(event) => setFirstname(event.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Last name"
+          variant="outlined"
+          value={lastname}
+          onChange={(event) => setLastname(event.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={userType}
+          onChange={handleChange}
+        >
+          <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
+          <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
+          <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
+        </Select>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onPressCreateUser()}
+        >
+          Create User
+        </Button>
+      </form>
+    );
+  };
 
   return (
     <div>
@@ -75,6 +174,8 @@ export default function TestingPage() {
           Get user by id
         </Button>
       </form>
+      <br />
+      {createUserForm()}
     </div>
   );
 }
