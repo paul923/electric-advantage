@@ -86,7 +86,7 @@ export default class App extends Component {
 
           <Switch>
             <Route path="/who-we-are" component={WhoWeAre} />
-            <Route path="/contact-us" component={ContactUs} /> 
+            <Route path="/contact-us" component={ContactUs} />
             <Route path="/profile" component={Profile} />
             <Route path="/search-result" component={SearchResult} />
           </Switch>
