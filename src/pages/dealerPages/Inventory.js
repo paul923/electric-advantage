@@ -9,22 +9,22 @@ import InventoryHeader from "../../components/InventoryHeader";
 export default function Home() {
   let car1 = {
     carMake: "Toyota",
-    carModel: "Toyota",
-    carTrim: "Toyota",
+    carModel: "Corolla",
+    carTrim: "Big",
     carPrice: 999,
     Qty: 99,
   };
   let car2 = {
-    carMake: "Civic",
+    carMake: "Honda",
     carModel: "Civic",
-    carTrim: "Civic",
+    carTrim: "Small",
     carPrice: 99,
     Qty: 10,
   };
   let car3 = {
-    carMake: "Benz",
-    carModel: "Benz",
-    carTrim: "Benz",
+    carMake: "Mercedes",
+    carModel: "CLS",
+    carTrim: "Medium",
     carPrice: 50,
     Qty: 89,
   };
