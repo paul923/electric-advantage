@@ -1,36 +1,36 @@
-import React, { useRef, useState, useContext } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../components/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import React, { useRef, useState, useContext } from "react";
+import { Form, Button, Card, Alert } from "react-bootstrap";
+import { useAuth } from "../components/AuthContext";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Signup() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const customerRef = useRef()
-  const dealerRef = useRef()
-  const { signup } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const customerRef = useRef();
+  const dealerRef = useRef();
+  const { signup } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
+      return setError("Passwords do not match");
     }
 
     try {
-      setError("")
-      setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      setError("");
+      setLoading(true);
+      await signup(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
     } catch {
-      setError("Failed to create an account")
+      setError("Failed to create an account");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
@@ -41,8 +41,8 @@ export default function Signup() {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <div className="text-center">
-            <Form.Check inline label="Dealer" ref={dealerRef} />
-            <Form.Check inline label="Customer" ref={customerRef}  /> 
+              <Form.Check inline label="Dealer" ref={dealerRef} />
+              <Form.Check inline label="Customer" ref={customerRef} />
             </div>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -57,11 +57,11 @@ export default function Signup() {
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
             <Form.Group id="plan">
-            <Form.Label> Plan </Form.Label>
-            <Form.Control as="select" defaultValue="Basic Plan">
-              <option>Basic Plan</option>
-              <option>Advanced Plan</option>
-            </Form.Control>
+              <Form.Label> Plan </Form.Label>
+              <Form.Control as="select" defaultValue="Basic Plan">
+                <option>Basic Plan</option>
+                <option>Advanced Plan</option>
+              </Form.Control>
             </Form.Group>
 
             <Button disabled={loading} className="w-100" type="submit">
@@ -74,5 +74,5 @@ export default function Signup() {
         Already have an account? <Link to="/login">Log In</Link>
       </div>
     </>
-  )
+  );
 }
