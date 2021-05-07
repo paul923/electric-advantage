@@ -1,0 +1,27 @@
+h2 {
+  margin: 10px;
+}
+
+.InventorySearchBar {
+  width: 20%;
+  margin: 10px;
+}
+
+.lastColumn {
+  text-align: center;
+}
+
+.editIcon {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.tableHeaders {
+  text-align: center;
+}
+
+.headerButtons {
+  background-color: white;
+  border-color: white;
+}
