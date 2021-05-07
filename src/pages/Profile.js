@@ -24,6 +24,10 @@ const Profile = () => {
                                 <Form.Control type="email" placeholder="Last Name" />
                                 <Form.Text />
                             </Form.Group>
+                            <Form.Group controlId="Email" className="leftColumnChildren">
+                                <Form.Control type="email" placeholder="Email" />
+                                <Form.Text />
+                            </Form.Group>
                         </Form>
                         <Button className="btn-success leftColumnChildren">Change Email/Password</Button>
 
