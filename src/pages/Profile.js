@@ -8,7 +8,7 @@ const Profile = () => {
     return (
         <body className="body">
             <div className="TopImage">
-                <img className="d-block w-100" src={background} alt="background" />
+                <img className="d-block w-100" src={background} alt="background" className="background"/>
             </div>
             <div>
                 <div className="content">
