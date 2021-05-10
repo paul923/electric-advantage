@@ -16,10 +16,10 @@ export default function LandingPage() {
   const [rangeValue, setRangeValue] = React.useState(125000);
 
   const cardInfo = [
-    { image: carImage1, name: "Dt Kia", number: "50" },
-    { image: carImage2, name: "Brian Jessel Dt", number: "37" },
-    { image: carImage3, name: "Jim Pattison Dt", number: "2" },
-    { image: carImage4, name: "Ford Dt", number: "28" },
+    { image: carImage1, name: "Downtown Kia", number: "50" },
+    { image: carImage2, name: "Brian Jessel Downtown", number: "37" },
+    { image: carImage3, name: "Jim Pattison Downtown", number: "2" },
+    { image: carImage4, name: "Ford Downtown", number: "28" },
   ];
 
   const renderCard = (card, index) => {
@@ -31,7 +31,7 @@ export default function LandingPage() {
           <tbody>
             <tr>
               <td>{card.name}</td>
-              <td>Inventory: {card.number}</td>
+              <td className="inventory">Inventory: {card.number}</td>
             </tr>
           </tbody>
         </Table>
