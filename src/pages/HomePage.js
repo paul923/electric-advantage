@@ -21,10 +21,13 @@ export default function Home() {
         <img src={background} alt="background" className="background"/>
         <h2>Choose Region</h2>
       <div className="homeContent">
-        <div className="priceColumn">
+        <div className="provinceColumn">
+        <div className="provinceTitle">
           <h3>Province</h3>
-          <select className="price-dropdown">
-            <option value="britishcolumbia">BC</option>
+          </div>
+
+          <select className="province-dropdown">
+            <option value="britishcolumbia">British Columbia</option>
             <option value="alberta">AB</option>
             <option value="saskatchewan">SK</option>
             <option value="manitoba">MB</option>
@@ -42,9 +45,12 @@ export default function Home() {
           </select> 
         </div>
 
-        <div className="rangeColumn">
+        <div className="regionColumn">
+        <div className="regionTitle">
           <h3>Region</h3>
-          <select className="range-dropdown">
+          </div>
+
+          <select className="region-dropdown">
               <option value="vancouver">Vancouver</option>
               <option value="burnaby">Burnaby</option>
               <option value="coquitlam">Coquitlam</option>
@@ -56,7 +62,7 @@ export default function Home() {
 
       </div>
 
-        <Button className="btn-search" 
+        <Button className="btn-submit" 
           style={{display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

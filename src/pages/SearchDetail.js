@@ -17,7 +17,9 @@ const SearchDetail = () => {
                 <Row>
                     <Col>
                     <div className="makeColumn">
-                        <h3>Make</h3>
+                    <div className="makeTitle">
+            <h3>Make</h3>
+            </div>
                         <select className="make-dropdown">
                         <option value="make1">make1</option>
                         <option value="make2">make2</option>
@@ -28,7 +30,9 @@ const SearchDetail = () => {
 
                     <Col>
                     <div className="statusColumn">
-                        <h3>Status</h3>
+                    <div className="statusTitle">
+            <h3>Status</h3>
+            </div>
                         <select className="status-dropdown">
                         <option value="new">New</option>
                         <option value="used">Used</option>
@@ -39,7 +43,9 @@ const SearchDetail = () => {
                     <Col>
                     <section className="range">
                         <div className="priceColumn">
-                        <h3>Price</h3>
+                        <div className="priceTitle">
+              <h3>Price</h3>
+              </div>
                         <Container>
                             <RangeSlider
                             max={500000}
@@ -56,7 +62,9 @@ const SearchDetail = () => {
                     <Col>
                     <section className="range">
                         <div className="rangeColumn">
-                        <h3 className="">Range</h3>
+                        <div className="rangeTitle">
+              <h3 className="">Range</h3>
+              </div>
                         <Container>
                             <RangeSlider
                             max={1000}
@@ -77,12 +85,18 @@ const SearchDetail = () => {
                     </Col>
 
                 </Row>
-
+        
+            <div className="test">
             <h1>Details</h1>
+         
             <h3>3.5 km away</h3>
+            </div>
+         
+            
 
             <div className="carDetailsWithImage">
             <img src={carImage} alt="carDetailsImage" className="carDetailsImage" />
+
 
             <div className="carDetails">
                 <h4>Make</h4>
@@ -103,7 +117,11 @@ const SearchDetail = () => {
             </div>
 
             <div className="additionalInfo">
+    
+       
                 <h3>Additional Information</h3>
+            
+         
                 <Card className="infoCard">
                 FREE CarProof report and Safety inspection available for review. 
                 Large used car inventory! Open 7 days a week! IN HOUSE FINANCING available. 

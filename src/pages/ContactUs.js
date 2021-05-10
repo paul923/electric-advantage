@@ -8,7 +8,7 @@ import background from "../images/background.jpg";
 const ContactUs = () => {
     return (
 
-        <div>
+        <div className = "contactus">
             <img src={background} alt="background" className="background" />
             <h1>Contact Us</h1>
 

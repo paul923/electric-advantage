@@ -54,7 +54,10 @@ export default function LandingPage() {
       <Row>
         <Col>
           <div className="makeColumn">
+          <div className="makeTitle">
             <h3>Make</h3>
+            </div>
+
             <select className="make-dropdown">
               <option value="make1">make1</option>
               <option value="make2">make2</option>
@@ -65,7 +68,10 @@ export default function LandingPage() {
 
         <Col>
           <div className="statusColumn">
+          <div className="statusTitle">
             <h3>Status</h3>
+            </div>
+
             <select className="status-dropdown">
               <option value="new">New</option>
               <option value="used">Used</option>
@@ -76,7 +82,10 @@ export default function LandingPage() {
         <Col>
           <section className="range">
             <div className="priceColumn">
+            <div className="priceTitle">
               <h3>Price</h3>
+              </div>
+
               <Container>
                 <RangeSlider
                   max={500000}
@@ -93,7 +102,10 @@ export default function LandingPage() {
         <Col>
           <section className="range">
             <div className="rangeColumn">
+            <div className="rangeTitle">
               <h3 className="">Range</h3>
+              </div>
+
               <Container>
                 <RangeSlider
                   max={1000}
