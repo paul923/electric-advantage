@@ -100,10 +100,10 @@ h1{
   
 
   .searchButton {
-    margin-top: 3vh;
-    margin-left: 5vw;
+    margin-top: -19vh;
+    margin-left: 83vw;
     color: white;
-    background-color: blue;
+    background-color: green;
   }
   
   .dealerResults {
@@ -122,13 +122,13 @@ h1{
   }
   
   .statusColumn {
-    margin-top: -14vh;
-    margin-left: 16vw;
+    
+    margin-left: 4vw;
   }
 
   .makeColumn {
-    margin-top: -1vh;
-    margin-left: 5vw;
+    
+    margin-left: 13vw;
 
   }
 
@@ -142,11 +142,11 @@ h1{
 }
 
 .priceColumn {
-    margin-left: -12vw;
+    margin-left: -1vw;
 }
 
 .rangeColumn {
-    margin-left: -20vw;
+    margin-left: -7vw;
 }
 
 
