@@ -11,34 +11,57 @@ export default function Home() {
   let car1 = {
     carMake: "Toyota",
     carModel: "Corolla",
-    carTrim: "Big",
+    carTrim: "b",
     carPrice: 999,
     Qty: 99,
   };
   let car2 = {
     carMake: "Honda",
     carModel: "Civic",
-    carTrim: "Small",
+    carTrim: "A",
     carPrice: 99,
     Qty: 10,
   };
   let car3 = {
     carMake: "Mercedes",
     carModel: "CLS",
-    carTrim: "Medium",
+    carTrim: "C",
     carPrice: 50,
     Qty: 89,
   };
+  let car4 = {
+    carMake: "Volkswagen",
+    carModel: "Jetta",
+    carTrim: "Q",
+    carPrice: 150,
+    Qty: 2,
+  };
+  let car5 = {
+    carMake: "BMW",
+    carModel: "X1",
+    carTrim: "z",
+    carPrice: 1,
+    Qty: 28,
+  };
+  let car6 = {
+    carMake: "Porsche",
+    carModel: "Taycan",
+    carTrim: "abcd",
+    carPrice: 999,
+    Qty: 0,
+  };
 
-  let listOfCars = [car1, car2, car3];
+  let listOfCars = [car1, car2, car3, car4, car5, car6];
+  /* END OF DUMMY DATA */
+
   const [inventory, setInventory] = React.useState(listOfCars);
   const [filteredList, setFilteredList] = React.useState([]);
   const [query, setQuery] = React.useState("");
+  const [reverse, setReverse] = React.useState(false);
 
-  let sorted = filteredList;
-
-  function sort(sortBy) {
-    sorted.sort((a, b) => {
+  function sortNumber(sortBy) {
+    const copy = [...filteredList];
+    copy.sort((a, b) => {
       if (a[sortBy] > b[sortBy]) {
         return -1;
       }
@@ -47,9 +70,30 @@ export default function Home() {
       }
       return 0;
     });
+    setReverse(!reverse);
+    if (reverse) {
+      copy.reverse();
+    }
+    setFilteredList(copy);
   }
 
-  sort("carPrice");
+  function sortString(sortBy) {
+    const copy = [...filteredList];
+    copy.sort((a, b) => {
+      if (a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) {
+        return -1;
+      }
+      if (a[sortBy].toLowerCase() < b[sortBy].toLowerCase()) {
+        return 1;
+      }
+      return 0;
+    });
+    setReverse(!reverse);
+    if (reverse) {
+      copy.reverse();
+    }
+    setFilteredList(copy);
+  }
 
   function search(listOfCars) {
     return listOfCars.filter(
@@ -84,13 +128,29 @@ export default function Home() {
       <Table bordered hover search>
         <thead>
           <tr>
-            <InventoryHeader headerName="Car Model" />
-            <InventoryHeader headerName="Car Make" />
-            <InventoryHeader headerName="Car Trim" />
-            <InventoryHeader headerName="Car Price" />
+            <InventoryHeader
+              headerName="Car Model"
+              sortHandler={() => sortString("carModel")}
+            />
+            <InventoryHeader
+              headerName="Car Make"
+              sortHandler={() => sortString("carMake")}
+            />
+            <InventoryHeader
+              headerName="Car Trim"
+              sortHandler={() => sortString("carTrim")}
+            />
+            <InventoryHeader
+              headerName="Car Price"
+              sortHandler={() => sortNumber("carPrice")}
+            />
             <th className="tableHeaders">
               Qty{" "}
-              <Button variant="light" className="headerButtons">
+              <Button
+                variant="light"
+                className="headerButtons"
+                onClick={() => sortNumber("Qty")}
+              >
                 <ChevronExpand />
               </Button>
             </th>
