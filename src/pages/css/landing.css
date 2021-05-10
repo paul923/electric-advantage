@@ -100,8 +100,7 @@ h1{
   
 
   .searchButton {
-    margin-top: -19vh;
-    margin-left: 83vw;
+    margin-top: 5vh;
     color: white;
     background-color: green;
   }
@@ -154,3 +153,4 @@ h1{
     position: absolute;
     margin-left: -10vw;
 }
+

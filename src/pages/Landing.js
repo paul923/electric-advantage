@@ -13,7 +13,7 @@ import RangeSlider from "react-bootstrap-range-slider";
 
 export default function LandingPage() {
   const [priceValue, setPriceValue] = React.useState(125000);
-  const [rangeValue, setRangeValue] = React.useState(125000);
+  const [rangeValue, setRangeValue] = React.useState(500);
 
   const cardInfo = [
     { image: carImage1, name: "Downtown Kia", number: "50" },
@@ -79,7 +79,7 @@ export default function LandingPage() {
               <h3>Price</h3>
               <Container>
                 <RangeSlider
-                  max={300000}
+                  max={500000}
                   value={priceValue}
                   onChange={(e) => setPriceValue(e.target.value)}
                   variant="success"
@@ -96,7 +96,7 @@ export default function LandingPage() {
               <h3 className="">Range</h3>
               <Container>
                 <RangeSlider
-                  max={300000}
+                  max={1000}
                   value={rangeValue}
                   onChange={(e) => setRangeValue(e.target.value)}
                   variant="success"
@@ -106,9 +106,16 @@ export default function LandingPage() {
             
           </section>
         </Col>
+
+        <Col>
+          <Button className="searchButton">
+            <NavLink to="/search-result" className="nav-search">Search</NavLink>
+          </Button>
+        </Col>
+
       </Row>
 
-      <Button className="searchButton">Search</Button>
+
     </body>
   );
 }

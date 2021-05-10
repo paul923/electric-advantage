@@ -61,7 +61,7 @@ export default function Home() {
           justifyContent: 'center',
           alignItems: 'center',
           }}>
-          <NavLink to="/search" className="nav-search">Submit</NavLink>
+          <NavLink to="/landing" className="nav-search">Submit</NavLink>
         </Button>
 
       </div>
