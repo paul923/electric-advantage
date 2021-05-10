@@ -1,62 +1,79 @@
 import React from "react";
-import { Button, Form, Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
-import "./css/Home.css";
-import SignUpModal from "./pageComponents/ProfilePopUp";
-import background from "../images/background.jpg";
+import "./css/landing.css";
 
-const Profile = () => {
-  const [registrationState, setRegistrationState] = useState("customer");
-  const [modalState, setModalState] = useState(false);
+import carImage1 from "../images/kia.jpg";
+import carImage2 from "../images/bmw.jpg";
+import carImage3 from "../images/jp.jpg";
+import carImage4 from "../images/ford.jpg";
+import { Button } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { Card, Table } from "react-bootstrap";
 
-  return (
-    <body className="body">
-      <div className="TopImage">
-        <img className="d-block w-100" src={background} alt="background" className="background"/>
-      </div>
-      <div>
-        <div className="content">
-          <h2 className="registrationText">Profile</h2>
 
-          <div className="login rightColumn">
-            <h2 className="registrationText"></h2>
-          </div>
-          <div className="leftColumn">
-            <Form>
-              <Form.Group controlId="Name">
-                <Form.Control type="email" placeholder="Name" />
-                <Form.Text />
-              </Form.Group>
-              <Form.Group controlId="Email" className="leftColumnChildren">
-                <Form.Control type="email" placeholder="Email" />
-                <Form.Text />
-              </Form.Group>
-            </Form>
 
-          </div>
-          <div className="rightColumn">
+export default function LandingPage() {
+    const cardInfo = [
+        { image: carImage1, name: "Dt Kia", number: "50" },
+        { image: carImage2, name: "Brian Jessel Dt", number: "37" },
+        { image: carImage3, name: "Jim Pattison Dt", number: "2" },
+        { image: carImage4, name: "Ford Dt", number: "28" }
+    ]
+
+    const renderCard = (card, index) => {
+        return (
+            <div className="dealerCard">
+                <img src={card.image} className="dealerImage" />
+
+                <Table striped hover className="dealerTable">
+                    <tbody>
+                        <tr>
+                            <td>{card.name}</td>
+                            <td>Inventory: {card.number}</td>
+
+                        </tr>
+
+
+                    </tbody>
+                </Table>
+
+
+            </div>
+        )
+    }
+
+    return (
+        <body>
+            <h2>Top 4 Dealerships in your Region</h2>
+
+            <div className="dealerResults"> {cardInfo.map(renderCard)} </div>
+
+
+            <div className="makeColumn">
+                <h3>Make</h3>
+                <select className="make-dropdown">
+                    <option value="make1">make1</option>
+                    <option value="make2">make2</option>
+                    <option value="make3">make3</option>
+                </select>
+            </div>
+
+            <div className="statusColumn">
+                <h3>Status</h3>
+                <select className="status-dropdown">
+                    <option value="new">New</option>
+                    <option value="used">Used</option>
+                </select>
+            </div>
+
+
+
+     
+
             
-            <Button
-              className="btn-success signUpButtons"
-              onClick={() => {
-                setModalState(true);
-                setRegistrationState("password");
-              }}
-            >
-              Change Password
-            </Button>
-            <SignUpModal
-              modalState={modalState}
-              setRegistrationState={setRegistrationState}
-              registrationState={registrationState}
-              setModalState={setModalState}
-            />
-          </div>
-        </div>
-      </div>
-    </body>
-  );
-};
+            <Button className="searchButton">Search</Button>
+        </body>
+        
+    );
+}
 
-export default Profile;
