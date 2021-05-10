@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Table, Button } from "react-bootstrap";
-import "../css/adminInventory.css";
+import "../css/dealersInventory.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ChevronExpand } from "react-bootstrap-icons";
 import InventoryRow from "../../components/InventoryRow";
@@ -50,8 +50,29 @@ export default function Home() {
     carPrice: 999,
     Qty: 0,
   };
+  let car7 = {
+    carMake: "Mercedes",
+    carModel: "CLA",
+    carTrim: "M",
+    carPrice: 99,
+    Qty: 16,
+  };
+  let car8 = {
+    carMake: "Toyota",
+    carModel: "Corolla",
+    carTrim: "P",
+    carPrice: 100,
+    Qty: 36,
+  };
+  let car9 = {
+    carMake: "BMW",
+    carModel: "X3",
+    carTrim: "O",
+    carPrice: 342,
+    Qty: 43,
+  };
 
-  let listOfCars = [car1, car2, car3, car4, car5, car6];
+  let listOfCars = [car1, car2, car3, car4, car5, car6, car7, car8, car9];
   /* END OF DUMMY DATA */
 
   const [inventory, setInventory] = React.useState(listOfCars);
@@ -116,8 +137,6 @@ export default function Home() {
 
   return (
     <div>
-      <h2>Inventory</h2>
-      <hr />
       <input
         type="text"
         placeholder="Search..."
@@ -125,50 +144,56 @@ export default function Home() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <Table bordered hover search>
-        <thead>
-          <tr>
-            <InventoryHeader
-              headerName="Car Model"
-              sortHandler={() => sortString("carModel")}
-            />
-            <InventoryHeader
-              headerName="Car Make"
-              sortHandler={() => sortString("carMake")}
-            />
-            <InventoryHeader
-              headerName="Car Trim"
-              sortHandler={() => sortString("carTrim")}
-            />
-            <InventoryHeader
-              headerName="Car Price"
-              sortHandler={() => sortNumber("carPrice")}
-            />
-            <th className="tableHeaders">
-              Qty{" "}
-              <Button
-                variant="light"
-                className="headerButtons"
-                onClick={() => sortNumber("Qty")}
-              >
-                <ChevronExpand />
-              </Button>
-            </th>
-            <th> </th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredList.map((car) => (
-            <InventoryRow
-              carModel={car.carModel}
-              carMake={car.carMake}
-              carTrim={car.carTrim}
-              carPrice={car.carPrice}
-              Qty={car.Qty}
-            />
-          ))}
-        </tbody>
-      </Table>
+      <div className="tableCustomize">
+        <Table bordered hover search>
+          <thead>
+            <tr>
+              <InventoryHeader
+                headerName="Car Model"
+                sortHandler={() => sortString("carModel")}
+              />
+              <InventoryHeader
+                headerName="Car Make"
+                sortHandler={() => sortString("carMake")}
+              />
+              <InventoryHeader
+                headerName="Car Trim"
+                sortHandler={() => sortString("carTrim")}
+              />
+              <InventoryHeader
+                headerName="Car Price"
+                sortHandler={() => sortNumber("carPrice")}
+              />
+              <th className="tableHeaders">
+                Qty{" "}
+                <Button
+                  variant="light"
+                  className="headerButtons"
+                  onClick={() => sortNumber("Qty")}
+                >
+                  <ChevronExpand />
+                </Button>
+              </th>
+              <th className="tableHeaders"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredList.map((car) => (
+              <InventoryRow
+                carModel={car.carModel}
+                carMake={car.carMake}
+                carTrim={car.carTrim}
+                carPrice={car.carPrice}
+                Qty={car.Qty}
+              />
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      <div className="bottomDiv">
+        <Button className="bottomButtons">Add Cars</Button>
+        <Button className="bottomButtons">Remove</Button>
+      </div>
     </div>
   );
 }
