@@ -7,6 +7,7 @@ import InventoryRow from "../../components/InventoryRow";
 import InventoryHeader from "../../components/InventoryHeader";
 
 export default function Home() {
+  /* DUMMY DATA WITH DUMMY FIELDS */
   let car1 = {
     carMake: "Toyota",
     carModel: "Corolla",
