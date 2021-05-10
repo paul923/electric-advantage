@@ -81,7 +81,7 @@ h1{
   .dealerImage {
     margin-top: 3vh;
     margin-left: 3vw;
-    max-width: 30vw;
+    width: 15vw;
     height: 20vh;
     
   }
@@ -92,7 +92,7 @@ h1{
   }
   
   .dealerTable {
-    width: 40vw;
+    width: 60vw;
     height: 20vh;
     margin-top: 3vh;
   
