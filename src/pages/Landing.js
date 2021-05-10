@@ -41,9 +41,11 @@ export default function LandingPage() {
 
   return (
     <body>
-      <h1>15 Dealerships</h1>
-      <h1>215 New Cars</h1>
-      <h1>55 Used Cars</h1>
+        <div className = "box1"><h1>15 Dealerships</h1></div>
+        <div className = "box2"><h1>215 New Cars</h1></div>
+        <div className = "box3"><h1>55 Used Cars</h1></div>
+      
+
 
       <h2>Top 4 Dealerships in your Region</h2>
 
@@ -84,7 +86,7 @@ export default function LandingPage() {
                 />
               </Container>
             </div>
-            <h3>{priceValue}km</h3>
+            
           </section>
         </Col>
 
@@ -101,7 +103,7 @@ export default function LandingPage() {
                 />
               </Container>
             </div>
-            <h3>${rangeValue}</h3>
+            
           </section>
         </Col>
       </Row>
