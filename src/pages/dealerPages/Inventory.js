@@ -30,6 +30,25 @@ export default function Home() {
   };
 
   let listOfCars = [car1, car2, car3];
+  const [inventory, setInventory] = React.useState(listOfCars);
+  const [filteredList, setFilteredList] = React.useState([]);
+  const [query, setQuery] = React.useState("");
+
+  let sorted = filteredList;
+
+  function sort(sortBy) {
+    sorted.sort((a, b) => {
+      if (a[sortBy] > b[sortBy]) {
+        return -1;
+      }
+      if (a[sortBy] < b[sortBy]) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  sort("carPrice");
 
   function search(listOfCars) {
     return listOfCars.filter(
@@ -45,10 +64,6 @@ export default function Home() {
         car.Qty.toString().toLowerCase().indexOf(query.toLowerCase()) > -1
     );
   }
-
-  const [inventory, setInventory] = React.useState(listOfCars);
-  const [filteredList, setFilteredList] = React.useState([]);
-  const [query, setQuery] = React.useState("");
 
   React.useEffect(() => {
     setFilteredList(search(inventory));
