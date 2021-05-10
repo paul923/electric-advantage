@@ -1,11 +1,23 @@
   .modal-header {
     background-color: green;
   }
+
+  h1{
+      font-size: 15;
+      font-weight: bold;
+      margin: auto;
+  width: 20%;
+  border: 3px solid green;
+  padding: 10px;
+  }
   
+
+
 
   h1,h4 {
     margin-top: 3vh;
     margin-left: 3vw;
+
   }
 
   

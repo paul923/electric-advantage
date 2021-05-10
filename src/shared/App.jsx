@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   Home,
   WhoWeAre,
@@ -16,6 +17,9 @@ import { Home, WhoWeAre, ContactUs, SignIn, Profile, SearchResult, SearchDetail 
 =======
 import { Home, WhoWeAre, ContactUs, SignIn, Profile, Search, SearchResult, SearchDetail } from "../pages";
 >>>>>>> added search page to fix routing
+=======
+import { Home, WhoWeAre, ContactUs, SignIn, Profile, Search, SearchResult, SearchDetail, Landing } from "../pages";
+>>>>>>> updated landing page
 import Menu from "../components/Menu";
 import {
   AboutPage,
@@ -86,12 +90,12 @@ export default class App extends Component {
               <Route path="/search" component={Search} />
               <Route path="/search-result" component={SearchResult} />
               <Route path="/search-detail" component={SearchDetail} />
+              <Route path="/landing" component={Landing} />
             </Switch>
         {/* CurrentUser.UserType == TYPE.ADMIN*/}
         <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
         <img src="../../images/background.png" alt="?" />
         </Router>
->>>>>>> added search page to fix routing
       </div>
     );
   }
