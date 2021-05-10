@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   HomePage,
+  WhoWeAre,
   ContactUs,
   SignIn,
   Profile,
@@ -60,6 +61,7 @@ export default class App extends Component {
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
 
+        <Route path="/who-we-are" component={WhoWeAre} />
         <Route path="/contact-us" component={ContactUs} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/profile" component={Profile} />
