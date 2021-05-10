@@ -33,7 +33,7 @@ h1,h3,h4 {
   width: 95%;
   text-align: left;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   margin: 0 auto;
   vertical-align: top;
 }
@@ -248,23 +248,15 @@ td {
   margin-top: 5vh;
 }
 
-
-
-.provinceTitle {
+.countryTitle, .provinceTitle, .regionTitle {
   margin-left: -2.8vw;
-}
-
-.regionTitle {
-  margin-left: -2.8vw;
-}
-
-.regionColumn {
-  margin-left: -30vw;
 }
 
 .btn-submit {
-  margin-left: 43vw;
-  color: green;
+  margin-top: 3vh;
+  margin-left: 50vw;
+  margin-right: 50vw;
+  background-color: green;
 }
 
 .makeTitle {

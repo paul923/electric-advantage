@@ -15,8 +15,6 @@
   padding-bottom: 5%;
 }
 
-
-
 h1 {
   color: blue;
 }
@@ -39,8 +37,6 @@ max-height: 300px;
   height: 10vh;
 }
 
-
-
 .btn-send {
   margin-top: 2vh;
   margin-left: 49vw;
@@ -52,6 +48,14 @@ max-height: 300px;
 }
 
 .textArea {
-margin-left: 44vw;
+  margin-top: 3vh;
+  margin-left: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+textarea {
+  width: 50vw;
+  height: 30vh;
 }

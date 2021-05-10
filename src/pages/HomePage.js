@@ -21,6 +21,23 @@ export default function Home() {
         <img src={background} alt="background" className="background"/>
         <h2>Choose Region</h2>
       <div className="homeContent">
+
+      <div className="countryColumn">
+        <div className="countryTitle">
+          <h3>Country</h3>
+          </div>
+
+          <select className="country-dropdown">
+            <option value="canada">Canada</option>
+            <option value="usa">USA</option>
+            <option value="korea">Korea</option>
+            <option value="mexico">Mexico</option>
+            <option value="germany">Germany</option>
+            <option value="spain">Spain</option>
+          </select>
+
+        </div>
+
         <div className="provinceColumn">
         <div className="provinceTitle">
           <h3>Province</h3>
@@ -62,11 +79,7 @@ export default function Home() {
 
       </div>
 
-        <Button className="btn-submit" 
-          style={{display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          }}>
+        <Button className="btn-submit">
           <NavLink to="/landing" className="nav-search">Submit</NavLink>
         </Button>
 
