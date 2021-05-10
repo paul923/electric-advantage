@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
-  Home,
-  WhoWeAre,
-  ContactUs,
-  SignIn,
-  SearchResult,
-  SearchDetail,
-} from "../pages";
-import {
-  Home,
+  HomePage,
   WhoWeAre,
   ContactUs,
   SignIn,
@@ -18,18 +10,14 @@ import {
   SearchResult,
   SearchDetail,
   Landing,
-} from "../pages";
-import Menu from "../components/Menu";
-import {
-  AboutPage,
-  ForgotPassword,
-  HomePage,
   PostsPage,
   TestingPage,
+  ForgotPassword,
   Signup,
+  AboutPage,
   Login,
-  UpdateProfile,
 } from "../pages";
+import Menu from "../components/Menu";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
@@ -81,7 +69,7 @@ export default class App extends Component {
         <Router>
           <Menu />
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={HomePage} />
             <Route path="/who-we-are" component={WhoWeAre} />
             <Route path="/contact-us" component={ContactUs} />
             <Route path="/sign-in" component={SignIn} />

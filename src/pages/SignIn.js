@@ -3,7 +3,7 @@ import { Button, Form, Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import "./css/Home.css";
-import SignUpModal from "./pageComponents/SignUpModal";
+import SignUpModal from "../components/SignUpModal";
 import background from "../images/background.jpg";
 
 const SignIn = () => {
@@ -13,7 +13,12 @@ const SignIn = () => {
   return (
     <body className="body">
       <div className="TopImage">
-        <img className="d-block w-100" src={background} alt="background" className="background"/>
+        <img
+          className="d-block w-100"
+          src={background}
+          alt="background"
+          className="background"
+        />
       </div>
       <div>
         <div className="content">
