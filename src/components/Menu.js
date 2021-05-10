@@ -1,48 +1,39 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+} from "../pages/pageComponents/NavbarElements";
+import logo from "../images/logo.png";
 
 const Menu = () => {
-  const activeStyle = {
-    color: "green",
-    fontSize: "2rem",
-  };
-
   return (
-    <div>
-      <ul>
-        <li>
-          <NavLink exact to="/" activeStyle={activeStyle}>
-            Home
+    <>
+      <Nav>
+        <NavLink to="/">
+          <img src={logo} alt="logo" className="logo" />
+        </NavLink>
+        <Bars />
+        <NavMenu>
+          <NavLink to="/landing" activeStyle>
+            Landing
           </NavLink>
-        </li>
-        <li>
-          <NavLink exact to="/about" activeStyle={activeStyle}>
-            About
+          <NavLink to="/who-we-are" activeStyle>
+            Our History
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/about/foo" activeStyle={activeStyle}>
-            About Foo
+          <NavLink to="/contact-us" activeStyle>
+            Contact Us
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/posts" activeStyle={activeStyle}>
-            Posts
+          <NavLink to="/profile" activeStyle>
+            Profile
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/testing" activeStyle={activeStyle}>
-            Test Page
+          <NavLink to="/sign-in" activeStyle>
+            Sign In
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup" activeStyle={activeStyle}>
-            Sign up
-          </NavLink>
-        </li>
-      </ul>
-      <hr />
-    </div>
+        </NavMenu>
+      </Nav>
+    </>
   );
 };
 

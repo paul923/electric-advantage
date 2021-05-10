@@ -1,16 +1,23 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import Menu from "../components/Menu";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
-  AboutPage,
-  ForgotPassword,
   HomePage,
+  WhoWeAre,
+  ContactUs,
+  SignIn,
+  Profile,
+  Search,
+  SearchResult,
+  SearchDetail,
+  Landing,
   PostsPage,
   TestingPage,
+  ForgotPassword,
   Signup,
+  AboutPage,
   Login,
-  UpdateProfile,
 } from "../pages";
+import Menu from "../components/Menu";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
@@ -53,8 +60,29 @@ export default class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
-        {/* CurrentUser.UserType == TYPE.ADMIN*/}
-        <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
+
+        <Route path="/who-we-are" component={WhoWeAre} />
+        <Route path="/contact-us" component={ContactUs} />
+        <Route path="/sign-in" component={SignIn} />
+        <Route path="/search-result" component={SearchResult} />
+        <Route path="/search-detail" component={SearchDetail} />
+        <Router>
+          <Menu />
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/who-we-are" component={WhoWeAre} />
+            <Route path="/contact-us" component={ContactUs} />
+            <Route path="/sign-in" component={SignIn} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/search" component={Search} />
+            <Route path="/search-result" component={SearchResult} />
+            <Route path="/search-detail" component={SearchDetail} />
+            <Route path="/landing" component={Landing} />
+          </Switch>
+          {/* CurrentUser.UserType == TYPE.ADMIN*/}
+          <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
+          <img src="../../images/background.png" alt="?" />
+        </Router>
       </div>
     );
   }
