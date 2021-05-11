@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Table, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import "../css/dealersInventory.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ChevronExpand } from "react-bootstrap-icons";
