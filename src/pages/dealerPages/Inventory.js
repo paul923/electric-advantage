@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Table, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import "../css/dealersInventory.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ChevronExpand } from "react-bootstrap-icons";
@@ -192,11 +192,9 @@ export default function DealerInventory() {
         </Table>
       </div>
       <div className="bottomDiv">
-        <Button className="bottomButtons">
-          <NavLink className="buttonToAddList" to="/addList">
-            Add Cars
-          </NavLink>
-        </Button>
+        <NavLink className="buttonToAddList" to="/addList">
+          <Button className="bottomButtons">Add Cars</Button>
+        </NavLink>
         <Button className="bottomButtons">Remove</Button>
       </div>
     </div>

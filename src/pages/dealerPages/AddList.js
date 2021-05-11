@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Table, Button } from "react-bootstrap";
-import addInventoryRow from "../../components/DealerAddInventoryRow";
-import "../css/dealersInventory.css";
+import "../css/dealersAddPage.css";
+import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);
@@ -75,21 +75,22 @@ export default function DealerAddList() {
   return (
     <div>
       <h2>Add To Inventory</h2>
+      <hr />
       <div className="tableCustomize">
         <Table bordered>
           <thead>
             <tr>
-              <th>Model</th>
-              <th>Make</th>
-              <th>Trim</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Edit/Delete</th>
+              <th className="tableHeaders">Model</th>
+              <th className="tableHeaders">Make</th>
+              <th className="tableHeaders">Trim</th>
+              <th className="tableHeaders">Price</th>
+              <th className="tableHeaders">Qty</th>
+              <th className="tableHeaders">Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
             {listOfCars.map((car) => (
-              <addInventoryRow
+              <DealerAddInventoryRow
                 carModel={car.carModel}
                 carMake={car.carMake}
                 carTrim={car.carTrim}
@@ -99,6 +100,10 @@ export default function DealerAddList() {
             ))}
           </tbody>
         </Table>
+      </div>
+      <div className="bottomDiv">
+        <Button className="bottomButtons">Add All to Inventory </Button>
+        <Button className="bottomButtons">Add More Cars</Button>
       </div>
     </div>
   );
