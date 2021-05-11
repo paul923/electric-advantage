@@ -118,6 +118,33 @@ export default function DealerAddList() {
   //   ]);
   // };
 
+  // const addCarsHandler = (
+  //   carMakeInput,
+  //   carModelInput,
+  //   carTrimInput,
+  //   qtyInput,
+  //   priceInput,
+  //   colorInput,
+  //   infoInput,
+  //   imagesInput,
+  //   carID
+  // ) => {
+  //   setCarsToAdd([
+  //     ...carsToAdd,
+  //     {
+  //       carMake: carMakeInput,
+  //       carModel: carModelInput,
+  //       carTrim: carTrimInput,
+  //       qtyInput: qtyInput,
+  //       price: priceInput,
+  //       color: colorInput,
+  //       info: infoInput,
+  //       images: imagesInput,
+  //       carID: carID,
+  //     },
+  //   ]);
+  // };
+
   return (
     <div>
       <h2>Add To Inventory</h2>
