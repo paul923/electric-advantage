@@ -12,6 +12,7 @@ h2 {
 }
 
 .editIcon {
+  background-color: white;
   position: relative;
   height: 100%;
   width: 100%;
@@ -44,4 +45,9 @@ h2 {
 .bottomButtons {
   text-align: center;
   margin-left: 2.5vw;
+  background-color: green;
+}
+
+.buttonToAddList {
+  color: white;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Home() {
+export default function DealerSubscription() {
   const [testText, setTestText] = React.useState("Subscription Screen");
   return (
     <div>

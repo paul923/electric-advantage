@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Home() {
+export default function DealerAccountInfo() {
   const [testText, setTestText] = React.useState("Account Info");
   return (
     <div>

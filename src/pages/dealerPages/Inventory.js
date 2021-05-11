@@ -3,10 +3,11 @@ import { Form, Table, Button } from "react-bootstrap";
 import "../css/dealersInventory.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ChevronExpand } from "react-bootstrap-icons";
-import InventoryRow from "../../components/InventoryRow";
-import InventoryHeader from "../../components/InventoryHeader";
+import InventoryRow from "../../components/DealerInventoryRow";
+import InventoryHeader from "../../components/DealerInventoryHeader";
+import { NavLink } from "react-router-dom";
 
-export default function Home() {
+export default function DealerInventory() {
   /* DUMMY DATA WITH DUMMY FIELDS */
   let car1 = {
     carMake: "Toyota",
@@ -191,7 +192,11 @@ export default function Home() {
         </Table>
       </div>
       <div className="bottomDiv">
-        <Button className="bottomButtons">Add Cars</Button>
+        <Button className="bottomButtons">
+          <NavLink className="buttonToAddList" to="/addList">
+            Add Cars
+          </NavLink>
+        </Button>
         <Button className="bottomButtons">Remove</Button>
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
   Login,
 } from "../pages";
 import Menu from "../components/Menu";
+import AddList from "../pages/dealerPages/AddList";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
