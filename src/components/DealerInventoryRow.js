@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { PencilFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
 
-const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty }) => {
+const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty, carID }) => {
   return (
     <tr>
       <td>{carModel}</td>

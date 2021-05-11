@@ -1,10 +1,12 @@
 import React from "react";
-import { Form, Table, Button } from "react-bootstrap";
+import { Modal, Table, Button } from "react-bootstrap";
 import "../css/dealersAddPage.css";
 import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
+import DealerAddCarModal from "../../components/DealerAddCarModal";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);
+  const [showModal, setShowModal] = React.useState(false);
 
   let car1 = {
     carMake: "Toyota",
@@ -72,6 +74,33 @@ export default function DealerAddList() {
 
   let listOfCars = [car1, car2, car3, car4, car5, car6, car7, car8, car9];
 
+  // const addCarsHandler = (
+  //   carMakeInput,
+  //   carModelInput,
+  //   carTrimInput,
+  //   qtyInput,
+  //   priceInput,
+  //   colorInput,
+  //   infoInput,
+  //   imagesInput,
+  //   carID
+  // ) => {
+  //   setCarsToAdd([
+  //     ...carsToAdd,
+  //     {
+  //       carMake: carMakeInput,
+  //       carModel: carModelInput,
+  //       carTrim: carTrimInput,
+  //       qtyInput: qtyInput,
+  //       price: priceInput,
+  //       color: colorInput,
+  //       info: infoInput,
+  //       images: imagesInput,
+  //       carID: carID,
+  //     },
+  //   ]);
+  // };
+
   return (
     <div>
       <h2>Add To Inventory</h2>
@@ -89,7 +118,7 @@ export default function DealerAddList() {
             </tr>
           </thead>
           <tbody>
-            {listOfCars.map((car) => (
+            {carsToAdd.map((car) => (
               <DealerAddInventoryRow
                 carModel={car.carModel}
                 carMake={car.carMake}
@@ -103,8 +132,16 @@ export default function DealerAddList() {
       </div>
       <div className="bottomDiv">
         <Button className="bottomButtons">Add All to Inventory </Button>
-        <Button className="bottomButtons">Add More Cars</Button>
+        <Button onClick={() => setShowModal(true)} className="bottomButtons">
+          Add More Cars
+        </Button>
       </div>
+      <DealerAddCarModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        setCarsToAdd={setCarsToAdd}
+        carsToAdd={carsToAdd}
+      />
     </div>
   );
 }

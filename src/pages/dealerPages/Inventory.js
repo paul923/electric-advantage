@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 export default function DealerInventory() {
   /* DUMMY DATA WITH DUMMY FIELDS */
   let car1 = {
+    carID: 1,
     carMake: "Toyota",
     carModel: "Corolla",
     carTrim: "b",
@@ -17,6 +18,7 @@ export default function DealerInventory() {
     Qty: 99,
   };
   let car2 = {
+    carID: 2,
     carMake: "Honda",
     carModel: "Civic",
     carTrim: "A",
@@ -24,6 +26,7 @@ export default function DealerInventory() {
     Qty: 10,
   };
   let car3 = {
+    carID: 3,
     carMake: "Mercedes",
     carModel: "CLS",
     carTrim: "C",
@@ -31,6 +34,7 @@ export default function DealerInventory() {
     Qty: 89,
   };
   let car4 = {
+    carID: 4,
     carMake: "Volkswagen",
     carModel: "Jetta",
     carTrim: "Q",
@@ -38,6 +42,7 @@ export default function DealerInventory() {
     Qty: 2,
   };
   let car5 = {
+    carID: 5,
     carMake: "BMW",
     carModel: "X1",
     carTrim: "z",
@@ -45,6 +50,7 @@ export default function DealerInventory() {
     Qty: 28,
   };
   let car6 = {
+    carID: 6,
     carMake: "Porsche",
     carModel: "Taycan",
     carTrim: "abcd",
@@ -52,6 +58,7 @@ export default function DealerInventory() {
     Qty: 0,
   };
   let car7 = {
+    carID: 7,
     carMake: "Mercedes",
     carModel: "CLA",
     carTrim: "M",
@@ -59,6 +66,7 @@ export default function DealerInventory() {
     Qty: 16,
   };
   let car8 = {
+    carID: 8,
     carMake: "Toyota",
     carModel: "Corolla",
     carTrim: "P",
@@ -66,6 +74,7 @@ export default function DealerInventory() {
     Qty: 36,
   };
   let car9 = {
+    carID: 9,
     carMake: "BMW",
     carModel: "X3",
     carTrim: "O",
@@ -186,6 +195,7 @@ export default function DealerInventory() {
                 carTrim={car.carTrim}
                 carPrice={car.carPrice}
                 Qty={car.Qty}
+                carID={car.carID}
               />
             ))}
           </tbody>
