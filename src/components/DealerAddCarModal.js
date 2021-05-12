@@ -28,7 +28,12 @@ const DealerAddCarModal = ({
     setID("");
     setInfo("");
     setImgs("");
+    setModelDisabled(true);
+    setTrimDisabled(true);
   };
+
+  const [modelDisabled, setModelDisabled] = React.useState(true);
+  const [trimDisabled, setTrimDisabled] = React.useState(true);
 
   const addCarsHandler = () => {
     setCarsToAdd([
@@ -56,7 +61,10 @@ const DealerAddCarModal = ({
         <Form>
           <Form.Group controlId="carMake">
             <Form.Control
-              onChange={(e) => setCarMake(e.target.value)}
+              onChange={(e) => {
+                setCarMake(e.target.value);
+                setModelDisabled(false);
+              }}
               as="select"
             >
               <option disabled selected>
@@ -69,10 +77,13 @@ const DealerAddCarModal = ({
             </Form.Control>
           </Form.Group>
           <Form.Group
-            onChange={(e) => setCarModel(e.target.value)}
+            onChange={(e) => {
+              setCarModel(e.target.value);
+              setTrimDisabled(false);
+            }}
             controlId="carModel"
           >
-            <Form.Control as="select" disabled={true}>
+            <Form.Control as="select" disabled={modelDisabled}>
               <option disabled selected>
                 Select Model...
               </option>
@@ -83,10 +94,12 @@ const DealerAddCarModal = ({
             </Form.Control>
           </Form.Group>
           <Form.Group
-            onChange={(e) => setCarTrim(e.target.value)}
+            onChange={(e) => {
+              setCarTrim(e.target.value);
+            }}
             controlId="carTrim"
           >
-            <Form.Control as="select" disabled={true}>
+            <Form.Control as="select" disabled={trimDisabled}>
               <option disabled selected>
                 Select Trim...
               </option>
