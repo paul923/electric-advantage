@@ -18,8 +18,16 @@ const DealerAddCarModal = ({
   const [carInfo, setInfo] = React.useState("");
   const [carImgs, setImgs] = React.useState("");
 
-  const carMakeHandler = (e) => {
-    setCarMake(e.target.value);
+  const resetAllFieldsHandler = () => {
+    setCarMake("");
+    setCarModel("");
+    setCarTrim("");
+    setCarPrice("");
+    setQty("");
+    setColor("");
+    setID("");
+    setInfo("");
+    setImgs("");
   };
 
   const addCarsHandler = () => {
@@ -64,7 +72,7 @@ const DealerAddCarModal = ({
             onChange={(e) => setCarModel(e.target.value)}
             controlId="carModel"
           >
-            <Form.Control as="select">
+            <Form.Control as="select" disabled={true}>
               <option disabled selected>
                 Select Model...
               </option>
@@ -78,7 +86,7 @@ const DealerAddCarModal = ({
             onChange={(e) => setCarTrim(e.target.value)}
             controlId="carTrim"
           >
-            <Form.Control as="select">
+            <Form.Control as="select" disabled={true}>
               <option disabled selected>
                 Select Trim...
               </option>
@@ -141,6 +149,7 @@ const DealerAddCarModal = ({
           onClick={() => {
             setShowModal(false);
             addCarsHandler();
+            resetAllFieldsHandler();
           }}
         >
           Add

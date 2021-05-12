@@ -125,6 +125,9 @@ export default function DealerAddList() {
                 carTrim={car.carTrim}
                 carPrice={car.carPrice}
                 Qty={car.Qty}
+                car={car}
+                carsToAdd={carsToAdd}
+                setCarsToAdd={setCarsToAdd}
               />
             ))}
           </tbody>

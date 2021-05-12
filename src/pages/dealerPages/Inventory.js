@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ChevronExpand } from "react-bootstrap-icons";
 import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function DealerInventory() {
   /* DUMMY DATA WITH DUMMY FIELDS */
@@ -202,9 +202,9 @@ export default function DealerInventory() {
         </Table>
       </div>
       <div className="bottomDiv">
-        <NavLink className="buttonToAddList" to="/addList">
+        <Link className="buttonToAddList" to="/addList">
           <Button className="bottomButtons">Add Cars</Button>
-        </NavLink>
+        </Link>
         <Button className="bottomButtons">Remove</Button>
       </div>
     </div>

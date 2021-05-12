@@ -9,7 +9,13 @@ const DealerAddInventoryRow = ({
   carTrim,
   carPrice,
   Qty,
+  car,
+  carsToAdd,
+  setCarsToAdd,
 }) => {
+  const deleteHandler = (e) => {
+    setCarsToAdd(carsToAdd.filter((row) => row !== car));
+  };
   return (
     <tr>
       <td>{carModel}</td>
@@ -22,7 +28,11 @@ const DealerAddInventoryRow = ({
           <Button variant="light">
             <PencilFill />
           </Button>
-          <Button variant="light" className="edt-dlt-buttons">
+          <Button
+            onClick={deleteHandler}
+            variant="light"
+            className="edt-dlt-buttons"
+          >
             <XCircleFill />
           </Button>
         </div>
