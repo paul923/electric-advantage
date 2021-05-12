@@ -51,3 +51,7 @@ h2 {
 .buttonToAddList {
   color: white;
 }
+
+.inventoryCell {
+  margin-bottom: 0;
+}

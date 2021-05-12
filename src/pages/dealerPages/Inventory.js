@@ -187,7 +187,7 @@ export default function DealerInventory() {
               <th className="tableHeaders"> </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="body">
             {filteredList.map((car) => (
               <InventoryRow
                 carModel={car.carModel}

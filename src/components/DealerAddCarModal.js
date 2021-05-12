@@ -151,7 +151,10 @@ const DealerAddCarModal = ({
       </Modal.Body>
       <Modal.Footer className="footerButtons">
         <Button
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setShowModal(false);
+            resetAllFieldsHandler();
+          }}
           className="footerButtons"
           variant="secondary"
         >
