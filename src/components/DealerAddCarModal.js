@@ -219,7 +219,7 @@ const DealerAddCarModal = ({
               setCondition(e.target.value);
             }}
           >
-            <Form.Control as="select">
+            <Form.Control as="select" disabled={true}>
               <option disabled selected>
                 Select Condition...
               </option>
@@ -233,7 +233,7 @@ const DealerAddCarModal = ({
               setColor(colorObject.ColorID);
             }}
           >
-            <Form.Control as="select">
+            <Form.Control as="select" disabled={true}>
               <option disabled selected>
                 Select Color...
               </option>
