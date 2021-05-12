@@ -16,6 +16,9 @@ const Menu = () => {
         </NavLink>
         <Bars />
         <NavMenu>
+          <NavLink to="/api-test" activeStyle>
+            API Testing
+          </NavLink>
           <NavLink to="/landing" activeStyle>
             Landing
           </NavLink>

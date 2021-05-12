@@ -1,6 +1,11 @@
 import React from "react";
 import { Button, TextField } from "@material-ui/core";
 import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
+import {
+  getMakeList,
+  getModelListByMakeID,
+  getVehicleListByMakeIDAndModelID,
+} from "../api/VehicleAPI";
 import { Select, MenuItem } from "@material-ui/core";
 import TYPE from "../constants/UserType";
 
@@ -13,30 +18,48 @@ export default function TestingPage() {
   const [lastname, setLastname] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [userType, setUserType] = React.useState(TYPE.CUSTOMER);
-  const [open, setOpen] = React.useState(false);
+  const [userOpen, setUserOpen] = React.useState(false);
+  const [makeOpen, setMakeOpen] = React.useState(false);
+  const [makeList, setMakeList] = React.useState("");
+  const [modelList, setModelList] = React.useState("");
+  const [selectedMakeID, setSelectedMakeID] = React.useState("");
 
-  React.useEffect(() => {});
+  React.useEffect(() => {
+    onLoadGetMakeList();
+  }, []);
 
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-  };
+  async function onLoadGetMakeList() {
+    let resultMakeList = await getMakeList();
+    let statusCode = resultMakeList.status;
+    if (statusCode === 200) {
+      let body = resultMakeList.body;
+      console.log(body);
+      setMakeList(body);
+    } else {
+      alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+    }
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  async function onSelectGetModelList(makeID) {
+    let resultModelList = await getModelListByMakeID(makeID);
+    let statusCode = resultModelList.status;
+    if (statusCode === 200) {
+      let body = resultModelList.body;
+      console.log(body);
+      setModelList(body);
+    } else {
+      alert(`Status : ${statusCode}, ${resultModelList.error}`);
+    }
+  }
 
   async function onPressGetUsersList() {
     let resultUsers = await getUsersList();
     let statusCode = resultUsers.status;
-    let body = resultUsers.body;
     if (statusCode === 200) {
+      let body = resultUsers.body;
       setUsersList(body);
     } else {
-      alert(`Status : ${statusCode}, ${body}`);
+      alert(`Status : ${statusCode}, ${resultUsers.error}`);
     }
   }
 
@@ -46,11 +69,11 @@ export default function TestingPage() {
     } else {
       let resultUser = await getUserByUserId(searchUserId);
       let statusCode = resultUser.status;
-      let body = resultUser.body[0];
       if (statusCode === 200) {
+        let body = resultUser.body[0];
         setSearchedUser(body);
       } else {
-        alert(`Status : ${statusCode}, ${body}`);
+        alert(`Status : ${statusCode}, ${resultUser.error}`);
       }
     }
   }
@@ -119,11 +142,13 @@ export default function TestingPage() {
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
+          open={userOpen}
+          onClose={() => setUserOpen(false)}
+          onOpen={() => setUserOpen(true)}
           value={userType}
-          onChange={handleChange}
+          onChange={(event) => {
+            setUserType(event.target.value);
+          }}
         >
           <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
           <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
@@ -140,6 +165,37 @@ export default function TestingPage() {
     );
   };
 
+  const vehiclesList = () => {
+    return (
+      <div>
+        <Select
+          open={makeOpen}
+          onClose={() => setMakeOpen(false)}
+          onOpen={() => setMakeOpen(true)}
+          value={selectedMakeID}
+          onChange={(event) => {
+            setSelectedMakeID(event.target.value);
+            onSelectGetModelList(event.target.value);
+          }}
+        >
+          {makeList &&
+            makeList.map((make, index) => {
+              return (
+                <MenuItem key={make.MakeID} value={make.MakeID}>
+                  {make.MakeName}
+                </MenuItem>
+              );
+            })}
+        </Select>
+        <div>
+          {modelList &&
+            modelList.map((model, index) => {
+              return <div key={index}>{model.ModelName}</div>;
+            })}
+        </div>
+      </div>
+    );
+  };
   return (
     <div>
       <h2>User List</h2>
@@ -176,6 +232,7 @@ export default function TestingPage() {
       </form>
       <br />
       {createUserForm()}
+      {vehiclesList()}
     </div>
   );
 }

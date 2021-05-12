@@ -69,6 +69,7 @@ export default class App extends Component {
         <Route path="/search-result" component={SearchResult} />
         <Route path="/search-detail" component={SearchDetail} />
         <Route path="/landing" component={Landing} />
+        <Route path="/api-test" component={TestingPage} />
         <Router>
           {/* CurrentUser.UserType == TYPE.ADMIN*/}
           <ProtectedRoute path="/testing" component={TestingPage} auth={true} />

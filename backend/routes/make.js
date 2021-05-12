@@ -3,7 +3,7 @@ var router = express.Router();
 var pool = require("../database").pool;
 var mysql = require("../database").mysql;
 
-// GET users listing.
+// GET makes listing.
 router.get("/", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err; // When not connected
@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
     WHERE 1=1
     AND IsDeleted = 0
     `;
-    var parameters = ["electric_advantage.user"];
+    var parameters = ["electric_advantage.vehicle_make"];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
@@ -23,24 +23,24 @@ router.get("/", function (req, res, next) {
       } else if (results.length > 0) {
         res.status(200).send({ body: results });
       } else {
-        res.status(404).send({ error: "Users could not be retrieved" });
+        res.status(404).send({ error: "Makes could not be retrieved" });
       }
     });
   });
 });
 
-// GET a single user by ID.
-router.get("/:userID", function (req, res, next) {
+// GET all models of a make
+router.get("/:makeID/models", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err; // When not connected
     var sql = `
     SELECT *
     FROM ??
     WHERE 1=1
-    AND UserId = ?
+    AND MakeID = ?
     AND IsDeleted = 0
     `;
-    var parameters = ["electric_advantage.user", req.params.userID];
+    var parameters = ["electric_advantage.vehicle_model", req.params.makeID];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
@@ -50,38 +50,34 @@ router.get("/:userID", function (req, res, next) {
       } else if (results.length > 0) {
         res.status(200).send({ body: results });
       } else {
-        res.status(404).send({ error: "Users could not be retrieved" });
+        res.status(404).send({ error: "Models could not be retrieved" });
       }
     });
   });
 });
 
-// POST user
-router.post("/", function (req, res, next) {
-  // Connecting to the database.
+// GET all vehicles of a model
+router.get("/:makeID/models/:modelID", function (req, res, next) {
   pool.getConnection(function (err, connection) {
-    if (err) throw err; // not connected!
-    var user = req.body;
+    if (err) throw err; // When not connected
     var sql = `
-    INSERT INTO electric_advantage.user 
-    SET ?
+    SELECT *
+    FROM ??
+    WHERE 1=1
+    AND ModelID = ?
+    AND IsDeleted = 0
     `;
-    sql = mysql.format(sql, user);
-    console.log(sql);
+    var parameters = ["electric_advantage.vehicle", req.params.makeID];
+    sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
       if (error) {
-        if (error.code == "ER_DUP_ENTRY") {
-          res.status(400).send({
-            error: error.sqlMessage,
-          });
-        } else {
-          res.status(500).send({ error: "Database Error" });
-        }
-      } else if (results.affectedRows > 0) {
-        res.status(201).send({
-          body: `User Created with UserId: ${user.UserID}`,
-        });
+        console.log(error);
+        res.status(500).send({ error: "Database Error" });
+      } else if (results.length > 0) {
+        res.status(200).send({ body: results });
+      } else {
+        res.status(404).send({ error: "Vehicles could not be retrieved" });
       }
     });
   });

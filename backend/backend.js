@@ -5,6 +5,8 @@ const cors = require("cors");
 const app = express();
 
 var userRouter = require("./routes/user");
+var makeRouter = require("./routes/make");
+var vehicleRouter = require("./routes/vehicle");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -18,6 +20,8 @@ app.use(function (req, res, next) {
 });
 
 app.use("/users", userRouter);
+app.use("/vehicles", vehicleRouter);
+app.use("/makes", makeRouter);
 
 // Starting our server.
 const PORT = 3000;
