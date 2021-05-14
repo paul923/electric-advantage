@@ -6,6 +6,7 @@ import { ChevronExpand } from "react-bootstrap-icons";
 import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
+import DealerEditCarModal from "../../components/DealerEditModal";
 
 export default function DealerInventory() {
   /* DUMMY DATA WITH DUMMY FIELDS */
@@ -89,6 +90,7 @@ export default function DealerInventory() {
   const [filteredList, setFilteredList] = React.useState([]);
   const [query, setQuery] = React.useState("");
   const [reverse, setReverse] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
   function sortNumber(sortBy) {
     const copy = [...filteredList];
@@ -196,6 +198,8 @@ export default function DealerInventory() {
                 carPrice={car.carPrice}
                 Qty={car.Qty}
                 carID={car.carID}
+                row={car}
+                setShowModal={setShowModal}
               />
             ))}
           </tbody>

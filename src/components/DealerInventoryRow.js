@@ -2,8 +2,10 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PencilFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
+import DealerEditCarModal from "./DealerEditModal";
 
-const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty, carID }) => {
+const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty, row }) => {
+  const [showModal, setShowModal] = React.useState(false);
   return (
     <tr>
       <td>{carModel}</td>
@@ -12,10 +14,23 @@ const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty, carID }) => {
       <td>{carPrice}</td>
       <td>{Qty}</td>
       <td className="lastColumn">
-        <Button className="editIcon" variant="light">
+        <Button
+          onClick={() => setShowModal(true)}
+          className="editIcon"
+          variant="light"
+        >
           <PencilFill />
         </Button>
       </td>
+      <DealerEditCarModal
+        rowCarModel={carModel}
+        rowCarMake={carMake}
+        rowCarTrim={carTrim}
+        rowCarPrice={carPrice}
+        rowCarQty={Qty}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </tr>
   );
 };
