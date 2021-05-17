@@ -56,14 +56,14 @@ export default class App extends Component {
         </Switch>
         <Route path="/posts" component={PostsPage} />
         <Switch>
-          <Route path="/signup" component={Signup} />
+          <Route path="/sign-in" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
 
         <Route path="/who-we-are" component={WhoWeAre} />
         <Route path="/contact-us" component={ContactUs} />
-        <Route path="/sign-in" component={SignIn} />
+        {/* <Route path="/sign-in" component={Signup} /> */}
         <Route path="/profile" component={Profile} />
         <Route path="/search" component={Search} />
         <Route path="/search-result" component={SearchResult} />
