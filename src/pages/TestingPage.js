@@ -5,9 +5,11 @@ import {
   getMakeList,
   getModelListByMakeID,
   getVehicleListByMakeIDAndModelID,
+  getVehicleSearchResult,
 } from "../api/VehicleAPI";
 import { Select, MenuItem } from "@material-ui/core";
 import TYPE from "../constants/UserType";
+import { Link, Route } from "react-router-dom";
 
 export default function TestingPage() {
   const [usersList, setUsersList] = React.useState(null);
@@ -26,7 +28,20 @@ export default function TestingPage() {
 
   React.useEffect(() => {
     onLoadGetMakeList();
+    onLoadGetVehicleSearchResult();
   }, []);
+
+  async function onLoadGetVehicleSearchResult() {
+    let resultSearch = await getVehicleSearchResult(
+      1,
+      400,
+      30000,
+      2,
+      49.26324,
+      -122.87704
+    );
+    console.log(resultSearch);
+  }
 
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
@@ -84,7 +99,7 @@ export default function TestingPage() {
       FirstName: firstname,
       LastName: lastname,
       Email: email,
-      UserType: userType,
+      UserTypeID: userType,
     };
     let result = await createUser(userObj);
     alert(`Status : ${result.status}, ${result.body}`);
@@ -196,6 +211,10 @@ export default function TestingPage() {
       </div>
     );
   };
+
+  const searchingForm = () => {
+    return <div>searching form</div>;
+  };
   return (
     <div>
       <h2>User List</h2>
@@ -233,6 +252,7 @@ export default function TestingPage() {
       <br />
       {createUserForm()}
       {vehiclesList()}
+      {searchingForm()}
     </div>
   );
 }

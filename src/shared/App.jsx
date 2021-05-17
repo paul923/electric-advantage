@@ -11,9 +11,9 @@ import {
   SearchDetail,
   Landing,
   PostsPage,
-  TestingPage,
   ForgotPassword,
   Signup,
+  TestingPage,
   AboutPage,
   Login,
 } from "../pages";
@@ -70,10 +70,6 @@ export default class App extends Component {
         <Route path="/search-detail" component={SearchDetail} />
         <Route path="/landing" component={Landing} />
         <Route path="/api-test" component={TestingPage} />
-        <Router>
-          {/* CurrentUser.UserType == TYPE.ADMIN*/}
-          <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
-        </Router>
       </div>
     );
   }
