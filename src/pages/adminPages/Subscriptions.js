@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import DealerForm from "./DealerForm";
+import SubscriptionForm from "./SubscriptionForm";
 import PageHeader from "../../components/AdminPageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
-import * as dealerService from "./dealerService";
+import * as subscriptionService from "./subscriptionService";
 import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
@@ -30,19 +30,20 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'name', label: 'Name' }, 
-    { id: 'address', label: 'Address' }, 
-    { id: 'email', label: 'Email' }, 
-    { id: 'phone', label: 'Phone' }, 
     { id: 'dealerID', label: 'Dealer ID' }, 
+    { id: 'planID', label: 'Plan ID' }, 
+    { id: 'subPlan', label: 'Subscription Plan' }, 
+    { id: 'pricing', label: 'Pricing' }, 
+    { id: 'recurring', label: 'Recurring' }, 
+    { id: 'missed', label: 'Missed' }, 
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
-export default function Vehicles() {
+export default function Subscriptions() {
 
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
-    const [records, setRecords] = useState(dealerService.getAllDealers())
+    const [records, setRecords] = useState(subscriptionService.getAllSubscriptions())
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
@@ -67,15 +68,15 @@ export default function Vehicles() {
         })
     }
 
-    const addOrEdit = (dealer, resetForm) => {
-        if (dealer.id == 0)
-        dealerService.insertDealer(dealer)
+    const addOrEdit = (subscription, resetForm) => {
+        if (subscription.id == 0)
+        subscriptionService.insertSubscription(subscription)
         else
-        dealerService.updateDealer(dealer)
+        subscriptionService.updateSubscription(subscription)
         resetForm()
         setRecordForEdit(null)
         setOpenPopup(false)
-        setRecords(dealerService.getAllDealers())
+        setRecords(subscriptionService.getAllSubscriptions())
         setNotify({
             isOpen: true,
             message: 'Submitted Successfully',
@@ -93,8 +94,8 @@ export default function Vehicles() {
             ...confirmDialog,
             isOpen: false
         })
-        dealerService.deleteDealer(id);
-        setRecords(dealerService.getAllDealers())
+        subscriptionService.deleteSubscription(id);
+        setRecords(subscriptionService.getAllSubscriptions())
         setNotify({
             isOpen: true,
             message: 'Deleted Successfully',
@@ -105,7 +106,7 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Dealer Database"
+                title="Subscriptions"
               
                 icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
             />
@@ -113,7 +114,7 @@ export default function Vehicles() {
 
                 <Toolbar>
                     <Controls.Input
-                        label="Search for dealers"
+                        label="Search Subscriptions"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -136,12 +137,12 @@ export default function Vehicles() {
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.address}</TableCell>
-                                    <TableCell>{item.email}</TableCell>
-                                    <TableCell>{item.phone}</TableCell>
                                     <TableCell>{item.dealerID}</TableCell>
-                        
+                                    <TableCell>{item.planID}</TableCell>
+                                    <TableCell>{item.subPlan}</TableCell>
+                                    <TableCell>{item.pricing}</TableCell>
+                                    <TableCell>{item.recurring}</TableCell>
+                                    <TableCell>{item.missed}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                             color="primary"
@@ -169,11 +170,11 @@ export default function Vehicles() {
                 <TblPagination />
             </Paper>
             <Popup
-                title="Add a new dealer"
+                title="Add a new Subscription"
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                <DealerForm
+                <SubscriptionForm
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit} />
             </Popup>

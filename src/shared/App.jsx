@@ -21,23 +21,29 @@ import Menu from "../components/Menu";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
-import Cars from "../pages/adminPages/Cars";
-import Dealers from "../pages/adminPages/Dealers";
+
 import ProtectedRoute from "../components/ProtectedRoute";
 import PrivateRoute from "../components/PrivateRoute";
 import DealerMenu from "../components/DealersMenu";
 import AdminMenu from "../components/AdminMenu";
+import Subscriptions from "../pages/adminPages/Subscriptions";
+import Vehicles from "../pages/adminPages/Vehicles";
+import Dealers from "../pages/adminPages/Dealers";
+
 
 export default class App extends Component {
   render() {
     // Temporarily changes render with "dealer", "admin".
     // Plannign to use authorized account types to change render in the future.
-    const userType = "s";
+    const userType = "admin";
     return userType === "admin" ? (
       <div>
         <AdminMenu />
-        <Route path="/cars" component={Cars} />
-        <Route path="/dealers" component={Dealers} />
+        <Route path="/admin" component={AdminMenu} />
+        <Route path="/1" component={Subscriptions} />
+        <Route path="/2" component={Vehicles} />
+        <Route path="/3" component={Dealers} />
+  
       </div>
     ) : userType === "dealer" ? (
       <div>
