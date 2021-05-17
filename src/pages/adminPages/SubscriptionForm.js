@@ -113,7 +113,7 @@ export default function SubscriptionForm(props) {
                             text="Submit" />
                         <Controls.Button
                             text="Reset"
-                            color="default"
+                            color="success"
                             onClick={resetForm} />
                     </div>
                 </Grid>

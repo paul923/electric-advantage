@@ -1,9 +1,11 @@
 import React from 'react'
-import { Paper, Card, Typography, makeStyles, Button } from '@material-ui/core'
+import { Paper, Card, Typography, makeStyles } from '@material-ui/core'
+
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#fdfdff'
+        //header color
+        backgroundColor: '#3aab5a'
     },
     pageHeader:{
         padding:theme.spacing(4),
@@ -13,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     pageIcon:{
         display:'inline-block',
         padding:theme.spacing(2),
-        color:'#3c44b1'
+        //header icon color
+        color:'#3aab5a'
     },
     pageTitle:{
         paddingLeft:theme.spacing(4),

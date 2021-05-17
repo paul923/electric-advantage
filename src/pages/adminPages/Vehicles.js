@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import VehicleForm from "./VehicleForm";
 import PageHeader from "../../components/AdminPageHeader";
-import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
+import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as vehicleService from "./vehicleService";
@@ -9,7 +9,7 @@ import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
@@ -111,7 +111,7 @@ export default function Vehicles() {
             <PageHeader
                 title="Vehicle Database"
               
-                icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+                icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
 
@@ -153,15 +153,15 @@ export default function Vehicles() {
                                         <Controls.ActionButton
                                             color="primary"
                                             onClick={() => { openInPopup(item) }}>
-                                            <EditOutlinedIcon fontSize="small" />
+                                            <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
                                             color="secondary"
                                             onClick={() => {
                                                 setConfirmDialog({
                                                     isOpen: true,
-                                                    title: 'Are you sure to delete this record?',
-                                                    subTitle: "You can't undo this operation",
+                                                    title: 'Confirm you wish to delete',
+                                                    subTitle: "You cannot undo this",
                                                     onConfirm: () => { onDelete(item.id) }
                                                 })
                                             }}>

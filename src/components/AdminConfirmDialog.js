@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, makeStyles, IconButton } from '@material-ui/core'
 import Controls from "../components/controls/Controls";
-import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,10 +20,11 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     titleIcon: {
-        backgroundColor: theme.palette.secondary.light,
+        //delete color
+        backgroundColor: theme.palette.error.light,
         color: theme.palette.secondary.main,
         '&:hover': {
-            backgroundColor: theme.palette.secondary.light,
+            backgroundColor: theme.palette.secondary.dark,
             cursor: 'default'
         },
         '& .MuiSvgIcon-root': {
@@ -41,7 +42,7 @@ export default function ConfirmDialog(props) {
         <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
             <DialogTitle className={classes.dialogTitle}>
                 <IconButton disableRipple className={classes.titleIcon}>
-                    <NotListedLocationIcon />
+                    <HelpOutlineIcon />
                 </IconButton>
             </DialogTitle>
             <DialogContent className={classes.dialogContent}>
@@ -59,7 +60,7 @@ export default function ConfirmDialog(props) {
                     onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false })} />
                 <Controls.Button
                     text="Yes"
-                    color="secondary"
+                    color="primary"
                     onClick={confirmDialog.onConfirm} />
             </DialogActions>
         </Dialog>
