@@ -12,6 +12,8 @@ const InventoryRow = ({
   carColor,
   carPrice,
   Qty,
+  editText,
+  showEditText,
   row,
 }) => {
   const [showModal, setShowModal] = React.useState(false);
@@ -22,8 +24,24 @@ const InventoryRow = ({
       <td>{carTrim}</td>
       <td>{carYear}</td>
       <td>{carColor}</td>
-      <td>{carPrice}</td>
-      <td>{Qty}</td>
+      <td>
+        <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>
+          {carPrice}
+        </text>
+        <input
+          type="text"
+          className={`inputsCell ${editText ? "hiddenUntilEdit" : ""}`}
+          placeholder={carPrice}
+        ></input>
+      </td>
+      <td>
+        <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>{Qty}</text>
+        <input
+          type="text"
+          className={`inputsCell ${editText ? "hiddenUntilEdit" : ""}`}
+          placeholder={Qty}
+        ></input>
+      </td>
       {/* <td className="lastColumn">
         <Button
           onClick={() => setShowModal(true)}

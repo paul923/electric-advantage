@@ -109,6 +109,7 @@ export default function DealerInventory() {
   const [query, setQuery] = React.useState("");
   const [reverse, setReverse] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
+  const [editText, showEditText] = React.useState(true);
 
   function sortNumber(sortBy) {
     const copy = [...filteredList];
@@ -228,6 +229,8 @@ export default function DealerInventory() {
                 carID={car.carID}
                 row={car}
                 setShowModal={setShowModal}
+                editText={editText}
+                showEditText={showEditText}
               />
             ))}
           </tbody>
@@ -237,7 +240,13 @@ export default function DealerInventory() {
         <Link className="buttonToAddList" to="/addList">
           <Button className="bottomButtons">Add Cars</Button>
         </Link>
-        <Button className="bottomButtons">Remove</Button>
+        <Button
+          className="bottomButtons"
+          onClick={() => showEditText(!editText)}
+        >
+          <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>Edit</text>
+          <text className={`${editText ? "hiddenUntilEdit" : ""}`}>Update</text>
+        </Button>
       </div>
     </div>
   );

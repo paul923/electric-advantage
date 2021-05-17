@@ -55,3 +55,11 @@ h2 {
 .inventoryCell {
   margin-bottom: 0;
 }
+
+.hiddenUntilEdit {
+  display: none;
+}
+
+.inputsCell {
+  width: 4vw;
+}
