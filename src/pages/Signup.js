@@ -5,11 +5,7 @@ import { useAuth } from "../components/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import TYPE from "../constants/UserType";
 import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
-import {
-  getMakeList,
-  getModelListByMakeID,
-  getVehicleListByMakeIDAndModelID,
-} from "../api/VehicleAPI";
+import _uniqueId from 'lodash/uniqueId';
 
 
 
@@ -30,8 +26,13 @@ export default function Signup() {
   const [lastname, setLastname] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [userType, setUserType] = React.useState(TYPE.CUSTOMER);
-  const [open, setOpen] = React.useState(false);
   const [userOpen, setUserOpen] = React.useState(false);
+  const [makeList, setMakeList] = React.useState("");
+  const [modelList, setModelList] = React.useState("");
+  const [selectedMakeID, setSelectedMakeID] = React.useState("");
+  const [id] = useState(_uniqueId('testID-'));
+
+
 
 
 
@@ -54,56 +55,69 @@ export default function Signup() {
     setLoading(false);
   }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-  };
 
   async function onPressCreateUser() {
     let userObj = {
-      UserID: userId,
+      UserID: {id}[1],
       FirstName: firstname,
       LastName: lastname,
       Email: email,
-      UserType: userType,
+      UserTypeID: userType,
     };
     let result = await createUser(userObj);
     alert(`Status : ${result.status}, ${result.body}`);
   }
 
+  function formatUser(userObject) {
+    return (
+      <div>
+        <h2>User ID: {userObject.UserID}</h2>
+        <p>
+          First Name: {userObject.FirstName}
+          <br />
+          Last Name: {userObject.LastName}
+          <br />
+          Email: {userObject.Email}
+          <br />
+          User Type Id: {userObject.UserTypeID}
+        </p>
+      </div>
+    );
+  }
+
+
   return (
     <>
+
+
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <div className="text-center">
+
             <Select
               labelId="demo-controlled-open-select-label"
               id="demo-controlled-open-select"
-              open={open}
-              onClose={handleClose}
-              onOpen={handleOpen}
+              open={userOpen}
+              onClose={() => setUserOpen(false)}
+              onOpen={() => setUserOpen(true)}
               value={userType}
-              onChange={handleChange}
-            >
+              onChange={(event) => {
+                setUserType(event.target.value);
+              }}   
+                       >
               <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
               <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
               <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
             </Select>
             </div>
-            <Form.Group id="userid">
+            {/* <div className="display-none">
+            <Form.Group id="userid" >
               <Form.Label>User id</Form.Label>
-              <Form.Control type="text" value={userId} onChange={(event) => setUserId(event.target.value)} required />
+              <Form.Control type="text" value={id} onChange={(event) => setUserId(event.target.value)} required />
             </Form.Group>
+            </div> */}
             <Form.Group id="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="text" ref={firstNameRef}  required value={firstname}
@@ -142,7 +156,7 @@ export default function Signup() {
           </Form>
         </Card.Body>
       </Card>
-      <TextField
+      {/* <TextField
           id="outlined-basic"
           label="userid"
           variant="outlined"
@@ -191,7 +205,7 @@ export default function Signup() {
           onClick={() => onPressCreateUser()}
         >
           Create User
-        </Button>
+        </Button> */}
       <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
