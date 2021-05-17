@@ -17,7 +17,7 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
-        padding: theme.spacing(3)
+        padding: theme.spacing(1)
     },
     searchInput: {
         width: '75%'
@@ -128,6 +128,7 @@ export default function Vehicles() {
                     />
                     <Controls.Button
                         text="Add New"
+                        color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
                         className={classes.newButton}
@@ -176,7 +177,7 @@ export default function Vehicles() {
                 <TblPagination />
             </Paper>
             <Popup
-                title="Vh"
+                title="Add a new vehicle"
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
