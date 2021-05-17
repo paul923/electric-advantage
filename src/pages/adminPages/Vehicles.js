@@ -151,12 +151,12 @@ export default function Vehicles() {
                                     <TableCell>{item.perf2}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
-                                            color="primary"
+                                            //edit button color
+                                            color="success"
                                             onClick={() => { openInPopup(item) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
-                                            color="secondary"
                                             onClick={() => {
                                                 setConfirmDialog({
                                                     isOpen: true,
