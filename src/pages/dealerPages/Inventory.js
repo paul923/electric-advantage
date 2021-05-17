@@ -15,6 +15,8 @@ export default function DealerInventory() {
     carMake: "Toyota",
     carModel: "Corolla",
     carTrim: "b",
+    carYear: 2021,
+    carColor: "black",
     carPrice: 999,
     Qty: 99,
   };
@@ -23,6 +25,8 @@ export default function DealerInventory() {
     carMake: "Honda",
     carModel: "Civic",
     carTrim: "A",
+    carYear: 2019,
+    carColor: "silver",
     carPrice: 99,
     Qty: 10,
   };
@@ -31,6 +35,8 @@ export default function DealerInventory() {
     carMake: "Mercedes",
     carModel: "CLS",
     carTrim: "C",
+    carYear: 2001,
+    carColor: "white",
     carPrice: 50,
     Qty: 89,
   };
@@ -39,6 +45,8 @@ export default function DealerInventory() {
     carMake: "Volkswagen",
     carModel: "Jetta",
     carTrim: "Q",
+    carYear: 2018,
+    carColor: "grey",
     carPrice: 150,
     Qty: 2,
   };
@@ -47,6 +55,8 @@ export default function DealerInventory() {
     carMake: "BMW",
     carModel: "X1",
     carTrim: "z",
+    carYear: 2021,
+    carColor: "black",
     carPrice: 1,
     Qty: 28,
   };
@@ -55,6 +65,8 @@ export default function DealerInventory() {
     carMake: "Porsche",
     carModel: "Taycan",
     carTrim: "abcd",
+    carYear: 2011,
+    carColor: "blue",
     carPrice: 999,
     Qty: 0,
   };
@@ -63,6 +75,8 @@ export default function DealerInventory() {
     carMake: "Mercedes",
     carModel: "CLA",
     carTrim: "M",
+    carYear: 2022,
+    carColor: "white",
     carPrice: 99,
     Qty: 16,
   };
@@ -71,6 +85,8 @@ export default function DealerInventory() {
     carMake: "Toyota",
     carModel: "Corolla",
     carTrim: "P",
+    carYear: 2002,
+    carColor: "red",
     carPrice: 100,
     Qty: 36,
   };
@@ -79,6 +95,8 @@ export default function DealerInventory() {
     carMake: "BMW",
     carModel: "X3",
     carTrim: "O",
+    carYear: 2015,
+    carColor: "grey",
     carPrice: 342,
     Qty: 43,
   };
@@ -173,6 +191,14 @@ export default function DealerInventory() {
                 sortHandler={() => sortString("carTrim")}
               />
               <InventoryHeader
+                headerName="Car Year"
+                sortHandler={() => sortNumber("carYear")}
+              />
+              <InventoryHeader
+                headerName="Car Color"
+                sortHandler={() => sortString("carColor")}
+              />
+              <InventoryHeader
                 headerName="Car Price"
                 sortHandler={() => sortNumber("carPrice")}
               />
@@ -186,7 +212,7 @@ export default function DealerInventory() {
                   <ChevronExpand />
                 </Button>
               </th>
-              <th className="tableHeaders"> </th>
+              {/* <th className="tableHeaders"> </th> */}
             </tr>
           </thead>
           <tbody className="body">
@@ -195,6 +221,8 @@ export default function DealerInventory() {
                 carModel={car.carModel}
                 carMake={car.carMake}
                 carTrim={car.carTrim}
+                carYear={car.carYear}
+                carColor={car.carColor}
                 carPrice={car.carPrice}
                 Qty={car.Qty}
                 carID={car.carID}

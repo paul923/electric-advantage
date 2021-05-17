@@ -4,16 +4,27 @@ import { PencilFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
 import DealerEditCarModal from "./DealerEditModal";
 
-const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty, row }) => {
+const InventoryRow = ({
+  carModel,
+  carMake,
+  carTrim,
+  carYear,
+  carColor,
+  carPrice,
+  Qty,
+  row,
+}) => {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <tr>
       <td>{carModel}</td>
       <td>{carMake}</td>
       <td>{carTrim}</td>
+      <td>{carYear}</td>
+      <td>{carColor}</td>
       <td>{carPrice}</td>
       <td>{Qty}</td>
-      <td className="lastColumn">
+      {/* <td className="lastColumn">
         <Button
           onClick={() => setShowModal(true)}
           className="editIcon"
@@ -21,7 +32,7 @@ const InventoryRow = ({ carModel, carMake, carTrim, carPrice, Qty, row }) => {
         >
           <PencilFill />
         </Button>
-      </td>
+      </td> */}
       <DealerEditCarModal
         rowCarModel={carModel}
         rowCarMake={carMake}
