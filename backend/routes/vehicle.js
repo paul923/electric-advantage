@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
     SELECT *
     FROM ??
     `;
-    var parameters = ["electric_advantage.user"];
+    var parameters = ["ea_db.user"];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();

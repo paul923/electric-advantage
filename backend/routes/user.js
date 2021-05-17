@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
     WHERE 1=1
     AND IsDeleted = 0
     `;
-    var parameters = ["electric_advantage.user"];
+    var parameters = ["ea_db.user"];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
@@ -40,7 +40,7 @@ router.get("/:userID", function (req, res, next) {
     AND UserId = ?
     AND IsDeleted = 0
     `;
-    var parameters = ["electric_advantage.user", req.params.userID];
+    var parameters = ["ea_db.user", req.params.userID];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
@@ -63,7 +63,7 @@ router.post("/", function (req, res, next) {
     if (err) throw err; // not connected!
     var user = req.body;
     var sql = `
-    INSERT INTO electric_advantage.user 
+    INSERT INTO ea_db.user 
     SET ?
     `;
     sql = mysql.format(sql, user);

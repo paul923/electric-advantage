@@ -42,6 +42,33 @@ export async function getVehicleListByMakeIDAndModelID(makeID, modelID) {
   }
 }
 
+export async function getVehicleSearchResult(
+  makeID,
+  evRange,
+  startPrice,
+  conditionID,
+  lat,
+  lng
+) {
+  try {
+    console.log(`Retrieving the vehicles in inventory.`);
+    let url = `http://${database}:3000/inventories`;
+    url += `?makeID=${makeID}`;
+    url += `&evRange=${evRange}`;
+    url += `&startPrice=${startPrice}`;
+    url += `&conditionID=${conditionID}`;
+    url += `&lat=${lat}`;
+    url += `&lng=${lng}`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function createUser(User) {
 //   try {
 //     let response = await fetch(`http://${database}:3000/users`, {

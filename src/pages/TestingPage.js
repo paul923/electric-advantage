@@ -5,6 +5,7 @@ import {
   getMakeList,
   getModelListByMakeID,
   getVehicleListByMakeIDAndModelID,
+  getVehicleSearchResult,
 } from "../api/VehicleAPI";
 import { Select, MenuItem } from "@material-ui/core";
 import TYPE from "../constants/UserType";
@@ -27,7 +28,20 @@ export default function TestingPage() {
 
   React.useEffect(() => {
     onLoadGetMakeList();
+    onLoadGetVehicleSearchResult();
   }, []);
+
+  async function onLoadGetVehicleSearchResult() {
+    let resultSearch = await getVehicleSearchResult(
+      1,
+      400,
+      30000,
+      2,
+      49.26324,
+      -122.87704
+    );
+    console.log(resultSearch);
+  }
 
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
