@@ -62,7 +62,8 @@ const InventoryRow = ({
         >
           <XCircleFill />
         </Button>
-      </td>
+      </td>{" "}
+      */}
       <DealerEditCarModal
         rowCarModel={carModel}
         rowCarMake={carMake}
