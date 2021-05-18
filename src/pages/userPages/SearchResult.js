@@ -18,12 +18,14 @@ const SearchResult = (props) => {
   const [priceValue, setPriceValue] = React.useState(125000);
   const [rangeValue, setRangeValue] = React.useState(500);
 
-  const makeID = props.location.state.makeInput;
-  const range = props.location.state.rangeInput;
-  const price = props.location.state.priceInput;
-  const condition = props.location.state.conditionIDInput;
-  const lat = props.location.state.latInput;
-  const long = props.location.state.longInput;
+  const [makeID, setMakeID] = React.useState(props.location.state.makeInput);
+  const [range, setRange] = React.useState(props.location.state.rangeInput);
+  const [price, setPrice] = React.useState(props.location.state.priceInput);
+  const [condition, setCondition] = React.useState(
+    props.location.state.conditionIDInput
+  );
+  const [lat, setLat] = React.useState(props.location.state.latInput);
+  const [long, setLong] = React.useState(props.location.state.longInput);
   let resultSearch = [];
 
   async function onLoadGetVehicleSearchResult() {
@@ -35,23 +37,6 @@ const SearchResult = (props) => {
       lat,
       long
     );
-
-    if (resultSearch["body"] != undefined) {
-      setCarCards(
-        resultSearch["body"].map((car) => {
-          return {
-            image: carImage,
-            make: car["MakeID"],
-            model: car["ModelName"],
-            trim: car["Trim"],
-            odometer: car["Odometer"].toLocaleString("en") + " km",
-            color: car["ColorID"],
-            year: car["Year"],
-            price: "$" + car["StartPrice"].toLocaleString("en"),
-          };
-        })
-      );
-    }
   }
 
   React.useEffect(() => {
