@@ -3,89 +3,15 @@ import carImage from "../../images/tesla.jpg";
 import "../css/Home.css";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import RangeSlider from "react-bootstrap-range-slider";
-import { Card, Table, Row, Col, Form, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 const SearchDetail = () => {
-    const [priceValue, setPriceValue] = React.useState(125000);
-    const [rangeValue, setRangeValue] = React.useState(500);
+
 
     return (
         <body>
             <div>
-              
-                <Row>
-                    <Col>
-                    <div className="makeColumn">
-                    <div className="makeTitle">
-            <h3>Make</h3>
-            </div>
-                        <select className="make-dropdown">
-                        <option value="make1">make1</option>
-                        <option value="make2">make2</option>
-                        <option value="make3">make3</option>
-                        </select>
-                    </div>
-                    </Col>
-
-                    <Col>
-                    <div className="statusColumn">
-                    <div className="statusTitle">
-            <h3>Status</h3>
-            </div>
-                        <select className="status-dropdown">
-                        <option value="new">New</option>
-                        <option value="used">Used</option>
-                        </select>
-                    </div>
-                    </Col>
-
-                    <Col>
-                    <section className="range">
-                        <div className="priceColumn">
-                        <div className="priceTitle">
-              <h3>Price</h3>
-              </div>
-                        <Container>
-                            <RangeSlider
-                            max={500000}
-                            value={priceValue}
-                            onChange={(e) => setPriceValue(e.target.value)}
-                            variant="success"
-                            />
-                        </Container>
-                        </div>
-                        
-                    </section>
-                    </Col>
-
-                    <Col>
-                    <section className="range">
-                        <div className="rangeColumn">
-                        <div className="rangeTitle">
-              <h3 className="">Range</h3>
-              </div>
-                        <Container>
-                            <RangeSlider
-                            max={1000}
-                            value={rangeValue}
-                            onChange={(e) => setRangeValue(e.target.value)}
-                            variant="success"
-                            />
-                        </Container>
-                        </div>
-                        
-                    </section>
-                    </Col>
-
-                    <Col>
-                    <Button className="searchButton">
-                        <NavLink to="/search-result" className="nav-search">Search</NavLink>
-                    </Button>
-                    </Col>
-
-                </Row>
-        
+                      
             <div className="test">
             <h1>Details</h1>
          
