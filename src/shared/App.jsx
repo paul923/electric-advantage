@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
-  HomePage,
   WhoWeAre,
   ContactUs,
-  SignIn,
   Profile,
-  Search,
   SearchResult,
   SearchDetail,
   Landing,
   PostsPage,
-  TestingPage,
   ForgotPassword,
   Signup,
+  TestingPage,
   AboutPage,
   Login,
 } from "../pages";
@@ -49,7 +46,7 @@ export default class App extends Component {
     ) : (
       <div>
         <Menu />
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={Landing} />
         <Switch>
           <Route path="/about/:name" component={AboutPage} />
           <Route path="/about" component={AboutPage} />
@@ -69,11 +66,8 @@ export default class App extends Component {
         <Route path="/search-result" component={SearchResult} />
         <Route path="/search-detail" component={SearchDetail} />
         <Route path="/landing" component={Landing} />
+
         <Route path="/api-test" component={TestingPage} />
-        <Router>
-          {/* CurrentUser.UserType == TYPE.ADMIN*/}
-          <ProtectedRoute path="/testing" component={TestingPage} auth={true} />
-        </Router>
       </div>
     );
   }
