@@ -7,7 +7,7 @@ import carImage2 from "../../images/bmw.jpg";
 import carImage3 from "../../images/jp.jpg";
 import carImage4 from "../../images/ford.jpg";
 import { Button, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, Table, Row, Col, Form } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 
@@ -79,7 +79,7 @@ export default function LandingPage() {
       lat,
       long
     );
-    console.log(resultSearch);
+    console.log("resultSearch:" + resultSearch[0]);
   }
 
   async function onLoadGetMakeList() {
@@ -183,14 +183,27 @@ export default function LandingPage() {
         </Col>
 
         <Col>
-          <NavLink to="/search-result" className="nav-search">
+          <Link
+            to={{
+              pathname: "/search-result",
+              state: {
+                makeInput: makeID,
+                rangeInput: rangeValue,
+                priceInput: priceValue,
+                conditionIDInput: conditionID,
+                latInput: lat,
+                longInput: long,
+              },
+            }}
+            className="nav-search"
+          >
             <Button
               className="searchButton"
               onClick={() => setSearchResults(onClickgetVehicleSearchResult())}
             >
               Search
             </Button>
-          </NavLink>
+          </Link>
         </Col>
       </Row>
     </body>
