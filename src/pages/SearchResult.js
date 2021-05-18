@@ -5,13 +5,54 @@ import background from "../images/background.jpg";
 import carImage from "../images/tesla.jpg";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { Card, Table, Row, Col, Form, Container } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 import { getVehicleSearchResult } from "../api/VehicleAPI";
-import RangeSlider from "react-bootstrap-range-slider";
 
 const SearchResult = (props) => {
-  const [priceValue, setPriceValue] = React.useState(125000);
-  const [rangeValue, setRangeValue] = React.useState(500);
+  const cardInfo = [
+    /* GET SEARCHED CARS HERE */
+    {
+      // onLoadGetVehicleSearchResult()
+      image: carImage,
+      make: "Tesla",
+      model: "Model 3",
+      trim: "Trim",
+      odometer: "30,000km",
+      color: "White",
+      year: "2020",
+      price: "$40,000",
+    },
+    {
+      image: carImage,
+      make: "Tesla",
+      model: "Model 3",
+      trim: "Trim",
+      odometer: "30,000km",
+      color: "White",
+      year: "2020",
+      price: "$40,000",
+    },
+    {
+      image: carImage,
+      make: "Tesla",
+      model: "Model 3",
+      trim: "Trim",
+      odometer: "30,000km",
+      color: "White",
+      year: "2020",
+      price: "$40,000",
+    },
+    {
+      image: carImage,
+      make: "Tesla",
+      model: "Model 3",
+      trim: "Trim",
+      odometer: "30,000km",
+      color: "White",
+      year: "2020",
+      price: "$40,000",
+    },
+  ];
 
   const makeID = props.location.state.makeInput;
   const range = props.location.state.rangeInput;
@@ -19,10 +60,11 @@ const SearchResult = (props) => {
   const condition = props.location.state.conditionIDInput;
   const lat = props.location.state.latInput;
   const long = props.location.state.longInput;
-  let resultSearch = [];
+
+  // console.log("SEARCH RESULTS:" + searchResults["MakeID"]);
 
   async function onLoadGetVehicleSearchResult() {
-    resultSearch = await getVehicleSearchResult(
+    let resultSearch = await getVehicleSearchResult(
       makeID,
       range,
       price,
@@ -31,22 +73,20 @@ const SearchResult = (props) => {
       long
     );
 
-    if (resultSearch["body"] != undefined) {
-      setCarCards(
-        resultSearch["body"].map((car) => {
-          return {
-            image: carImage,
-            make: car["MakeID"],
-            model: car["ModelName"],
-            trim: car["Trim"],
-            odometer: car["Odometer"].toLocaleString("en") + " km",
-            color: car["ColorID"],
-            year: car["Year"],
-            price: "$" + car["StartPrice"].toLocaleString("en"),
-          };
-        })
-      );
-    }
+    await setCarCards(
+      resultSearch["body"].map((car) => {
+        return {
+          image: carImage,
+          make: car["MakeID"],
+          model: car["ModelID"],
+          trim: car["Trim"],
+          odemeter: car["Odometer"],
+          color: car["ColorID"],
+          year: car["Year"],
+          price: car["StartPrice"],
+        };
+      })
+    );
   }
 
   React.useEffect(() => {
@@ -55,7 +95,37 @@ const SearchResult = (props) => {
 
   const [carCards, setCarCards] = React.useState([]);
 
+  // image: carImage,
+  // make: "Tesla",
+  // model: "Model 3",
+  // trim: "Trim",
+  // odometer: "30,000km",
+  // color: "White",
+  // year: "2020",
+  // price: "$40,000",
+
+  // resultSearch.map((car) => {
+  //   console.log(
+  //     "ABC" +
+  //       {
+  //         image: carImage,
+  //         make: car["MakeID"],
+  //         model: car["ModelID"],
+  //         trim: car["Trim"],
+  //         odemeter: car["Odometer"],
+  //         color: car["ColorID"],
+  //         year: car["Year"],
+  //         price: car["StartPrice"],
+  //       }
+  //   );
+  // });
+
+  // console.log("CARCARD:" + carCards);
+
   const renderCard = (card, index) => {
+    {
+      // console.log("MakeID: " + { makeID });
+    }
     return (
       <div className="carCard">
         <img src={card.image} className="carImage" />
@@ -90,79 +160,7 @@ const SearchResult = (props) => {
   return (
     <body>
       <h2>Search Result</h2>
-      <div>
-        <Row>
-          <Col>
-            <div className="makeColumn">
-              <div className="makeTitle">
-                <h3>Make</h3>
-              </div>
-              <select className="make-dropdown">
-                <option value="make1">make1</option>
-                <option value="make2">make2</option>
-                <option value="make3">make3</option>
-              </select>
-            </div>
-          </Col>
-
-          <Col>
-            <div className="statusColumn">
-              <div className="statusTitle">
-                <h3>Status</h3>
-              </div>
-              <select className="status-dropdown">
-                <option value="new">New</option>
-                <option value="used">Used</option>
-              </select>
-            </div>
-          </Col>
-
-          <Col>
-            <section className="range">
-              <div className="priceColumn">
-                <div className="priceTitle">
-                  <h3>Price</h3>
-                </div>
-                <Container>
-                  <RangeSlider
-                    max={250000}
-                    value={priceValue}
-                    onChange={(e) => setPriceValue(e.target.value)}
-                    variant="success"
-                  />
-                </Container>
-              </div>
-            </section>
-          </Col>
-
-          <Col>
-            <section className="range">
-              <div className="rangeColumn">
-                <div className="rangeTitle">
-                  <h3 className="">Range</h3>
-                </div>
-                <Container>
-                  <RangeSlider
-                    max={1000}
-                    value={rangeValue}
-                    onChange={(e) => setRangeValue(e.target.value)}
-                    variant="success"
-                  />
-                </Container>
-              </div>
-            </section>
-          </Col>
-
-          <Col>
-            <Button className="searchButton">
-              <NavLink to="/search-result" className="nav-search">
-                Search
-              </NavLink>
-            </Button>
-          </Col>
-        </Row>
-      </div>
-      {/* <Button className="emailAlertButton">Send Email Alert</Button> */}
+      <Button className="emailAlertButton">Send Email Alert</Button>
       <div className="results"> {carCards.map(renderCard)} </div>
     </body>
   );
