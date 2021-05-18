@@ -73,14 +73,14 @@ const SearchResult = (props) => {
       long
     );
 
-    await setCarCards(
+    setCarCards(
       resultSearch["body"].map((car) => {
         return {
           image: carImage,
           make: car["MakeID"],
           model: car["ModelID"],
           trim: car["Trim"],
-          odemeter: car["Odometer"],
+          odometer: car["Odometer"],
           color: car["ColorID"],
           year: car["Year"],
           price: car["StartPrice"],
