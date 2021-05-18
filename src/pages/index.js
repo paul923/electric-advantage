@@ -1,4 +1,3 @@
-export { default as HomePage } from "./userPages/HomePage";
 export { default as AboutPage } from "./AboutPage";
 export { default as PostsPage } from "./PostsPage";
 export { default as Post } from "./PostPage";
