@@ -1,9 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/ContactUs.css";
+import "../css/ContactUs.css";
 import { Button } from "react-bootstrap";
 
-import background from "../images/background.jpg";
+import background from "../../images/background.jpg";
 
 const ContactUs = () => {
     return (

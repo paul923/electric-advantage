@@ -1,20 +1,61 @@
-import React from 'react'
-import carImage from "../images/tesla.jpg";
-import "./css/Home.css";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/Home.css";
+import background from "../../images/background.jpg";
+import carImage from "../../images/tesla.jpg";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import RangeSlider from "react-bootstrap-range-slider";
 import { Card, Table, Row, Col, Form, Container } from "react-bootstrap";
 
-const SearchDetail = () => {
-    const [priceValue, setPriceValue] = React.useState(125000);
-    const [rangeValue, setRangeValue] = React.useState(500);
+export default function SearchResult() {
+  const [priceValue, setPriceValue] = React.useState(125000);
+  const [rangeValue, setRangeValue] = React.useState(500);
 
-    return (
-        <body>
-            <div>
-              
-                <Row>
+    const cardInfo = [
+        {image: carImage, make: "Tesla", model: "Model 3", trim: "Trim", odometer: "30,000km", color: "White", year: "2020", price: "$40,000"},
+        {image: carImage, make: "Tesla", model: "Model 3", trim: "Trim", odometer: "30,000km", color: "White", year: "2020", price: "$40,000"},
+        {image: carImage, make: "Tesla", model: "Model 3", trim: "Trim", odometer: "30,000km", color: "White", year: "2020", price: "$40,000"},
+        {image: carImage, make: "Tesla", model: "Model 3", trim: "Trim", odometer: "30,000km", color: "White", year: "2020", price: "$40,000"}
+    ]
+
+    const renderCard = (card, index) => {
+        return (
+            <div className="carCard">
+                <img src={card.image} className="carImage" />
+
+                <Table striped hover className="carTable">
+                  <tbody>
+                    <tr>
+                      <td>Make: {card.make}</td>
+                      <td>Model: {card.model}</td>
+                      <td>Trim: {card.trim}</td>
+                    </tr>
+                    <tr>
+                      <td colSpan="2">Odometer: {card.odometer}</td>
+                      <td>Color: {card.color}</td>
+                    </tr>
+                    <tr>
+                      <td colSpan="2">Vehicle Year: {card.year}</td>
+                      <td>Price: {card.price}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+
+                <Button className="carDetailsButton">
+                  <NavLink to="/search-detail" className="nav-search">
+                    Details
+                  </NavLink>
+                </Button>
+            </div>
+        )
+    }
+
+  return (
+    <body>
+        <h2>Search Result</h2>
+        <div>
+        <Row>
                     <Col>
                     <div className="makeColumn">
                     <div className="makeTitle">
@@ -85,58 +126,11 @@ const SearchDetail = () => {
                     </Col>
 
                 </Row>
-        
-            <div className="test">
-            <h1>Details</h1>
-         
-            <h3>3.5 km away</h3>
-            </div>
-         
-            
-
-            <div className="carDetailsWithImage">
-            <img src={carImage} alt="carDetailsImage" className="carDetailsImage" />
+        </div>
 
 
-            <div className="carDetails">
-                <h4>Make</h4>
-                <h4>Model</h4>
-                <h4>Price</h4>
-                <h4>Range</h4>
-                <h4>Trim</h4>
-                <h4>Color</h4>
-            </div>
-            
-            <div className="carSpecific">
-                <h4>Tesla</h4>
-                <h4>Model 3</h4>
-                <h4>$40,000</h4>
-                <h4>500km</h4>
-                <h4>Trim</h4>
-                <h4>White</h4>
-            </div>
-
-            <div className="additionalInfo">
-    
-       
-                <h3>Additional Information</h3>
-            
-         
-                <Card className="infoCard">
-                FREE CarProof report and Safety inspection available for review. 
-                Large used car inventory! Open 7 days a week! IN HOUSE FINANCING available. 
-                Close to 100% approval rate. Cash back options. 
-                We accept all local and out of town trade-ins. 
-                For additional vehicle information or to schedule your appointment, 
-                call us or send an inquiry. Come and visit us: 2060 Oxford Connector, Port Coquitlam. 
-                We also specialize in out of town deliveries.
-                </Card>
-            </div>
-
-            </div>
-            </div>
-        </body>
-    )
+        {/* <Button className="emailAlertButton">Send Email Alert</Button> */}
+        <div className="results"> {cardInfo.map(renderCard)} </div>
+    </body>
+  );
 }
-
-export default SearchDetail

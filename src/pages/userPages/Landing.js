@@ -1,11 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/landing.css";
+import "../css/landing.css";
 
-import carImage1 from "../images/kia.jpg";
-import carImage2 from "../images/bmw.jpg";
-import carImage3 from "../images/jp.jpg";
-import carImage4 from "../images/ford.jpg";
+import carImage1 from "../../images/kia.jpg";
+import carImage2 from "../../images/bmw.jpg";
+import carImage3 from "../../images/jp.jpg";
+import carImage4 from "../../images/ford.jpg";
 import { Button, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Card, Table, Row, Col, Form } from "react-bootstrap";
