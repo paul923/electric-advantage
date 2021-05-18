@@ -1,7 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/landing.css";
-
 import carImage1 from "../../images/kia.jpg";
 import carImage2 from "../../images/bmw.jpg";
 import carImage3 from "../../images/jp.jpg";
@@ -10,6 +9,12 @@ import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Card, Table, Row, Col, Form } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
+import {
+  getMakeList,
+  getModelListByMakeID,
+  getVehicleListByMakeIDAndModelID,
+  getVehicleSearchResult,
+} from "../../api/VehicleAPI";
 
 export default function LandingPage() {
   const [makeList, setMakeList] = React.useState([]);
