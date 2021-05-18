@@ -4,7 +4,6 @@ import {
   HomePage,
   WhoWeAre,
   ContactUs,
-  SignIn,
   Profile,
   Search,
   SearchResult,
@@ -63,7 +62,6 @@ export default class App extends Component {
 
         <Route path="/who-we-are" component={WhoWeAre} />
         <Route path="/contact-us" component={ContactUs} />
-        <Route path="/sign-in" component={SignIn} />
         <Route path="/profile" component={Profile} />
         <Route path="/search" component={Search} />
         <Route path="/search-result" component={SearchResult} />

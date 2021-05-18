@@ -31,7 +31,7 @@ const Menu = () => {
           <NavLink to="/profile" activeStyle>
             Profile
           </NavLink>
-          <NavLink to="/sign-in" activeStyle>
+          <NavLink to="/login" activeStyle>
             Sign In
           </NavLink>
         </NavMenu>
