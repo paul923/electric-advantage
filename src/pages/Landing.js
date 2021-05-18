@@ -159,7 +159,7 @@ export default function LandingPage() {
 
               <Container>
                 <RangeSlider
-                  max={500000}
+                  max={250000}
                   value={priceValue}
                   onChange={(e) => setPriceValue(e.target.value)}
                   variant="success"
