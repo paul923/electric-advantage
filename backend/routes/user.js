@@ -11,7 +11,6 @@ router.get("/", function (req, res, next) {
     SELECT *
     FROM ??
     WHERE 1=1
-    AND IsDeleted = 0
     `;
     var parameters = ["ea_db.user"];
     sql = mysql.format(sql, parameters);
@@ -38,7 +37,6 @@ router.get("/:userID", function (req, res, next) {
     FROM ??
     WHERE 1=1
     AND UserId = ?
-    AND IsDeleted = 0
     `;
     var parameters = ["ea_db.user", req.params.userID];
     sql = mysql.format(sql, parameters);

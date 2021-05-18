@@ -132,3 +132,74 @@ export async function getVehicleSearchResult(
     console.log(error);
   }
 }
+
+/**
+ * Retrieves all inventory items those belong to specific dealership
+ * @param {string} dealershipID
+ * @returns inventory item objects array
+ */
+export async function getInventoryByDealershipID(dealershipID) {
+  try {
+    console.log(`Retrieving all inventory items belong to ${dealershipID}`);
+    let url = `http://${database}:3000/inventories/${dealershipID}`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${json.body}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Retrieves all available colors in the database
+ * @returns color objects array
+ */
+export async function getColors() {
+  try {
+    console.log(`Retrieving all available colors`);
+    let url = `http://${database}:3000/colors`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${json.body}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ *
+ * @param {
+ *        [{"VehicleID": string,
+ *         "DealershipID": string,
+ *         "ColorID": string,
+ *         "ConditionID": int,
+ *         "StartPrice": float,
+ *         "Odometer": float,
+ *         "Quantity" : int}]
+ *        } vehicleArray
+ * @returns message string
+ */
+export async function addInventoryItemToDealership(vehicleArray) {
+  try {
+    console.log(`Registering items to the dealership`);
+    let url = `http://${database}:3000/inventories`;
+    let response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(vehicleArray),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
