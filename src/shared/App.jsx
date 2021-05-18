@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
-  HomePage,
   WhoWeAre,
   ContactUs,
   Profile,
-  Search,
   SearchResult,
   SearchDetail,
   Landing,
@@ -48,7 +46,7 @@ export default class App extends Component {
     ) : (
       <div>
         <Menu />
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={Landing} />
         <Switch>
           <Route path="/about/:name" component={AboutPage} />
           <Route path="/about" component={AboutPage} />
@@ -60,13 +58,14 @@ export default class App extends Component {
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
 
-        <Route path="/who-we-are" component={WhoWeAre} />
-        <Route path="/contact-us" component={ContactUs} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/search" component={Search} />
-        <Route path="/search-result" component={SearchResult} />
-        <Route path="/search-detail" component={SearchDetail} />
-        <Route path="/landing" component={Landing} />
+        <Switch>
+          <Route path="/who-we-are" component={WhoWeAre} />
+          <Route path="/contact-us" component={ContactUs} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/search-result" component={SearchResult} />
+          <Route path="/search-detail" component={SearchDetail} />
+        </Switch>
+
         <Route path="/api-test" component={TestingPage} />
       </div>
     );

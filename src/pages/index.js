@@ -15,7 +15,6 @@ export { default as Subscription } from "./dealerPages/Subscription";
 export { default as WhoWeAre } from "./userPages/WhoWeAre";
 export { default as ContactUs } from "./userPages/ContactUs";
 export { default as Profile } from "./userPages/Profile";
-export { default as Search } from "./userPages/Search";
 export { default as SearchResult } from "./userPages/SearchResult";
 export { default as SearchDetail } from "./userPages/SearchDetail";
 export { default as Landing } from "./userPages/Landing";
