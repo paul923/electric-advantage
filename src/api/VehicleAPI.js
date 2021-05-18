@@ -14,9 +14,17 @@ export async function getMakeList() {
   }
 }
 
+/**
+ *
+ * @param {"MakeID": string,
+ *         "MakeName": string} make
+ * @returns json object
+ */
 export async function registerMake(make) {
   try {
-    let response = await fetch(`http://${database}:3000/make`, {
+    console.log(`Registering make with ID: ${make.makeID}`);
+    let url = `http://${database}:3000/make`;
+    let response = await fetch(url, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -26,6 +34,7 @@ export async function registerMake(make) {
     });
     let json = await response.json();
     json["status"] = response.status;
+    console.log(json.body);
     return json;
   } catch (error) {
     return false;
@@ -46,6 +55,33 @@ export async function getModelListByMakeID(makeID) {
   }
 }
 
+/**
+ *
+ * @param {"ModelID": string,
+ *         "ModelName": string} model
+ * @returns
+ */
+export async function registerModelWithMakeID(model, makeID) {
+  try {
+    console.log(`Registering a new model to MakeID: ${makeID}`);
+    let url = `http://${database}:3000/makes/${makeID}/models`;
+    let response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(model),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getVehicleListByMakeIDAndModelID(makeID, modelID) {
   try {
     console.log(`Retrieving all the vehicles belongs to ${modelID}`);
@@ -60,6 +96,16 @@ export async function getVehicleListByMakeIDAndModelID(makeID, modelID) {
   }
 }
 
+/**
+ *
+ * @param {string} makeID
+ * @param {float} evRange
+ * @param {float} startPrice
+ * @param {int} conditionID
+ * @param {float} lat
+ * @param {float} lng
+ * @returns array of vehicle inventory objects
+ */
 export async function getVehicleSearchResult(
   makeID,
   evRange,
@@ -86,21 +132,3 @@ export async function getVehicleSearchResult(
     console.log(error);
   }
 }
-
-// export async function createUser(User) {
-//   try {
-//     let response = await fetch(`http://${database}:3000/users`, {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(User),
-//     });
-//     let json = await response.json();
-//     json["status"] = response.status;
-//     return json;
-//   } catch (error) {
-//     return false;
-//   }
-// }
