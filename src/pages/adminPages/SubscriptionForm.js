@@ -10,13 +10,9 @@ import * as subscriptionService from "./subscriptionService";
 const initialFValues = {
    
     id: 0,
-    dealerID: '',
     planID: '',
     subPlan: '',
     pricing: '',
-    recurring: '',
-    missed: '',
-  
 }
 
 export default function SubscriptionForm(props) {
@@ -63,13 +59,6 @@ export default function SubscriptionForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        name="dealerID"
-                        label="Dealer ID"
-                        value={values.dealerID}
-                        onChange={handleInputChange}
-                        error={errors.dealerID}
-                    />
-                    <Controls.Input
                         label="Plan ID"
                         name="planID"
                         value={values.planID}
@@ -89,24 +78,8 @@ export default function SubscriptionForm(props) {
                         value={values.pricing}
                         onChange={handleInputChange}
                     />
-                    <Controls.Input
-                        label="Recurring"
-                        name="recurring"
-                        value={values.recurring}
-                        onChange={handleInputChange}
-                    />
-                    <Controls.Input
-                        label="Missed"
-                        name="missed"
-                        value={values.missed}
-                        onChange={handleInputChange}
-                    />
-
                 </Grid>
                 <Grid item xs={6}>
-                    
-                    
-
                     <div>
                         <Controls.Button
                             type="submit"

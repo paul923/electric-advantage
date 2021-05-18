@@ -10,11 +10,12 @@ import * as dealerService from "./dealerService";
 const initialFValues = {
     
     id: 0,
+    dealerID: '',
     name: '',
     address: '',
     email: '',
     phone: '',
-    dealerID: '',
+    planID: '',    
    
 }
 
@@ -68,6 +69,12 @@ export default function DealerForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
+                        label="Dealer ID"
+                        name="dealerID"
+                        value={values.dealerID}
+                        onChange={handleInputChange}
+                    />
+                    <Controls.Input
                         name="name"
                         label="Name"
                         value={values.name}
@@ -98,11 +105,13 @@ export default function DealerForm(props) {
                         error={errors.phone}
                     />
                     <Controls.Input
-                        label="Dealer ID"
-                        name="dealerID"
-                        value={values.dealerID}
+                        label="Plan ID"
+                        name="planID"
+                        value={values.planID}
                         onChange={handleInputChange}
+                        error={errors.planID}
                     />
+                    
                    
             
 

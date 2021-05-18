@@ -30,12 +30,9 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'dealerID', label: 'Dealer ID' }, 
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
-    { id: 'recurring', label: 'Recurring' }, 
-    { id: 'missed', label: 'Missed' }, 
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -138,12 +135,9 @@ export default function Subscriptions() {
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
-                                    <TableCell>{item.dealerID}</TableCell>
                                     <TableCell>{item.planID}</TableCell>
                                     <TableCell>{item.subPlan}</TableCell>
                                     <TableCell>{item.pricing}</TableCell>
-                                    <TableCell>{item.recurring}</TableCell>
-                                    <TableCell>{item.missed}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                         //edit button color

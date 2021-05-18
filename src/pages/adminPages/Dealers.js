@@ -30,11 +30,12 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
+    { id: 'dealerID', label: 'Dealer ID' }, 
     { id: 'name', label: 'Name' }, 
     { id: 'address', label: 'Address' }, 
     { id: 'email', label: 'Email' }, 
     { id: 'phone', label: 'Phone' }, 
-    { id: 'dealerID', label: 'Dealer ID' }, 
+    { id: 'planID', label:'Plan ID' },
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -137,11 +138,13 @@ export default function Vehicles() {
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
+                                    <TableCell>{item.dealerID}</TableCell>
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.address}</TableCell>
                                     <TableCell>{item.email}</TableCell>
                                     <TableCell>{item.phone}</TableCell>
-                                    <TableCell>{item.dealerID}</TableCell>
+                                    <TableCell>{item.planID}</TableCell>
+                                    
                         
                                     <TableCell>
                                         <Controls.ActionButton
