@@ -14,6 +14,24 @@ export async function getMakeList() {
   }
 }
 
+export async function registerMake(make) {
+  try {
+    let response = await fetch(`http://${database}:3000/make`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(make),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    return json;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function getModelListByMakeID(makeID) {
   try {
     console.log(`Retrieving all the models belongs to ${makeID}`);

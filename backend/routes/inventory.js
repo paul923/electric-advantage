@@ -4,8 +4,7 @@ var pool = require("../database").pool;
 var mysql = require("../database").mysql;
 
 // GET vehicles in inventory.
-// TODO: insert query parameter
-// TODO: calculate if the user is within the range (closest 20)
+// TODO: join with inventory image to retrieve images
 router.get("/", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err; // When not connected
