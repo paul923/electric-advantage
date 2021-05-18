@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/Home.css";
-import SignUpModal from "../components/SignUpModal";
-import background from "../images/background.jpg";
+import "../css/Home.css";
+import SignUpModal from "../../components/SignUpModal";
+import background from "../../images/background.jpg";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 

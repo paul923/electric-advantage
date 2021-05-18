@@ -1,6 +1,6 @@
 import React from 'react'
-import carImage from "../images/tesla.jpg";
-import "./css/Home.css";
+import carImage from "../../images/tesla.jpg";
+import "../css/Home.css";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import RangeSlider from "react-bootstrap-range-slider";

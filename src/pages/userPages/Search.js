@@ -1,8 +1,8 @@
 //DON'T NEED THIS PAGE!!!!!!!!!!!!!!!!!!!!!!
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/Home.css";
-import background from "../images/background.jpg";
+import "../css/Home.css";
+import background from "../../images/background.jpg";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
