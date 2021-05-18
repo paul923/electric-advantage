@@ -6,8 +6,9 @@ import carImage from "../images/tesla.jpg";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Card, Table } from "react-bootstrap";
+import { getVehicleSearchResult } from "../api/VehicleAPI";
 
-export default function SearchResult() {
+const SearchResult = (props) => {
   const cardInfo = [
     /* GET SEARCHED CARS HERE */
     {
@@ -53,7 +54,78 @@ export default function SearchResult() {
     },
   ];
 
+  const makeID = props.location.state.makeInput;
+  const range = props.location.state.rangeInput;
+  const price = props.location.state.priceInput;
+  const condition = props.location.state.conditionIDInput;
+  const lat = props.location.state.latInput;
+  const long = props.location.state.longInput;
+
+  // console.log("SEARCH RESULTS:" + searchResults["MakeID"]);
+
+  async function onLoadGetVehicleSearchResult() {
+    let resultSearch = await getVehicleSearchResult(
+      makeID,
+      range,
+      price,
+      condition,
+      lat,
+      long
+    );
+
+    await setCarCards(
+      resultSearch["body"].map((car) => {
+        return {
+          image: carImage,
+          make: car["MakeID"],
+          model: car["ModelID"],
+          trim: car["Trim"],
+          odemeter: car["Odometer"],
+          color: car["ColorID"],
+          year: car["Year"],
+          price: car["StartPrice"],
+        };
+      })
+    );
+  }
+
+  React.useEffect(() => {
+    onLoadGetVehicleSearchResult();
+  }, []);
+
+  const [carCards, setCarCards] = React.useState([]);
+
+  // image: carImage,
+  // make: "Tesla",
+  // model: "Model 3",
+  // trim: "Trim",
+  // odometer: "30,000km",
+  // color: "White",
+  // year: "2020",
+  // price: "$40,000",
+
+  // resultSearch.map((car) => {
+  //   console.log(
+  //     "ABC" +
+  //       {
+  //         image: carImage,
+  //         make: car["MakeID"],
+  //         model: car["ModelID"],
+  //         trim: car["Trim"],
+  //         odemeter: car["Odometer"],
+  //         color: car["ColorID"],
+  //         year: car["Year"],
+  //         price: car["StartPrice"],
+  //       }
+  //   );
+  // });
+
+  // console.log("CARCARD:" + carCards);
+
   const renderCard = (card, index) => {
+    {
+      // console.log("MakeID: " + { makeID });
+    }
     return (
       <div className="carCard">
         <img src={card.image} className="carImage" />
@@ -89,7 +161,9 @@ export default function SearchResult() {
     <body>
       <h2>Search Result</h2>
       <Button className="emailAlertButton">Send Email Alert</Button>
-      <div className="results"> {cardInfo.map(renderCard)} </div>
+      <div className="results"> {carCards.map(renderCard)} </div>
     </body>
   );
-}
+};
+
+export default SearchResult;
