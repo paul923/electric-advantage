@@ -11,7 +11,6 @@ router.get("/", function (req, res, next) {
     SELECT *
     FROM ??
     WHERE 1=1
-    AND IsDeleted = 0
     `;
     var parameters = ["ea_db.vehicle_make"];
     sql = mysql.format(sql, parameters);
@@ -38,7 +37,6 @@ router.get("/:makeID/models", function (req, res, next) {
     FROM ??
     WHERE 1=1
     AND MakeID = ?
-    AND IsDeleted = 0
     `;
     var parameters = ["ea_db.vehicle_model", req.params.makeID];
     sql = mysql.format(sql, parameters);
@@ -98,7 +96,6 @@ router.get("/:makeID/models/:modelID", function (req, res, next) {
     FROM ??
     WHERE 1=1
     AND ModelID = ?
-    AND IsDeleted = 0
     `;
     var parameters = ["ea_db.vehicle", req.params.makeID];
     sql = mysql.format(sql, parameters);
