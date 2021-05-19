@@ -25,6 +25,7 @@ export default function LandingPage() {
   const [lat, setLat] = React.useState("");
   const [long, setLong] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
+  const [makeName, setMakeName] = React.useState("Nissan");
 
   const cardInfo = [
     { image: carImage1, name: "Downtown Kia", number: "50" },
@@ -124,10 +125,14 @@ export default function LandingPage() {
 
             <select
               className="make-dropdown"
-              onChange={(e) => setMakeID(e.target.value)}
+              onChange={(e) => {
+                let carMakeObject = JSON.parse(e.target.value);
+                setMakeID(carMakeObject.MakeID);
+                setMakeName(carMakeObject.MakeName);
+              }}
             >
               {makeList.map((make) => (
-                <option value={make.MakeID}>{make.MakeName}</option>
+                <option value={JSON.stringify(make)}>{make.MakeName}</option>
               ))}
             </select>
           </div>
@@ -199,6 +204,7 @@ export default function LandingPage() {
                 theMakeList: makeList,
                 longInput: long,
                 latInput: lat,
+                makeNameInput: makeName,
               },
             }}
             className="nav-search"
