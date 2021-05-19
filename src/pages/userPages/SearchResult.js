@@ -30,6 +30,9 @@ const SearchResult = (props) => {
     props.location.state.theMakeList
   );
   const [carCards, setCarCards] = React.useState([]);
+  const [makeName, setMakeName] = React.useState(
+    props.location.state.makeNameInput
+  );
 
   let resultSearch = [];
 
@@ -40,6 +43,7 @@ const SearchResult = (props) => {
     setRange(500);
     setPrice(125000);
     setCondition(1);
+    setMakeName("Nissan");
   }, []);
 
   async function onLoadGetVehicleSearchResult() {
@@ -57,7 +61,7 @@ const SearchResult = (props) => {
         resultSearch["body"].map((car) => {
           return {
             image: carImage,
-            make: car["MakeID"],
+            make: makeName,
             model: car["ModelName"],
             trim: car["Trim"],
             odometer: car["Odometer"].toLocaleString("en") + " km",
@@ -135,10 +139,14 @@ const SearchResult = (props) => {
               </div>
               <select
                 className="make-dropdown"
-                onChange={(e) => setMakeID(e.target.value)}
+                onChange={(e) => {
+                  let makeObject = JSON.parse(e.target.value);
+                  setMakeName(makeObject.MakeName);
+                  setMakeID(makeObject.MakeID);
+                }}
               >
                 {makeList.map((make) => (
-                  <option value={make.MakeID}>{make.MakeName}</option>
+                  <option value={JSON.stringify(make)}>{make.MakeName}</option>
                 ))}
               </select>
             </div>
