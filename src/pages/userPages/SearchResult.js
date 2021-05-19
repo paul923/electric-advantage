@@ -32,10 +32,6 @@ const SearchResult = (props) => {
   const [carCards, setCarCards] = React.useState([]);
 
   let resultSearch = [];
-  let newMake = 1;
-  // let newPrice = 125000;
-  // let newRange = 500;
-  let newCondition = 1;
 
   async function onLoadGetVehicleSearchResult() {
     resultSearch = await getVehicleSearchResult(
@@ -62,7 +58,7 @@ const SearchResult = (props) => {
           };
         })
       );
-    }
+    } else setCarCards([]);
   }
 
   React.useEffect(() => {
@@ -113,7 +109,7 @@ const SearchResult = (props) => {
               </div>
               <select
                 className="make-dropdown"
-                onChange={(e) => (newMake = e.target.value)}
+                onChange={(e) => setMakeID(e.target.value)}
               >
                 {makeList.map((make) => (
                   <option value={make.MakeID}>{make.MakeName}</option>
@@ -129,7 +125,7 @@ const SearchResult = (props) => {
               </div>
               <select
                 className="status-dropdown"
-                onClick={(e) => (newCondition = e.target.value)}
+                onChange={(e) => setCondition(e.target.value)}
               >
                 <option value={parseInt("1", 10)}>New</option>
                 <option value={parseInt("2", 10)}>Used</option>
@@ -177,10 +173,8 @@ const SearchResult = (props) => {
             <Button
               className="searchButton"
               onClick={() => {
-                // setCondition(newCondition);
-                // setMakeID(newMake);
-                // setRange(rangeValue);
-                // setPrice(priceValue);
+                setRange(rangeValue);
+                setPrice(priceValue);
                 onLoadGetVehicleSearchResult();
               }}
             >
