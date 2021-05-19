@@ -11,17 +11,22 @@ const adminMenu = () => {
     <div>
       <ul>
         <li>
-          <NavLink exact to="/cars" activeStyle={activeStyle}>
-            Cars
+          <NavLink exact to="/1" activeStyle={activeStyle}>
+            Subscriptions
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/dealers" activeStyle={activeStyle}>
-            Dealers/Subscriptions
+          <NavLink exact to="/2" activeStyle={activeStyle}>
+            Vehicles
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/3" activeStyle={activeStyle}>
+            Dealers
           </NavLink>
         </li>
       </ul>
-      <button>Log out</button>
+     
       <hr />
     </div>
   );

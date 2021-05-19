@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import DealerForm from "./DealerForm";
+import VehicleForm from "./VehicleForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
-import * as dealerService from "./dealerService";
+import * as vehicleService from "./vehicleService";
 import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
@@ -17,7 +17,7 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
-        padding: theme.spacing(3)
+        padding: theme.spacing(1)
     },
     searchInput: {
         width: '75%'
@@ -30,12 +30,15 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'dealerID', label: 'Dealer ID' }, 
-    { id: 'name', label: 'Name' }, 
-    { id: 'address', label: 'Address' }, 
-    { id: 'email', label: 'Email' }, 
-    { id: 'phone', label: 'Phone' }, 
-    { id: 'planID', label:'Plan ID' },
+    { id: 'carID', label: 'Car ID' },
+    { id: 'model', label: 'Model' },
+    { id: 'make', label: 'Make' },
+    { id: 'trim', label: 'Trim' },
+    { id: 'evRange', label: 'EV Range' },
+    { id: 'priceLow', label: 'Price Lower' },
+    { id: 'priceUp', label: 'Price Upper' },
+    { id: 'perf1', label: 'Performance Figure 1' },
+    { id: 'perf2', label: 'Performance Figure 2' },
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -43,7 +46,7 @@ export default function Vehicles() {
 
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
-    const [records, setRecords] = useState(dealerService.getAllDealers())
+    const [records, setRecords] = useState(vehicleService.getAllVehicles())
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
@@ -68,15 +71,15 @@ export default function Vehicles() {
         })
     }
 
-    const addOrEdit = (dealer, resetForm) => {
-        if (dealer.id == 0)
-        dealerService.insertDealer(dealer)
+    const addOrEdit = (vehicle, resetForm) => {
+        if (vehicle.id == 0)
+        vehicleService.insertVehicle(vehicle)
         else
-        dealerService.updateDealer(dealer)
+        vehicleService.updateVehicle(vehicle)
         resetForm()
         setRecordForEdit(null)
         setOpenPopup(false)
-        setRecords(dealerService.getAllDealers())
+        setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
             message: 'Submitted Successfully',
@@ -94,8 +97,8 @@ export default function Vehicles() {
             ...confirmDialog,
             isOpen: false
         })
-        dealerService.deleteDealer(id);
-        setRecords(dealerService.getAllDealers())
+        vehicleService.deleteVehicle(id);
+        setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
             message: 'Deleted Successfully',
@@ -106,7 +109,7 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Dealer Database"
+                title="Vehicle Database"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />
@@ -114,7 +117,7 @@ export default function Vehicles() {
 
                 <Toolbar>
                     <Controls.Input
-                        label="Search for dealers"
+                        label="Search Vehicle Database"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -138,14 +141,15 @@ export default function Vehicles() {
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
-                                    <TableCell>{item.dealerID}</TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.address}</TableCell>
-                                    <TableCell>{item.email}</TableCell>
-                                    <TableCell>{item.phone}</TableCell>
-                                    <TableCell>{item.planID}</TableCell>
-                                    
-                        
+                                    <TableCell>{item.carID}</TableCell>
+                                    <TableCell>{item.model}</TableCell>
+                                    <TableCell>{item.make}</TableCell>
+                                    <TableCell>{item.trim}</TableCell>
+                                    <TableCell>{item.evRange}</TableCell>
+                                    <TableCell>{item.priceLow}</TableCell>
+                                    <TableCell>{item.priceUp}</TableCell>
+                                    <TableCell>{item.perf1}</TableCell>
+                                    <TableCell>{item.perf2}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
@@ -173,11 +177,11 @@ export default function Vehicles() {
                 <TblPagination />
             </Paper>
             <Popup
-                title="Add a new dealer"
+                title="Add a new vehicle"
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                <DealerForm
+                <VehicleForm
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit} />
             </Popup>
