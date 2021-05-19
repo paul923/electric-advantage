@@ -34,7 +34,7 @@ export async function registerMake(make) {
     });
     let json = await response.json();
     json["status"] = response.status;
-    console.log(json.body);
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
     return json;
   } catch (error) {
     return false;
@@ -89,7 +89,7 @@ export async function getVehicleListByMakeIDAndModelID(makeID, modelID) {
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${json.body}`);
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
     return json;
   } catch (error) {
     console.log(error);
@@ -145,7 +145,25 @@ export async function getInventoryByDealershipID(dealershipID) {
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${json.body}`);
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Retrieves all dealership information
+ * @returns dealership object array
+ */
+export async function getAllDealerships() {
+  try {
+    console.log(`Retrieving all dealership information`);
+    let url = `http://${database}:3000/dealerships`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
     return json;
   } catch (error) {
     console.log(error);
@@ -163,7 +181,7 @@ export async function getColors() {
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${json.body}`);
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
     return json;
   } catch (error) {
     console.log(error);
@@ -171,7 +189,7 @@ export async function getColors() {
 }
 
 /**
- *
+ * Add bulk of vehicles to inventory database.
  * @param {
  *        [{"VehicleID": string,
  *         "DealershipID": string,
@@ -194,6 +212,55 @@ export async function addInventoryItemToDealership(vehicleArray) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(vehicleArray),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Retrieves all available vehicles in the database
+ * @returns
+ */
+export async function getAllAvailableVehicles() {
+  try {
+    console.log(`Retrieving all available vehicles`);
+    let url = `http://${database}:3000/vehicles`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Add vehicle to the database.
+ * @param {"VehicleID": string,
+ *        "EVRange" : float,
+ *        "BatterySize" : float,
+ *        "Trim" : string,
+ *        "Year" : int,
+ *        "ModelID" : int} vehicle
+ * @returns string message
+ */
+export async function registerVehicleToDatabase(vehicle) {
+  try {
+    console.log(`Registering vehicle to the database`);
+    let url = `http://${database}:3000/vehicles`;
+    let response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(vehicle),
     });
     let json = await response.json();
     json["status"] = response.status;

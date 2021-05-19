@@ -30,10 +30,13 @@ router.get("/", function (req, res, next) {
         * sin( radians( Latitude ) )
       )
     ) AS Distance
-    FROM (SELECT VehicleID, EVRange, BatterySize, Trim, Year, vehicle.ModelID, ModelName, MakeID
+    FROM (SELECT VehicleID, EVRange, BatterySize, Trim, 
+      Year, vehicle.ModelID, ModelName, vehicle_model.MakeID, MakeName
           FROM ea_db.vehicle 
           JOIN ea_db.vehicle_model 
             ON vehicle.ModelID = vehicle_model.ModelID
+          JOIN ea_db.vehicle_make
+            ON vehicle_model.MakeID = vehicle_make.MakeID
           ) AS vehicle
     JOIN ea_db.vehicle_inventory 
       ON vehicle.VehicleID = vehicle_inventory.VehicleID
