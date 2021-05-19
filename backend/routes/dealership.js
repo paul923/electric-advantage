@@ -3,7 +3,7 @@ var router = express.Router();
 var pool = require("../database").pool;
 var mysql = require("../database").mysql;
 
-// GET makes listing.
+// GET all dealerships in database
 // TODO: Cache the data
 router.get("/", function (req, res, next) {
   pool.getConnection(function (err, connection) {
@@ -23,7 +23,7 @@ router.get("/", function (req, res, next) {
       } else if (results.length > 0) {
         res.status(200).send({ body: results });
       } else {
-        res.status(404).send({ error: "Makes could not be retrieved" });
+        res.status(404).send({ error: "Dealerships could not be retrieved" });
       }
     });
   });

@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
     SELECT *
     FROM ??
     `;
-    var parameters = ["ea_db.user"];
+    var parameters = ["ea_db.vehicle"];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
@@ -21,7 +21,39 @@ router.get("/", function (req, res, next) {
       } else if (results.length > 0) {
         res.status(200).send({ body: results });
       } else {
-        res.status(404).send({ body: "Users could not be retrieved" });
+        res.status(404).send({ body: "Vehicles could not be retrieved" });
+      }
+    });
+  });
+});
+
+// POST vehicle to database that could be used by the dealership
+router.post("/", function (req, res, next) {
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var vehicle = req.body;
+    var sql = `
+    INSERT INTO ea_db.vehicle 
+    SET ?
+    `;
+    sql = mysql.format(sql, vehicle);
+    console.log(sql);
+    connection.query(sql, function (error, results, fields) {
+      connection.release();
+      if (error) {
+        console.error(error);
+        if (error.code == "ER_DUP_ENTRY") {
+          res.status(400).send({
+            error: error.sqlMessage,
+          });
+        } else {
+          res.status(500).send({ error: "Database Error" });
+        }
+      } else if (results.affectedRows > 0) {
+        res.status(201).send({
+          body: `Vehicle Created with ID: ${vehicle.VehicleID}`,
+        });
       }
     });
   });
