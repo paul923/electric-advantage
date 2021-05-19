@@ -34,7 +34,7 @@ export async function registerMake(make) {
     });
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    console.log(json.body);
     return json;
   } catch (error) {
     return false;
@@ -215,7 +215,7 @@ export async function addInventoryItemToDealership(vehicleArray) {
     });
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    console.log(json.body);
     return json;
   } catch (error) {
     console.log(error);
@@ -256,6 +256,65 @@ export async function registerVehicleToDatabase(vehicle) {
     let url = `http://${database}:3000/vehicles`;
     let response = await fetch(url, {
       method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(vehicle),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Delete available vehicle found with VehicleID.
+ * @param {string} vehicleID
+ * @returns message string
+ */
+export async function deleteVehicleByID(vehicleID) {
+  try {
+    console.log(`Deleting vehicle from the database`);
+    let url = `http://${database}:3000/vehicles/${vehicleID}`;
+    let response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Updates the vehicle's attribute found with VehicleID.
+ * @param {"VehicleID" : string,
+ *         "EVRange" : float,
+ *         "BatterySize" : float,
+ *         "Trim" : string,
+ *         "Year" : int,
+ *         "ModelID" : int
+ *        } vehicle
+ * @returns
+ */
+export async function updateVehicleByID(vehicle) {
+  try {
+    console.log(
+      `Updating vehicle with ID: ${vehicle.VehicleID} from the database`
+    );
+    let url = `http://${database}:3000/vehicles/${vehicle.VehicleID}`;
+    let response = await fetch(url, {
+      method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

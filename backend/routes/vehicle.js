@@ -13,6 +13,7 @@ router.get("/", function (req, res, next) {
     `;
     var parameters = ["ea_db.vehicle"];
     sql = mysql.format(sql, parameters);
+    console.log(sql);
     connection.query(sql, function (error, results, fields) {
       connection.release();
       if (error) {
@@ -54,6 +55,80 @@ router.post("/", function (req, res, next) {
         res.status(201).send({
           body: `Vehicle Created with ID: ${vehicle.VehicleID}`,
         });
+      }
+    });
+  });
+});
+
+// DELETE vehicle from the database by VehicleID
+router.delete("/:vehicleID", function (req, res, next) {
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var vehicleID = req.params.vehicleID;
+    var sql = `
+    DELETE 
+    FROM ?? 
+    WHERE 1=1
+    AND VehicleID = ?
+    ;
+    `;
+    var parameters = ["ea_db.vehicle", vehicleID];
+    sql = mysql.format(sql, parameters);
+    console.log(sql);
+    connection.query(sql, function (error, results, fields) {
+      connection.release();
+      if (error) {
+        console.log(error);
+        res.status(500).send({ error: "Database Error" });
+      } else if (results.affectedRows > 0) {
+        res.status(200).send({
+          body: `Vehicle with ID: ${vehicleID} deleted.`,
+        });
+      } else {
+        res
+          .status(404)
+          .send({ error: `Vehicle with ID: ${vehicleID} could not be found` });
+      }
+    });
+  });
+});
+
+// PATCH vehicle's attibutes to VehicleID specific
+router.patch("/:vehicleID", function (req, res, next) {
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var vehicleID = req.params.vehicleID;
+    var data = req.body;
+    var sql = `
+    UPDATE ?? 
+    SET 
+      EVRange = '${data.EVRange}', 
+      BatterySize = '${data.BatterySize}', 
+      Trim = '${data.Trim}', 
+      Year = ${data.Year}, 
+      ModelID = ${data.ModelID}  
+    WHERE 1=1
+    AND VehicleID = ?
+    ;
+    `;
+    var parameters = ["ea_db.vehicle", vehicleID];
+    sql = mysql.format(sql, parameters);
+    console.log(sql);
+    connection.query(sql, function (error, results, fields) {
+      connection.release();
+      if (error) {
+        console.log(error);
+        res.status(500).send({ error: "Database Error" });
+      } else if (results.affectedRows > 0) {
+        res.status(200).send({
+          body: `Vehicle with ID: ${vehicleID} updated.`,
+        });
+      } else {
+        res
+          .status(404)
+          .send({ error: `Vehicle with ID: ${vehicleID} could not be found` });
       }
     });
   });
