@@ -24,8 +24,8 @@ const SearchResult = (props) => {
   const [condition, setCondition] = React.useState(
     props.location.state.conditionIDInput
   );
-  const [lat, setLat] = React.useState(props.location.state.latInput);
-  const [long, setLong] = React.useState(props.location.state.longInput);
+  const [lat, setLat] = React.useState("");
+  const [long, setLong] = React.useState("");
   const [makeList, setMakeList] = React.useState(
     props.location.state.theMakeList
   );
@@ -59,43 +59,65 @@ const SearchResult = (props) => {
         })
       );
     } else setCarCards([]);
+    console.log(makeID, range, price, condition, lat, long);
+  }
+
+  function success(pos) {
+    setLat(pos.coords.latitude);
+    setLong(pos.coords.longitude);
+    console.log(
+      `Longitude : ${pos.coords.longitude}\nLatitude : ${pos.coords.latitude}`
+    );
+  }
+
+  function error(err) {
+    alert("Turn on geolocation!");
+  }
+
+  function onLoadCheckGeolocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      alert("Must turn on Geolocation!");
+    }
   }
 
   React.useEffect(() => {
     onLoadGetVehicleSearchResult();
+    onLoadCheckGeolocation();
   }, []);
 
-  const renderCard = (card, index) => {
-    return (
-      <div className="carCard">
-        <img src={card.image} className="carImage" />
+  // const renderCard = (card, index) => {
+  //   return (
+  //     <div className="carCard">
+  //       <img src={card.image} className="carImage" />
 
-        <Table striped hover className="carTable">
-          <tbody>
-            <tr>
-              <td>Make: {card.make}</td>
-              <td>Model: {card.model}</td>
-              <td>Trim: {card.trim}</td>
-            </tr>
-            <tr>
-              <td colSpan="2">Odometer: {card.odometer}</td>
-              <td>Color: {card.color}</td>
-            </tr>
-            <tr>
-              <td colSpan="2">Vehicle Year: {card.year}</td>
-              <td>Price: {card.price}</td>
-            </tr>
-          </tbody>
-        </Table>
+  //       <Table striped hover className="carTable">
+  //         <tbody>
+  //           <tr>
+  //             <td>Make: {card.make}</td>
+  //             <td>Model: {card.model}</td>
+  //             <td>Trim: {card.trim}</td>
+  //           </tr>
+  //           <tr>
+  //             <td colSpan="2">Odometer: {card.odometer}</td>
+  //             <td>Color: {card.color}</td>
+  //           </tr>
+  //           <tr>
+  //             <td colSpan="2">Vehicle Year: {card.year}</td>
+  //             <td>Price: {card.price}</td>
+  //           </tr>
+  //         </tbody>
+  //       </Table>
 
-        <Button className="carDetailsButton">
-          <NavLink to="/search-detail" className="nav-search">
-            Details
-          </NavLink>
-        </Button>
-      </div>
-    );
-  };
+  //       <Button className="carDetailsButton">
+  //         <NavLink to="/search-detail" className="nav-search">
+  //           Details
+  //         </NavLink>
+  //       </Button>
+  //     </div>
+  //   );
+  // };
 
   return (
     <body>
