@@ -134,7 +134,6 @@ const SearchResult = (props) => {
                 <h3>Make</h3>
               </div>
               <select
-                defaultValue={1}
                 className="make-dropdown"
                 onChange={(e) => setMakeID(e.target.value)}
               >
