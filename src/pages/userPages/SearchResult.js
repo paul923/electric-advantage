@@ -24,14 +24,23 @@ const SearchResult = (props) => {
   const [condition, setCondition] = React.useState(
     props.location.state.conditionIDInput
   );
-  const [lat, setLat] = React.useState("");
-  const [long, setLong] = React.useState("");
+  const [lat, setLat] = React.useState(props.location.state.latInput);
+  const [long, setLong] = React.useState(props.location.state.longInput);
   const [makeList, setMakeList] = React.useState(
     props.location.state.theMakeList
   );
   const [carCards, setCarCards] = React.useState([]);
 
   let resultSearch = [];
+
+  React.useEffect(() => {
+    onLoadGetVehicleSearchResult();
+    onLoadCheckGeolocation();
+    setMakeID(1);
+    setRange(500);
+    setPrice(125000);
+    setCondition(1);
+  }, []);
 
   async function onLoadGetVehicleSearchResult() {
     resultSearch = await getVehicleSearchResult(
@@ -82,11 +91,6 @@ const SearchResult = (props) => {
     }
   }
 
-  React.useEffect(() => {
-    onLoadGetVehicleSearchResult();
-    onLoadCheckGeolocation();
-  }, []);
-
   // const renderCard = (card, index) => {
   //   return (
   //     <div className="carCard">
@@ -130,6 +134,7 @@ const SearchResult = (props) => {
                 <h3>Make</h3>
               </div>
               <select
+                defaultValue={1}
                 className="make-dropdown"
                 onChange={(e) => setMakeID(e.target.value)}
               >

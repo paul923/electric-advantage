@@ -197,6 +197,8 @@ export default function LandingPage() {
                 priceInput: priceValue,
                 conditionIDInput: conditionID,
                 theMakeList: makeList,
+                longInput: long,
+                latInput: lat,
               },
             }}
             className="nav-search"
