@@ -198,6 +198,7 @@ export default function LandingPage() {
                 conditionIDInput: conditionID,
                 latInput: lat,
                 longInput: long,
+                theMakeList: makeList,
               },
             }}
             className="nav-search"
