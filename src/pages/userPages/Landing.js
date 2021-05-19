@@ -196,8 +196,6 @@ export default function LandingPage() {
                 rangeInput: rangeValue,
                 priceInput: priceValue,
                 conditionIDInput: conditionID,
-                latInput: lat,
-                longInput: long,
                 theMakeList: makeList,
               },
             }}
