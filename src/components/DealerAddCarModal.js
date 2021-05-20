@@ -74,6 +74,10 @@ const DealerAddCarModal = ({
     if (statusCode === 200) {
       let body = resultModelList.body;
       setModelList(body);
+      setSelectedModel(resultModelList.body[0].ModelID);
+      if (resultModelList.body.length == 1) {
+        setTrimDisabled(false);
+      }
     } else {
       alert(`Status : ${statusCode}, ${resultModelList.error}`);
     }
@@ -127,6 +131,8 @@ const DealerAddCarModal = ({
                 setCarMake(carMakeObject.MakeName);
                 setModelDisabled(false);
                 setSelectedMake(carMakeObject.MakeID);
+                setTrimDisabled(true);
+                setTrimList([]);
               }}
               as="select"
             >
