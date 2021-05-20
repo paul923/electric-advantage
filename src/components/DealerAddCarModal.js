@@ -182,6 +182,15 @@ const DealerAddCarModal = ({
               ))}
             </Form.Control>
           </Form.Group>
+          <Form.Group>
+            <Form.Control as="select">
+              <option disabled selected>
+                Select Condition...
+              </option>
+              <option value="1">New</option>
+              <option value="2">Used</option>
+            </Form.Control>
+          </Form.Group>
         </Form>
         <Row>
           <Col>
@@ -204,7 +213,7 @@ const DealerAddCarModal = ({
           </Col>
           <Col>
             <div>
-              Year:{" "}
+              Odometer:{" "}
               <input
                 onChange={(e) => setQty(e.target.value)}
                 className="columnInputs"
