@@ -47,7 +47,7 @@ router.get("/", function (req, res, next) {
     `;
 
     if (makeID) {
-      sql += ` AND MakeID=${makeID}`;
+      sql += ` AND MakeID='${makeID}'`;
     }
     if (evRange) {
       sql += ` AND EVRange < ${evRange}`;
@@ -165,6 +165,40 @@ router.post("/", function (req, res, next) {
         error: "Bad request",
       });
     }
+  });
+});
+
+// DELETE inventory item from the database by InventoryID
+router.delete("/:inventoryID", function (req, res, next) {
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var inventoryID = req.params.inventoryID;
+    var sql = `
+    DELETE 
+    FROM ?? 
+    WHERE 1=1
+    AND InventoryID = ?
+    ;
+    `;
+    var parameters = ["ea_db.vehicle_inventory", inventoryID];
+    sql = mysql.format(sql, parameters);
+    console.log(sql);
+    connection.query(sql, function (error, results, fields) {
+      connection.release();
+      if (error) {
+        console.log(error);
+        res.status(500).send({ error: "Database Error" });
+      } else if (results.affectedRows > 0) {
+        res.status(200).send({
+          body: `Item with ID: ${inventoryID} deleted.`,
+        });
+      } else {
+        res
+          .status(404)
+          .send({ error: `Item with ID: ${inventoryID} could not be found` });
+      }
+    });
   });
 });
 
