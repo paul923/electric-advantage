@@ -52,15 +52,16 @@ const DealerAddCarModal = ({
   }, selectedMake);
 
   React.useEffect(() => {
-    getTrimList();
+    getVehiclesList();
   }, selectedModel);
+
+  React.useEffect(() => {});
 
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
     let statusCode = resultMakeList.status;
     if (statusCode === 200) {
       let body = resultMakeList.body;
-      console.log(body);
       setMakeList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultMakeList.error}`);
@@ -72,14 +73,13 @@ const DealerAddCarModal = ({
     let statusCode = resultModelList.status;
     if (statusCode === 200) {
       let body = resultModelList.body;
-      console.log(body);
       setModelList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultModelList.error}`);
     }
   }
 
-  async function getTrimList() {
+  async function getVehiclesList() {
     let resultTrimList = await getVehicleListByMakeIDAndModelID(
       selectedMake,
       selectedModel
@@ -87,7 +87,6 @@ const DealerAddCarModal = ({
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
       let body = resultTrimList.body;
-      console.log(body);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}`);
@@ -164,18 +163,21 @@ const DealerAddCarModal = ({
           </Form.Group>
           <Form.Group
             onChange={(e) => {
-              let carTrimObject = JSON.parse(e.target.value);
-              setCarTrim(carTrimObject.TrimName);
+              let vehicleObject = JSON.parse(e.target.value);
+              setCarTrim(vehicleObject.VehicleID);
+              console.log(
+                "vehicleObject.VehicleID: " + vehicleObject.VehicleID
+              );
             }}
             controlId="carTrim"
           >
             <Form.Control as="select" disabled={trimDisabled}>
               <option disabled selected>
-                Select Trim...
+                Select Vehicle...
               </option>
-              {trimList.map((carTrim) => (
-                <option value={JSON.stringify(carTrim)}>
-                  {carTrim.TrimName}
+              {trimList.map((vehicle) => (
+                <option value={JSON.stringify(vehicle)}>
+                  {carModel + " " + vehicle.Trim + " " + vehicle.Year}
                 </option>
               ))}
             </Form.Control>

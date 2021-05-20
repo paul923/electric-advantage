@@ -7,9 +7,34 @@ import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
 import DealerEditCarModal from "../../components/DealerEditModal";
+import {
+  getAllDealerships,
+  getInventoryByDealershipID,
+  addInventoryItemToDealership,
+} from "../../api/VehicleAPI";
 
 export default function DealerInventory() {
   /* DUMMY DATA WITH DUMMY FIELDS */
+
+  // TESTING API
+  // async function getFirstDealerID() {
+  //   let firstID = await getAllDealerships();
+  //   console.log("FIRST DEALERSHIP ID:" + firstID.body[0]["DealershipID"]);
+  // }
+  // getFirstDealerID();
+  // /* "CHEV001" */
+
+  // async function getFirstInventoryList() {
+  //   let firstInventory = await getInventoryByDealershipID("CHEV001");
+  //   console.log(
+  //     "FIRST DEALERSHIP INVENTORY:" +
+  //       firstInventory.body.map((car) => {
+  //         return car["VehicleID"];
+  //       })
+  //   );
+  // }
+  // getFirstInventoryList();
+
   let car1 = {
     carID: 1,
     carMake: "Toyota",
