@@ -15,7 +15,6 @@ const DealerAddCarModal = ({
 }) => {
   const [carMake, setCarMake] = React.useState("");
   const [carModel, setCarModel] = React.useState("");
-  const [carTrim, setCarTrim] = React.useState("");
   const [carPrice, setCarPrice] = React.useState("");
   const [carQty, setQty] = React.useState("");
   const [carColor, setColor] = React.useState("");
@@ -27,11 +26,13 @@ const DealerAddCarModal = ({
   const [modelList, setModelList] = React.useState([]);
   const [selectedModel, setSelectedModel] = React.useState("1");
   const [trimList, setTrimList] = React.useState([]);
+  const [odo, setOdo] = React.useState("");
+  const [condition, setCondition] = React.useState("");
+  const [carVehicle, setCarVehicle] = React.useState("");
 
   const resetAllFieldsHandler = () => {
     setCarMake("");
     setCarModel("");
-    setCarTrim("");
     setCarPrice("");
     setQty("");
     setColor("");
@@ -75,6 +76,7 @@ const DealerAddCarModal = ({
       let body = resultModelList.body;
       setModelList(body);
       setSelectedModel(resultModelList.body[0].ModelID);
+      setCarModel(resultModelList.body[0].ModelName);
       if (resultModelList.body.length == 1) {
         setTrimDisabled(false);
       }
@@ -100,17 +102,29 @@ const DealerAddCarModal = ({
   const [modelDisabled, setModelDisabled] = React.useState(true);
   const [trimDisabled, setTrimDisabled] = React.useState(true);
 
+  // carMake,
+  // carVehicle,
+  // Odo,
+  // carPrice,
+  // Qty,
+  // carColor,
+  // car,
+  // carsToAdd,
+  // condition,
+  // setCarsToAdd,
+
   const addCarsHandler = () => {
     setCarsToAdd([
       ...carsToAdd,
       {
         carMake: carMake,
-        carModel: carModel,
-        carTrim: carTrim,
+        carVehicle: carVehicle,
+        Odo: odo,
         Qty: carQty,
         carPrice: carPrice,
-        color: carColor,
+        carColor: carColor,
         info: carInfo,
+        carCondition: condition,
         images: carImgs,
         carID: carID,
       },
@@ -170,7 +184,9 @@ const DealerAddCarModal = ({
           <Form.Group
             onChange={(e) => {
               let vehicleObject = JSON.parse(e.target.value);
-              setCarTrim(vehicleObject.VehicleID);
+              setCarVehicle(
+                carModel + " " + vehicleObject.Trim + " " + vehicleObject.Year
+              );
               console.log(
                 "vehicleObject.VehicleID: " + vehicleObject.VehicleID
               );
@@ -188,13 +204,17 @@ const DealerAddCarModal = ({
               ))}
             </Form.Control>
           </Form.Group>
-          <Form.Group>
+          <Form.Group
+            onChange={(e) => {
+              setCondition(e.target.value);
+            }}
+          >
             <Form.Control as="select">
               <option disabled selected>
                 Select Condition...
               </option>
-              <option value="1">New</option>
-              <option value="2">Used</option>
+              <option value={parseInt("1", 10)}>New</option>
+              <option value={parseInt("2", 10)}>Used</option>
             </Form.Control>
           </Form.Group>
         </Form>
@@ -221,7 +241,7 @@ const DealerAddCarModal = ({
             <div>
               Odometer:{" "}
               <input
-                onChange={(e) => setQty(e.target.value)}
+                onChange={(e) => setOdo(e.target.value)}
                 className="columnInputs"
               ></input>
             </div>

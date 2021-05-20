@@ -5,3 +5,15 @@
 .edt-dlt-buttons {
   margin-left: 2vw;
 }
+
+.smallColumns {
+  width: 7vw;
+}
+
+.bigColumns {
+  width: 20vw;
+}
+
+.mediumColumns {
+  width: 12vw;
+}

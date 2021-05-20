@@ -109,12 +109,14 @@ export default function DealerAddList() {
         <Table bordered>
           <thead>
             <tr>
-              <th className="tableHeaders">Model</th>
-              <th className="tableHeaders">Make</th>
-              <th className="tableHeaders">Trim</th>
-              <th className="tableHeaders">Price</th>
-              <th className="tableHeaders">Qty</th>
-              <th className="tableHeaders">Edit/Delete</th>
+              <th className="tableHeaders mediumColumns">Make</th>
+              <th className="tableHeaders bigColumns">Vehicle</th>
+              <th className="tableHeaders mediumColumns">Price</th>
+              <th className="tableHeaders mediumColumns">Odo</th>
+              <th className="tableHeaders smallColumns">Qty</th>
+              <th className="tableHeaders smallColumns">Color</th>
+              <th className="tableHeaders smallColumns">Condition</th>
+              <th className="tableHeaders mediumColumns"></th>
             </tr>
           </thead>
           <tbody>
@@ -122,9 +124,12 @@ export default function DealerAddList() {
               <DealerAddInventoryRow
                 carModel={car.carModel}
                 carMake={car.carMake}
-                carTrim={car.carTrim}
+                Odo={car.Odo}
                 carPrice={car.carPrice}
                 Qty={car.Qty}
+                carColor={car.carColor}
+                carCondition={car.carCondition}
+                carVehicle={car.carVehicle}
                 car={car}
                 carsToAdd={carsToAdd}
                 setCarsToAdd={setCarsToAdd}

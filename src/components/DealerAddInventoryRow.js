@@ -4,13 +4,15 @@ import { PencilFill, XCircleFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
 
 const DealerAddInventoryRow = ({
-  carModel,
   carMake,
-  carTrim,
+  carVehicle,
+  Odo,
   carPrice,
   Qty,
+  carColor,
   car,
   carsToAdd,
+  carCondition,
   setCarsToAdd,
 }) => {
   const deleteHandler = (e) => {
@@ -18,11 +20,13 @@ const DealerAddInventoryRow = ({
   };
   return (
     <tr>
-      <td>{carModel}</td>
       <td>{carMake}</td>
-      <td>{carTrim}</td>
+      <td>{carVehicle}</td>
       <td>{carPrice}</td>
+      <td>{Odo}</td>
       <td>{Qty}</td>
+      <td>{carColor}</td>
+      <td>{carCondition === "1" ? "New" : "Used"}</td>
       <td className="lastColumn">
         <div>
           <Button variant="light">
