@@ -13,6 +13,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
+import {
+    getAllSubscriptionPlans,
+    createSubscriptionPlan,
+} from "../../api/SubscriptionAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -38,6 +42,8 @@ const headCells = [
 
 export default function Subscriptions() {
 
+
+
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(subscriptionService.getAllSubscriptions())
@@ -45,6 +51,27 @@ export default function Subscriptions() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
+    const [subscriptionPlans, setSubscriptionPlans] = React.useState([]);
+    const [planID, setPlanID] = React.useState(1);
+    const [planName, setPlanName] = React.useState("abc");
+    const [pricing, setPricing] = React.useState(15.99);
+
+    React.useEffect(() => {
+        onLoadGetAllSubscriptionPlans();
+    }, []);
+
+    async function onLoadGetAllSubscriptionPlans() {
+        let resultSubscriptionPlan = await getAllSubscriptionPlans();
+        let statusCode = resultSubscriptionPlan.status;
+        if (statusCode === 200) {
+            let body = resultSubscriptionPlan.body;
+            console.log(body);
+            setSubscriptionPlans(body);
+        } else {
+            alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
+        }
+    }
 
     const {
         TblContainer,
@@ -132,12 +159,13 @@ export default function Subscriptions() {
                 <TblContainer>
                     <TblHead />
                     <TableBody>
+
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
-                                    <TableCell>{item.planID}</TableCell>
-                                    <TableCell>{item.subPlan}</TableCell>
-                                    <TableCell>{item.pricing}</TableCell>
+                                    <TableCell>{planID}</TableCell>
+                                    <TableCell>{planName}</TableCell>
+                                    <TableCell>{pricing}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                         //edit button color

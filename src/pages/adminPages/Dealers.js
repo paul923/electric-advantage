@@ -13,6 +13,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
+import {
+    getAllDealerships,
+} from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -48,6 +51,24 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
+    const [dealerships, setDealerships] = React.useState([]);
+
+    React.useEffect(() => {
+        onLoadGetAllDealerships();
+    }, []);
+
+    async function onLoadGetAllDealerships() {
+        let resultDealership = await getAllDealerships();
+        let statusCode = resultDealership.status;
+        if (statusCode === 200) {
+            let body = resultDealership.body;
+            console.log(body);
+            setDealerships(body);
+        } else {
+            alert(`Status : ${statusCode}, ${resultDealership.error}`);
+        }
+    }
 
     const {
         TblContainer,

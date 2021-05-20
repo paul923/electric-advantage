@@ -31,7 +31,7 @@ export default class App extends Component {
   render() {
     // Temporarily changes render with "dealer", "admin".
     // Plannign to use authorized account types to change render in the future.
-    const userType = "customer";
+    const userType = "admin";
     return userType === "admin" ? (
       <div>
         <AdminMenu />
