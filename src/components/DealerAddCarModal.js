@@ -75,11 +75,8 @@ const DealerAddCarModal = ({
     if (statusCode === 200) {
       let body = resultModelList.body;
       setModelList(body);
-      setSelectedModel(resultModelList.body[0].ModelID);
       setCarModel(resultModelList.body[0].ModelName);
-      if (resultModelList.body.length == 1) {
-        setTrimDisabled(false);
-      }
+      setSelectedModel(resultModelList.body[0].ModelID);
     } else {
       alert(`Status : ${statusCode}, ${resultModelList.error}`);
     }
@@ -93,6 +90,7 @@ const DealerAddCarModal = ({
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
       let body = resultTrimList.body;
+      setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}`);
@@ -145,7 +143,7 @@ const DealerAddCarModal = ({
                 setCarMake(carMakeObject.MakeName);
                 setModelDisabled(false);
                 setSelectedMake(carMakeObject.MakeID);
-                setTrimDisabled(true);
+                // setTrimDisabled(true);
                 setTrimList([]);
               }}
               as="select"
