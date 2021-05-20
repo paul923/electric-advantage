@@ -123,6 +123,17 @@ const DealerAddCarModal = ({
   const [modelDisabled, setModelDisabled] = React.useState(true);
   const [trimDisabled, setTrimDisabled] = React.useState(true);
 
+  // carMake,
+  // carVehicle,
+  // Odo,
+  // carPrice,
+  // Qty,
+  // carColor,
+  // car,
+  // carsToAdd,
+  // condition,
+  // setCarsToAdd,
+
   const addCarsHandler = () => {
     setCarsToAdd([
       ...carsToAdd,
