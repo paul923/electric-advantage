@@ -7,7 +7,7 @@ export async function getUsersList() {
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${json.body}`);
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
     return json;
   } catch (error) {
     console.log(error);
@@ -21,7 +21,7 @@ export async function getUserByUserId(userId) {
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;
-    console.log(`Retrieved ${json.body}`);
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
     return json;
   } catch (error) {
     console.log(error);
@@ -40,6 +40,7 @@ export async function createUser(User) {
     });
     let json = await response.json();
     json["status"] = response.status;
+    console.log(json.body);
     return json;
   } catch (error) {
     return false;

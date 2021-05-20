@@ -19,9 +19,6 @@ const Menu = () => {
           <NavLink to="/api-test" activeStyle>
             API Testing
           </NavLink>
-          <NavLink to="/landing" activeStyle>
-            Landing
-          </NavLink>
           <NavLink to="/who-we-are" activeStyle>
             Our History
           </NavLink>
@@ -31,7 +28,7 @@ const Menu = () => {
           <NavLink to="/profile" activeStyle>
             Profile
           </NavLink>
-          <NavLink to="/sign-in" activeStyle>
+          <NavLink to="/login" activeStyle>
             Sign In
           </NavLink>
         </NavMenu>

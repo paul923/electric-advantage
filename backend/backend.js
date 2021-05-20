@@ -8,6 +8,9 @@ var userRouter = require("./routes/user");
 var makeRouter = require("./routes/make");
 var vehicleRouter = require("./routes/vehicle");
 var inventoryRouter = require("./routes/inventory");
+var dealershipRouter = require("./routes/dealership");
+var subscriptionRouter = require("./routes/subscription");
+var miscRouter = require("./routes/misc");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -24,6 +27,9 @@ app.use("/users", userRouter);
 app.use("/vehicles", vehicleRouter);
 app.use("/makes", makeRouter);
 app.use("/inventories", inventoryRouter);
+app.use("/dealerships", dealershipRouter);
+app.use("/subscriptions", subscriptionRouter);
+app.use("/", miscRouter);
 
 // Starting our server.
 const PORT = 3000;
