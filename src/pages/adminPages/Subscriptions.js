@@ -42,8 +42,6 @@ const headCells = [
 
 export default function Subscriptions() {
 
-
-
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(subscriptionService.getAllSubscriptions())
@@ -54,20 +52,46 @@ export default function Subscriptions() {
 
     const [subscriptionPlans, setSubscriptionPlans] = React.useState([]);
     const [planID, setPlanID] = React.useState(1);
-    const [planName, setPlanName] = React.useState("abc");
-    const [pricing, setPricing] = React.useState(15.99);
+    const [planName, setPlanName] = React.useState("test");
+    const [pricing, setPricing] = React.useState(0.99);
+    const [subList, setSubList] = React.useState([]);
+
+    let resultSubscriptionPlan  = [];
 
     React.useEffect(() => {
         onLoadGetAllSubscriptionPlans();
     }, []);
 
     async function onLoadGetAllSubscriptionPlans() {
-        let resultSubscriptionPlan = await getAllSubscriptionPlans();
+        resultSubscriptionPlan = await getAllSubscriptionPlans();
         let statusCode = resultSubscriptionPlan.status;
         if (statusCode === 200) {
             let body = resultSubscriptionPlan.body;
-            console.log(body);
+            
+            if (resultSubscriptionPlan["body"] != undefined) {
+                setSubList(
+                    resultSubscriptionPlan["body"].map((sub) => {
+                        return {
+                            planID: sub["PlanID"],
+                            planName: sub["PlanName"],
+                            pricing: "$" + sub["Pricing"],
+                        };
+                    })
+                );
+            } else setSubList([]);
+
+            // console.log("PlanID: ", body[0].PlanID);
+            // console.log("PlanName: ", body[0].PlanName);
+            // console.log("Pricing: ", body[0].Pricing);
+            // console.log(body[1]);
+            // console.log(body[2]);
+            // console.log(body[3]);
+            // setPlanID(body[0].PlanID);
+            // setPlanName(body[0].PlanName);
+            // setPricing(body[0].Pricing);
+
             setSubscriptionPlans(body);
+
         } else {
             alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
         }
@@ -161,16 +185,16 @@ export default function Subscriptions() {
                     <TableBody>
 
                         {
-                            recordsAfterPagingAndSorting().map(item =>
-                                (<TableRow key={item.id}>
-                                    <TableCell>{planID}</TableCell>
-                                    <TableCell>{planName}</TableCell>
-                                    <TableCell>{pricing}</TableCell>
+                            subList.map(list =>
+                                (<TableRow key={list.id}>
+                                    <TableCell>{list.planID}</TableCell>
+                                    <TableCell>{list.planName}</TableCell>
+                                    <TableCell>{list.pricing}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                         //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(item) }}>
+                                            onClick={() => { openInPopup(list) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
@@ -180,7 +204,7 @@ export default function Subscriptions() {
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(item.id) }
+                                                    onConfirm: () => { onDelete(list.id) }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
