@@ -53,3 +53,15 @@
 .deleteRow {
   text-align: center;
 }
+
+.smallColumns {
+  width: 7vw;
+}
+
+.bigColumns {
+  width: 20vw;
+}
+
+.mediumColumns {
+  width: 12vw;
+}
