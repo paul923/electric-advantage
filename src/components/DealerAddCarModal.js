@@ -63,6 +63,8 @@ const DealerAddCarModal = ({
 
   React.useEffect(() => {});
 
+  React.useEffect(() => {});
+
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
     let statusCode = resultMakeList.status;
