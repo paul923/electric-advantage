@@ -104,6 +104,7 @@ const DealerAddCarModal = ({
       console.log("Model:" + carModel);
       console.log("body:" + body[0].VehicleID);
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
+      setVehicleID(body[0].VehicleID);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}.`);
@@ -135,6 +136,13 @@ const DealerAddCarModal = ({
   // carsToAdd,
   // condition,
   // setCarsToAdd,
+  // *        [{"VehicleID": string,
+  // *         "DealershipID": string,
+  // *         "ColorID": string,
+  // *         "ConditionID": int,
+  // *         "StartPrice": float,
+  // *         "Odometer": float,
+  // *         "Quantity" : int}]
 
   const addCarsHandler = () => {
     setCarsToAdd([
