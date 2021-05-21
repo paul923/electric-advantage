@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../components/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import Signup from "./Signup"
 
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login } = useAuth()
+  const { login, logout } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -26,6 +27,14 @@ export default function Login() {
     setLoading(false)
   }
 
+  async function handleSubmit2(e) {
+    e.preventDefault()
+
+    logout()
+
+
+  }
+
   return (
     <>
       <Card>
@@ -43,6 +52,9 @@ export default function Login() {
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
               Log In
+            </Button>
+            <Button onClick={handleSubmit2} className="w-100" type="submit">
+              Log Out
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">

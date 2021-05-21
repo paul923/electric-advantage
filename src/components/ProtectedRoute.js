@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import { ForbiddenPage } from "../pages";
+import { Route, Redirect } from "react-router-dom";
 
 const ProtectedRoute = ({ auth, component: Component, ...parentProps }) => {
   return (
     <Route
       {...parentProps}
       render={(props) => {
-        return auth === true ? <Component {...props} /> : <ForbiddenPage />;
+        return auth === true ? <Component {...props} /> : <Redirect to="/login" />;
       }}
     />
   );

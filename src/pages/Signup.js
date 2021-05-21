@@ -6,6 +6,10 @@ import { Link, useHistory } from "react-router-dom";
 import TYPE from "../constants/UserType";
 import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
 import _uniqueId from 'lodash/uniqueId';
+import firebase from "firebase/app";
+import { auth } from "../firebase"
+
+
 
 
 
@@ -21,18 +25,20 @@ export default function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const [userId, setUserId] = React.useState("");
-  const [firstname, setFirstname] = React.useState("");
-  const [lastname, setLastname] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [userType, setUserType] = React.useState(TYPE.CUSTOMER);
-  const [userOpen, setUserOpen] = React.useState(false);
-  const [makeList, setMakeList] = React.useState("");
-  const [modelList, setModelList] = React.useState("");
-  const [selectedMakeID, setSelectedMakeID] = React.useState("");
+  const [userId, setUserId] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [userType, setUserType] = useState(TYPE.CUSTOMER);
+  const [userOpen, setUserOpen] = useState(false);
+  const [makeList, setMakeList] = useState("");
+  const [modelList, setModelList] = useState("");
+  const [selectedMakeID, setSelectedMakeID] = useState("");
   const [id] = useState(_uniqueId('testID-'));
+  
 
 
+  
 
 
 
@@ -47,6 +53,7 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      await createUser();
       history.push("/");
     } catch {
       setError("Failed to create an account");
@@ -58,13 +65,14 @@ export default function Signup() {
 
   async function onPressCreateUser() {
     let userObj = {
-      UserID: {id}[1],
+      UserID: auth.currentUser.uid,
       FirstName: firstname,
       LastName: lastname,
       Email: email,
       UserTypeID: userType,
     };
     let result = await createUser(userObj);
+    console.log(auth.currentUser.uid)
     alert(`Status : ${result.status}, ${result.body}`);
   }
 
@@ -118,6 +126,13 @@ export default function Signup() {
               <Form.Control type="text" value={id} onChange={(event) => setUserId(event.target.value)} required />
             </Form.Group>
             </div> */}
+                    {/* <TextField
+          id="outlined-basic"
+          label="userid"
+          variant="outlined"
+          value={userId}
+          onChange={(event) => setUserId(event.target.value)}
+        /> */}
             <Form.Group id="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="text" ref={firstNameRef}  required value={firstname}
