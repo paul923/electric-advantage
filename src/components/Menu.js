@@ -9,6 +9,7 @@ import {
 import logo from "../images/logo.png";
 import { useAuth, login } from "./AuthContext"
 import { getUserByUserId } from "../api/UserAPI";
+import PropTypes from 'prop-types';
 
 
 
@@ -23,7 +24,6 @@ const Menu = () => {
 
   useEffect(() => {
     onLoadGetUserType(auth.currentUser.uid)
-    console.log("helloworld")
   });
   
 
@@ -42,8 +42,8 @@ const Menu = () => {
       setSearchedUser("CUSTOMER")
     } 
     let resultUser = getUserByUserId(searchUserId);
-    let body = resultUser
-    // console.log(body.UserTypeId)
+    console.log(resultUser)
+
 
 
   
