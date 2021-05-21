@@ -22,6 +22,10 @@ export default function DealerAddList() {
     addToDatabaseHandler();
   }, [carsToAdd]);
 
+  React.useEffect(() => {
+    addToDatabaseHandler();
+  }, [carsToAdd]);
+
   const addToDatabaseHandler = () => {
     setAddList(
       carsToAdd.map((car) => {
