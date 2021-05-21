@@ -8,8 +8,7 @@ import {
 } from "../pages/pageComponents/NavbarElements";
 import logo from "../images/logo.png";
 import { useAuth, login } from "./AuthContext"
-import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
-import { render } from "@testing-library/react";
+import { getUserByUserId } from "../api/UserAPI";
 
 
 
@@ -23,16 +22,19 @@ const Menu = () => {
   const { currentUser } = useAuth()
 
   useEffect(() => {
-    onLoadGetUserType(userType)
+    onLoadGetUserType(auth.currentUser.uid)
+    console.log("helloworld")
   });
   
-  // componentDidMount(() => {
-  //   onLoadGetUserType(userType)
+
+
+  // componentDidUpdate(() => {
+  //   onLoadGetUserType(userType);
   // }, []);
 
   // componentDidUpdate(() => {
-  //   onLoadGetUserType(userType)
-  // }, []);
+  //   onLoadGetUserType(userType);
+  // });
 
  
   function onLoadGetUserType(searchUserId) {
@@ -40,15 +42,11 @@ const Menu = () => {
       setSearchedUser("CUSTOMER")
     } 
     let resultUser = getUserByUserId(searchUserId);
-    let statusCode = resultUser.status;
-      if (statusCode === 200) {
-        let body = resultUser.body[0];
-        setSearchedUser(body);
-        setUserType(body.UserTypeID)
-        console.log("userType is")
-        console.log(body.UserTypeID)
-        console.log(body.UserTypeID === "ab")
-  }
+    let body = resultUser
+    // console.log(body.UserTypeId)
+
+
+  
 }
 
 
@@ -86,7 +84,9 @@ const Menu = () => {
           </NavLink>
           <Bars />
           <NavMenu>
-
+            <NavLink to="/admin" activeStyle>
+            Admin
+          </NavLink>
             <NavLink to="/api-test" activeStyle>
               API Testing
             </NavLink>
