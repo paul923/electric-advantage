@@ -10,6 +10,7 @@ import logo from "../images/logo.png";
 import { useAuth, login } from "./AuthContext"
 import { getUserByUserId } from "../api/UserAPI";
 import PropTypes from 'prop-types';
+import { useRouteMatch } from "react-router";
 
 
 
@@ -18,36 +19,14 @@ import PropTypes from 'prop-types';
 
 const Menu = () => {
 
-  const [userType, setUserType] = useState(null);
   const [searchedUser, setSearchedUser] = useState(null);
-  const { currentUser } = useAuth()
-
-  useEffect(() => {
-    onLoadGetUserType(auth.currentUser.uid)
-  });
-  
-
-
-  // componentDidUpdate(() => {
-  //   onLoadGetUserType(userType);
-  // }, []);
-
-  // componentDidUpdate(() => {
-  //   onLoadGetUserType(userType);
-  // });
-
- 
-  function onLoadGetUserType(searchUserId) {
-    if (!searchUserId) {
-      setSearchedUser("CUSTOMER")
-    } 
-    let resultUser = getUserByUserId(searchUserId);
-    console.log(resultUser)
-
+  const [userId, setUserId] = useState("")
+  const { currentUser, userType, logout } = useAuth()
 
 
   
-}
+
+
 
 
     return userType === "DEALERSHIP" ? (

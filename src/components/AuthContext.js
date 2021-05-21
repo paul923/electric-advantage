@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../firebase"
+import { getUserByUserId } from "../api/UserAPI";
+
 
 const AuthContext = React.createContext()
 
@@ -10,6 +12,9 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
+  const [userType, setUserType] = useState();
+  const [searchedUser, setSearchedUser] = useState(null);
+  const [userId, setUserId] = useState("")
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
@@ -20,6 +25,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
+    setUserType("CUSTOMER")
     return auth.signOut()
   }
 
@@ -35,9 +41,30 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password)
   }
 
+  async function GetUserType(id) {
+    if (id === null) {
+      setSearchedUser("CUSTOMER")
+    } else {
+      let resultUser = await getUserByUserId(id);
+      let statusCode = resultUser.status;
+      if (statusCode === 200) {
+        let body = resultUser.body[0];
+        setSearchedUser(body);
+        console.log("usertypeId")
+        console.log(body.UserTypeID)
+        setUserType(body.UserTypeID)
+      } else {
+        alert(`Status : ${statusCode}, ${resultUser.error}`);
+      }
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
+      if (currentUser) {
+      GetUserType(user.uid)
+      }
       setLoading(false)
     })
 
@@ -51,7 +78,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
+    updatePassword,
+    userType
   }
 
   return (
