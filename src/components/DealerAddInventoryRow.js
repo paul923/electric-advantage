@@ -28,10 +28,7 @@ const DealerAddInventoryRow = ({
       <td>{carColor}</td>
       <td>{carCondition === "1" ? "New" : "Used"}</td>
       <td className="lastColumn">
-        <div>
-          <Button variant="light">
-            <PencilFill />
-          </Button>
+        <div className="deleteRow">
           <Button
             onClick={deleteHandler}
             variant="light"

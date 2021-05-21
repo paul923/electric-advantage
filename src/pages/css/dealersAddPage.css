@@ -1,9 +1,9 @@
 .lastColumn {
-  width: 15vw;
+  width: 7vw;
 }
 
 .edt-dlt-buttons {
-  margin-left: 2vw;
+  text-align: center;
 }
 
 .smallColumns {
@@ -16,4 +16,8 @@
 
 .mediumColumns {
   width: 12vw;
+}
+
+.deleteRow {
+  text-align: center;
 }
