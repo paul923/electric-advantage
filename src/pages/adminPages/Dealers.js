@@ -53,17 +53,40 @@ export default function Vehicles() {
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
     const [dealerships, setDealerships] = React.useState([]);
+    const [dealershipID, setDealershipID] = React.useState("");
+    const [groupName, setGroupName] = React.useState("");
+    const [address, setAddress] = React.useState("");
+    const [salesEmail, setSalesEmail] = React.useState("");
+    const [salesPhone, setSalesPhone] = React.useState("");
+    const [dealershipList, setDealershipList] = React.useState([]);
+
+    let resultDealership = [];
 
     React.useEffect(() => {
         onLoadGetAllDealerships();
     }, []);
 
     async function onLoadGetAllDealerships() {
-        let resultDealership = await getAllDealerships();
+        resultDealership = await getAllDealerships();
         let statusCode = resultDealership.status;
         if (statusCode === 200) {
             let body = resultDealership.body;
-            console.log(body);
+
+            if (resultDealership["body"] != undefined) {
+                setDealershipList(
+                    resultDealership["body"].map((d) => {
+                        return {
+                            dealerID: d["DealershipID"],
+                            dealerName: d["GroupName"],
+                            dealerAddress: d["StreetAddress"],
+                            dealerEmail: d["SalesEmail"],
+                            dealerPhone: d["SalesPhone"],
+                            dealerPlanID: d[""],
+                        };
+                    })
+                );
+            } else setDealershipList([]);
+
             setDealerships(body);
         } else {
             alert(`Status : ${statusCode}, ${resultDealership.error}`);
@@ -144,34 +167,35 @@ export default function Vehicles() {
                         }}
                         onChange={handleSearch}
                     />
-                    <Controls.Button
+                    {/* removed add button */}
+                    {/* <Controls.Button
                         text="Add New"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
                         className={classes.newButton}
                         onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
-                    />
+                    /> */}
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
                     <TableBody>
                         {
-                            recordsAfterPagingAndSorting().map(item =>
-                                (<TableRow key={item.id}>
-                                    <TableCell>{item.dealerID}</TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.address}</TableCell>
-                                    <TableCell>{item.email}</TableCell>
-                                    <TableCell>{item.phone}</TableCell>
-                                    <TableCell>{item.planID}</TableCell>
+                            dealershipList.map(list =>
+                                (<TableRow key={list.id}>
+                                    <TableCell>{list.dealerID}</TableCell>
+                                    <TableCell>{list.dealerName}</TableCell>
+                                    <TableCell>{list.dealerAddress}</TableCell>
+                                    <TableCell>{list.dealerEmail}</TableCell>
+                                    <TableCell>{list.dealerPhone}</TableCell>
+                                    <TableCell>{list.dealerPlanID}</TableCell>
                                     
                         
                                     <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(item) }}>
+                                            onClick={() => { openInPopup(list) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
@@ -180,7 +204,7 @@ export default function Vehicles() {
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(item.id) }
+                                                    onConfirm: () => { onDelete(list.id) }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />

@@ -80,18 +80,7 @@ export default function Subscriptions() {
                 );
             } else setSubList([]);
 
-            // console.log("PlanID: ", body[0].PlanID);
-            // console.log("PlanName: ", body[0].PlanName);
-            // console.log("Pricing: ", body[0].Pricing);
-            // console.log(body[1]);
-            // console.log(body[2]);
-            // console.log(body[3]);
-            // setPlanID(body[0].PlanID);
-            // setPlanName(body[0].PlanName);
-            // setPricing(body[0].Pricing);
-
             setSubscriptionPlans(body);
-
         } else {
             alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
         }
