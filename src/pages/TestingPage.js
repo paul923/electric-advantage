@@ -5,8 +5,8 @@ import {
   getMakeList,
   getModelListByMakeID,
   getVehicleListByMakeIDAndModelID,
-  getVehicleSearchResult,
 } from "../api/VehicleAPI";
+import { getVehicleSearchResult } from "../api/DealershipAPI";
 import { Select, MenuItem } from "@material-ui/core";
 import TYPE from "../constants/UserType";
 import { Link, Route } from "react-router-dom";

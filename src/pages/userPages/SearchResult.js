@@ -11,8 +11,8 @@ import {
   getMakeList,
   getModelListByMakeID,
   getVehicleListByMakeIDAndModelID,
-  getVehicleSearchResult,
 } from "../../api/VehicleAPI";
+import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 const SearchResult = (props) => {
   const [priceValue, setPriceValue] = React.useState(125000);

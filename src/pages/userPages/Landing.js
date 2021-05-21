@@ -13,8 +13,8 @@ import {
   getMakeList,
   getModelListByMakeID,
   getVehicleListByMakeIDAndModelID,
-  getVehicleSearchResult,
 } from "../../api/VehicleAPI";
+import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 export default function LandingPage() {
   const [makeList, setMakeList] = React.useState([]);
