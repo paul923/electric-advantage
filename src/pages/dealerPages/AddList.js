@@ -50,6 +50,10 @@ export default function DealerAddList() {
   //   ]);
   // };
 
+  React.useEffect(() => {
+    addToDatabaseHandler();
+  }, [carsToAdd]);
+
   const addToDatabaseHandler = () => {
     setAddList(
       carsToAdd.map((car) => {
@@ -64,7 +68,6 @@ export default function DealerAddList() {
         };
       })
     );
-    addInventoryItemToDealership(addList);
   };
 
   return (
@@ -106,7 +109,10 @@ export default function DealerAddList() {
       </div>
       <div className="bottomDiv">
         <Button
-          onClick={() => addToDatabaseHandler()}
+          onClick={() => {
+            addInventoryItemToDealership(addList);
+            console.log(addList);
+          }}
           className="bottomButtons"
         >
           Add All to Inventory{" "}

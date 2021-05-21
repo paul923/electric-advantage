@@ -32,6 +32,7 @@ const DealerAddCarModal = ({
   const [vehicleID, setVehicleID] = React.useState("");
 
   const resetAllFieldsHandler = () => {
+    setSelectedModel("1");
     setCarMake("");
     setCarModel("");
     setCarPrice("");
@@ -101,24 +102,6 @@ const DealerAddCarModal = ({
 
   const [modelDisabled, setModelDisabled] = React.useState(true);
   const [trimDisabled, setTrimDisabled] = React.useState(true);
-
-  // carMake,
-  // carVehicle,
-  // Odo,
-  // carPrice,
-  // Qty,
-  // carColor,
-  // car,
-  // carsToAdd,
-  // condition,
-  // setCarsToAdd,
-  // *        [{"VehicleID": string,
-  // *         "DealershipID": string,
-  // *         "ColorID": string,
-  // *         "ConditionID": int,
-  // *         "StartPrice": float,
-  // *         "Odometer": float,
-  // *         "Quantity" : int}]
 
   const addCarsHandler = () => {
     setCarsToAdd([
