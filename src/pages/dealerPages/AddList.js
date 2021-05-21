@@ -3,6 +3,8 @@ import { Modal, Table, Button } from "react-bootstrap";
 import "../css/dealersAddPage.css";
 import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
 import DealerAddCarModal from "../../components/DealerAddCarModal";
+import { addInventoryItemToDealership } from "../../api/DealershipAPI";
+// import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);
@@ -22,7 +24,48 @@ export default function DealerAddList() {
    *        } vehicleArray
    * @returns message string
    */
-  const addToDatabase = () => {};
+  //  vehicleID: vehicleID,
+  //  carMake: carMake,
+  //  carVehicle: carVehicle,
+  //  Odo: odo,
+  //  Qty: carQty,
+  //  carPrice: carPrice,
+  //  carColor: carColor,
+  //  info: carInfo,
+  //  carCondition: condition,
+  //  images: carImgs,
+  //  carID: carID,
+
+  // const addTestHandler = () => {
+  //   addInventoryItemToDealership([
+  //     {
+  //       VehicleID: "BMWI3S1",
+  //       DealershipID: "1",
+  //       ColorID: "black",
+  //       ConditionID: 1,
+  //       StartPrice: 32.33,
+  //       Odometer: 32.12,
+  //       Quantity: 1,
+  //     },
+  //   ]);
+  // };
+
+  const addToDatabaseHandler = () => {
+    setAddList(
+      carsToAdd.map((car) => {
+        return {
+          VehicleID: car.vehicleID,
+          DealershipID: "1",
+          ColorID: car.carColor,
+          ConditionID: parseInt(car.carCondition),
+          StartPrice: parseFloat(car.carPrice),
+          Odometer: parseFloat(car.Odo),
+          Quantity: parseInt(car.Qty),
+        };
+      })
+    );
+    addInventoryItemToDealership(addList);
+  };
 
   return (
     <div>
@@ -62,7 +105,12 @@ export default function DealerAddList() {
         </Table>
       </div>
       <div className="bottomDiv">
-        <Button className="bottomButtons">Add All to Inventory </Button>
+        <Button
+          onClick={() => addToDatabaseHandler()}
+          className="bottomButtons"
+        >
+          Add All to Inventory{" "}
+        </Button>
         <Button onClick={() => setShowModal(true)} className="bottomButtons">
           Add More Cars
         </Button>

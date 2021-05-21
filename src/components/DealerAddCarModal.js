@@ -29,6 +29,7 @@ const DealerAddCarModal = ({
   const [odo, setOdo] = React.useState("");
   const [condition, setCondition] = React.useState("");
   const [carVehicle, setCarVehicle] = React.useState("");
+  const [vehicleID, setVehicleID] = React.useState("");
 
   const resetAllFieldsHandler = () => {
     setCarMake("");
@@ -91,6 +92,7 @@ const DealerAddCarModal = ({
     if (statusCode === 200) {
       let body = resultTrimList.body;
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
+      setVehicleID(body[0].VehicleID);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}`);
@@ -110,11 +112,19 @@ const DealerAddCarModal = ({
   // carsToAdd,
   // condition,
   // setCarsToAdd,
+  // *        [{"VehicleID": string,
+  // *         "DealershipID": string,
+  // *         "ColorID": string,
+  // *         "ConditionID": int,
+  // *         "StartPrice": float,
+  // *         "Odometer": float,
+  // *         "Quantity" : int}]
 
   const addCarsHandler = () => {
     setCarsToAdd([
       ...carsToAdd,
       {
+        vehicleID: vehicleID,
         carMake: carMake,
         carVehicle: carVehicle,
         Odo: odo,
@@ -185,6 +195,7 @@ const DealerAddCarModal = ({
               setCarVehicle(
                 carModel + " " + vehicleObject.Trim + " " + vehicleObject.Year
               );
+              setVehicleID(vehicleObject.VehicleID);
               console.log(
                 "vehicleObject.VehicleID: " + vehicleObject.VehicleID
               );
@@ -219,7 +230,7 @@ const DealerAddCarModal = ({
         <Row>
           <Col>
             <div>
-              Qty:{" "}
+              Quantity:{" "}
               <input
                 onChange={(e) => setQty(e.target.value)}
                 className="columnInputs"
