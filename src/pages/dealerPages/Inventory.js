@@ -11,7 +11,7 @@ import {
   getAllDealerships,
   getInventoryByDealershipID,
   addInventoryItemToDealership,
-} from "../../api/VehicleAPI";
+} from "../../api/DealershipAPI";
 
 export default function DealerInventory() {
   /* DUMMY DATA WITH DUMMY FIELDS */
@@ -23,17 +23,6 @@ export default function DealerInventory() {
   // }
   // getFirstDealerID();
   // /* "CHEV001" */
-
-  // async function getFirstInventoryList() {
-  //   let firstInventory = await getInventoryByDealershipID("CHEV001");
-  //   console.log(
-  //     "FIRST DEALERSHIP INVENTORY:" +
-  //       firstInventory.body.map((car) => {
-  //         return car["VehicleID"];
-  //       })
-  //   );
-  // }
-  // getFirstInventoryList();
 
   let car1 = {
     carID: 1,
@@ -126,15 +115,51 @@ export default function DealerInventory() {
     Qty: 43,
   };
 
-  let listOfCars = [car1, car2, car3, car4, car5, car6, car7, car8, car9];
+  // let listOfCars = [car1, car2, car3, car4, car5, car6, car7, car8, car9];
   /* END OF DUMMY DATA */
 
+  // let listOfCars = [car1, car2, car3, car4, car5, car6, car7, car8, car9];
+
+  const [listOfCars, setListOfCars] = React.useState([
+    car1,
+    car2,
+    car3,
+    car4,
+    car5,
+    car6,
+    car7,
+    car8,
+    car9,
+  ]);
+
+  const [retrievedInventory, setRetrievedInventory] = React.useState([]);
   const [inventory, setInventory] = React.useState(listOfCars);
   const [filteredList, setFilteredList] = React.useState([]);
   const [query, setQuery] = React.useState("");
   const [reverse, setReverse] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
   const [editText, showEditText] = React.useState(true);
+
+  // setAddList(
+  //   carsToAdd.map((car) => {
+  //     return {
+  //       VehicleID: car.vehicleID,
+  //       DealershipID: "1",
+  //       ColorID: car.carColor,
+  //       ConditionID: parseInt(car.carCondition),
+  //       StartPrice: parseFloat(car.carPrice),
+  //       Odometer: parseFloat(car.Odo),
+  //       Quantity: parseInt(car.Qty),
+  //     };
+  //   })
+  // );
+
+  async function getFirstInventoryList() {
+    let firstInventory = await getInventoryByDealershipID("1");
+    console.log("FIRST DEALERSHIP INVENTORY:");
+    console.log(firstInventory);
+  }
+  getFirstInventoryList();
 
   function sortNumber(sortBy) {
     const copy = [...filteredList];
