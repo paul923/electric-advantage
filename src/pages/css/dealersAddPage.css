@@ -49,3 +49,7 @@
 .mediumColumns {
   width: 12vw;
 }
+
+.deleteRow {
+  text-align: center;
+}
