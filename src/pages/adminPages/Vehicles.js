@@ -13,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
+import { getAllAvailableVehicles } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -30,15 +31,17 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'carID', label: 'Car ID' },
-    { id: 'model', label: 'Model' },
-    { id: 'make', label: 'Make' },
-    { id: 'trim', label: 'Trim' },
-    { id: 'evRange', label: 'EV Range' },
+    { id: 'carID', label: 'Vehicle ID' },
     { id: 'priceLow', label: 'Price Lower' },
     { id: 'priceUp', label: 'Price Upper' },
-    { id: 'perf1', label: 'Performance Figure 1' },
-    { id: 'perf2', label: 'Performance Figure 2' },
+    { id: 'evRange', label: 'EV Range' },
+    { id: 'batterySize', label: "Battery Size"},
+    { id: 'trim', label: 'Trim' },
+    { id: 'year', label: 'Year' },
+    { id: 'modelID', label: 'Model ID' },
+
+
+
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -51,6 +54,41 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
+    const [vehicleList, setVehicleList] = React.useState([]);
+
+
+    let resultVehicles = [];
+
+    React.useEffect(() => {
+        onLoadGetAllAvailableVehicles();
+    }, []);
+
+    async function onLoadGetAllAvailableVehicles() {
+        resultVehicles = await getAllAvailableVehicles();
+        let statusCode = resultVehicles.status;
+        if (statusCode === 200) {
+            let body = resultVehicles.body;
+            
+            if (resultVehicles["body"] != undefined) {
+                setVehicleList(
+                    resultVehicles["body"].map((v) => {
+                        return {
+                            vehicleID: v["VehicleID"],
+                            priceLower: "$" + v["PriceLower"],
+                            priceUpper: "$" + v["PriceUpper"],
+                            evRange: v["EVRange"] + "km",
+                            batterySize: v["BatterySize"],
+                            trim: v["Trim"],
+                            year: v["Year"],
+                            modelID: v["ModelID"],
+                        };
+                    })
+                );
+            } else setVehicleList([]);
+
+        }
+    }
 
     const {
         TblContainer,
@@ -139,22 +177,21 @@ export default function Vehicles() {
                     <TblHead />
                     <TableBody>
                         {
-                            recordsAfterPagingAndSorting().map(item =>
-                                (<TableRow key={item.id}>
-                                    <TableCell>{item.carID}</TableCell>
-                                    <TableCell>{item.model}</TableCell>
-                                    <TableCell>{item.make}</TableCell>
-                                    <TableCell>{item.trim}</TableCell>
-                                    <TableCell>{item.evRange}</TableCell>
-                                    <TableCell>{item.priceLow}</TableCell>
-                                    <TableCell>{item.priceUp}</TableCell>
-                                    <TableCell>{item.perf1}</TableCell>
-                                    <TableCell>{item.perf2}</TableCell>
+                            vehicleList.map(v =>
+                                (<TableRow key={v.id}>
+                                    <TableCell>{v.vehicleID}</TableCell>
+                                    <TableCell>{v.priceLower}</TableCell>
+                                    <TableCell>{v.priceUpper}</TableCell>
+                                    <TableCell>{v.evRange}</TableCell>
+                                    <TableCell>{v.batterySize}</TableCell>
+                                    <TableCell>{v.trim}</TableCell>
+                                    <TableCell>{v.year}</TableCell>
+                                    <TableCell>{v.modelID}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(item) }}>
+                                            onClick={() => { openInPopup(v) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
@@ -163,7 +200,7 @@ export default function Vehicles() {
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(item.id) }
+                                                    onConfirm: () => { onDelete(v.id) }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
