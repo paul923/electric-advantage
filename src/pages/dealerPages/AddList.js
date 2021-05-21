@@ -26,6 +26,10 @@ export default function DealerAddList() {
     addToDatabaseHandler();
   }, [carsToAdd]);
 
+  React.useEffect(() => {
+    addToDatabaseHandler();
+  }, [carsToAdd]);
+
   const addToDatabaseHandler = () => {
     console.log("AYE" + userObject.UserID);
     setAddList(
