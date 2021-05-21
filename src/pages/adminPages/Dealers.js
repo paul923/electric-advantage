@@ -133,19 +133,19 @@ export default function Vehicles() {
         setOpenPopup(true)
     }
 
-    const onDelete = id => {
-        setConfirmDialog({
-            ...confirmDialog,
-            isOpen: false
-        })
-        dealerService.deleteDealer(id);
-        setRecords(dealerService.getAllDealers())
-        setNotify({
-            isOpen: true,
-            message: 'Deleted Successfully',
-            type: 'error'
-        })
-    }
+    // const onDelete = id => {
+    //     setConfirmDialog({
+    //         ...confirmDialog,
+    //         isOpen: false
+    //     })
+    //     dealerService.deleteDealer(id);
+    //     setRecords(dealerService.getAllDealers())
+    //     setNotify({
+    //         isOpen: true,
+    //         message: 'Deleted Successfully',
+    //         type: 'error'
+    //     })
+    // }
 
     return (
         <>
@@ -198,7 +198,8 @@ export default function Vehicles() {
                                             onClick={() => { openInPopup(list) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                        <Controls.ActionButton
+                                        {/* removing remove dealer option */}
+                                        {/* <Controls.ActionButton
                                             onClick={() => {
                                                 setConfirmDialog({
                                                     isOpen: true,
@@ -208,7 +209,7 @@ export default function Vehicles() {
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                        </Controls.ActionButton> */}
                                     </TableCell>
                                 </TableRow>)
                             )

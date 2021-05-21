@@ -4,12 +4,10 @@ import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as subscriptionService from "./subscriptionService";
 import {
-    getAllSubscriptionPlans,
     createSubscriptionPlan,
 } from "../../api/SubscriptionAPI";
 
 const initialFValues = {
-   
     id: 0,
     planID: '',
     subPlan: '',
@@ -18,6 +16,16 @@ const initialFValues = {
 
 export default function SubscriptionForm(props) {
     const { addOrEdit, recordForEdit } = props
+    const [PlanName, setPlanName] = React.useState("");
+    const [Pricing, setPricing] = React.useState(0.99);
+
+    async function onClickCreateSubscriptionPlan() {
+        let resultSub = await createSubscriptionPlan(
+            PlanName,
+            Pricing,
+        );
+        console.log("Creating subscription: " + resultSub[0]);
+    }
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -45,6 +53,9 @@ export default function SubscriptionForm(props) {
         e.preventDefault()
         if (validate()) {
             addOrEdit(values, resetForm);
+            setPlanName();
+            setPricing();
+            onClickCreateSubscriptionPlan();
         }
     }
 
@@ -59,19 +70,18 @@ export default function SubscriptionForm(props) {
         <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Plan ID"
                         name="planID"
                         value={values.planID}
                         onChange={handleInputChange}
                         
-                    />
+                    /> */}
                     <Controls.Input
                         label="Subscription Plan"
                         name="subPlan"
                         value={values.subPlan}
                         onChange={handleInputChange}
-                       
                     />
                     <Controls.Input
                         label="Pricing"
