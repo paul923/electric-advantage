@@ -29,10 +29,7 @@ export default function Login() {
 
   async function handleSubmit2(e) {
     e.preventDefault()
-
     logout()
-
-
   }
 
   return (

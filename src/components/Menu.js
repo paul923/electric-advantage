@@ -36,8 +36,8 @@ const Menu = () => {
       </NavLink>
       <Bars />
       <NavMenu>
-        <NavLink to="/admin" activeStyle>
-          DEALERSHIP
+        <NavLink to="/dealer" activeStyle>
+          Dealer
         </NavLink>
         <NavLink to="/api-test" activeStyle>
           API Testing

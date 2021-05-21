@@ -42,6 +42,7 @@ export default class App extends Component {
     ) : userType === "dealer" ? (
       <div>
         <DealerMenu />
+        <Route path="/dealer" component={DealerMenu} />
         <Route path="/accountinfo" component={AccountInfo} />
         <Route path="/subscription" component={Subscription} />
         <Route path="/inventory" component={Inventory} />

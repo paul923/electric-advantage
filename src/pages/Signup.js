@@ -72,26 +72,10 @@ export default function Signup() {
       UserTypeID: userType,
     };
     let result = await createUser(userObj);
-    console.log(auth.currentUser.uid)
     alert(`Status : ${result.status}, ${result.body}`);
   }
 
-  function formatUser(userObject) {
-    return (
-      <div>
-        <h2>User ID: {userObject.UserID}</h2>
-        <p>
-          First Name: {userObject.FirstName}
-          <br />
-          Last Name: {userObject.LastName}
-          <br />
-          Email: {userObject.Email}
-          <br />
-          User Type Id: {userObject.UserTypeID}
-        </p>
-      </div>
-    );
-  }
+
 
 
   return (
