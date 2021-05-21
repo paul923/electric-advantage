@@ -29,8 +29,6 @@ import Dealers from "../pages/adminPages/Dealers";
 
 export default class App extends Component {
   render() {
-    // Temporarily changes render with "dealer", "admin".
-    // Plannign to use authorized account types to change render in the future.
     const userType = "customer";
     return userType === "admin" ? (
       <div>
@@ -39,10 +37,12 @@ export default class App extends Component {
         <Route path="/1" component={Subscriptions} />
         <Route path="/2" component={Vehicles} />
         <Route path="/3" component={Dealers} />
+        
       </div>
     ) : userType === "dealer" ? (
       <div>
         <DealerMenu />
+        <Route path="/dealer" component={DealerMenu} />
         <Route path="/accountinfo" component={AccountInfo} />
         <Route path="/subscription" component={Subscription} />
         <Route path="/inventory" component={Inventory} />
@@ -50,6 +50,7 @@ export default class App extends Component {
     ) : (
       <div>
         <Menu />
+          
         <Route exact path="/" component={Landing} />
         <Switch>
           <Route path="/about/:name" component={AboutPage} />
@@ -71,6 +72,11 @@ export default class App extends Component {
         </Switch>
 
         <Route path="/api-test" component={TestingPage} />
+        <Route path="/admin" component={AdminMenu} />
+        <Route path="/1" component={Subscriptions} />
+        <Route path="/2" component={Vehicles} />
+        <Route path="/3" component={Dealers} />
+
       </div>
     );
   }
