@@ -112,6 +112,7 @@ export default function DealerAddList() {
           onClick={() => {
             addInventoryItemToDealership(addList);
             console.log(addList);
+            setCarsToAdd([]);
           }}
           className="bottomButtons"
         >
