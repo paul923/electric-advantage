@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, componentDidMount } from "react"
+import React, { useContext, useState, useEffect, componentDidMount, componentDidUpdate } from "react"
 import { auth } from "../firebase"
 import {
   Nav,
@@ -9,6 +9,7 @@ import {
 import logo from "../images/logo.png";
 import { useAuth, login } from "./AuthContext"
 import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
+import { render } from "@testing-library/react";
 
 
 
@@ -20,14 +21,18 @@ const Menu = () => {
   const [userType, setUserType] = useState(null);
   const [searchedUser, setSearchedUser] = useState(null);
   const { currentUser } = useAuth()
-  
-  componentDidMount(() => {
-    onLoadGetUserType(userType)
-  }, []);
 
-  componentDidUpdate(() => {
+  useEffect(() => {
     onLoadGetUserType(userType)
-  }, []);
+  });
+  
+  // componentDidMount(() => {
+  //   onLoadGetUserType(userType)
+  // }, []);
+
+  // componentDidUpdate(() => {
+  //   onLoadGetUserType(userType)
+  // }, []);
 
  
   function onLoadGetUserType(searchUserId) {
@@ -47,36 +52,62 @@ const Menu = () => {
 }
 
 
-
-  return userType === "DEALERSHIP" ? (
-    <Nav>
-    <NavLink to="/">
-      <img src={logo} alt="logo" className="logo" />
-    </NavLink>
-    <Bars />
-    <NavMenu>
-      <NavLink to="/admin" activeStyle>
-        DEALERSHIP
-      </NavLink>
-      <NavLink to="/api-test" activeStyle>
-        API Testing
-      </NavLink>
-      <NavLink to="/who-we-are" activeStyle>
-        Our History
-      </NavLink>
-      <NavLink to="/contact-us" activeStyle>
-        Contact Us
-      </NavLink>
-      <NavLink to="/profile" activeStyle>
-        Profile
-      </NavLink>
-      <NavLink to="/login" activeStyle>
-        Sign In
-      </NavLink>
-    </NavMenu>
-    </Nav>
-    ) : userType === "ADMIN" ? (
+    return userType === "DEALERSHIP" ? (
       <Nav>
+      <NavLink to="/">
+        <img src={logo} alt="logo" className="logo" />
+      </NavLink>
+      <Bars />
+      <NavMenu>
+        <NavLink to="/admin" activeStyle>
+          DEALERSHIP
+        </NavLink>
+        <NavLink to="/api-test" activeStyle>
+          API Testing
+        </NavLink>
+        <NavLink to="/who-we-are" activeStyle>
+          Our History
+        </NavLink>
+        <NavLink to="/contact-us" activeStyle>
+          Contact Us
+        </NavLink>
+        <NavLink to="/profile" activeStyle>
+          Profile
+        </NavLink>
+        <NavLink to="/login" activeStyle>
+          Sign In
+        </NavLink>
+      </NavMenu>
+      </Nav>
+      ) : userType === "ADMIN" ? (
+        <Nav>
+          <NavLink to="/">
+            <img src={logo} alt="logo" className="logo" />
+          </NavLink>
+          <Bars />
+          <NavMenu>
+
+            <NavLink to="/api-test" activeStyle>
+              API Testing
+            </NavLink>
+            <NavLink to="/who-we-are" activeStyle>
+              Our History
+            </NavLink>
+            <NavLink to="/contact-us" activeStyle>
+              Contact Us
+            </NavLink>
+            <NavLink to="/profile" activeStyle>
+              Profile
+            </NavLink>
+            <NavLink to="/login" activeStyle>
+              Sign In
+            </NavLink>
+          </NavMenu>
+        </Nav>
+      ) :  (
+        <div>
+
+        <Nav>
         <NavLink to="/">
           <img src={logo} alt="logo" className="logo" />
         </NavLink>
@@ -100,37 +131,11 @@ const Menu = () => {
           </NavLink>
         </NavMenu>
       </Nav>
-    ) :  (
-      <div>
+            </div>
 
-      <Nav>
-      <NavLink to="/">
-        <img src={logo} alt="logo" className="logo" />
-      </NavLink>
-      <Bars />
-      <NavMenu>
-
-        <NavLink to="/api-test" activeStyle>
-          API Testing
-        </NavLink>
-        <NavLink to="/who-we-are" activeStyle>
-          Our History
-        </NavLink>
-        <NavLink to="/contact-us" activeStyle>
-          Contact Us
-        </NavLink>
-        <NavLink to="/profile" activeStyle>
-          Profile
-        </NavLink>
-        <NavLink to="/login" activeStyle>
-          Sign In
-        </NavLink>
-      </NavMenu>
-    </Nav>
-          </div>
-
-    );
-    
-    };
+      );
+    }
+      
+      
 
 export default Menu;
