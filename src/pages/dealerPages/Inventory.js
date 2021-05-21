@@ -87,6 +87,27 @@ export default function DealerInventory() {
   const [showModal, setShowModal] = React.useState(false);
   const [editText, showEditText] = React.useState(true);
 
+  // setAddList(
+  //   carsToAdd.map((car) => {
+  //     return {
+  //       VehicleID: car.vehicleID,
+  //       DealershipID: "1",
+  //       ColorID: car.carColor,
+  //       ConditionID: parseInt(car.carCondition),
+  //       StartPrice: parseFloat(car.carPrice),
+  //       Odometer: parseFloat(car.Odo),
+  //       Quantity: parseInt(car.Qty),
+  //     };
+  //   })
+  // );
+
+  async function getFirstInventoryList() {
+    let firstInventory = await getInventoryByDealershipID("1");
+    console.log("FIRST DEALERSHIP INVENTORY:");
+    console.log(firstInventory);
+  }
+  getFirstInventoryList();
+
   function sortNumber(sortBy) {
     const copy = [...filteredList];
     copy.sort((a, b) => {
