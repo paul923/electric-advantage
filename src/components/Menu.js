@@ -21,7 +21,7 @@ const Menu = () => {
 
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("")
-  const { currentUser, userType, logout } = useAuth()
+  const { userType } = useAuth()
 
 
   
