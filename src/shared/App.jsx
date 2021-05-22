@@ -24,9 +24,12 @@ import PrivateRoute from "../components/PrivateRoute";
 import DealerMenu from "../components/DealersMenu";
 import AdminMenu from "../components/AdminMenu";
 import Subscriptions from "../pages/adminPages/Subscriptions";
+
+
 import Vehicles from "../pages/adminPages/Vehicles";
 import Dealers from "../pages/adminPages/Dealers";
 import MakeAndModelForm from "../pages/adminPages/MakeAndModelForm";
+
 
 export default class App extends Component {
   render() {
@@ -41,6 +44,7 @@ export default class App extends Component {
         <Route path="/2" component={Vehicles} />
         <Route path="/3" component={Dealers} />
         <Route path="/4" component={MakeAndModelForm} />
+
       </div>
     ) : userType === "dealer" ? (
       <div>

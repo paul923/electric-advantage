@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
+import Popup2 from "../../components/AdminPopup2";
 import { 
     getAllAvailableVehicles,
     registerVehicleToDatabase,
@@ -57,6 +58,8 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+    const [recordForEdit2, setRecordForEdit2] = useState(null)
+    const [openPopup2, setOpenPopup2] = useState(false)
 
     const [vehicles, setVehicles] = React.useState([]);
     const [vehicleList, setVehicleList] = React.useState([]);
@@ -132,6 +135,7 @@ export default function Vehicles() {
         resetForm()
         setRecordForEdit(null)
         setOpenPopup(false)
+        setOpenPopup2(false)
         setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
@@ -143,6 +147,7 @@ export default function Vehicles() {
     const openInPopup = item => {
         setRecordForEdit(item)
         setOpenPopup(true)
+        setOpenPopup2(true)
     }
 
     const onDelete = id => {
@@ -182,8 +187,8 @@ export default function Vehicles() {
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
-                        onClick={event =>  window.location.href='/4'}
-                        // onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+                        // onClick={event =>  window.location.href='/4'}
+                        onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
                         text="Vehicle"
@@ -239,11 +244,11 @@ export default function Vehicles() {
             </Paper>
             <Popup
                 title=" Add Make and Model"
-                openPopup={openPopup}
-                setOpenPopup={setOpenPopup}
+                openPopup={openPopup2}
+                setOpenPopup={setOpenPopup2}
             >
                 <MakeAndModelForm
-                    recordForEdit={recordForEdit}
+                    recordForEdit2={recordForEdit2}
                     addOrEdit={addOrEdit} />
             </Popup>
             <Popup
