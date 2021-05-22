@@ -102,7 +102,9 @@ const DealerAddCarModal = ({
       console.log("Model:" + carModel);
       console.log("body:" + body[0].VehicleID);
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
-      setVehicleID(body[0].VehicleID);
+      // console.log(selectedMake + "made");
+      // console.log(selectedModel + "Modelle");
+      // setVehicleID(body[1].VehicleID);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}.`);
