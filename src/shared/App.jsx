@@ -13,6 +13,7 @@ import {
   TestingPage,
   AboutPage,
   Login,
+  DealershipProfilePage,
 } from "../pages";
 import Menu from "../components/Menu";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
@@ -34,7 +35,7 @@ export default class App extends Component {
       
       <div>
         <Menu />
-          
+
         <Route exact path="/" component={Landing} />
         <Switch>
           <Route path="/about/:name" component={AboutPage} />
@@ -45,6 +46,7 @@ export default class App extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
+          <Route path="/dealership-profile" component={DealershipProfilePage} />
         </Switch>
 
         <Switch>
