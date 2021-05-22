@@ -1,254 +1,81 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Home.css";
-import background from "../../images/background.jpg";
+import queryString from "query-string";
 import carImage from "../../images/tesla.jpg";
 import { Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import RangeSlider from "react-bootstrap-range-slider";
-import { Card, Table, Row, Col, Form, Container } from "react-bootstrap";
-import {
-  getMakeList,
-  getModelListByMakeID,
-  getVehicleListByMakeIDAndModelID,
-} from "../../api/VehicleAPI";
+import { Table } from "react-bootstrap";
 import { getVehicleSearchResult } from "../../api/DealershipAPI";
+import SearchBar from "../../components/SearchBar";
 
-const SearchResult = (props) => {
-  const [priceValue, setPriceValue] = React.useState(125000);
-  const [rangeValue, setRangeValue] = React.useState(500);
+const SearchResult = ({ location }) => {
+  const [vehicleList, setVehicleList] = React.useState("");
 
-  const [makeID, setMakeID] = React.useState(props.location.state.makeInput);
-  const [range, setRange] = React.useState(props.location.state.rangeInput);
-  const [price, setPrice] = React.useState(props.location.state.priceInput);
-  const [condition, setCondition] = React.useState(
-    props.location.state.conditionIDInput
-  );
-  const [lat, setLat] = React.useState(props.location.state.latInput);
-  const [long, setLong] = React.useState(props.location.state.longInput);
-  const [makeList, setMakeList] = React.useState(
-    props.location.state.theMakeList
-  );
-  const [carCards, setCarCards] = React.useState([]);
-  const [makeName, setMakeName] = React.useState(
-    props.location.state.makeNameInput
-  );
-
-  let resultSearch = [];
+  const query = queryString.parse(location.search);
 
   React.useEffect(() => {
     onLoadGetVehicleSearchResult();
-    onLoadCheckGeolocation();
-    setMakeID(1);
-    setRange(500);
-    setPrice(125000);
-    setCondition(1);
-    setMakeName("Nissan");
   }, []);
 
   async function onLoadGetVehicleSearchResult() {
-    resultSearch = await getVehicleSearchResult(
-      makeID,
-      range,
-      price,
-      condition,
-      lat,
-      long
+    let resultSearch = await getVehicleSearchResult(
+      query.make,
+      query.range,
+      query.price,
+      query.condition,
+      query.lat,
+      query.lng
     );
-
-    if (resultSearch["body"] != undefined) {
-      setCarCards(
-        resultSearch["body"].map((car) => {
-          return {
-            image: carImage,
-            make: makeName,
-            model: car["ModelName"],
-            trim: car["Trim"],
-            odometer: car["Odometer"].toLocaleString("en") + " km",
-            color: car["ColorID"],
-            year: car["Year"],
-            price: "$" + car["StartPrice"].toLocaleString("en"),
-          };
-        })
-      );
-    } else setCarCards([]);
-    console.log(makeID, range, price, condition, lat, long);
-  }
-
-  function success(pos) {
-    setLat(pos.coords.latitude);
-    setLong(pos.coords.longitude);
-    console.log(
-      `Longitude : ${pos.coords.longitude}\nLatitude : ${pos.coords.latitude}`
-    );
-  }
-
-  function error(err) {
-    alert("Turn on geolocation!");
-  }
-
-  function onLoadCheckGeolocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
+    console.log(resultSearch);
+    if (resultSearch.status === 200) {
+      setVehicleList(resultSearch.body);
     } else {
-      alert("Must turn on Geolocation!");
+      alert(resultSearch.error);
     }
   }
-
-  // const renderCard = (card, index) => {
-  //   return (
-  //     <div className="carCard">
-  //       <img src={card.image} className="carImage" />
-
-  //       <Table striped hover className="carTable">
-  //         <tbody>
-  //           <tr>
-  //             <td>Make: {card.make}</td>
-  //             <td>Model: {card.model}</td>
-  //             <td>Trim: {card.trim}</td>
-  //           </tr>
-  //           <tr>
-  //             <td colSpan="2">Odometer: {card.odometer}</td>
-  //             <td>Color: {card.color}</td>
-  //           </tr>
-  //           <tr>
-  //             <td colSpan="2">Vehicle Year: {card.year}</td>
-  //             <td>Price: {card.price}</td>
-  //           </tr>
-  //         </tbody>
-  //       </Table>
-
-  //       <Button className="carDetailsButton">
-  //         <NavLink to="/search-detail" className="nav-search">
-  //           Details
-  //         </NavLink>
-  //       </Button>
-  //     </div>
-  //   );
-  // };
 
   return (
     <body>
       <h2>Search Result</h2>
-      <div>
-        <Row>
-          <Col>
-            <div className="makeColumn">
-              <div className="makeTitle">
-                <h3>Make</h3>
-              </div>
-              <select
-                className="make-dropdown"
-                onChange={(e) => {
-                  let makeObject = JSON.parse(e.target.value);
-                  setMakeName(makeObject.MakeName);
-                  setMakeID(makeObject.MakeID);
-                }}
-              >
-                {makeList.map((make) => (
-                  <option value={JSON.stringify(make)}>{make.MakeName}</option>
-                ))}
-              </select>
-            </div>
-          </Col>
-
-          <Col>
-            <div className="statusColumn">
-              <div className="statusTitle">
-                <h3>Status</h3>
-              </div>
-              <select
-                className="status-dropdown"
-                onChange={(e) => setCondition(e.target.value)}
-              >
-                <option value={parseInt("1", 10)}>New</option>
-                <option value={parseInt("2", 10)}>Used</option>
-              </select>
-            </div>
-          </Col>
-
-          <Col>
-            <section className="range">
-              <div className="priceColumn">
-                <div className="priceTitle">
-                  <h3>Price</h3>
-                </div>
-                <Container>
-                  <RangeSlider
-                    max={250000}
-                    value={priceValue}
-                    onChange={(e) => setPriceValue(e.target.value)}
-                    variant="success"
-                  />
-                </Container>
-              </div>
-            </section>
-          </Col>
-
-          <Col>
-            <section className="range">
-              <div className="rangeColumn">
-                <div className="rangeTitle">
-                  <h3 className="">Range</h3>
-                </div>
-                <Container>
-                  <RangeSlider
-                    max={1000}
-                    value={rangeValue}
-                    onChange={(e) => setRangeValue(e.target.value)}
-                    variant="success"
-                  />
-                </Container>
-              </div>
-            </section>
-          </Col>
-
-          <Col>
-            <Button
-              className="searchButton"
-              onClick={() => {
-                setRange(rangeValue);
-                setPrice(priceValue);
-                onLoadGetVehicleSearchResult();
-              }}
-            >
-              Search
-            </Button>
-          </Col>
-        </Row>
-      </div>
+      <SearchBar
+        make={query.make}
+        condition={query.condition}
+        price={query.price}
+        range={query.range}
+      />
       {/* <Button className="emailAlertButton">Send Email Alert</Button> */}
       <div className="results">
-        {" "}
-        {carCards.map((card) => (
-          <div className="carCard">
-            <img src={card.image} className="carImage" />
+        {vehicleList &&
+          vehicleList.map((vehicle) => (
+            <div className="carCard" key={vehicle.VehicleID}>
+              <img src={carImage} className="carImage" />
 
-            <Table striped hover className="carTable">
-              <tbody>
-                <tr>
-                  <td>Make: {card.make}</td>
-                  <td>Model: {card.model}</td>
-                  <td>Trim: {card.trim}</td>
-                </tr>
-                <tr>
-                  <td colSpan="2">Odometer: {card.odometer}</td>
-                  <td>Color: {card.color}</td>
-                </tr>
-                <tr>
-                  <td colSpan="2">Vehicle Year: {card.year}</td>
-                  <td>Price: {card.price}</td>
-                </tr>
-              </tbody>
-            </Table>
+              <Table striped hover className="carTable">
+                <tbody>
+                  <tr>
+                    <td>Make: {vehicle.MakeName}</td>
+                    <td>Model: {vehicle.ModelName}</td>
+                    <td>Trim: {vehicle.Trim}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="2">Odometer: {vehicle.Odometer} km</td>
+                    <td>Color: {vehicle.ColorName}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="2">Vehicle Year: {vehicle.Year}</td>
+                    <td>Price: ${vehicle.StartPrice}</td>
+                  </tr>
+                </tbody>
+              </Table>
 
-            <Button className="carDetailsButton">
-              <NavLink to="/search-detail" className="nav-search">
-                Details
-              </NavLink>
-            </Button>
-          </div>
-        ))}{" "}
+              <a
+                href={`/search-detail/${vehicle.InventoryID}`}
+                className="nav-search"
+              >
+                <Button className="carDetailsButton">Details</Button>
+              </a>
+            </div>
+          ))}{" "}
       </div>
     </body>
   );

@@ -15,6 +15,7 @@ import {
   getVehicleListByMakeIDAndModelID,
 } from "../../api/VehicleAPI";
 import { getVehicleSearchResult } from "../../api/DealershipAPI";
+import SearchBar from "../../components/SearchBar";
 
 export default function LandingPage() {
   const [makeList, setMakeList] = React.useState([]);
@@ -53,40 +54,19 @@ export default function LandingPage() {
 
   React.useEffect(() => {
     onLoadGetMakeList();
-    onLoadCheckGeolocation();
   }, []);
 
-  function success(pos) {
-    setLat(pos.coords.latitude);
-    setLong(pos.coords.longitude);
-    console.log(
-      `Longitude : ${pos.coords.longitude}\nLatitude : ${pos.coords.latitude}`
-    );
-  }
-
-  function error(err) {
-    alert("Turn on geolocation!");
-  }
-
-  function onLoadCheckGeolocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-      alert("Must turn on Geolocation!");
-    }
-  }
-
-  async function onClickgetVehicleSearchResult() {
-    let resultSearch = await getVehicleSearchResult(
-      makeID,
-      rangeValue,
-      priceValue,
-      conditionID,
-      lat,
-      long
-    );
-    console.log("resultSearch:" + resultSearch[0]);
-  }
+  // async function onClickgetVehicleSearchResult() {
+  //   let resultSearch = await getVehicleSearchResult(
+  //     makeID,
+  //     rangeValue,
+  //     priceValue,
+  //     conditionID,
+  //     lat,
+  //     long
+  //   );
+  //   // console.log("resultSearch:" + resultSearch[0]);
+  // }
 
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
@@ -116,7 +96,8 @@ export default function LandingPage() {
 
       <div className="dealerResults"> {cardInfo.map(renderCard)} </div>
 
-      <Row>
+      <SearchBar />
+      {/* <Row>
         <Col>
           <div className="makeColumn">
             <div className="makeTitle">
@@ -193,31 +174,13 @@ export default function LandingPage() {
         </Col>
 
         <Col>
-          <Link
-            to={{
-              pathname: "/search-result",
-              state: {
-                makeInput: makeID,
-                rangeInput: rangeValue,
-                priceInput: priceValue,
-                conditionIDInput: conditionID,
-                theMakeList: makeList,
-                longInput: long,
-                latInput: lat,
-                makeNameInput: makeName,
-              },
-            }}
-            className="nav-search"
+          <a
+            href={`/search-result?make=${makeID}&status=${conditionID}&price=${priceValue}&range=${rangeValue}&lat=${lat}&lng=${long}`}
           >
-            <Button
-              className="searchButton"
-              onClick={() => setSearchResults(onClickgetVehicleSearchResult())}
-            >
-              Search
-            </Button>
-          </Link>
+            <Button className="searchButton">Search</Button>
+          </a>
         </Col>
-      </Row>
+      </Row> */}
     </body>
   );
 }

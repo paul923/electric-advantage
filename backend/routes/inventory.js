@@ -40,6 +40,8 @@ router.get("/", function (req, res, next) {
           ) AS vehicle
     JOIN ea_db.vehicle_inventory 
       ON vehicle.VehicleID = vehicle_inventory.VehicleID
+    JOIN ea_db.color
+      ON vehicle_inventory.ColorID = color.ColorID
     JOIN (SELECT DealershipID, Latitude, Longitude
       FROM ea_db.dealership) as dealership
       ON vehicle_inventory.DealershipID = dealership.DealershipID
@@ -72,24 +74,40 @@ router.get("/", function (req, res, next) {
       } else if (results.length > 0) {
         res.status(200).send({ body: results });
       } else {
-        res.status(404).send({ error: "vehicles could not be retrieved" });
+        res.status(404).send({ error: "Vehicles not found" });
       }
     });
   });
 });
 
-// GET inventories by DealershipID
-router.get("/:dealershipID", function (req, res, next) {
+// GET inventories by InventoryID
+router.get("/:inventoryID/", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err; // When not connected
-    let dealershipID = req.params.dealershipID;
+    let inventoryID = req.params.inventoryID;
     var sql = `
-    SELECT *
-    FROM ??
-    WHERE 1=1
-    AND DealershipID = ?
+      SELECT InventoryID, vehicle_inventory.VehicleID, MakeName, ModelName, EVRange,
+      ColorName, Trim, StartPrice, Odometer, Quantity, vehicle_inventory.DealershipID, 
+      RegionCode, GroupName, StreetAddress, City, Province, Zip, Country, 
+      SalesContact, SalesEmail, SalesPhone
+      FROM ??
+      JOIN ea_db.dealership
+        ON dealership.DealershipID = vehicle_inventory.DealershipID
+      JOIN ea_db.vehicle
+        ON vehicle.VehicleID = vehicle_inventory.VehicleID
+      JOIN ea_db.vehicle_condition
+        ON vehicle_condition.ConditionID = vehicle_inventory.ConditionID
+      JOIN ea_db.color
+        ON color.ColorID = vehicle_inventory.ColorID
+      JOIN ea_db.vehicle_model
+        ON vehicle.ModelID = vehicle_model.ModelID
+      JOIN ea_db.vehicle_make
+        ON vehicle_model.MakeID = vehicle_make.MakeID
+      WHERE 1=1
+      AND InventoryID=?
+    ;
     `;
-    var parameters = ["ea_db.vehicle_inventory", dealershipID];
+    var parameters = ["ea_db.vehicle_inventory", inventoryID];
     sql = mysql.format(sql, parameters);
     connection.query(sql, function (error, results, fields) {
       connection.release();
@@ -100,7 +118,7 @@ router.get("/:dealershipID", function (req, res, next) {
         res.status(200).send({ body: results });
       } else {
         res.status(404).send({
-          error: `Inventory items with ${dealershipID} cannot be retrieved`,
+          error: `Inventory items with ${inventoryID} cannot be retrieved`,
         });
       }
     });
