@@ -21,7 +21,7 @@ const Menu = () => {
 
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("")
-  const { currentUser, userType, logout } = useAuth()
+  const { userType } = useAuth()
 
 
   
@@ -37,7 +37,7 @@ const Menu = () => {
       <Bars />
       <NavMenu>
         <NavLink to="/dealer" activeStyle>
-          Dealer
+          Dealership
         </NavLink>
         <NavLink to="/api-test" activeStyle>
           API Testing

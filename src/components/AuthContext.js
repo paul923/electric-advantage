@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
 
   async function GetUserType(id) {
     if (id === null) {
-      setSearchedUser("CUSTOMER")
+      setUserType("CUSTOMER")
     } else {
       let resultUser = await getUserByUserId(id);
       let statusCode = resultUser.status;

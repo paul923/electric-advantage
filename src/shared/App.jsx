@@ -19,35 +19,19 @@ import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
 
-import ProtectedRoute from "../components/ProtectedRoute";
-import PrivateRoute from "../components/PrivateRoute";
+import AdminPrivateRoute from "../components/AdminPrivateRoute";
 import DealerMenu from "../components/DealersMenu";
 import AdminMenu from "../components/AdminMenu";
 import Subscriptions from "../pages/adminPages/Subscriptions";
 import Vehicles from "../pages/adminPages/Vehicles";
 import Dealers from "../pages/adminPages/Dealers";
+import DealershipPrivateRoute from "../components/DealershipPrivateRoute";
 
 export default class App extends Component {
   render() {
     const userType = "customer";
-    return userType === "admin" ? (
-      <div>
-        <AdminMenu />
-        <Route path="/admin" component={AdminMenu} />
-        <Route path="/1" component={Subscriptions} />
-        <Route path="/2" component={Vehicles} />
-        <Route path="/3" component={Dealers} />
-        
-      </div>
-    ) : userType === "dealer" ? (
-      <div>
-        <DealerMenu />
-        <Route path="/dealer" component={DealerMenu} />
-        <Route path="/accountinfo" component={AccountInfo} />
-        <Route path="/subscription" component={Subscription} />
-        <Route path="/inventory" component={Inventory} />
-      </div>
-    ) : (
+    return  (
+      
       <div>
         <Menu />
           
@@ -72,10 +56,16 @@ export default class App extends Component {
         </Switch>
 
         <Route path="/api-test" component={TestingPage} />
-        <Route path="/admin" component={AdminMenu} />
-        <Route path="/1" component={Subscriptions} />
-        <Route path="/2" component={Vehicles} />
-        <Route path="/3" component={Dealers} />
+        <AdminPrivateRoute path="/admin" component={AdminMenu} />
+        <AdminPrivateRoute path="/1" component={Subscriptions} />
+        <AdminPrivateRoute path="/2" component={Vehicles} />
+        <AdminPrivateRoute path="/3" component={Dealers} />
+
+
+        <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
+        <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />
+        <DealershipPrivateRoute path="/subscription" component={Subscription} />
+        <DealershipPrivateRoute path="/inventory" component={Inventory} />
 
       </div>
     );
