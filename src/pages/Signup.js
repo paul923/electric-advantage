@@ -5,13 +5,9 @@ import { useAuth } from "../components/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import TYPE from "../constants/UserType";
 import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
-import _uniqueId from 'lodash/uniqueId';
+import _uniqueId from "lodash/uniqueId";
 import firebase from "firebase/app";
-import { auth } from "../firebase"
-
-
-
-
+import { auth } from "../firebase";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -34,13 +30,7 @@ export default function Signup() {
   const [makeList, setMakeList] = useState("");
   const [modelList, setModelList] = useState("");
   const [selectedMakeID, setSelectedMakeID] = useState("");
-  const [id] = useState(_uniqueId('testID-'));
-  
-
-
-  
-
-
+  const [id] = useState(_uniqueId("testID-"));
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -52,9 +42,9 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      await onPressCreateUser();
-      history.push("/");
+      signup(emailRef.current.value, passwordRef.current.value).then((cred) => {
+        onPressCreateUser(cred.user.uid);
+      });
     } catch {
       setError("Failed to create an account");
     }
@@ -62,47 +52,48 @@ export default function Signup() {
     setLoading(false);
   }
 
-
-  async function onPressCreateUser() {
+  async function onPressCreateUser(uid) {
     let userObj = {
-      UserID: auth.currentUser.uid,
+      UserID: uid,
       FirstName: firstname,
       LastName: lastname,
       Email: email,
       UserTypeID: userType,
     };
-    let result = await createUser(userObj);
-    alert(`Status : ${result.status}, ${result.body}`);
+    let createResult = await createUser(userObj);
+    if (createResult.status === 201) {
+      console.log("created");
+      if (userType === TYPE.DEALERSHIP) {
+        history.push("/dealership-profile");
+      } else {
+        history.push("/");
+      }
+    }
+    alert(`Status : ${createResult.status}, ${createResult.body}`);
   }
-
-
-
 
   return (
     <>
-
-
       <Card>
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <div className="text-center">
-
-            <Select
-              labelId="demo-controlled-open-select-label"
-              id="demo-controlled-open-select"
-              open={userOpen}
-              onClose={() => setUserOpen(false)}
-              onOpen={() => setUserOpen(true)}
-              value={userType}
-              onChange={(event) => {
-                setUserType(event.target.value);
-              }}   
-                       >
-              <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
-              <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
-              <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
-            </Select>
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={userOpen}
+                onClose={() => setUserOpen(false)}
+                onOpen={() => setUserOpen(true)}
+                value={userType}
+                onChange={(event) => {
+                  setUserType(event.target.value);
+                }}
+              >
+                <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
+                <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
+                <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
+              </Select>
             </div>
             {/* <div className="display-none">
             <Form.Group id="userid" >
@@ -110,7 +101,7 @@ export default function Signup() {
               <Form.Control type="text" value={id} onChange={(event) => setUserId(event.target.value)} required />
             </Form.Group>
             </div> */}
-                    {/* <TextField
+            {/* <TextField
           id="outlined-basic"
           label="userid"
           variant="outlined"
@@ -119,18 +110,33 @@ export default function Signup() {
         /> */}
             <Form.Group id="firstName">
               <Form.Label>First Name</Form.Label>
-              <Form.Control type="text" ref={firstNameRef}  required value={firstname}
-          onChange={(event) => setFirstname(event.target.value)}/>
+              <Form.Control
+                type="text"
+                ref={firstNameRef}
+                required
+                value={firstname}
+                onChange={(event) => setFirstname(event.target.value)}
+              />
             </Form.Group>
             <Form.Group id="lastName">
               <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" ref={lastNameRef} required value={lastname}
-          onChange={(event) => setLastname(event.target.value)}/>
+              <Form.Control
+                type="text"
+                ref={lastNameRef}
+                required
+                value={lastname}
+                onChange={(event) => setLastname(event.target.value)}
+              />
             </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required value={email}
-          onChange={(event) => setEmail(event.target.value)}/>
+              <Form.Control
+                type="email"
+                ref={emailRef}
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
@@ -140,7 +146,7 @@ export default function Signup() {
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
-            
+
             {/* <Form.Group id="plan">
               <Form.Label> Plan </Form.Label>
               <Form.Control as="select" defaultValue="Basic Plan">
@@ -149,7 +155,7 @@ export default function Signup() {
               </Form.Control>
             </Form.Group> */}
 
-            <Button disabled={loading} className="w-100" type="submit" onClick={() => onPressCreateUser()}>
+            <Button disabled={loading} className="w-100" type="submit">
               Sign Up
             </Button>
           </Form>
