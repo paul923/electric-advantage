@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import VehicleForm from "./VehicleForm";
-import MakeAndModelForm from "./MakeAndModelForm";
+import RegisterModelForm from "./RegisterModelForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
@@ -14,8 +14,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import Popup2 from "../../components/AdminPopup2";
-import { 
+import Popup3 from "../../components/AdminPopup3";
+import {
+    getMakeList,
+    registerMake,
+    getModelListByMakeID,
+    registerModelWithMakeID,
+    getVehicleListByMakeIDAndModelID,
     getAllAvailableVehicles,
     registerVehicleToDatabase,
     deleteVehicleByID,
@@ -33,31 +38,15 @@ const useStyles = makeStyles(theme => ({
     newButton: {
         position: 'absolute',
         right: '10px'
-    },
-    button1: {
-        position: 'absolute',
-        left: '950px',
-    width: '8%'},
-    button2: {
-        position: 'absolute',
-        left: '850px',
-        width: '10%'
     }
-   
-
-    
 }))
 
 
 const headCells = [
-    { id: 'vehicleID', label: 'Vehicle ID' },
-    { id: 'priceLow', label: 'Price Lower' },
-    { id: 'priceUp', label: 'Price Upper' },
-    { id: 'evRange', label: 'EV Range' },
-    { id: 'batterySize', label: "Battery Size"},
-    { id: 'trim', label: 'Trim' },
-    { id: 'year', label: 'Year' },
-    { id: 'modelID', label: 'Model ID' },
+    { id: 'Make', label: 'Make' },
+    { id: 'ModelID', label: 'Model ID' },
+    { id: 'MakeName', label: 'Make Name' },
+    
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -70,8 +59,9 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-    const [recordForEdit2, setRecordForEdit2] = useState(null)
-    const [openPopup2, setOpenPopup2] = useState(false)
+    const [recordForEdit3, setRecordForEdit3] = useState(null)
+
+    const [openPopup3, setOpenPopup3] = useState(false)
 
     const [vehicles, setVehicles] = React.useState([]);
     const [vehicleList, setVehicleList] = React.useState([]);
@@ -99,14 +89,10 @@ export default function Vehicles() {
                 setVehicleList(
                     resultVehicles["body"].map((v) => {
                         return {
-                            vehicleID: v["VehicleID"],
-                            priceLower: "$" + v["PriceLower"],
-                            priceUpper: "$" + v["PriceUpper"],
-                            evRange: v["EVRange"] + "km",
-                            batterySize: v["BatterySize"],
-                            trim: v["Trim"],
-                            year: v["Year"],
-                            modelID: v["ModelID"],
+                            Make: v["Make"],
+                            ModelID: v["ModelID"],
+                            MakeName: v["MakeName"],
+                           
                         };
                     })
                 );
@@ -134,7 +120,7 @@ export default function Vehicles() {
                 if (target.value == "")
                     return items;
                 else
-                    return items.filter(x => x.dealerID.toLowerCase().includes(target.value))
+                    return items.filter(x => x.ModelID.toLowerCase().includes(target.value))
             }
         })
     }
@@ -147,7 +133,7 @@ export default function Vehicles() {
         resetForm()
         setRecordForEdit(null)
         setOpenPopup(false)
-        setOpenPopup2(false)
+        setOpenPopup3(false)
         setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
@@ -159,7 +145,7 @@ export default function Vehicles() {
     const openInPopup = item => {
         setRecordForEdit(item)
         setOpenPopup(true)
-        setOpenPopup2(true)
+        setOpenPopup3(true)
     }
 
     const onDelete = id => {
@@ -177,7 +163,7 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Vehicle Database"
+                title="Register Model"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />
@@ -185,7 +171,7 @@ export default function Vehicles() {
 
                 <Toolbar>
                     <Controls.Input
-                        label="Search Vehicle Database"
+                        label="Search Model Database"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -195,31 +181,14 @@ export default function Vehicles() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Register Make"
-                        color="#841584"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={classes.button1}
-                        onClick={event =>  window.location.href='/5'}
-                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
-                    />
-                    <Controls.Button
                         text="Register Model"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
-                        className={classes.button2}
-                        onClick={event =>  window.location.href='/6'}
-                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
+                        // onClick={event =>  window.location.href='/4'}
+                        onClick={() => { setOpenPopup3(true); setRecordForEdit3(null); }}
                     />
-                    <Controls.Button
-                        text="Vehicle"
-                        color="#841584"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
-                    />
+                    
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
@@ -227,14 +196,10 @@ export default function Vehicles() {
                         {
                             vehicleList.map(v =>
                                 (<TableRow key={v.id}>
-                                    <TableCell>{v.vehicleID}</TableCell>
-                                    <TableCell>{v.priceLower}</TableCell>
-                                    <TableCell>{v.priceUpper}</TableCell>
-                                    <TableCell>{v.evRange}</TableCell>
-                                    <TableCell>{v.batterySize}</TableCell>
-                                    <TableCell>{v.trim}</TableCell>
-                                    <TableCell>{v.year}</TableCell>
-                                    <TableCell>{v.modelID}</TableCell>
+                                    <TableCell>{v.Make}</TableCell>
+                                    <TableCell>{v.MakeID}</TableCell>
+                                    <TableCell>{v.MakeName}</TableCell>
+                                    
                                     <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
@@ -265,23 +230,15 @@ export default function Vehicles() {
                 <TblPagination />
             </Paper>
             <Popup
-                title="Register Make"
-                openPopup={openPopup}
-                setOpenPopup={setOpenPopup}
+                title="Register Model"
+                openPopup={openPopup3}
+                setOpenPopup={setOpenPopup3}
             >
-                <MakeAndModelForm
+                <RegisterModelForm
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit} />
             </Popup>
-            <Popup
-                title="Add a new vehicle"
-                openPopup={openPopup}
-                setOpenPopup={setOpenPopup}
-            >
-                <VehicleForm
-                    recordForEdit={recordForEdit}
-                    addOrEdit={addOrEdit} />
-            </Popup>
+           
             <Notification
                 notify={notify}
                 setNotify={setNotify}

@@ -10,24 +10,19 @@ import * as vehicleService from "./vehicleService";
 const initialFValues = {
     
     id: 0,
-    carID: '',
-    model: '',
-    make: '',
-    trim: '',
-    evRange: '',
-    priceLow: '',
-    priceUp: '',
-    perf1: '',
-    perf2: '',
+    MakeName: '',
+    ModelID: '',
+    Make: '',
+    
   
 }
 
-export default function MakeAndModelForm(props) {
+export default function RegisterModelForm(props) {
     const { addOrEdit, recordForEdit } = props
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('carID' in fieldValues)
+        if ('ModelID' in fieldValues)
             temp.carID = fieldValues.carID ? "" : "This field is required."
     
         setErrors({
@@ -66,16 +61,23 @@ export default function MakeAndModelForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        label="Model"
-                        name="model"
-                        value={values.model}
+                        label="Make"
+                        name="Make"
+                        value={values.Make}
                         onChange={handleInputChange}
                         
                     />
                     <Controls.Input
-                        label="Makee"
-                        name="make"
-                        value={values.make}
+                        label="Model"
+                        name="ModelID"
+                        value={values.ModelID}
+                        onChange={handleInputChange}
+                       
+                    />
+                    <Controls.Input
+                        label="Make Name"
+                        name="MakeName"
+                        value={values.MakeName}
                         onChange={handleInputChange}
                        
                     />
