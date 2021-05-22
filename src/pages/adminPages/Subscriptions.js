@@ -15,7 +15,6 @@ import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import {
     getAllSubscriptionPlans,
-    createSubscriptionPlan,
 } from "../../api/SubscriptionAPI";
 
 const useStyles = makeStyles(theme => ({
@@ -37,7 +36,7 @@ const headCells = [
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
-    { id: 'actions', label: 'Actions', disableSorting: true }
+    // { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function Subscriptions() {
@@ -179,7 +178,7 @@ export default function Subscriptions() {
                                     <TableCell>{list.planID}</TableCell>
                                     <TableCell>{list.planName}</TableCell>
                                     <TableCell>{list.pricing}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                         <Controls.ActionButton
                                         //edit button color
                                             color="success"
@@ -198,7 +197,7 @@ export default function Subscriptions() {
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow>)
                             )
                         }

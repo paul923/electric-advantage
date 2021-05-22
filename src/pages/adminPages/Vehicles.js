@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import VehicleForm from "./VehicleForm";
+import MakeAndmodelForm from "./MakeAndModelForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
@@ -13,7 +14,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import { getAllAvailableVehicles } from "../../api/VehicleAPI";
+import { 
+    getAllAvailableVehicles,
+    registerVehicleToDatabase,
+    deleteVehicleByID,
+    updateVehicleByID,
+ } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -31,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'carID', label: 'Vehicle ID' },
+    { id: 'vehicleID', label: 'Vehicle ID' },
     { id: 'priceLow', label: 'Price Lower' },
     { id: 'priceUp', label: 'Price Upper' },
     { id: 'evRange', label: 'EV Range' },
@@ -39,9 +45,6 @@ const headCells = [
     { id: 'trim', label: 'Trim' },
     { id: 'year', label: 'Year' },
     { id: 'modelID', label: 'Model ID' },
-
-
-
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -55,8 +58,15 @@ export default function Vehicles() {
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
+    const [vehicles, setVehicles] = React.useState([]);
     const [vehicleList, setVehicleList] = React.useState([]);
+    const [vehicleID, setVehicleID] = React.useState("");
 
+    async function onClickDeleteVehicleByID() {
+        let vID = vehicleID;
+        let result = await deleteVehicleByID(vID);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
 
     let resultVehicles = [];
 
@@ -87,8 +97,13 @@ export default function Vehicles() {
                 );
             } else setVehicleList([]);
 
+            setVehicles(body);
+        } else {
+            alert(`Status : ${statusCode}, ${resultVehicles.error}`);
         }
     }
+
+
 
     const {
         TblContainer,
@@ -135,8 +150,6 @@ export default function Vehicles() {
             ...confirmDialog,
             isOpen: false
         })
-        vehicleService.deleteVehicle(id);
-        setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
             message: 'Deleted Successfully',
@@ -165,7 +178,15 @@ export default function Vehicles() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Add New"
+                        text="Make/Model"
+                        color="#841584"
+                        variant="outlined"
+                        startIcon={<AddIcon />}
+
+                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+                    />
+                    <Controls.Button
+                        text="Vehicle"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
@@ -200,7 +221,10 @@ export default function Vehicles() {
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(v.id) }
+                                                    onConfirm: () => { 
+                                                        setVehicleID(vehicleID); 
+                                                        onClickDeleteVehicleByID();
+                                                        onDelete(); }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
@@ -213,6 +237,15 @@ export default function Vehicles() {
                 </TblContainer>
                 <TblPagination />
             </Paper>
+            <Popup
+                title=" Add Make and Model"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <MakeAndmodelForm
+                    recordForEdit={recordForEdit}
+                    addOrEdit={addOrEdit} />
+            </Popup>
             <Popup
                 title="Add a new vehicle"
                 openPopup={openPopup}
