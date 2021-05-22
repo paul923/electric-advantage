@@ -221,3 +221,21 @@ export async function updateVehicleByID(vehicle) {
     console.log(error);
   }
 }
+
+/**
+ * Retrieves inventory item by inventoryID
+ * @returns inventory object
+ */
+export async function getInventoryByInventoryID(inventoryID) {
+  try {
+    console.log(`Retrieving inventory item with ${inventoryID}`);
+    let url = `http://${database}:3000/inventories/${inventoryID}`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}

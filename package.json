@@ -16,6 +16,7 @@
     "jquery": "^3.6.0",
     "mariadb": "^2.5.3",
     "popper.js": "^1.16.1",
+    "query-string": "^7.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
     "react-bootstrap-range-slider": "^2.0.2",

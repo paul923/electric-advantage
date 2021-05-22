@@ -45,7 +45,7 @@ export async function getVehicleSearchResult(
 export async function getInventoryByDealershipID(dealershipID) {
   try {
     console.log(`Retrieving all inventory items belong to ${dealershipID}`);
-    let url = `http://${database}:3000/inventories/${dealershipID}`;
+    let url = `http://${database}:3000/dealerships/${dealershipID}/inventories`;
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;

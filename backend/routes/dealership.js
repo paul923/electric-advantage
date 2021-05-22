@@ -91,6 +91,35 @@ router.post("/", function (req, res, next) {
   });
 });
 
+// GET inventories by DealershipID
+router.get("/:dealershipID/inventories", function (req, res, next) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // When not connected
+    let dealershipID = req.params.dealershipID;
+    var sql = `
+    SELECT *
+    FROM ??
+    WHERE 1=1
+    AND DealershipID = ?
+    `;
+    var parameters = ["ea_db.vehicle_inventory", dealershipID];
+    sql = mysql.format(sql, parameters);
+    connection.query(sql, function (error, results, fields) {
+      connection.release();
+      if (error) {
+        console.log(error);
+        res.status(500).send({ error: "Database Error" });
+      } else if (results.length > 0) {
+        res.status(200).send({ body: results });
+      } else {
+        res.status(404).send({
+          error: `Inventory items with ${dealershipID} cannot be retrieved`,
+        });
+      }
+    });
+  });
+});
+
 // PUT dealership by dealershipID
 router.put("/:dealershipID", function (req, res, next) {
   pool.getConnection(function (err, connection) {
