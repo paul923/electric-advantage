@@ -63,8 +63,7 @@ const InventoryRow = ({
           <XCircleFill />
         </Button>
       </td>{" "}
-      */}
-      <DealerEditCarModal
+      {/* <DealerEditCarModal
         rowCarModel={carModel}
         rowCarMake={carMake}
         rowCarTrim={carTrim}
@@ -72,7 +71,7 @@ const InventoryRow = ({
         rowCarQty={Qty}
         showModal={showModal}
         setShowModal={setShowModal}
-      />
+      />  */}
     </tr>
   );
 };
