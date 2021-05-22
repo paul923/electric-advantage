@@ -1,8 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { PencilFill } from "react-bootstrap-icons";
+import { XCircleFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
 import DealerEditCarModal from "./DealerEditModal";
+import { deleteItemByInventoryID } from "../api/DealershipAPI";
 
 const InventoryRow = ({
   carModel,
@@ -13,10 +14,11 @@ const InventoryRow = ({
   carPrice,
   Qty,
   editText,
+  rowID,
+  updateInventory,
   showEditText,
   row,
 }) => {
-  const [showModal, setShowModal] = React.useState(false);
   return (
     <tr>
       <td>{carModel}</td>
@@ -42,24 +44,17 @@ const InventoryRow = ({
           placeholder={Qty}
         ></input>
       </td>
-      {/* <td className="lastColumn">
+      <td className="lastColumn">
         <Button
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            deleteItemByInventoryID(rowID).then(updateInventory());
+          }}
           className="editIcon"
           variant="light"
         >
-          <PencilFill />
+          <XCircleFill />
         </Button>
-      </td> */}
-      <DealerEditCarModal
-        rowCarModel={carModel}
-        rowCarMake={carMake}
-        rowCarTrim={carTrim}
-        rowCarPrice={carPrice}
-        rowCarQty={Qty}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
+      </td>
     </tr>
   );
 };

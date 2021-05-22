@@ -93,7 +93,9 @@ const DealerAddCarModal = ({
     if (statusCode === 200) {
       let body = resultTrimList.body;
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
-      setVehicleID(body[0].VehicleID);
+      // console.log(selectedMake + "made");
+      // console.log(selectedModel + "Modelle");
+      // setVehicleID(body[1].VehicleID);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}`);
@@ -156,8 +158,8 @@ const DealerAddCarModal = ({
               onChange={(e) => {
                 let carModelObject = JSON.parse(e.target.value);
                 setCarModel(carModelObject.ModelName);
-                setTrimDisabled(false);
                 setSelectedModel(carModelObject.ModelID);
+                setTrimDisabled(false);
               }}
               as="select"
               disabled={modelDisabled}

@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { PencilFill, XCircleFill } from "react-bootstrap-icons";
+import { XCircleFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
 
 const DealerAddInventoryRow = ({

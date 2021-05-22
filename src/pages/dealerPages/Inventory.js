@@ -6,18 +6,14 @@ import { ChevronExpand } from "react-bootstrap-icons";
 import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
-import {
-  getAllDealerships,
-  getInventoryByDealershipID,
-  addInventoryItemToDealership,
-} from "../../api/DealershipAPI";
+import { getInventoryByDealershipID } from "../../api/DealershipAPI";
 
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
 
   async function getFirstInventoryList() {
+    console.log("HELLOHELLO");
     let firstInventory = await getInventoryByDealershipID("1");
-    console.log("HERE");
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
       let body = firstInventory.body;
@@ -31,6 +27,7 @@ export default function DealerInventory() {
             carColor: car.ColorID,
             carQty: car.Quantity,
             carPrice: car.StartPrice,
+            rowID: car.InventoryID,
           };
         })
       );
@@ -148,11 +145,12 @@ export default function DealerInventory() {
                 <Button
                   variant="light"
                   className="headerButtons"
-                  onClick={() => sortNumber("Qty")}
+                  onClick={() => sortNumber("carQty")}
                 >
                   <ChevronExpand />
                 </Button>
               </th>
+              <th className="tableHeaders">Delete</th>
             </tr>
           </thead>
           <tbody className="body">
@@ -165,8 +163,9 @@ export default function DealerInventory() {
                 carColor={car.carColor}
                 carPrice={car.carPrice}
                 Qty={car.carQty}
-                // carID={car.carID}
-                row={car}
+                rowID={car.rowID}
+                updateInventory={getFirstInventoryList}
+                // row={car}
                 setShowModal={setShowModal}
                 editText={editText}
                 showEditText={showEditText}
