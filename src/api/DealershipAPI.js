@@ -188,7 +188,7 @@ export async function deleteItemByInventoryID(inventoryID) {
  *         "Province": string,
  *         "Zip": string,
  *         "Country": string,
- *         "Latitude: float,
+ *         "Latitude": float,
  *         "Longitude": float,
  *         "SalesContact": string,
  *         "SalesEmail": string,

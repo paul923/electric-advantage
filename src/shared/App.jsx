@@ -18,7 +18,7 @@ import Menu from "../components/Menu";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
-
+import DealershipProfilePage from "../pages/dealerPages/DealershipProfilePage";
 import AdminPrivateRoute from "../components/AdminPrivateRoute";
 import DealerMenu from "../components/DealersMenu";
 import AdminMenu from "../components/AdminMenu";
@@ -108,6 +108,9 @@ export default class App extends Component {
             component={Subscription}
           />
           <DealershipPrivateRoute path="/inventory" component={Inventory} />
+          <DealershipPrivateRoute path="/dealerprofile" component={DealershipProfilePage} />
+
+          
         </div>
       </CoordinateContext.Provider>
     );
