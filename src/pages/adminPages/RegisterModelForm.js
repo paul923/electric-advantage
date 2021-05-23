@@ -3,20 +3,19 @@ import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
-
-import { 
-    registerModelWithMakeID,
-    getMakeList, 
-} from "../../api/VehicleAPI";
-
+import {
+    getMakeList,
+    registerModelWithMakeID
+  } from "../../api/VehicleAPI";
+import { Select, MenuItem } from "@material-ui/core";
 
 const initialFValues = {
-    
     id: 0,
-    MakeID: '',
-    ModelID: '',
+    ModelID: '',  
     ModelName: '',
+    MakeID: ''
 }
+
 
 export default function RegisterModelForm(props) {
     const { addOrEdit, recordForEdit } = props
@@ -30,10 +29,46 @@ export default function RegisterModelForm(props) {
     React.useEffect(() => {
         onLoadGetMakeList();
     }, []);
+    const [id, setID] = React.useState("");
+    const [modelName, setModelName] = React.useState("");
+    const [modelID, setModelID] = React.useState("");
+    const [makeID, setMakeID] = React.useState("");
+
+    const [makeOpen, setMakeOpen] = React.useState(false);
+    const [makeList, setMakeList] = React.useState("");
+    const [selectedMakeID, setSelectedMakeID] = React.useState("");
+  
+    React.useEffect(() => {
+      onLoadGetMakeList();
+
+    }, []);
+  
+
+    async function onClickRegisterModelWithMakeID() {
+        let modelObj = {
+            ModelID: id,
+            ModelName: modelName,
+        };
+        let result = await registerModelWithMakeID(modelObj);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
+  
+    async function onLoadGetMakeList() {
+      let resultMakeList = await getMakeList();
+      let statusCode = resultMakeList.status;
+      if (statusCode === 200) {
+        let body = resultMakeList.body;
+        console.log(body);
+        setMakeList(body);
+      } else {
+        alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+      }
+    }
+
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('ModelID' in fieldValues)
+        if ('MakeID' in fieldValues)
             temp.carID = fieldValues.carID ? "" : "This field is required."
     
         setErrors({
@@ -92,9 +127,32 @@ export default function RegisterModelForm(props) {
                 ...recordForEdit
             })
     }, [recordForEdit])
+  
+  
+    const vehiclesList = () => {
+      return (
+        <div>
+          <Select
+            open={makeOpen}
+            onClose={() => setMakeOpen(false)}
+            onOpen={() => setMakeOpen(true)}
+            value={selectedMakeID}
+            onChange={(event) => {
+              setSelectedMakeID(event.target.value);
+            }}
+          >
+            {makeList &&
+              makeList.map((make, index) => {
+                return (
+                  <MenuItem key={make.MakeID} value={make.MakeID}>
+                    {make.MakeName}
+                  </MenuItem>
+                );
+              })}
 
-    return (
-        <Form onSubmit={handleSubmit}>
+          </Select>
+
+          <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
@@ -105,16 +163,15 @@ export default function RegisterModelForm(props) {
                     />
                     <Controls.Input
                         label="Model ID"
-                        value={modelID}
-                        onChange={(event) => setModelID(event.target.value)}
-                       
+                        value={id}
+                        onChange={(event) => setID(event.target.value)}
                     />
                     <Controls.Input
                         label="Model Name"
                         value={modelName}
                         onChange={(event) => setModelName(event.target.value)}
-                       
                     />
+                   
                 </Grid>
                 <Grid item xs={6}>
                     <div>
@@ -122,6 +179,9 @@ export default function RegisterModelForm(props) {
                             type="submit"
                             text="Submit" 
                             onClick= {() => onClickRegisterModelWithMakeID()} />
+                            text="Submit"
+                            onClick= {() => 
+                                onClickRegisterModelWithMakeID()} />
                         <Controls.Button
                             text="Reset"
                             color="default"
@@ -130,5 +190,20 @@ export default function RegisterModelForm(props) {
                 </Grid>
             </Grid>
         </Form>
-    )
-}
+        </div>
+      );
+    };
+  
+    const searchingForm = () => {
+      return <div></div>;
+
+      
+    };
+    return (
+      <div>  
+        {vehiclesList()}
+        {searchingForm()}
+      </div>
+    );
+  }
+  

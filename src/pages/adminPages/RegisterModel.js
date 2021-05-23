@@ -59,6 +59,9 @@ export default function RegisterModel() {
     const [carModel, setCarModel] = React.useState("");
     const [selectedModel, setSelectedModel] = React.useState("1");
     const [modelList, setModelList] = React.useState([]);
+    const [make, setMake] = React.useState([]);
+
+    let resultMakeList = [];
 
     let makeIDList = [];
 
@@ -84,12 +87,23 @@ export default function RegisterModel() {
         let resultMakeList = await getMakeList();
         let statusCode = resultMakeList.status;
         if (statusCode === 200) {
-          let body = resultMakeList.body;
-          setMakeList(body);
+            let body = resultMakeList.body;
+            if (resultMakeList["body"] != undefined) {
+                setMakeList(
+                    resultMakeList["body"].map((m) => {
+                        return {
+                            MakeID: m["MakeID"],
+                            ModelName: m["ModelName"],
+                            ModelID: m["ModelID"],
+                        };
+                    })
+                );
+            } else setMakeList([]);
+            setMake(body);
         } else {
-          alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+            alert(`Status : ${statusCode}, ${resultMakeList.error}`);
         }
-      }
+    }
     
       async function getModelList() {
         let resultModelList = await getModelListByMakeID(selectedMake);
