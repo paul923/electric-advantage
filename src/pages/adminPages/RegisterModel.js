@@ -17,7 +17,7 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup3 from "../../components/AdminPopup3";
 import { 
     getMakeList,
-    getModelListByMakeID 
+    getModelListByMakeID,
 } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
@@ -39,7 +39,7 @@ const headCells = [
     { id: 'MakeID', label: 'Make ID' },
     { id: 'ModelID', label: 'Model ID' },
     { id: 'ModelName', label: 'Model Name' },
-    { id: 'actions', label: 'Actions', disableSorting: true }
+    // { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function RegisterModel() {
@@ -59,6 +59,17 @@ export default function RegisterModel() {
     const [carModel, setCarModel] = React.useState("");
     const [selectedModel, setSelectedModel] = React.useState("1");
     const [modelList, setModelList] = React.useState([]);
+
+    let makeIDList = [];
+
+
+    makeIDList = makeList.map((m) => {
+        return {
+            makeID: m["MakeID"],
+        };
+    });
+
+    console.log(makeIDList);
 
     React.useEffect(() => {
         onLoadGetMakeList();
@@ -187,7 +198,7 @@ export default function RegisterModel() {
                                     <TableCell>{m.ModelID}</TableCell>
                                     <TableCell>{m.ModelName}</TableCell>
                                     
-                                    <TableCell>
+                                    {/* <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
@@ -205,7 +216,7 @@ export default function RegisterModel() {
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow>)
                             )
                         }

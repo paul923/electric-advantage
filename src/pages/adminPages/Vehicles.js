@@ -50,13 +50,13 @@ const useStyles = makeStyles(theme => ({
 
 const headCells = [
     { id: 'vehicleID', label: 'Vehicle ID' },
+    { id: 'modelID', label: 'Model ID' },
     { id: 'priceLow', label: 'Price Lower' },
     { id: 'priceUp', label: 'Price Upper' },
     { id: 'evRange', label: 'EV Range' },
     { id: 'batterySize', label: "Battery Size"},
     { id: 'trim', label: 'Trim' },
     { id: 'year', label: 'Year' },
-    { id: 'modelID', label: 'Model ID' },
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -227,13 +227,13 @@ export default function Vehicles() {
                             vehicleList.map(v =>
                                 (<TableRow key={v.id}>
                                     <TableCell>{v.vehicleID}</TableCell>
+                                    <TableCell>{v.modelID}</TableCell>
                                     <TableCell>{v.priceLower}</TableCell>
                                     <TableCell>{v.priceUpper}</TableCell>
                                     <TableCell>{v.evRange}</TableCell>
                                     <TableCell>{v.batterySize}</TableCell>
                                     <TableCell>{v.trim}</TableCell>
                                     <TableCell>{v.year}</TableCell>
-                                    <TableCell>{v.modelID}</TableCell>
                                     <TableCell>
                                         <Controls.ActionButton
                                             //edit button color

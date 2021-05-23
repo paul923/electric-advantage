@@ -39,7 +39,7 @@ const headCells = [
     { id: 'email', label: 'Email' }, 
     { id: 'phone', label: 'Phone' }, 
     { id: 'planID', label:'Plan ID' },
-    { id: 'actions', label: 'Actions', disableSorting: true }
+    // { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function Vehicles() {
@@ -189,28 +189,15 @@ export default function Vehicles() {
                                     <TableCell>{list.dealerEmail}</TableCell>
                                     <TableCell>{list.dealerPhone}</TableCell>
                                     <TableCell>{list.dealerPlanID}</TableCell>
-                                    
-                        
-                                    <TableCell>
+                                                            
+                                    {/* <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
                                             onClick={() => { openInPopup(list) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                        {/* removing remove dealer option */}
-                                        {/* <Controls.ActionButton
-                                            onClick={() => {
-                                                setConfirmDialog({
-                                                    isOpen: true,
-                                                    title: 'Confirm you wish to delete',
-                                                    subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(list.id) }
-                                                })
-                                            }}>
-                                            <CloseIcon fontSize="small" />
-                                        </Controls.ActionButton> */}
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow>)
                             )
                         }

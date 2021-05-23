@@ -4,7 +4,10 @@ import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
 
-
+import { 
+    registerModelWithMakeID,
+    getMakeList, 
+} from "../../api/VehicleAPI";
 
 
 const initialFValues = {
@@ -17,6 +20,16 @@ const initialFValues = {
 
 export default function RegisterModelForm(props) {
     const { addOrEdit, recordForEdit } = props
+    const [makeList, setMakeList] = React.useState([]);
+    const [makeID, setMakeID] = React.useState("");
+    const [modelID, setModelID] = React.useState("");
+    const [modelName, setModelName] = React.useState("");
+
+    let makeIDList = [];
+
+    React.useEffect(() => {
+        onLoadGetMakeList();
+    }, []);
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -29,6 +42,32 @@ export default function RegisterModelForm(props) {
 
         if (fieldValues == values)
             return Object.values(temp).every(x => x == "")
+    }
+
+    async function onLoadGetMakeList() {
+        let resultMakeList = await getMakeList();
+        let statusCode = resultMakeList.status;
+        if (statusCode === 200) {
+          let body = resultMakeList.body;
+          setMakeList(body);
+        } else {
+          alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+        }
+    }
+
+    makeIDList = makeList.map((m) => {
+        return {
+            makeID: m["MakeID"],
+        };
+    });
+
+    async function onClickRegisterModelWithMakeID() {
+        let modelObj = {
+            ModelID: modelID,
+            ModelName: modelName,
+        };
+        let result = await registerModelWithMakeID(modelObj, makeID);
+        alert(`Status : ${result.status}, ${result.body}`);
     }
 
     const {
@@ -60,20 +99,20 @@ export default function RegisterModelForm(props) {
                 <Grid item xs={6}>
                     <Controls.Input
                         label="Make ID"
-                        value={values.MakeID}
-                        onChange={handleInputChange}
+                        value={makeID}
+                        onChange={(event) => setMakeID(event.target.value)}
                         
                     />
                     <Controls.Input
                         label="Model ID"
-                        value={values.ModelID}
-                        onChange={handleInputChange}
+                        value={modelID}
+                        onChange={(event) => setModelID(event.target.value)}
                        
                     />
                     <Controls.Input
                         label="Model Name"
-                        value={values.ModelName}
-                        onChange={handleInputChange}
+                        value={modelName}
+                        onChange={(event) => setModelName(event.target.value)}
                        
                     />
                 </Grid>
@@ -81,7 +120,8 @@ export default function RegisterModelForm(props) {
                     <div>
                         <Controls.Button
                             type="submit"
-                            text="Submit" />
+                            text="Submit" 
+                            onClick= {() => onClickRegisterModelWithMakeID()} />
                         <Controls.Button
                             text="Reset"
                             color="default"

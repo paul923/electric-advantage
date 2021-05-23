@@ -3,9 +3,11 @@ import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
-
-
-
+import {
+    getMakeList,
+    getModelListByMakeID,
+    registerVehicleToDatabase,
+ } from "../../api/VehicleAPI";
 
 const initialFValues = {
     
@@ -22,6 +24,44 @@ const initialFValues = {
 
 export default function VehicleForm(props) {
     const { addOrEdit, recordForEdit } = props
+    const [carModel, setCarModel] = React.useState("");
+    const [makeList, setMakeList] = React.useState([]);
+    const [selectedMake, setSelectedMake] = React.useState("1");
+    const [modelList, setModelList] = React.useState([]);
+    const [selectedModel, setSelectedModel] = React.useState("1");
+
+    React.useEffect(() => {
+        onLoadGetMakeList();
+        getModelList();
+    }, []);
+
+    React.useEffect(() => {
+        getModelList();
+    }, selectedMake);
+
+    async function onLoadGetMakeList() {
+        let resultMakeList = await getMakeList();
+        let statusCode = resultMakeList.status;
+        if (statusCode === 200) {
+          let body = resultMakeList.body;
+          setMakeList(body);
+        } else {
+          alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+        }
+    }
+
+    async function getModelList() {
+        let resultModelList = await getModelListByMakeID(selectedMake);
+        let statusCode = resultModelList.status;
+        if (statusCode === 200) {
+          let body = resultModelList.body;
+          setModelList(body);
+          setCarModel(resultModelList.body[0].ModelName);
+          setSelectedModel(resultModelList.body[0].ModelID);
+        } else {
+          alert(`Status : ${statusCode}, ${resultModelList.error}`);
+        }
+    }
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -63,6 +103,16 @@ export default function VehicleForm(props) {
         <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
+                    <label>
+                        Make:
+                        <select>
+                            <option value="grapefruit">Grapefruit</option>
+                            <option value="lime">Lime</option>
+                            <option value="coconut">Coconut</option>
+                            <option value="mango">Mango</option>
+                        </select>
+                    </label>
+                    
                     <Controls.Input
                         label="Vehicle ID"
                         value={values.vehicleID}
