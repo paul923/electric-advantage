@@ -17,4 +17,3 @@ export { default as Profile } from "./userPages/Profile";
 export { default as SearchResult } from "./userPages/SearchResult";
 export { default as SearchDetail } from "./userPages/SearchDetail";
 export { default as Landing } from "./userPages/Landing";
-export { default as DealershipProfilePage } from "./DealershipProfilePage";
