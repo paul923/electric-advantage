@@ -15,6 +15,8 @@ export function AuthProvider({ children }) {
   const [userType, setUserType] = useState();
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("")
+  const [userObject, setUserObject] = useState("")
+
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
@@ -59,11 +61,31 @@ export function AuthProvider({ children }) {
     }
   }
 
+  async function GetUserObject(id) {
+    if (id === null) {
+      setUserObject(null)
+    } else {
+      let resultUser = await getUserByUserId(id);
+      let statusCode = resultUser.status;
+      if (statusCode === 200) {
+        let body = resultUser.body[0];
+        setSearchedUser(body);
+        console.log("userobject")
+        console.log(body)
+        setUserObject(body)
+      } else {
+        alert(`Status : ${statusCode}, ${resultUser.error}`);
+      }
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
-      if (currentUser) {
+      console.log(user)
+      if (user) {
       GetUserType(user.uid)
+      GetUserObject(user.uid)
       }
       setLoading(false)
     })
@@ -79,7 +101,8 @@ export function AuthProvider({ children }) {
     resetPassword,
     updateEmail,
     updatePassword,
-    userType
+    userType,
+    userObject
   }
 
   return (

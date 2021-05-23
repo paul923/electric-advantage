@@ -25,6 +25,11 @@ const DealerMenu = () => {
             Account Info
           </NavLink>
         </li>
+        <li>
+          <NavLink exact to="/dealerprofile" activeStyle={activeStyle}>
+            Dealership update
+          </NavLink>
+        </li>
       </ul>
       <hr />
     </div>

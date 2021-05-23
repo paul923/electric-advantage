@@ -11,6 +11,7 @@ export { default as AccountInfo } from "./dealerPages/AccountInfo";
 export { default as AddScreen } from "./dealerPages/AddList";
 export { default as Inventory } from "./dealerPages/Inventory";
 export { default as Subscription } from "./dealerPages/Subscription";
+export { default as DealershipProfilePage } from "./dealerPages/DealershipProfilePage";
 export { default as WhoWeAre } from "./userPages/WhoWeAre";
 export { default as ContactUs } from "./userPages/ContactUs";
 export { default as Profile } from "./userPages/Profile";
