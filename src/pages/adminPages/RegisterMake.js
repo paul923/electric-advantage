@@ -15,13 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup2 from "../../components/AdminPopup2";
-import {
-    getMakeList,
-    registerMake,
-    getAllAvailableVehicles,
-    deleteVehicleByID,
-    updateVehicleByID,
- } from "../../api/VehicleAPI";
+import { getMakeList } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -70,7 +64,6 @@ export default function Vehicles() {
         let statusCode = resultMake.status;
         if (statusCode === 200) {
             let body = resultMake.body;
-            console.log(body);
             if (resultMake["body"] != undefined) {
                 setMakeList(
                     resultMake["body"].map((m) => {
@@ -81,7 +74,6 @@ export default function Vehicles() {
                     })
                 );
             } else setMakeList([]);
-
             setMake(body);
         } else {
             alert(`Status : ${statusCode}, ${resultMake.error}`);

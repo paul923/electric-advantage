@@ -36,10 +36,9 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'Make', label: 'Make' },
+    { id: 'MakeID', label: 'Make ID' },
     { id: 'ModelID', label: 'Model ID' },
     { id: 'ModelName', label: 'Model Name' },
-    
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -53,16 +52,46 @@ export default function Vehicles() {
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
     const [recordForEdit3, setRecordForEdit3] = useState(null)
-
     const [openPopup3, setOpenPopup3] = useState(false)
 
-    const [make, setMake] = React.useState([]);
     const [makeList, setMakeList] = React.useState([]);
-    const [makeIDList, setMakeIDList] = React.useState([]);
+    const [selectedMake, setSelectedMake] = React.useState("1");
+    const [carModel, setCarModel] = React.useState("");
+    const [selectedModel, setSelectedModel] = React.useState("1");
     const [modelList, setModelList] = React.useState([]);
 
+    React.useEffect(() => {
+        onLoadGetMakeList();
+        getModelList();
+    }, []);
 
+    React.useEffect(() => {
+        getModelList();
+    }, selectedMake);
 
+    async function onLoadGetMakeList() {
+        let resultMakeList = await getMakeList();
+        let statusCode = resultMakeList.status;
+        if (statusCode === 200) {
+          let body = resultMakeList.body;
+          setMakeList(body);
+        } else {
+          alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+        }
+      }
+    
+      async function getModelList() {
+        let resultModelList = await getModelListByMakeID(selectedMake);
+        let statusCode = resultModelList.status;
+        if (statusCode === 200) {
+          let body = resultModelList.body;
+          setModelList(body);
+          setCarModel(resultModelList.body.ModelName);
+          setSelectedModel(resultModelList.body[0].ModelID);
+        } else {
+          alert(`Status : ${statusCode}, ${resultModelList.error}`);
+        }
+      }
 
     const {
         TblContainer,
@@ -154,9 +183,9 @@ export default function Vehicles() {
                         {
                             modelList.map(m =>
                                 (<TableRow key={m.id}>
-                                    <TableCell>{m.Make}</TableCell>
+                                    <TableCell>{m.MakeID}</TableCell>
                                     <TableCell>{m.ModelID}</TableCell>
-                                    <TableCell>{m.MakeName}</TableCell>
+                                    <TableCell>{m.ModelName}</TableCell>
                                     
                                     <TableCell>
                                         <Controls.ActionButton

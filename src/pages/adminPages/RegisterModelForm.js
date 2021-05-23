@@ -10,11 +10,9 @@ import * as vehicleService from "./vehicleService";
 const initialFValues = {
     
     id: 0,
-    MakeName: '',
+    MakeID: '',
     ModelID: '',
-    Make: '',
-    
-  
+    ModelName: '',
 }
 
 export default function RegisterModelForm(props) {
@@ -61,23 +59,20 @@ export default function RegisterModelForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        label="Make"
-                        name="Make"
-                        value={values.Make}
+                        label="Make ID"
+                        value={values.MakeID}
                         onChange={handleInputChange}
                         
                     />
                     <Controls.Input
-                        label="Model"
-                        name="ModelID"
+                        label="Model ID"
                         value={values.ModelID}
                         onChange={handleInputChange}
                        
                     />
                     <Controls.Input
-                        label="Make Name"
-                        name="MakeName"
-                        value={values.MakeName}
+                        label="Model Name"
+                        value={values.ModelName}
                         onChange={handleInputChange}
                        
                     />

@@ -10,16 +10,14 @@ import * as vehicleService from "./vehicleService";
 const initialFValues = {
     
     id: 0,
-    carID: '',
-    model: '',
-    make: '',
-    trim: '',
+    vehicleID: '',
+    modelID: '',
+    priceLower: '',
+    priceUpper: '',
     evRange: '',
-    priceLow: '',
-    priceUp: '',
-    perf1: '',
-    perf2: '',
-  
+    batterySize: '',
+    trim: '',
+    year: '',  
 }
 
 export default function VehicleForm(props) {
@@ -66,63 +64,48 @@ export default function VehicleForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        name="carID"
-                        label="Car ID"
-                        value={values.carID}
+                        label="Vehicle ID"
+                        value={values.vehicleID}
                         onChange={handleInputChange}
-                        error={errors.carID}
+                        error={errors.vehicleID}
                     />
                     <Controls.Input
-                        label="Model"
-                        name="model"
-                        value={values.model}
+                        label="Model ID"
+                        value={values.modelID}
                         onChange={handleInputChange}
                         
                     />
                     <Controls.Input
-                        label="Make"
-                        name="make"
-                        value={values.make}
+                        label="Price Lower"
+                        value={values.priceLower}
                         onChange={handleInputChange}
                        
                     />
                     <Controls.Input
-                        label="Trim"
-                        name="trim"
-                        value={values.trim}
+                        label="Price Upper"
+                        value={values.priceUpper}
                         onChange={handleInputChange}
                     />
                     <Controls.Input
                         label="EV Range"
-                        name="evRange"
                         value={values.evRange}
                         onChange={handleInputChange}
                     />
                     <Controls.Input
-                        label="Price Lower"
-                        name="priceLow"
-                        value={values.priceLow}
+                        label="Battery Size"
+                        value={values.batterySize}
                         onChange={handleInputChange}
                     />
                     <Controls.Input
-                        label="Price Upper"
-                        name="priceUp"
-                        value={values.priceUp}
+                        label="Trim"
+                        value={values.trim}
                         onChange={handleInputChange}
                     />
                     <Controls.Input
-                        label="Performance Figure 1"
-                        name="perf1"
-                        value={values.perf1}
+                        label="Year"
+                        value={values.year}
                         onChange={handleInputChange}
                     />
-                    <Controls.Input
-                        label="Performance Figure 2"
-                        name="perf2"
-                        value={values.perf2}
-                        onChange={handleInputChange}
-                    />
-
                 </Grid>
                 <Grid item xs={6}>
                     
