@@ -5,46 +5,21 @@ import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
 
 import {
-    getMakeList,
-    getModelListByMakeID,
-    getVehicleListByMakeIDAndModelID,
-    getVehicleSearchResult,
+    getMakeList
   } from "../../api/VehicleAPI";
 import { Select, MenuItem } from "@material-ui/core";
 
 
-
-
-// const initialFValues = {
-    
-//     id: 0,
-//     MakeID: '',
-//     ModelID: '',
-//     ModelName: '',
-// }
-
 export default function RegisterModelForm(props) {
     const [makeOpen, setMakeOpen] = React.useState(false);
     const [makeList, setMakeList] = React.useState("");
-    const [modelList, setModelList] = React.useState("");
     const [selectedMakeID, setSelectedMakeID] = React.useState("");
   
     React.useEffect(() => {
       onLoadGetMakeList();
-      onLoadGetVehicleSearchResult();
+
     }, []);
   
-    async function onLoadGetVehicleSearchResult() {
-      let resultSearch = await getVehicleSearchResult(
-        1,
-        400,
-        30000,
-        2,
-        49.26324,
-        -122.87704
-      );
-      console.log(resultSearch);
-    }
   
     async function onLoadGetMakeList() {
       let resultMakeList = await getMakeList();
@@ -58,19 +33,6 @@ export default function RegisterModelForm(props) {
       }
     }
   
-    async function onSelectGetModelList(makeID) {
-      let resultModelList = await getModelListByMakeID(makeID);
-      let statusCode = resultModelList.status;
-      if (statusCode === 200) {
-        let body = resultModelList.body;
-        console.log(body);
-        setModelList(body);
-      } else {
-        alert(`Status : ${statusCode}, ${resultModelList.error}`);
-      }
-    }
-  
-          
   
     const vehiclesList = () => {
       return (
@@ -82,7 +44,6 @@ export default function RegisterModelForm(props) {
             value={selectedMakeID}
             onChange={(event) => {
               setSelectedMakeID(event.target.value);
-              onSelectGetModelList(event.target.value);
             }}
           >
             {makeList &&
@@ -94,23 +55,17 @@ export default function RegisterModelForm(props) {
                 );
               })}
           </Select>
-          <div>
-            {modelList &&
-              modelList.map((model, index) => {
-                return <div key={index}>{model.ModelName}</div>;
-              })}
-          </div>
         </div>
       );
     };
   
     const searchingForm = () => {
-      return <div></div>;
+      return <div>Make</div>;
+
+      
     };
     return (
-      <div>
-       
-  
+      <div>  
         {vehiclesList()}
         {searchingForm()}
       </div>
