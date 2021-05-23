@@ -13,7 +13,7 @@ import { Select, MenuItem } from "@material-ui/core";
 const initialFValues = {
     id: 0,
     ModelID: '',  
-    MakeName: '',
+    ModelName: '',
     MakeID: ''
 }
 
@@ -21,7 +21,7 @@ const initialFValues = {
 export default function RegisterModelForm(props) {
     const { addOrEdit, recordForEdit } = props
     const [id, setID] = React.useState("");
-    const [makeName, setMakeName] = React.useState("");
+    const [modelName, setModelName] = React.useState("");
     const [modelID, setModelID] = React.useState("");
     const [makeID, setMakeID] = React.useState("");
 
@@ -38,7 +38,7 @@ export default function RegisterModelForm(props) {
     async function onClickRegisterModelWithMakeID() {
         let modelObj = {
             ModelID: id,
-            MakeName: makeName,
+            ModelName: modelName,
         };
         let result = await registerModelWithMakeID(modelObj);
         alert(`Status : ${result.status}, ${result.body}`);
@@ -124,9 +124,9 @@ export default function RegisterModelForm(props) {
                         onChange={(event) => setID(event.target.value)}
                     />
                     <Controls.Input
-                        label="Make Name"
-                        value={makeName}
-                        onChange={(event) => setMakeName(event.target.value)}
+                        label="Model Name"
+                        value={modelName}
+                        onChange={(event) => setModelName(event.target.value)}
                     />
                    
                 </Grid>
@@ -151,7 +151,7 @@ export default function RegisterModelForm(props) {
     };
   
     const searchingForm = () => {
-      return <div>Make</div>;
+      return <div></div>;
 
       
     };
