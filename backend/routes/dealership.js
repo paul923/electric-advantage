@@ -98,8 +98,8 @@ router.get("/:dealershipID/inventories", function (req, res, next) {
     let dealershipID = req.params.dealershipID;
     var sql = `
     SELECT *
-      FROM ??
-      JOIN (SELECT MakeName, ModelName, Year, VehicleID
+    FROM ??
+    JOIN (SELECT MakeName, ModelName, Year, VehicleID
               FROM ea_db.vehicle
           JOIN ea_db.vehicle_model
             ON vehicle.ModelID = vehicle_model.ModelID
@@ -107,8 +107,8 @@ router.get("/:dealershipID/inventories", function (req, res, next) {
             ON vehicle_model.MakeID = vehicle_make.MakeID
           ) AS vehicle
         ON vehicle.VehicleID = vehicle_inventory.VehicleID
-      WHERE 1=1
-        AND DealershipID = ?
+    WHERE 1=1
+      AND DealershipID = ?
     `;
     var parameters = ["ea_db.vehicle_inventory", dealershipID];
     sql = mysql.format(sql, parameters);

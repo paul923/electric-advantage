@@ -4,57 +4,22 @@ import "../css/dealersAddPage.css";
 import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
 import DealerAddCarModal from "../../components/DealerAddCarModal";
 import { addInventoryItemToDealership } from "../../api/DealershipAPI";
+import { getInventoryByDealershipID } from "../../api/DealershipAPI";
+import { useAuth } from "../../components/AuthContext";
 // import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [addList, setAddList] = React.useState([]);
-
-  /**
-   * Add bulk of vehicles to inventory database.
-   * @param {
-   *        [{"VehicleID": string,
-   *         "DealershipID": string,
-   *         "ColorID": string,
-   *         "ConditionID": int,
-   *         "StartPrice": float,
-   *         "Odometer": float,
-   *         "Quantity" : int}]
-   *        } vehicleArray
-   * @returns message string
-   */
-  //  vehicleID: vehicleID,
-  //  carMake: carMake,
-  //  carVehicle: carVehicle,
-  //  Odo: odo,
-  //  Qty: carQty,
-  //  carPrice: carPrice,
-  //  carColor: carColor,
-  //  info: carInfo,
-  //  carCondition: condition,
-  //  images: carImgs,
-  //  carID: carID,
-
-  // const addTestHandler = () => {
-  //   addInventoryItemToDealership([
-  //     {
-  //       VehicleID: "BMWI3S1",
-  //       DealershipID: "1",
-  //       ColorID: "black",
-  //       ConditionID: 1,
-  //       StartPrice: 32.33,
-  //       Odometer: 32.12,
-  //       Quantity: 1,
-  //     },
-  //   ]);
-  // };
+  const { currentUser, userObject } = useAuth();
 
   React.useEffect(() => {
     addToDatabaseHandler();
   }, [carsToAdd]);
 
   const addToDatabaseHandler = () => {
+    console.log("AYE" + userObject.UserID);
     setAddList(
       carsToAdd.map((car) => {
         return {

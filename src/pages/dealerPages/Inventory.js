@@ -19,6 +19,7 @@ export default function DealerInventory() {
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
       let body = firstInventory.body;
+      console.log("SHEE" + body[0].ModelName);
       setRetrievedInventory(
         body.map((car) => {
           return {
