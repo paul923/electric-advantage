@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import VehicleForm from "./VehicleForm";
+
 import RegisterModelForm from "./RegisterModelForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
@@ -42,7 +42,7 @@ const headCells = [
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
-export default function Vehicles() {
+export default function RegisterModel() {
 
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
