@@ -92,6 +92,9 @@ const DealerAddCarModal = ({
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
       let body = resultTrimList.body;
+      console.log("ModelID:" + selectedModel);
+      console.log("Model:" + carModel);
+      console.log("body:" + body[0].VehicleID);
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
       // console.log(selectedMake + "made");
       // console.log(selectedModel + "Modelle");
