@@ -115,7 +115,9 @@ export default function RegisterModelForm(props) {
                 );
               })}
 
-<Form onSubmit={handleSubmit}>
+          </Select>
+
+          <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
@@ -145,7 +147,6 @@ export default function RegisterModelForm(props) {
                 </Grid>
             </Grid>
         </Form>
-          </Select>
         </div>
       );
     };
