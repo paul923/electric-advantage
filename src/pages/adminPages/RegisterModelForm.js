@@ -4,91 +4,116 @@ import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
 
+import {
+    getMakeList,
+    getModelListByMakeID,
+    getVehicleListByMakeIDAndModelID,
+    getVehicleSearchResult,
+  } from "../../api/VehicleAPI";
+import { Select, MenuItem } from "@material-ui/core";
 
 
 
-const initialFValues = {
+
+// const initialFValues = {
     
-    id: 0,
-    MakeID: '',
-    ModelID: '',
-    ModelName: '',
-}
+//     id: 0,
+//     MakeID: '',
+//     ModelID: '',
+//     ModelName: '',
+// }
 
 export default function RegisterModelForm(props) {
-    const { addOrEdit, recordForEdit } = props
-
-    const validate = (fieldValues = values) => {
-        let temp = { ...errors }
-        if ('ModelID' in fieldValues)
-            temp.carID = fieldValues.carID ? "" : "This field is required."
-    
-        setErrors({
-            ...temp
-        })
-
-        if (fieldValues == values)
-            return Object.values(temp).every(x => x == "")
+    const [makeOpen, setMakeOpen] = React.useState(false);
+    const [makeList, setMakeList] = React.useState("");
+    const [modelList, setModelList] = React.useState("");
+    const [selectedMakeID, setSelectedMakeID] = React.useState("");
+  
+    React.useEffect(() => {
+      onLoadGetMakeList();
+      onLoadGetVehicleSearchResult();
+    }, []);
+  
+    async function onLoadGetVehicleSearchResult() {
+      let resultSearch = await getVehicleSearchResult(
+        1,
+        400,
+        30000,
+        2,
+        49.26324,
+        -122.87704
+      );
+      console.log(resultSearch);
     }
-
-    const {
-        values,
-        setValues,
-        errors,
-        setErrors,
-        handleInputChange,
-        resetForm
-    } = useForm(initialFValues, true, validate);
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        if (validate()) {
-            addOrEdit(values, resetForm);
-        }
+  
+    async function onLoadGetMakeList() {
+      let resultMakeList = await getMakeList();
+      let statusCode = resultMakeList.status;
+      if (statusCode === 200) {
+        let body = resultMakeList.body;
+        console.log(body);
+        setMakeList(body);
+      } else {
+        alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+      }
     }
-
-    useEffect(() => {
-        if (recordForEdit != null)
-            setValues({
-                ...recordForEdit
-            })
-    }, [recordForEdit])
-
+  
+    async function onSelectGetModelList(makeID) {
+      let resultModelList = await getModelListByMakeID(makeID);
+      let statusCode = resultModelList.status;
+      if (statusCode === 200) {
+        let body = resultModelList.body;
+        console.log(body);
+        setModelList(body);
+      } else {
+        alert(`Status : ${statusCode}, ${resultModelList.error}`);
+      }
+    }
+  
+          
+  
+    const vehiclesList = () => {
+      return (
+        <div>
+          <Select
+            open={makeOpen}
+            onClose={() => setMakeOpen(false)}
+            onOpen={() => setMakeOpen(true)}
+            value={selectedMakeID}
+            onChange={(event) => {
+              setSelectedMakeID(event.target.value);
+              onSelectGetModelList(event.target.value);
+            }}
+          >
+            {makeList &&
+              makeList.map((make, index) => {
+                return (
+                  <MenuItem key={make.MakeID} value={make.MakeID}>
+                    {make.MakeName}
+                  </MenuItem>
+                );
+              })}
+          </Select>
+          <div>
+            {modelList &&
+              modelList.map((model, index) => {
+                return <div key={index}>{model.ModelName}</div>;
+              })}
+          </div>
+        </div>
+      );
+    };
+  
+    const searchingForm = () => {
+      return <div></div>;
+    };
     return (
-        <Form onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
-                    <Controls.Input
-                        label="Make ID"
-                        value={values.MakeID}
-                        onChange={handleInputChange}
-                        
-                    />
-                    <Controls.Input
-                        label="Model ID"
-                        value={values.ModelID}
-                        onChange={handleInputChange}
-                       
-                    />
-                    <Controls.Input
-                        label="Model Name"
-                        value={values.ModelName}
-                        onChange={handleInputChange}
-                       
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <div>
-                        <Controls.Button
-                            type="submit"
-                            text="Submit" />
-                        <Controls.Button
-                            text="Reset"
-                            color="default"
-                            onClick={resetForm} />
-                    </div>
-                </Grid>
-            </Grid>
-        </Form>
-    )
-}
+      <div>
+       
+  
+        {vehiclesList()}
+        {searchingForm()}
+      </div>
+    );
+  }
+  
