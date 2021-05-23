@@ -23,8 +23,6 @@ export default function RegisterModelForm(props) {
     const [modelID, setModelID] = React.useState("");
     const [modelName, setModelName] = React.useState("");
 
-    let makeIDList = [];
-
     const [id, setID] = React.useState("");
 
     const [makeOpen, setMakeOpen] = React.useState(false);
@@ -121,6 +119,7 @@ export default function RegisterModelForm(props) {
             value={selectedMakeID}
             onChange={(event) => {
               setSelectedMakeID(event.target.value);
+              setMakeID(event.target.value);
             }}
           >
             {makeList &&
@@ -137,16 +136,16 @@ export default function RegisterModelForm(props) {
           <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Make ID"
                         value={makeID}
                         onChange={(event) => setMakeID(event.target.value)}
                         
-                    />
+                    /> */}
                     <Controls.Input
                         label="Model ID"
-                        value={id}
-                        onChange={(event) => setID(event.target.value)}
+                        value={modelID}
+                        onChange={(event) => setModelID(event.target.value)}
                     />
                     <Controls.Input
                         label="Model Name"
