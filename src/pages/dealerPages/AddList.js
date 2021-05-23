@@ -41,6 +41,43 @@ export default function DealerAddList() {
       })
     );
   };
+  {
+    /* async function getFirstInventoryList() {
+    console.log("HELLOHELLO");
+    let firstInventory = await getInventoryByDealershipID("1");
+    let statusCode = firstInventory.status;
+    if (statusCode === 200) {
+      let body = firstInventory.body;
+      setRetrievedInventory(
+        body.map((car) => {
+          return {
+            carModel: car.ModelName,
+            carTrim: car.Odometer,
+            carMake: car.MakeName,
+            carYear: car.Year,
+            carColor: car.ColorID,
+            carQty: car.Quantity,
+            carPrice: car.StartPrice,
+            rowID: car.InventoryID,
+          };
+        })
+      );
+    } else {
+      alert(`Status : ${statusCode}}`);
+    }
+  } */
+  }
+
+  async function insertIntoDatabaseHandler() {
+    let apiResponse = await addInventoryItemToDealership(addList);
+    let statusCode = apiResponse.status;
+    if (statusCode === 500) {
+      alert("Status 500. Unable to add to database.");
+    }
+    if (statusCode === 400) {
+      alert("Status 500. Unable to add to database.");
+    }
+  }
 
   async function insertIntoDatabaseHandler() {
     let apiResponse = await addInventoryItemToDealership(addList);
