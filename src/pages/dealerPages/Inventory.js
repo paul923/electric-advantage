@@ -7,11 +7,14 @@ import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
 import { getInventoryByDealershipID } from "../../api/DealershipAPI";
+import { useAuth } from "../../components/AuthContext";
 
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
+  const { currentUser, userObject } = useAuth();
 
   async function getFirstInventoryList() {
+    // let firstInventory = await getInventoryByDealershipID(userObject.UserID);
     let firstInventory = await getInventoryByDealershipID("1");
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
