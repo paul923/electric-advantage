@@ -117,6 +117,7 @@ export default class App extends Component {
             path="/dealerprofile"
             component={DealershipProfilePage}
           />
+          <DealershipPrivateRoute path="/addList" component={AddList} />
         </div>
       </CoordinateContext.Provider>
     );
