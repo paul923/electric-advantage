@@ -23,7 +23,7 @@ export async function getMakeList() {
 export async function registerMake(make) {
   try {
     console.log(`Registering make with ID: ${make.makeID}`);
-    let url = `http://${database}:3000/make`;
+    let url = `http://${database}:3000/makes`;
     let response = await fetch(url, {
       method: "POST",
       headers: {

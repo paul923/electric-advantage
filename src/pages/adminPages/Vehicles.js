@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import VehicleForm from "./VehicleForm";
-import MakeAndModelForm from "./MakeAndModelForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
@@ -195,7 +194,7 @@ export default function Vehicles() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Register Make"
+                        text="Make"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
@@ -204,7 +203,7 @@ export default function Vehicles() {
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
-                        text="Register Model"
+                        text="Model"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
@@ -264,15 +263,6 @@ export default function Vehicles() {
                 </TblContainer>
                 <TblPagination />
             </Paper>
-            <Popup
-                title="Register Make"
-                openPopup={openPopup}
-                setOpenPopup={setOpenPopup}
-            >
-                <MakeAndModelForm
-                    recordForEdit={recordForEdit}
-                    addOrEdit={addOrEdit} />
-            </Popup>
             <Popup
                 title="Add a new vehicle"
                 openPopup={openPopup}

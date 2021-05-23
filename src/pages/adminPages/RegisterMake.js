@@ -18,11 +18,7 @@ import Popup2 from "../../components/AdminPopup2";
 import {
     getMakeList,
     registerMake,
-    getModelListByMakeID,
-    registerModelWithMakeID,
-    getVehicleListByMakeIDAndModelID,
     getAllAvailableVehicles,
-    registerVehicleToDatabase,
     deleteVehicleByID,
     updateVehicleByID,
  } from "../../api/VehicleAPI";
@@ -45,7 +41,6 @@ const useStyles = makeStyles(theme => ({
 const headCells = [
     { id: 'MakeID', label: 'Make ID' },
     { id: 'MakeName', label: 'Make Name' },
-    
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
@@ -61,46 +56,37 @@ export default function Vehicles() {
     const [recordForEdit2, setRecordForEdit2] = useState(null)
     const [openPopup2, setOpenPopup2] = useState(false)
 
-    const [vehicles, setVehicles] = React.useState([]);
-    const [vehicleList, setVehicleList] = React.useState([]);
-    const [vehicleID, setVehicleID] = React.useState("");
+    const [make, setMake] = React.useState([]);
+    const [makeList, setMakeList] = React.useState([]);
 
-    async function onClickDeleteVehicleByID() {
-        let vID = vehicleID;
-        let result = await deleteVehicleByID(vID);
-        alert(`Status : ${result.status}, ${result.body}`);
-    }
-
-    let resultVehicles = [];
+    let resultMake = [];
 
     React.useEffect(() => {
-        onLoadGetAllAvailableVehicles();
+        onLoadGetMakeList();
     }, []);
 
-    async function onLoadGetAllAvailableVehicles() {
-        resultVehicles = await getAllAvailableVehicles();
-        let statusCode = resultVehicles.status;
+    async function onLoadGetMakeList() {
+        resultMake = await getMakeList();
+        let statusCode = resultMake.status;
         if (statusCode === 200) {
-            let body = resultVehicles.body;
-            
-            if (resultVehicles["body"] != undefined) {
-                setVehicleList(
-                    resultVehicles["body"].map((v) => {
+            let body = resultMake.body;
+            console.log(body);
+            if (resultMake["body"] != undefined) {
+                setMakeList(
+                    resultMake["body"].map((m) => {
                         return {
-                            MakeID: v["MakeID"],
-                            MakeName: v["MakeName"],
-                           
+                            MakeID: m["MakeID"],
+                            MakeName: m["MakeName"],
                         };
                     })
                 );
-            } else setVehicleList([]);
+            } else setMakeList([]);
 
-            setVehicles(body);
+            setMake(body);
         } else {
-            alert(`Status : ${statusCode}, ${resultVehicles.error}`);
+            alert(`Status : ${statusCode}, ${resultMake.error}`);
         }
     }
-
 
 
     const {
@@ -178,7 +164,7 @@ export default function Vehicles() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Register Make"
+                        text="Make"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
@@ -191,7 +177,7 @@ export default function Vehicles() {
                     <TblHead />
                     <TableBody>
                         {
-                            vehicleList.map(v =>
+                            makeList.map(v =>
                                 (<TableRow key={v.id}>
                                     <TableCell>{v.MakeID}</TableCell>
                                     <TableCell>{v.MakeName}</TableCell>
@@ -210,8 +196,6 @@ export default function Vehicles() {
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        setVehicleID(vehicleID); 
-                                                        onClickDeleteVehicleByID();
                                                         onDelete(); }
                                                 })
                                             }}>

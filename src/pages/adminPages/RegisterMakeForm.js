@@ -4,19 +4,28 @@ import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
 
-
+import { registerMake } from "../../api/VehicleAPI";
 
 
 const initialFValues = {
-    
     id: 0,
-    MakeName: '',
     MakeID: '',  
-  
+    MakeName: '',  
 }
 
 export default function RegisterMakeForm(props) {
     const { addOrEdit, recordForEdit } = props
+    const [id, setID] = React.useState("");
+    const [name, setName] = React.useState("");
+
+    async function onClickRegisterMake() {
+        let makeObj = {
+            MakeID: id,
+            MakeName: name,
+        };
+        let result = await registerMake(makeObj);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -60,17 +69,13 @@ export default function RegisterMakeForm(props) {
                 <Grid item xs={6}>
                     <Controls.Input
                         label="Make ID"
-                        name="MakeID"
-                        value={values.MakeID}
-                        onChange={handleInputChange}
-                        
+                        value={id}
+                        onChange={(event) => setID(event.target.value)}
                     />
                     <Controls.Input
                         label="Make Name"
-                        name="MakeName"
-                        value={values.MakeName}
-                        onChange={handleInputChange}
-                       
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
                     />
                    
                 </Grid>
@@ -78,7 +83,9 @@ export default function RegisterMakeForm(props) {
                     <div>
                         <Controls.Button
                             type="submit"
-                            text="Submit" />
+                            text="Submit"
+                            onClick= {() => 
+                                onClickRegisterMake()} />
                         <Controls.Button
                             text="Reset"
                             color="default"

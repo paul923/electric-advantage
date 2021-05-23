@@ -15,17 +15,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup3 from "../../components/AdminPopup3";
-import {
+import { 
     getMakeList,
-    registerMake,
-    getModelListByMakeID,
-    registerModelWithMakeID,
-    getVehicleListByMakeIDAndModelID,
-    getAllAvailableVehicles,
-    registerVehicleToDatabase,
-    deleteVehicleByID,
-    updateVehicleByID,
- } from "../../api/VehicleAPI";
+    getModelListByMakeID 
+} from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -45,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const headCells = [
     { id: 'Make', label: 'Make' },
     { id: 'ModelID', label: 'Model ID' },
-    { id: 'MakeName', label: 'Make Name' },
+    { id: 'ModelName', label: 'Model Name' },
     
     { id: 'actions', label: 'Actions', disableSorting: true }
 ]
@@ -63,46 +56,11 @@ export default function Vehicles() {
 
     const [openPopup3, setOpenPopup3] = useState(false)
 
-    const [vehicles, setVehicles] = React.useState([]);
-    const [vehicleList, setVehicleList] = React.useState([]);
-    const [vehicleID, setVehicleID] = React.useState("");
+    const [make, setMake] = React.useState([]);
+    const [makeList, setMakeList] = React.useState([]);
+    const [makeIDList, setMakeIDList] = React.useState([]);
+    const [modelList, setModelList] = React.useState([]);
 
-    async function onClickDeleteVehicleByID() {
-        let vID = vehicleID;
-        let result = await deleteVehicleByID(vID);
-        alert(`Status : ${result.status}, ${result.body}`);
-    }
-
-    let resultVehicles = [];
-
-    React.useEffect(() => {
-        onLoadGetAllAvailableVehicles();
-    }, []);
-
-    async function onLoadGetAllAvailableVehicles() {
-        resultVehicles = await getAllAvailableVehicles();
-        let statusCode = resultVehicles.status;
-        if (statusCode === 200) {
-            let body = resultVehicles.body;
-            
-            if (resultVehicles["body"] != undefined) {
-                setVehicleList(
-                    resultVehicles["body"].map((v) => {
-                        return {
-                            Make: v["Make"],
-                            ModelID: v["ModelID"],
-                            MakeName: v["MakeName"],
-                           
-                        };
-                    })
-                );
-            } else setVehicleList([]);
-
-            setVehicles(body);
-        } else {
-            alert(`Status : ${statusCode}, ${resultVehicles.error}`);
-        }
-    }
 
 
 
@@ -194,17 +152,17 @@ export default function Vehicles() {
                     <TblHead />
                     <TableBody>
                         {
-                            vehicleList.map(v =>
-                                (<TableRow key={v.id}>
-                                    <TableCell>{v.Make}</TableCell>
-                                    <TableCell>{v.MakeID}</TableCell>
-                                    <TableCell>{v.MakeName}</TableCell>
+                            modelList.map(m =>
+                                (<TableRow key={m.id}>
+                                    <TableCell>{m.Make}</TableCell>
+                                    <TableCell>{m.ModelID}</TableCell>
+                                    <TableCell>{m.MakeName}</TableCell>
                                     
                                     <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(v) }}>
+                                            onClick={() => { openInPopup(m) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
@@ -213,10 +171,7 @@ export default function Vehicles() {
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { 
-                                                        setVehicleID(vehicleID); 
-                                                        onClickDeleteVehicleByID();
-                                                        onDelete(); }
+                                                    onConfirm: () => { onDelete(); }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
