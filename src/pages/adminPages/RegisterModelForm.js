@@ -19,20 +19,13 @@ const initialFValues = {
 
 export default function RegisterModelForm(props) {
     const { addOrEdit, recordForEdit } = props
-    const [makeList, setMakeList] = React.useState([]);
     const [makeID, setMakeID] = React.useState("");
     const [modelID, setModelID] = React.useState("");
     const [modelName, setModelName] = React.useState("");
 
     let makeIDList = [];
 
-    React.useEffect(() => {
-        onLoadGetMakeList();
-    }, []);
     const [id, setID] = React.useState("");
-    const [modelName, setModelName] = React.useState("");
-    const [modelID, setModelID] = React.useState("");
-    const [makeID, setMakeID] = React.useState("");
 
     const [makeOpen, setMakeOpen] = React.useState(false);
     const [makeList, setMakeList] = React.useState("");
@@ -40,19 +33,8 @@ export default function RegisterModelForm(props) {
   
     React.useEffect(() => {
       onLoadGetMakeList();
-
     }, []);
-  
-
-    async function onClickRegisterModelWithMakeID() {
-        let modelObj = {
-            ModelID: id,
-            ModelName: modelName,
-        };
-        let result = await registerModelWithMakeID(modelObj);
-        alert(`Status : ${result.status}, ${result.body}`);
-    }
-  
+    
     async function onLoadGetMakeList() {
       let resultMakeList = await getMakeList();
       let statusCode = resultMakeList.status;
@@ -90,11 +72,11 @@ export default function RegisterModelForm(props) {
         }
     }
 
-    makeIDList = makeList.map((m) => {
-        return {
-            makeID: m["MakeID"],
-        };
-    });
+    // makeIDList = makeList.map((m) => {
+    //     return {
+    //         makeID: m["MakeID"],
+    //     };
+    // });
 
     async function onClickRegisterModelWithMakeID() {
         let modelObj = {
@@ -179,9 +161,6 @@ export default function RegisterModelForm(props) {
                             type="submit"
                             text="Submit" 
                             onClick= {() => onClickRegisterModelWithMakeID()} />
-                            text="Submit"
-                            onClick= {() => 
-                                onClickRegisterModelWithMakeID()} />
                         <Controls.Button
                             text="Reset"
                             color="default"
