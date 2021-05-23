@@ -27,6 +27,7 @@ export default function DealerAddList() {
   }, [carsToAdd]);
 
   const addToDatabaseHandler = () => {
+    console.log("AYE" + userObject.UserID);
     setAddList(
       carsToAdd.map((car) => {
         return {
