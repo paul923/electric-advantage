@@ -19,6 +19,14 @@ const InventoryRow = ({
   showEditText,
   row,
 }) => {
+  async function onDeleteHandler() {
+    let deleteResponse = await deleteItemByInventoryID(rowID);
+    let deleteStatus = deleteResponse.status;
+    if (deleteStatus == 200) {
+      updateInventory();
+    }
+  }
+
   return (
     <tr>
       <td>{carModel}</td>
@@ -47,7 +55,7 @@ const InventoryRow = ({
       <td className="lastColumn">
         <Button
           onClick={() => {
-            deleteItemByInventoryID(rowID).then(updateInventory());
+            onDeleteHandler();
           }}
           className="editIcon"
           variant="light"

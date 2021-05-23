@@ -86,19 +86,17 @@ const DealerAddCarModal = ({
 
   async function getVehiclesList() {
     let resultTrimList = await getVehicleListByMakeIDAndModelID(
-      selectedMake,
-      selectedModel
+      selectedModel,
+      selectedMake
     );
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
       let body = resultTrimList.body;
+      console.log("MakeID:" + selectedMake);
       console.log("ModelID:" + selectedModel);
       console.log("Model:" + carModel);
       console.log("body:" + body[0].VehicleID);
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
-      // console.log(selectedMake + "made");
-      // console.log(selectedModel + "Modelle");
-      // setVehicleID(body[1].VehicleID);
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}, ${resultTrimList.error}`);

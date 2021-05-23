@@ -12,7 +12,6 @@ export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
 
   async function getFirstInventoryList() {
-    console.log("HELLOHELLO");
     let firstInventory = await getInventoryByDealershipID("1");
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
@@ -31,8 +30,11 @@ export default function DealerInventory() {
           };
         })
       );
+    } else if (statusCode === 404) {
+      setRetrievedInventory([]);
+      alert(`Dealer has empty inventory!`);
     } else {
-      alert(`Status : ${statusCode}}`);
+      alert(`Status : ${statusCode}.`);
     }
   }
 
