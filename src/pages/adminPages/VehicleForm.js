@@ -175,6 +175,8 @@ export default function VehicleForm(props) {
               })}
           </Select>
 
+              <br/>
+              <br/>
           <Controls.Input
                             label="Vehicle ID"
                             value={vehicleID}
