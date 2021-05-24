@@ -3,6 +3,7 @@ import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
+import InputLabel from '@material-ui/core/InputLabel';
 import {
     getMakeList,
     registerModelWithMakeID
@@ -22,6 +23,8 @@ export default function RegisterModelForm(props) {
     const [makeID, setMakeID] = React.useState("");
     const [modelID, setModelID] = React.useState("");
     const [modelName, setModelName] = React.useState("");
+
+    let makeIDList = [];
 
     const [id, setID] = React.useState("");
 
@@ -112,14 +115,15 @@ export default function RegisterModelForm(props) {
     const vehiclesList = () => {
       return (
         <div>
+          <InputLabel>Choose Make:</InputLabel>
           <Select
+          
             open={makeOpen}
             onClose={() => setMakeOpen(false)}
             onOpen={() => setMakeOpen(true)}
             value={selectedMakeID}
             onChange={(event) => {
               setSelectedMakeID(event.target.value);
-              setMakeID(event.target.value);
             }}
           >
             {makeList &&
@@ -136,16 +140,16 @@ export default function RegisterModelForm(props) {
           <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    {/* <Controls.Input
+                    <Controls.Input
                         label="Make ID"
                         value={makeID}
                         onChange={(event) => setMakeID(event.target.value)}
                         
-                    /> */}
+                    />
                     <Controls.Input
                         label="Model ID"
-                        value={modelID}
-                        onChange={(event) => setModelID(event.target.value)}
+                        value={id}
+                        onChange={(event) => setID(event.target.value)}
                     />
                     <Controls.Input
                         label="Model Name"

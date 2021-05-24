@@ -4,6 +4,7 @@ import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
 import { Select, MenuItem } from "@material-ui/core";
+import InputLabel from '@material-ui/core/InputLabel';
 import {
     getMakeList,
     getModelListByMakeID,
@@ -109,6 +110,7 @@ export default function VehicleForm(props) {
     const vehiclesList = () => {
         return (
           <div>
+              <InputLabel>Choose Make:</InputLabel>
             <Select
               open={makeOpen}
               onClose={() => setMakeOpen(false)}
