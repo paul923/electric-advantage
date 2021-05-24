@@ -31,7 +31,7 @@ export default function DealerAddList() {
   }, [carsToAdd]);
 
   const addToDatabaseHandler = () => {
-    console.log("AYE" + userObject.UserID);
+    // console.log("AYE" + userObject.UserID);
     setAddList(
       carsToAdd.map((car) => {
         return {
@@ -46,32 +46,6 @@ export default function DealerAddList() {
       })
     );
   };
-  {
-    /* async function getFirstInventoryList() {
-    console.log("HELLOHELLO");
-    let firstInventory = await getInventoryByDealershipID("1");
-    let statusCode = firstInventory.status;
-    if (statusCode === 200) {
-      let body = firstInventory.body;
-      setRetrievedInventory(
-        body.map((car) => {
-          return {
-            carModel: car.ModelName,
-            carTrim: car.Odometer,
-            carMake: car.MakeName,
-            carYear: car.Year,
-            carColor: car.ColorID,
-            carQty: car.Quantity,
-            carPrice: car.StartPrice,
-            rowID: car.InventoryID,
-          };
-        })
-      );
-    } else {
-      alert(`Status : ${statusCode}}`);
-    }
-  } */
-  }
 
   async function insertIntoDatabaseHandler() {
     let apiResponse = await addInventoryItemToDealership(addList);
