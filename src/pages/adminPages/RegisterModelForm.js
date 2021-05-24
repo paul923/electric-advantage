@@ -24,7 +24,7 @@ export default function RegisterModelForm(props) {
     const [modelID, setModelID] = React.useState("");
     const [modelName, setModelName] = React.useState("");
 
-    let makeIDList = [];
+    // let makeIDList = [];
 
     const [id, setID] = React.useState("");
 
@@ -144,8 +144,8 @@ export default function RegisterModelForm(props) {
                    
                     
                         label="Model ID"
-                        value={id}
-                        onChange={(event) => setID(event.target.value)}
+                        // value={id}
+                        // onChange={(event) => setID(event.target.value)}
                         value={modelID}
                         onChange={(event) => setModelID(event.target.value)}
                     />
