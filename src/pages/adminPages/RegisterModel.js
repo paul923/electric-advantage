@@ -1,26 +1,28 @@
 import React, { useState } from 'react'
-import SubscriptionForm from "./SubscriptionForm";
+import RegisterModelForm from "./RegisterModelForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
-import * as subscriptionService from "./subscriptionService";
+import * as vehicleService from "./vehicleService";
 import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
-import Popup from "../../components/AdminPopup";
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import Popup from "../../components/AdminPopup";
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import {
-    getAllSubscriptionPlans,
-} from "../../api/SubscriptionAPI";
+
+import { 
+    getMakeList,
+    getModelsList,
+} from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
-        padding: theme.spacing(3)
+        padding: theme.spacing(1)
     },
     searchInput: {
         width: '75%'
@@ -33,56 +35,86 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'planID', label: 'Plan ID' }, 
-    { id: 'subPlan', label: 'Subscription Plan' }, 
-    { id: 'pricing', label: 'Pricing' }, 
-    // { id: 'actions', label: 'Actions', disableSorting: true }
+    { id: 'MakeID', label: 'Make ID' },
+    { id: 'MakeName', label: 'Make Name' },
+    { id: 'ModelID', label: 'Model ID' },
+    { id: 'ModelName', label: 'Model Name' },
+    { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
-export default function Subscriptions() {
+export default function RegisterModel() {
+
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
-    const [records, setRecords] = useState(subscriptionService.getAllSubscriptions())
+    const [records, setRecords] = useState(vehicleService.getAllVehicles())
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+    const [recordForEdit3, setRecordForEdit3] = useState(null)
+    const [openPopup3, setOpenPopup3] = useState(false)
 
-    const [subscriptionPlans, setSubscriptionPlans] = React.useState([]);
-    const [planID, setPlanID] = React.useState(1);
-    const [planName, setPlanName] = React.useState("test");
-    const [pricing, setPricing] = React.useState(0.99);
-    const [subList, setSubList] = React.useState([]);
+    const [makeList, setMakeList] = React.useState([]);
+    const [selectedMake, setSelectedMake] = React.useState([]);
+    const [carModel, setCarModel] = React.useState("");
+    const [selectedModel, setSelectedModel] = React.useState("1");
+    const [modelList, setModelList] = React.useState([]);
+    const [make, setMake] = React.useState([]);
 
-    let resultSubscriptionPlan  = [];
+    let resultMakeList = [];
+
+    let makeIDList = [];
+
+
+    makeIDList = makeList.map((m) => {
+        return {
+            makeID: m["MakeID"],
+        };
+    });
+
+    console.log(makeIDList);
 
     React.useEffect(() => {
-        onLoadGetAllSubscriptionPlans();
+        onLoadGetMakeList();
+        onLoadGetModelsList();
     }, []);
 
-    async function onLoadGetAllSubscriptionPlans() {
-        resultSubscriptionPlan = await getAllSubscriptionPlans();
-        let statusCode = resultSubscriptionPlan.status;
+    async function onLoadGetMakeList() {
+        let resultMakeList = await getMakeList();
+        let statusCode = resultMakeList.status;
         if (statusCode === 200) {
-            let body = resultSubscriptionPlan.body;
-            
-            if (resultSubscriptionPlan["body"] != undefined) {
-                setSubList(
-                    resultSubscriptionPlan["body"].map((sub) => {
+            let body = resultMakeList.body;
+            if (resultMakeList["body"] != undefined) {
+                setMakeList(
+                    resultMakeList["body"].map((m) => {
                         return {
-                            planID: sub["PlanID"],
-                            planName: sub["PlanName"],
-                            pricing: "$" + sub["Pricing"],
+                            MakeID: m["MakeID"],
+                            MakeName: m["MakeName"],
+                            ModelName: m["ModelName"],
+                            ModelID: m["ModelID"],
+                            
                         };
                     })
                 );
-            } else setSubList([]);
-
-            setSubscriptionPlans(body);
+            } else setMakeList([]);
+            setMake(body);
         } else {
-            alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
+            alert(`Status : ${statusCode}, ${resultMakeList.error}`);
         }
     }
+    
+      async function onLoadGetModelsList() {
+        let resultModelList = await getModelsList();
+        let statusCode = resultModelList.status;
+        if (statusCode === 200) {
+          let body = resultModelList.body;
+          setModelList(body);
+          setCarModel(resultModelList.body.ModelName);
+          setSelectedModel(resultModelList.body[0].ModelID);
+        } else {
+          alert(`Status : ${statusCode}, ${resultModelList.error}`);
+        }
+      }
 
     const {
         TblContainer,
@@ -98,20 +130,21 @@ export default function Subscriptions() {
                 if (target.value == "")
                     return items;
                 else
-                    return items.filter(x => x.dealerID.toLowerCase().includes(target.value))
+                    return items.filter(x => x.ModelID.toLowerCase().includes(target.value))
             }
         })
     }
 
-    const addOrEdit = (subscription, resetForm) => {
-        if (subscription.id == 0)
-        subscriptionService.insertSubscription(subscription)
+    const addOrEdit = (vehicle, resetForm) => {
+        if (vehicle.id == 0)
+        vehicleService.insertVehicle(vehicle)
         else
-        subscriptionService.updateSubscription(subscription)
+        vehicleService.updateVehicle(vehicle)
         resetForm()
         setRecordForEdit(null)
         setOpenPopup(false)
-        setRecords(subscriptionService.getAllSubscriptions())
+        setOpenPopup3(false)
+        setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
             message: 'Submitted Successfully',
@@ -122,6 +155,7 @@ export default function Subscriptions() {
     const openInPopup = item => {
         setRecordForEdit(item)
         setOpenPopup(true)
+        setOpenPopup3(true)
     }
 
     const onDelete = id => {
@@ -129,8 +163,6 @@ export default function Subscriptions() {
             ...confirmDialog,
             isOpen: false
         })
-        subscriptionService.deleteSubscription(id);
-        setRecords(subscriptionService.getAllSubscriptions())
         setNotify({
             isOpen: true,
             message: 'Deleted Successfully',
@@ -141,7 +173,7 @@ export default function Subscriptions() {
     return (
         <>
             <PageHeader
-                title="Subscriptions"
+                title="Register Model"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />
@@ -149,7 +181,7 @@ export default function Subscriptions() {
 
                 <Toolbar>
                     <Controls.Input
-                        label="Search Subscriptions"
+                        label="Search Model Database"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -159,44 +191,44 @@ export default function Subscriptions() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Add New"
+                        text="Register Model"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
-                        className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+                        // onClick={event =>  window.location.href='/4'}
+                        onClick={() => { setOpenPopup3(true); setRecordForEdit3(null); }}
                     />
+                    
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
                     <TableBody>
-
                         {
-                            subList.map(list =>
-                                (<TableRow key={list.id}>
-                                    <TableCell>{list.planID}</TableCell>
-                                    <TableCell>{list.planName}</TableCell>
-                                    <TableCell>{list.pricing}</TableCell>
-                                    {/* <TableCell>
+                            modelList.map(m =>
+                                (<TableRow key={m.id}>
+                                    <TableCell>{m.MakeID}</TableCell>
+                                    <TableCell>{m.MakeName}</TableCell>
+                                    <TableCell>{m.ModelID}</TableCell>
+                                    <TableCell>{m.ModelName}</TableCell>                                    
+                                    <TableCell>
                                         <Controls.ActionButton
-                                        //edit button color
+                                            //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(list) }}>
+                                            onClick={() => { openInPopup(m) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
-                                            
                                             onClick={() => {
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(list.id) }
+                                                    onConfirm: () => { onDelete(); }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                    </TableCell> */}
+                                    </TableCell>
                                 </TableRow>)
                             )
                         }
@@ -205,14 +237,15 @@ export default function Subscriptions() {
                 <TblPagination />
             </Paper>
             <Popup
-                title="Add a new Subscription"
-                openPopup={openPopup}
-                setOpenPopup={setOpenPopup}
+                title="Register Model"
+                openPopup={openPopup3}
+                setOpenPopup={setOpenPopup3}
             >
-                <SubscriptionForm
+                <RegisterModelForm
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit} />
             </Popup>
+           
             <Notification
                 notify={notify}
                 setNotify={setNotify}

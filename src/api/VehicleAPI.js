@@ -23,7 +23,7 @@ export async function getMakeList() {
 export async function registerMake(make) {
   try {
     console.log(`Registering make with ID: ${make.makeID}`);
-    let url = `http://${database}:3000/make`;
+    let url = `http://${database}:3000/makes`;
     let response = await fetch(url, {
       method: "POST",
       headers: {
@@ -45,6 +45,20 @@ export async function getModelListByMakeID(makeID) {
   try {
     console.log(`Retrieving all the models belongs to ${makeID}`);
     let url = `http://${database}:3000/makes/${makeID}/models`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getModelsList() {
+  try {
+    console.log(`Retrieving all the models`);
+    let url = `http://${database}:3000/models`;
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;

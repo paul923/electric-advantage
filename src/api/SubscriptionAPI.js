@@ -27,7 +27,7 @@ export async function getAllSubscriptionPlans() {
 export async function createSubscriptionPlan(plan) {
   try {
     console.log(`Creating subscription plan...`);
-    let url = `http://${database}:3000/make`;
+    let url = `http://${database}:3000/subscriptions`;
     let response = await fetch(url, {
       method: "POST",
       headers: {

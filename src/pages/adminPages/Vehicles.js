@@ -13,6 +13,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
+import Popup2 from "../../components/AdminPopup2";
+import { 
+    getAllAvailableVehicles,
+    registerVehicleToDatabase,
+    deleteVehicleByID,
+    updateVehicleByID,
+ } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -20,30 +27,42 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1)
     },
     searchInput: {
-        width: '75%'
+        width: '50%'
     },
     newButton: {
         position: 'absolute',
-        right: '10px'
+        right: '0vw',
+        // width: '8%'
+    },
+    button1: {
+        position: 'absolute',
+        right: '30vw',
+        // width: '5%'
+    },
+    button2: {
+        position: 'absolute',
+        right: '15vw',
+        // width: '5%'
     }
+   
+
+    
 }))
 
 
 const headCells = [
-    { id: 'carID', label: 'Car ID' },
-    { id: 'model', label: 'Model' },
-    { id: 'make', label: 'Make' },
-    { id: 'trim', label: 'Trim' },
-    { id: 'evRange', label: 'EV Range' },
+    { id: 'vehicleID', label: 'Vehicle ID' },
+    { id: 'modelID', label: 'Model ID' },
     { id: 'priceLow', label: 'Price Lower' },
     { id: 'priceUp', label: 'Price Upper' },
-    { id: 'perf1', label: 'Performance Figure 1' },
-    { id: 'perf2', label: 'Performance Figure 2' },
-    { id: 'actions', label: 'Actions', disableSorting: true }
+    { id: 'evRange', label: 'EV Range' },
+    { id: 'batterySize', label: "Battery Size"},
+    { id: 'trim', label: 'Trim' },
+    { id: 'year', label: 'Year' },
+    { id: 'actions', label: 'Delete', disableSorting: true }
 ]
 
 export default function Vehicles() {
-
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(vehicleService.getAllVehicles())
@@ -51,6 +70,54 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+    const [openPopup2, setOpenPopup2] = useState(false)
+
+    const [vehicles, setVehicles] = React.useState([]);
+    const [vehicleList, setVehicleList] = React.useState([]);
+    const [vehicleID, setVehicleID] = React.useState("");
+
+    async function onClickDeleteVehicleByID() {
+        let vID = vehicleID;
+        let result = await deleteVehicleByID(vID);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
+
+    let resultVehicles = [];
+
+    React.useEffect(() => {
+        onLoadGetAllAvailableVehicles();
+    }, []);
+
+    async function onLoadGetAllAvailableVehicles() {
+        resultVehicles = await getAllAvailableVehicles();
+        let statusCode = resultVehicles.status;
+        if (statusCode === 200) {
+            let body = resultVehicles.body;
+            
+            if (resultVehicles["body"] != undefined) {
+                setVehicleList(
+                    resultVehicles["body"].map((v) => {
+                        return {
+                            vehicleID: v["VehicleID"],
+                            priceLower: "$" + v["PriceLower"],
+                            priceUpper: "$" + v["PriceUpper"],
+                            evRange: v["EVRange"] + "km",
+                            batterySize: v["BatterySize"],
+                            trim: v["Trim"],
+                            year: v["Year"],
+                            modelID: v["ModelID"],
+                        };
+                    })
+                );
+            } else setVehicleList([]);
+
+            setVehicles(body);
+        } else {
+            alert(`Status : ${statusCode}, ${resultVehicles.error}`);
+        }
+    }
+
+
 
     const {
         TblContainer,
@@ -79,6 +146,7 @@ export default function Vehicles() {
         resetForm()
         setRecordForEdit(null)
         setOpenPopup(false)
+        setOpenPopup2(false)
         setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
@@ -90,6 +158,7 @@ export default function Vehicles() {
     const openInPopup = item => {
         setRecordForEdit(item)
         setOpenPopup(true)
+        setOpenPopup2(true)
     }
 
     const onDelete = id => {
@@ -97,8 +166,6 @@ export default function Vehicles() {
             ...confirmDialog,
             isOpen: false
         })
-        vehicleService.deleteVehicle(id);
-        setRecords(vehicleService.getAllVehicles())
         setNotify({
             isOpen: true,
             message: 'Deleted Successfully',
@@ -127,10 +194,28 @@ export default function Vehicles() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Add New"
+                        text="Make"
                         color="#841584"
                         variant="outlined"
-                        startIcon={<AddIcon />}
+                        
+                        className={classes.button1}
+                        onClick={event =>  window.location.href='/4'}
+                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
+                    />
+                    <Controls.Button
+                        text="Model"
+                        color="#841584"
+                        variant="outlined"
+                        
+                        className={classes.button2}
+                        onClick={event =>  window.location.href='/5'}
+                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
+                    />
+                    <Controls.Button
+                        text="Vehicle"
+                        color="#841584"
+                        variant="outlined"
+                        startIcon={<AddIcon />, <EditIcon fontSize="small" />}
                         className={classes.newButton}
                         onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
                     />
@@ -139,31 +224,37 @@ export default function Vehicles() {
                     <TblHead />
                     <TableBody>
                         {
-                            recordsAfterPagingAndSorting().map(item =>
-                                (<TableRow key={item.id}>
-                                    <TableCell>{item.carID}</TableCell>
-                                    <TableCell>{item.model}</TableCell>
-                                    <TableCell>{item.make}</TableCell>
-                                    <TableCell>{item.trim}</TableCell>
-                                    <TableCell>{item.evRange}</TableCell>
-                                    <TableCell>{item.priceLow}</TableCell>
-                                    <TableCell>{item.priceUp}</TableCell>
-                                    <TableCell>{item.perf1}</TableCell>
-                                    <TableCell>{item.perf2}</TableCell>
+                            vehicleList.map(v =>
+                                (<TableRow key={v.id}>
+                                    <TableCell>{v.vehicleID}</TableCell>
+                                    <TableCell>{v.modelID}</TableCell>
+                                    <TableCell>{v.priceLower}</TableCell>
+                                    <TableCell>{v.priceUpper}</TableCell>
+                                    <TableCell>{v.evRange}</TableCell>
+                                    <TableCell>{v.batterySize}</TableCell>
+                                    <TableCell>{v.trim}</TableCell>
+                                    <TableCell>{v.year}</TableCell>
                                     <TableCell>
-                                        <Controls.ActionButton
+                                        {/* <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(item) }}>
+                                            onClick={() => { 
+                                                setVehicleID(v.vehicleID);
+                                                openInPopup(v); 
+                                                }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                        </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
+                                                setVehicleID(v.vehicleID);
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(item.id) }
+                                                    onConfirm: () => { 
+                                                        // setVehicleID(v.vehicleID); 
+                                                        onClickDeleteVehicleByID();
+                                                        onDelete(); }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
