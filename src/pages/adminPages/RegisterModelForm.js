@@ -51,8 +51,6 @@ export default function RegisterModelForm(props) {
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('MakeID' in fieldValues)
-            temp.carID = fieldValues.carID ? "" : "This field is required."
     
         setErrors({
             ...temp

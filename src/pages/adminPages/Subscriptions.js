@@ -40,7 +40,6 @@ const headCells = [
 ]
 
 export default function Subscriptions() {
-
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(subscriptionService.getAllSubscriptions())
