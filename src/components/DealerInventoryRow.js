@@ -2,7 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { XCircleFill } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
-import DealerEditCarModal from "./DealerEditModal";
 import { deleteItemByInventoryID } from "../api/DealershipAPI";
 
 const InventoryRow = ({

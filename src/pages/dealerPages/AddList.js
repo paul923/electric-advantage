@@ -23,7 +23,6 @@ export default function DealerAddList() {
   }, [carsToAdd]);
 
   const addToDatabaseHandler = () => {
-    // console.log("AYE" + userObject.UserID);
     setAddList(
       carsToAdd.map((car) => {
         return {
@@ -43,10 +42,10 @@ export default function DealerAddList() {
     let apiResponse = await addInventoryItemToDealership(addList);
     let statusCode = apiResponse.status;
     if (statusCode === 500) {
-      alert("Status 500. Unable to add to database.");
+      alert(`${statusCode}. ${apiResponse.error}.`);
     }
     if (statusCode === 400) {
-      alert("Status 500. Unable to add to database.");
+      alert(`${statusCode}. ${apiResponse.error}.`);
     }
   }
 

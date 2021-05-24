@@ -36,9 +36,9 @@ export default function DealerInventory() {
       );
     } else if (statusCode === 404) {
       setRetrievedInventory([]);
-      alert(`Dealer has empty inventory!`);
+      alert(`Error ${statusCode}. ${firstInventory.error}.`);
     } else {
-      alert(`Status : ${statusCode}.`);
+      alert(`Status : ${statusCode}. ${firstInventory.error}.`);
     }
   }
 
