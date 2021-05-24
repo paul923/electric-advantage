@@ -31,16 +31,17 @@ const useStyles = makeStyles(theme => ({
     },
     newButton: {
         position: 'absolute',
-        right: '10px'
+        right: '10px',
+        width: '8%'
     },
     button1: {
         position: 'absolute',
-        left: '950px',
-    width: '8%'},
+        left: '970px',
+    width: '5%'},
     button2: {
         position: 'absolute',
-        left: '850px',
-        width: '10%'
+        left: '870px',
+        width: '8%'
     }
    
 
@@ -197,7 +198,7 @@ export default function Vehicles() {
                         text="Make"
                         color="#841584"
                         variant="outlined"
-                        startIcon={<AddIcon />}
+                        
                         className={classes.button1}
                         onClick={event =>  window.location.href='/5'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
@@ -206,7 +207,7 @@ export default function Vehicles() {
                         text="Model"
                         color="#841584"
                         variant="outlined"
-                        startIcon={<AddIcon />}
+                        
                         className={classes.button2}
                         onClick={event =>  window.location.href='/6'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
