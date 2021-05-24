@@ -55,6 +55,20 @@ export async function getModelListByMakeID(makeID) {
   }
 }
 
+export async function getModelsList() {
+  try {
+    console.log(`Retrieving all the models`);
+    let url = `http://${database}:3000/models`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 /**
  *
  * @param {"ModelID": string,

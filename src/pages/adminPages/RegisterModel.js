@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import RegisterModelForm from "./RegisterModelForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
@@ -10,14 +9,12 @@ import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import Popup3 from "../../components/AdminPopup3";
+
 import { 
     getMakeList,
-    getModelListByMakeID,
+    getModelsList,
 } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
@@ -37,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const headCells = [
     { id: 'MakeID', label: 'Make ID' },
+    { id: 'MakeName', label: 'Make Name' },
     { id: 'ModelID', label: 'Model ID' },
     { id: 'ModelName', label: 'Model Name' },
     // { id: 'actions', label: 'Actions', disableSorting: true }
@@ -55,7 +53,7 @@ export default function RegisterModel() {
     const [openPopup3, setOpenPopup3] = useState(false)
 
     const [makeList, setMakeList] = React.useState([]);
-    const [selectedMake, setSelectedMake] = React.useState("1");
+    const [selectedMake, setSelectedMake] = React.useState([]);
     const [carModel, setCarModel] = React.useState("");
     const [selectedModel, setSelectedModel] = React.useState("1");
     const [modelList, setModelList] = React.useState([]);
@@ -76,12 +74,8 @@ export default function RegisterModel() {
 
     React.useEffect(() => {
         onLoadGetMakeList();
-        getModelList();
+        onLoadGetModelsList();
     }, []);
-
-    React.useEffect(() => {
-        getModelList();
-    }, selectedMake);
 
     async function onLoadGetMakeList() {
         let resultMakeList = await getMakeList();
@@ -93,8 +87,10 @@ export default function RegisterModel() {
                     resultMakeList["body"].map((m) => {
                         return {
                             MakeID: m["MakeID"],
+                            MakeName: m["MakeName"],
                             ModelName: m["ModelName"],
                             ModelID: m["ModelID"],
+                            
                         };
                     })
                 );
@@ -105,8 +101,8 @@ export default function RegisterModel() {
         }
     }
     
-      async function getModelList() {
-        let resultModelList = await getModelListByMakeID(selectedMake);
+      async function onLoadGetModelsList() {
+        let resultModelList = await getModelsList();
         let statusCode = resultModelList.status;
         if (statusCode === 200) {
           let body = resultModelList.body;
@@ -209,6 +205,8 @@ export default function RegisterModel() {
                             modelList.map(m =>
                                 (<TableRow key={m.id}>
                                     <TableCell>{m.MakeID}</TableCell>
+                                    <TableCell>{m.MakeName}</TableCell>
+
                                     <TableCell>{m.ModelID}</TableCell>
                                     <TableCell>{m.ModelName}</TableCell>
                                     
