@@ -14,15 +14,12 @@ import {
 const initialFValues = {
     
     id: 0,
-    vehicleID: '',
-    modelID: '',
-    priceLower: '',
-    priceUpper: '',
-    evRange: '',
-    batterySize: '',
-    trim: '',
-    year: '', 
-    MakeID: '' 
+    VehicleID: '',
+    ModelID: '',
+    EVRange: '',
+    BatterySize: '',
+    Trim: '',
+    Year: '', 
 }
 
 export default function VehicleForm(props) {
@@ -33,7 +30,7 @@ export default function VehicleForm(props) {
     const [modelList, setModelList] = React.useState([]);
     const [selectedModel, setSelectedModel] = React.useState("1");
     const [makeID, setMakeID] = React.useState("");
-    const [modelID, setModelID] = React.useState("");
+    
     const [model, setModel] = React.useState("");
 
     const [makeOpen, setMakeOpen] = React.useState(false);
@@ -41,6 +38,12 @@ export default function VehicleForm(props) {
 
     const [selectedMakeID, setSelectedMakeID] = React.useState("");
     const [selectedModelID, setSelectedModelID] = React.useState("");
+
+    const [vehicleID, setVehicleID] = React.useState("");
+    const [evRange, setEVRange] = React.useState("");
+    const [batterySize, setBatterySize] = React.useState("");
+    const [trim, setTrim] = React.useState("");
+    const [year, setYear] = React.useState("");
 
     React.useEffect(() => {
         onLoadGetMakeList();
@@ -69,6 +72,19 @@ export default function VehicleForm(props) {
         } else {
           alert(`Status : ${statusCode}, ${resultModelList.error}`);
         }
+    }
+
+    async function onClickRegisterVehicleToDatabase() {
+        let vehicleObj = {
+            VehicleID: vehicleID,
+            ModelID: selectedModelID,
+            EVRange: evRange,
+            BatterySize: batterySize,
+            Trim: trim,
+            Year: year,
+        };
+        let result = await registerVehicleToDatabase(vehicleObj);
+        alert(`Status : ${result.status}, ${result.body}`);
     }
 
     const validate = (fieldValues = values) => {
@@ -144,7 +160,6 @@ export default function VehicleForm(props) {
                             value={selectedModelID}
                             onChange={(event) => {
                                 setSelectedModelID(event.target.value);
-                                setModelID(event.target.value);
                             }}
                         >
                                 {modelList && 
@@ -161,51 +176,38 @@ export default function VehicleForm(props) {
                         <br />
                         <Controls.Input
                             label="Vehicle ID"
-                            value={values.vehicleID}
-                            onChange={handleInputChange}
+                            value={vehicleID}
+                            onChange={(event) => setVehicleID(event.target.value)}
                             error={errors.vehicleID}
                         />
                         <Controls.Input
-                            label="Price Lower"
-                            value={values.priceLower}
-                            onChange={handleInputChange}
-                        
-                        />
-                        <Controls.Input
-                            label="Price Upper"
-                            value={values.priceUpper}
-                            onChange={handleInputChange}
-                        />
-                        <Controls.Input
                             label="EV Range"
-                            value={values.evRange}
-                            onChange={handleInputChange}
+                            value={evRange}
+                            onChange={(event) => setEVRange(event.target.value)}
                         />
                         <Controls.Input
                             label="Battery Size"
-                            value={values.batterySize}
-                            onChange={handleInputChange}
+                            value={batterySize}
+                            onChange={(event) => setBatterySize(event.target.value)}
                         />
                         <Controls.Input
                             label="Trim"
-                            value={values.trim}
-                            onChange={handleInputChange}
+                            value={trim}
+                            onChange={(event) => setTrim(event.target.value)}
                         />
                         <Controls.Input
                             label="Year"
-                            value={values.year}
-                            onChange={handleInputChange}
+                            value={year}
+                            onChange={(event) => setYear(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs={6}>
                         
-                        
-                        
-
                         <div>
                             <Controls.Button
                                 type="submit"
-                                text="Submit" />
+                                text="Submit"
+                                onClick= {() => onClickRegisterVehicleToDatabase()} />
                             <Controls.Button
                                 text="Reset"
                                 color="default"
