@@ -27,21 +27,22 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1)
     },
     searchInput: {
-        width: '75%'
+        width: '50%'
     },
     newButton: {
         position: 'absolute',
-        right: '10px',
-        width: '8%'
+        right: '0vw',
+        // width: '8%'
     },
     button1: {
         position: 'absolute',
-        left: '970px',
-    width: '5%'},
+        right: '30vw',
+        // width: '5%'
+    },
     button2: {
         position: 'absolute',
-        left: '870px',
-        width: '8%'
+        right: '15vw',
+        // width: '5%'
     }
    
 
