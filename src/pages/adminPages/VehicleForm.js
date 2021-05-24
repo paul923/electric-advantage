@@ -3,6 +3,7 @@ import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
+import { Select, MenuItem } from "@material-ui/core";
 import {
     getMakeList,
     getModelListByMakeID,
@@ -19,7 +20,8 @@ const initialFValues = {
     evRange: '',
     batterySize: '',
     trim: '',
-    year: '',  
+    year: '', 
+    MakeID: '' 
 }
 
 export default function VehicleForm(props) {
@@ -29,6 +31,11 @@ export default function VehicleForm(props) {
     const [selectedMake, setSelectedMake] = React.useState("1");
     const [modelList, setModelList] = React.useState([]);
     const [selectedModel, setSelectedModel] = React.useState("1");
+    const [makeID, setMakeID] = React.useState("");
+
+    const [makeOpen, setMakeOpen] = React.useState(false);
+
+    const [selectedMakeID, setSelectedMakeID] = React.useState("");
 
     React.useEffect(() => {
         onLoadGetMakeList();
@@ -99,11 +106,34 @@ export default function VehicleForm(props) {
             })
     }, [recordForEdit])
 
-    return (
+    const vehiclesList = () => {
+        return (
+          <div>
+            <Select
+              open={makeOpen}
+              onClose={() => setMakeOpen(false)}
+              onOpen={() => setMakeOpen(true)}
+              value={selectedMakeID}
+              onChange={(event) => {
+                setSelectedMakeID(event.target.value);
+                setMakeID(event.target.value);
+              }}
+            >
+              {makeList &&
+                makeList.map((make, index) => {
+                  return (
+                    <MenuItem key={make.MakeID} value={make.MakeID}>
+                      {make.MakeName}
+                    </MenuItem>
+                  );
+                })}
+  
+            </Select>
+
         <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    <label>
+                    {/* <label>
                         Make:
                         <select>
                             <option value="grapefruit">Grapefruit</option>
@@ -111,7 +141,7 @@ export default function VehicleForm(props) {
                             <option value="coconut">Coconut</option>
                             <option value="mango">Mango</option>
                         </select>
-                    </label>
+                    </label> */}
                     
                     <Controls.Input
                         label="Vehicle ID"
@@ -160,6 +190,7 @@ export default function VehicleForm(props) {
                 <Grid item xs={6}>
                     
                     
+                    
 
                     <div>
                         <Controls.Button
@@ -173,5 +204,16 @@ export default function VehicleForm(props) {
                 </Grid>
             </Grid>
         </Form>
-    )
-}
+        </div>
+        
+      );
+    };
+
+    return (
+        <div>  
+          {vehiclesList()}
+       
+        </div>
+      );
+    }
+    
