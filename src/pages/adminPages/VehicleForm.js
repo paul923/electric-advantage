@@ -33,19 +33,19 @@ export default function VehicleForm(props) {
     const [modelList, setModelList] = React.useState([]);
     const [selectedModel, setSelectedModel] = React.useState("1");
     const [makeID, setMakeID] = React.useState("");
+    const [modelID, setModelID] = React.useState("");
+    const [model, setModel] = React.useState("");
 
     const [makeOpen, setMakeOpen] = React.useState(false);
+    const [modelOpen, setModelOpen] = React.useState(false);
 
     const [selectedMakeID, setSelectedMakeID] = React.useState("");
+    const [selectedModelID, setSelectedModelID] = React.useState("");
 
     React.useEffect(() => {
         onLoadGetMakeList();
         getModelList();
     }, []);
-
-    React.useEffect(() => {
-        getModelList();
-    }, selectedMake);
 
     async function onLoadGetMakeList() {
         let resultMakeList = await getMakeList();
@@ -109,103 +109,111 @@ export default function VehicleForm(props) {
 
     const vehiclesList = () => {
         return (
-          <div>
-              <InputLabel>Choose Make:</InputLabel>
-            <Select
-              open={makeOpen}
-              onClose={() => setMakeOpen(false)}
-              onOpen={() => setMakeOpen(true)}
-              value={selectedMakeID}
-              onChange={(event) => {
-                setSelectedMakeID(event.target.value);
-                setMakeID(event.target.value);
-              }}
-            >
-              {makeList &&
-                makeList.map((make, index) => {
-                  return (
-                    <MenuItem key={make.MakeID} value={make.MakeID}>
-                      {make.MakeName}
-                    </MenuItem>
-                  );
-                })}
-  
-            </Select>
+        <div>
+            <Form onSubmit={handleSubmit}>
+                <Grid container>
+                    <Grid item xs={6}>
+                        <InputLabel>Choose Make:</InputLabel>
+                        <Select
+                            open={makeOpen}
+                            onClose={() => setMakeOpen(false)}
+                            onOpen={() => setMakeOpen(true)}
+                            value={selectedMakeID}
+                            onChange={(event) => {
+                                setSelectedMakeID(event.target.value);
+                                setMakeID(event.target.value);
 
-        <Form onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
-                    {/* <label>
-                        Make:
-                        <select>
-                            <option value="grapefruit">Grapefruit</option>
-                            <option value="lime">Lime</option>
-                            <option value="coconut">Coconut</option>
-                            <option value="mango">Mango</option>
-                        </select>
-                    </label> */}
-                    
-                    <Controls.Input
-                        label="Vehicle ID"
-                        value={values.vehicleID}
-                        onChange={handleInputChange}
-                        error={errors.vehicleID}
-                    />
-                    <Controls.Input
-                        label="Model ID"
-                        value={values.modelID}
-                        onChange={handleInputChange}
+                            }}
+                            >
+                            {makeList &&
+                                makeList.map((make, index) => {
+                                return (
+                                    <MenuItem key={make.MakeID} value={make.MakeID}>
+                                    {make.MakeName}
+                                    </MenuItem>
+                                );
+                                })}
+                        </Select>
+                        <br />
+                        <br />
+                        <InputLabel>Choose Model:</InputLabel>
+                        <Select
+                            open={modelOpen}
+                            onClose={() => setModelOpen(false)}
+                            onOpen={() => setModelOpen(true)}
+                            value={selectedModelID}
+                            onChange={(event) => {
+                                setSelectedModelID(event.target.value);
+                                setModelID(event.target.value);
+                            }}
+                        >
+                                {modelList && 
+                                    modelList.map((model, index) => {
+                                        return (
+                                            <MenuItem key={model.ModelID} value={model.ModelID}>
+                                                {model.ModelName}
+                                            </MenuItem>
+                                        );
+                                    })
+                                }
+                        </Select>
+                        <br />
+                        <br />
+                        <Controls.Input
+                            label="Vehicle ID"
+                            value={values.vehicleID}
+                            onChange={handleInputChange}
+                            error={errors.vehicleID}
+                        />
+                        <Controls.Input
+                            label="Price Lower"
+                            value={values.priceLower}
+                            onChange={handleInputChange}
                         
-                    />
-                    <Controls.Input
-                        label="Price Lower"
-                        value={values.priceLower}
-                        onChange={handleInputChange}
-                       
-                    />
-                    <Controls.Input
-                        label="Price Upper"
-                        value={values.priceUpper}
-                        onChange={handleInputChange}
-                    />
-                    <Controls.Input
-                        label="EV Range"
-                        value={values.evRange}
-                        onChange={handleInputChange}
-                    />
-                    <Controls.Input
-                        label="Battery Size"
-                        value={values.batterySize}
-                        onChange={handleInputChange}
-                    />
-                    <Controls.Input
-                        label="Trim"
-                        value={values.trim}
-                        onChange={handleInputChange}
-                    />
-                    <Controls.Input
-                        label="Year"
-                        value={values.year}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    
-                    
-                    
+                        />
+                        <Controls.Input
+                            label="Price Upper"
+                            value={values.priceUpper}
+                            onChange={handleInputChange}
+                        />
+                        <Controls.Input
+                            label="EV Range"
+                            value={values.evRange}
+                            onChange={handleInputChange}
+                        />
+                        <Controls.Input
+                            label="Battery Size"
+                            value={values.batterySize}
+                            onChange={handleInputChange}
+                        />
+                        <Controls.Input
+                            label="Trim"
+                            value={values.trim}
+                            onChange={handleInputChange}
+                        />
+                        <Controls.Input
+                            label="Year"
+                            value={values.year}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        
+                        
+                        
 
-                    <div>
-                        <Controls.Button
-                            type="submit"
-                            text="Submit" />
-                        <Controls.Button
-                            text="Reset"
-                            color="default"
-                            onClick={resetForm} />
-                    </div>
+                        <div>
+                            <Controls.Button
+                                type="submit"
+                                text="Submit" />
+                            <Controls.Button
+                                text="Reset"
+                                color="default"
+                                onClick={resetForm} />
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Form>
+            </Form>
         </div>
         
       );
