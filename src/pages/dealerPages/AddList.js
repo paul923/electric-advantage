@@ -5,14 +5,14 @@ import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
 import DealerAddCarModal from "../../components/DealerAddCarModal";
 import { addInventoryItemToDealership } from "../../api/DealershipAPI";
 import { getInventoryByDealershipID } from "../../api/DealershipAPI";
-import { useAuth } from "../../components/AuthContext";
+// import { useAuth } from "../../components/AuthContext";
 // import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [addList, setAddList] = React.useState([]);
-  const { currentUser, userObject } = useAuth();
+  // const { currentUser, userObject } = useAuth();
 
   React.useEffect(() => {
     addToDatabaseHandler();
@@ -23,7 +23,7 @@ export default function DealerAddList() {
   }, [carsToAdd]);
 
   const addToDatabaseHandler = () => {
-    console.log("AYE" + userObject.UserID);
+    // console.log("AYE" + userObject.UserID);
     setAddList(
       carsToAdd.map((car) => {
         return {
@@ -38,32 +38,6 @@ export default function DealerAddList() {
       })
     );
   };
-  {
-    /* async function getFirstInventoryList() {
-    console.log("HELLOHELLO");
-    let firstInventory = await getInventoryByDealershipID("1");
-    let statusCode = firstInventory.status;
-    if (statusCode === 200) {
-      let body = firstInventory.body;
-      setRetrievedInventory(
-        body.map((car) => {
-          return {
-            carModel: car.ModelName,
-            carTrim: car.Odometer,
-            carMake: car.MakeName,
-            carYear: car.Year,
-            carColor: car.ColorID,
-            carQty: car.Quantity,
-            carPrice: car.StartPrice,
-            rowID: car.InventoryID,
-          };
-        })
-      );
-    } else {
-      alert(`Status : ${statusCode}}`);
-    }
-  } */
-  }
 
   async function insertIntoDatabaseHandler() {
     let apiResponse = await addInventoryItemToDealership(addList);

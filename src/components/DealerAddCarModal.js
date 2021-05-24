@@ -52,11 +52,11 @@ const DealerAddCarModal = ({
 
   React.useEffect(() => {
     getModelList();
-  }, selectedMake);
+  }, [selectedMake]);
 
   React.useEffect(() => {
     getVehiclesList();
-  }, selectedModel);
+  }, [selectedModel]);
 
   React.useEffect(() => {});
 
