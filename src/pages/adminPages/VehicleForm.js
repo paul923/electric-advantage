@@ -163,10 +163,10 @@ export default function VehicleForm(props) {
             open={modelOpen}
             onClose={() => setModelOpen(false)}
             onOpen={() => setModelOpen(true)}
-            value={selectedMakeID}
+            value={selectedModelID}
             onChange={(event) => {
-              setSelectedMakeID(event.target.value);
-              onSelectGetModelList(event.target.value);
+              setSelectedModelID(event.target.value);
+              
             }}
           >
             {modelList &&
