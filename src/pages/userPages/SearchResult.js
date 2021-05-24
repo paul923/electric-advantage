@@ -30,7 +30,8 @@ const SearchResult = ({ location }) => {
     if (resultSearch.status === 200) {
       setVehicleList(resultSearch.body);
     } else {
-      alert(resultSearch.error);
+      setVehicleList(null);
+      console.error(resultSearch.error);
     }
   }
 
@@ -45,7 +46,7 @@ const SearchResult = ({ location }) => {
       />
       {/* <Button className="emailAlertButton">Send Email Alert</Button> */}
       <div className="results">
-        {vehicleList &&
+        {vehicleList && vehicleList !== null ? (
           vehicleList.map((vehicle) => (
             <div className="carCard" key={vehicle.VehicleID}>
               <img src={carImage} className="carImage" />
@@ -75,7 +76,10 @@ const SearchResult = ({ location }) => {
                 <Button className="carDetailsButton">Details</Button>
               </a>
             </div>
-          ))}{" "}
+          ))
+        ) : (
+          <div>No vehicles found</div>
+        )}{" "}
       </div>
     </body>
   );

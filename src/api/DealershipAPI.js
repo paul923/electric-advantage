@@ -219,3 +219,36 @@ export async function registerDealership(dealership) {
     console.log(error);
   }
 }
+
+/**
+ * Update dealership's inventory items (StartPrice, Quantity)
+ * @param {[{"InventoryID": int,
+ *         "StartPrice": float,
+ *         "Quantity": int
+ *       }]} inventories array
+ * @param {int} dealershipID
+ *
+ * @returns status message string
+ */
+export async function updateDealershipInventoryItems(
+  inventories,
+  dealershipID
+) {
+  try {
+    console.log(`Updating ${inventories.length} inventories entires`);
+    let url = `http://${database}:3000/dealerships/${dealershipID}/inventories`;
+    let response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
