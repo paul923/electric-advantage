@@ -230,7 +230,7 @@ const DealerAddCarModal = ({
           <Form.Group
             onChange={(e) => {
               let colorObject = JSON.parse(e.target.value);
-              setColor(colorObject.ColorName);
+              setColor(colorObject.ColorID);
             }}
           >
             <Form.Control as="select">
