@@ -69,7 +69,7 @@ export default function VehicleForm(props) {
           console.log(body);
           setModelList(body);
         } else {
-          alert(`Status : ${statusCode}, ${resultModelList.error}`);
+          setModelList();
         }
       }
 
@@ -128,56 +128,52 @@ export default function VehicleForm(props) {
             <Form onSubmit={handleSubmit}>
                 <Grid container>
                     <Grid item xs={6}>
-
-        
-    
        
-             <InputLabel>Choose Make:</InputLabel>
-          <Select
-            open={makeOpen}
-            onClose={() => setMakeOpen(false)}
-            onOpen={() => setMakeOpen(true)}
-            value={selectedMakeID}
-            onChange={(event) => {
-              setSelectedMakeID(event.target.value);
-              onSelectGetModelList(event.target.value);
-            }}
-          >
-            {makeList &&
-              makeList.map((make, index) => {
-                return (
-                  <MenuItem key={make.MakeID} value={make.MakeID}>
-                    {make.MakeName}
-                  </MenuItem>
-                );
-              })}
-          </Select>
-          <br></br>
-          
-          
-          
-          
-         
-          <InputLabel>Choose Model:</InputLabel>
-          <Select
-            open={modelOpen}
-            onClose={() => setModelOpen(false)}
-            onOpen={() => setModelOpen(true)}
-            value={selectedModelID}
-            onChange={(event) => {
-              setSelectedModelID(event.target.value);
-              
-            }}
-          >
-            {modelList &&
-              modelList.map((model, index) => {
-                return <div key={index}>{model.ModelName}</div>;
-              })}
-          </Select>
+                        <InputLabel>Choose Make:</InputLabel>
+                        <Select
+                          open={makeOpen}
+                          onClose={() => setMakeOpen(false)}
+                          onOpen={() => setMakeOpen(true)}
+                          value={selectedMakeID}
+                          onChange={(event) => {
+                            setSelectedMakeID(event.target.value);
+                            onSelectGetModelList(event.target.value);
+                          }}
+                        >
+                          {makeList &&
+                            makeList.map((make, index) => {
+                              return (
+                                <MenuItem key={make.MakeID} value={make.MakeID}>
+                                  {make.MakeName}
+                                </MenuItem>
+                              );
+                            })}
+                        </Select>
+                        <br></br>
 
-              <br/>
-              <br/>
-          <Controls.Input
+                        <InputLabel>Choose Model:</InputLabel>
+                        <Select
+                          open={modelOpen}
+                          onClose={() => setModelOpen(false)}
+                          onOpen={() => setModelOpen(true)}
+                          value={selectedModelID}
+                          onChange={(event) => {
+                            setSelectedModelID(event.target.value);
+                          }}
+                        >
+                          {modelList &&
+                            modelList.map((model, index) => {
+                              return (
+                              <MenuItem key={index} value={model.ModelID}>
+                                {model.ModelName}
+                              </MenuItem>
+                              );
+                            })}
+                        </Select>
+
+                            <br/>
+                            <br/>
+                        <Controls.Input
                             label="Vehicle ID"
                             value={vehicleID}
                             onChange={(event) => setVehicleID(event.target.value)}
@@ -205,8 +201,7 @@ export default function VehicleForm(props) {
                         />
                     </Grid>
                     <Grid item xs={6}>
-
-                                                
+                           
                     <div>
                             <Controls.Button
                                 type="submit"
@@ -216,10 +211,8 @@ export default function VehicleForm(props) {
                                 text="Reset"
                                 color="default"
                                 onClick={resetForm} />
-
-
-          </div>
-</Grid>
+                    </div>
+                  </Grid>
                 </Grid>
             </Form>
         </div>
