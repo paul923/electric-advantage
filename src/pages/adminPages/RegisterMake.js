@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 const headCells = [
     { id: 'MakeID', label: 'Make ID' },
     { id: 'MakeName', label: 'Make Name' },
-    // { id: 'actions', label: 'Actions', disableSorting: true }
+    { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function RegisterMake() {
@@ -171,9 +171,8 @@ export default function RegisterMake() {
                             makeList.map(v =>
                                 (<TableRow key={v.id}>
                                     <TableCell>{v.MakeID}</TableCell>
-                                    <TableCell>{v.MakeName}</TableCell>
-                                    
-                                    {/* <TableCell>
+                                    <TableCell>{v.MakeName}</TableCell>                                    
+                                    <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
@@ -192,7 +191,7 @@ export default function RegisterMake() {
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                    </TableCell> */}
+                                    </TableCell>
                                 </TableRow>)
                             )
                         }

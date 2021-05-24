@@ -62,7 +62,6 @@ const headCells = [
 ]
 
 export default function Vehicles() {
-
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(vehicleService.getAllVehicles())
@@ -70,7 +69,6 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-    const [recordForEdit2, setRecordForEdit2] = useState(null)
     const [openPopup2, setOpenPopup2] = useState(false)
 
     const [vehicles, setVehicles] = React.useState([]);
@@ -249,7 +247,7 @@ export default function Vehicles() {
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        setVehicleID(vehicleID); 
+                                                        setVehicleID(v.vehicleID); 
                                                         onClickDeleteVehicleByID();
                                                         onDelete(); }
                                                 })

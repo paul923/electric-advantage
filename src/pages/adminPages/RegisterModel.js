@@ -8,6 +8,8 @@ import * as vehicleService from "./vehicleService";
 import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import Popup from "../../components/AdminPopup";
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
@@ -37,7 +39,7 @@ const headCells = [
     { id: 'MakeName', label: 'Make Name' },
     { id: 'ModelID', label: 'Model ID' },
     { id: 'ModelName', label: 'Model Name' },
-    // { id: 'actions', label: 'Actions', disableSorting: true }
+    { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function RegisterModel() {
@@ -206,11 +208,9 @@ export default function RegisterModel() {
                                 (<TableRow key={m.id}>
                                     <TableCell>{m.MakeID}</TableCell>
                                     <TableCell>{m.MakeName}</TableCell>
-
                                     <TableCell>{m.ModelID}</TableCell>
-                                    <TableCell>{m.ModelName}</TableCell>
-                                    
-                                    {/* <TableCell>
+                                    <TableCell>{m.ModelName}</TableCell>                                    
+                                    <TableCell>
                                         <Controls.ActionButton
                                             //edit button color
                                             color="success"
@@ -228,7 +228,7 @@ export default function RegisterModel() {
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                    </TableCell> */}
+                                    </TableCell>
                                 </TableRow>)
                             )
                         }
