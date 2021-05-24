@@ -8,10 +8,14 @@ import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
 import { getInventoryByDealershipID } from "../../api/DealershipAPI";
 import { useAuth } from "../../components/AuthContext";
+import { getColors } from "../../api/VehicleAPI";
 
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
   const { currentUser, userObject } = useAuth();
+  const [colorList, setColorList] = React.useState([]);
+  const [selectedColor, setSelectedColor] = React.useState("");
+  const [colorDictionary, setColordictioanry] = React.useState([]);
 
   async function getFirstInventoryList() {
     // let firstInventory = await getInventoryByDealershipID(userObject.UserID);
@@ -43,12 +47,39 @@ export default function DealerInventory() {
   }
 
   React.useEffect(() => {
+    // getColorsList();
     getFirstInventoryList();
   }, []);
 
   React.useEffect(() => {
     setFilteredList(retrievedInventory);
   }, [retrievedInventory]);
+
+  // async function getColorsList() {
+  //   let resultColorList = await getColors();
+  //   let statusCode = resultColorList.status;
+  //   if (statusCode === 200) {
+  //     let body = resultColorList.body;
+  //     console.log(body);
+  //     setColorList(
+  //       body.map((colorObject) => {
+  //         setSelectedColor(colorObject.ColorID);
+  //         return {
+  //           selectedColor: colorObject.colorName,
+  //         };
+  //       })
+  //     );
+  //   } else {
+  //     alert(`Status : ${statusCode}, ${resultColorList.error}.`);
+  //   }
+  // }
+
+  // function getColor(colorID) {
+  //   let filtered = colorList.filter(
+  //     (colorObject) => colorObject.ColorID === colorID
+  //   );
+  //   return filtered[0].ColorName;
+  // }
 
   const [filteredList, setFilteredList] = React.useState([]);
   const [query, setQuery] = React.useState("");
@@ -95,11 +126,15 @@ export default function DealerInventory() {
   function search(retrievedInventory) {
     return retrievedInventory.filter(
       (car) =>
+        car.carYear.toString().toLowerCase().indexOf(query.toLowerCase()) >
+          -1 ||
         car.carModel.toString().toLowerCase().indexOf(query.toLowerCase()) >
           -1 ||
         car.carMake.toString().toLowerCase().indexOf(query.toLowerCase()) >
           -1 ||
         car.carPrice.toString().toLowerCase().indexOf(query.toLowerCase()) >
+          -1 ||
+        car.carColor.toString().toLowerCase().indexOf(query.toLowerCase()) >
           -1 ||
         car.carQty.toString().toLowerCase().indexOf(query.toLowerCase()) > -1
     );

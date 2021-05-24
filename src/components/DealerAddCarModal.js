@@ -5,6 +5,7 @@ import {
   getMakeList,
   getModelListByMakeID,
   getVehicleListByMakeIDAndModelID,
+  getColors,
 } from "../api/VehicleAPI";
 
 const DealerAddCarModal = ({
@@ -30,6 +31,7 @@ const DealerAddCarModal = ({
   const [condition, setCondition] = React.useState("");
   const [carVehicle, setCarVehicle] = React.useState("");
   const [vehicleID, setVehicleID] = React.useState("");
+  const [colorList, setColorList] = React.useState([]);
 
   const resetAllFieldsHandler = () => {
     setSelectedModel("1");
@@ -46,6 +48,7 @@ const DealerAddCarModal = ({
   };
 
   React.useEffect(() => {
+    getColorsList();
     onLoadGetMakeList();
     getModelList();
   }, []);
@@ -99,7 +102,19 @@ const DealerAddCarModal = ({
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
       setTrimList(body);
     } else {
-      alert(`Status : ${statusCode}, ${resultTrimList.error}`);
+      alert(`Status : ${statusCode}, ${resultTrimList.error}.`);
+    }
+  }
+
+  async function getColorsList() {
+    let resultColorList = await getColors();
+    let statusCode = resultColorList.status;
+    if (statusCode === 200) {
+      let body = resultColorList.body;
+      console.log(body);
+      setColorList(body);
+    } else {
+      alert(`Status : ${statusCode}, ${resultColorList.error}.`);
     }
   }
 
@@ -212,6 +227,21 @@ const DealerAddCarModal = ({
               <option value={parseInt("2", 10)}>Used</option>
             </Form.Control>
           </Form.Group>
+          <Form.Group
+            onChange={(e) => {
+              let colorObject = JSON.parse(e.target.value);
+              setColor(colorObject.ColorName);
+            }}
+          >
+            <Form.Control as="select">
+              <option disabled selected>
+                Select Color...
+              </option>
+              {colorList.map((color) => (
+                <option value={JSON.stringify(color)}>{color.ColorName}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
         </Form>
         <Row>
           <Col>
@@ -237,15 +267,6 @@ const DealerAddCarModal = ({
               Odometer:{" "}
               <input
                 onChange={(e) => setOdo(e.target.value)}
-                className="columnInputs"
-              ></input>
-            </div>
-          </Col>
-          <Col>
-            <div>
-              Color:{" "}
-              <input
-                onChange={(e) => setColor(e.target.value)}
                 className="columnInputs"
               ></input>
             </div>
