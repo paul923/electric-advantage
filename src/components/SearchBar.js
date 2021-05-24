@@ -4,11 +4,24 @@ import { getMakeList } from "../api/VehicleAPI";
 import CONDITION from "../constants/VehicleCondition";
 import RangeSlider from "react-bootstrap-range-slider";
 import { CoordinateContext } from "../shared/App";
+import "../pages/css/SearchBar.css";
+import { makeStyles} from '@material-ui/core';
+
+
+
+const useStyles = makeStyles(theme => ({
+
+  example1: {
+      position: 'absolute',
+      right: '500px'
+  }
+}))
 
 export default function SearchBar(props) {
   const PRICE_MAX = 250000;
   const RANGE_MAX = 1000;
 
+  const classes = useStyles();
   const [makeList, setMakeList] = React.useState([]);
   const [priceValue, setPriceValue] = React.useState(PRICE_MAX / 2);
   const [rangeValue, setRangeValue] = React.useState(RANGE_MAX / 2);
@@ -40,7 +53,50 @@ export default function SearchBar(props) {
       {(state) => {
         return (
           <Row>
-            <Col>
+
+
+<Col className = "movePrice">
+              <section className="range">
+                <div className="priceColumn">
+                  <div className="priceTitle">
+                    <h3>Price</h3>
+                  </div>
+
+                  <Container>
+                    <RangeSlider
+                   
+                      max={PRICE_MAX}
+                      value={priceValue}
+                      onChange={(e) => setPriceValue(e.target.value)}
+                      variant="success"
+                    />
+                  </Container>
+                </div>
+              </section>
+            </Col>
+
+            <Col className= "moveRange">
+              <section className="range">
+                <div className="rangeColumn">
+                  <div className="rangeTitle">
+                    <h3 className="">Range</h3>
+                  </div>
+
+                  <Container>
+                    <RangeSlider
+                      max={RANGE_MAX}
+                      value={rangeValue}
+                      onChange={(e) => setRangeValue(e.target.value)}
+                      variant="success"
+                    />
+                  </Container>
+                </div>
+              </section>
+            </Col>
+
+
+
+            <Col className = "moveMake">
               <div className="makeColumn">
                 <div className="makeTitle">
                   <h3>Make</h3>
@@ -65,7 +121,7 @@ export default function SearchBar(props) {
               </div>
             </Col>
 
-            <Col>
+            <Col className= "moveStatus">
               <div className="statusColumn">
                 <div className="statusTitle">
                   <h3>Status</h3>
@@ -93,7 +149,7 @@ export default function SearchBar(props) {
               </div>
             </Col>
 
-            <Col>
+            {/* <Col>
               <section className="range">
                 <div className="priceColumn">
                   <div className="priceTitle">
@@ -129,7 +185,7 @@ export default function SearchBar(props) {
                   </Container>
                 </div>
               </section>
-            </Col>
+            </Col> */}
 
             <Col>
               <a
