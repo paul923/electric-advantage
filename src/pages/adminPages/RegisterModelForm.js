@@ -115,15 +115,15 @@ export default function RegisterModelForm(props) {
     const vehiclesList = () => {
       return (
         <div>
-          <InputLabel>Choose Make:</InputLabel>
+          <InputLabel>Choose Make: </InputLabel>
           <Select
-          
             open={makeOpen}
             onClose={() => setMakeOpen(false)}
             onOpen={() => setMakeOpen(true)}
             value={selectedMakeID}
             onChange={(event) => {
               setSelectedMakeID(event.target.value);
+              setMakeID(event.target.value);
             }}
           >
             {makeList &&
@@ -141,15 +141,13 @@ export default function RegisterModelForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        label="Make ID"
-                        value={makeID}
-                        onChange={(event) => setMakeID(event.target.value)}
-                        
-                    />
-                    <Controls.Input
+                   
+                    
                         label="Model ID"
                         value={id}
                         onChange={(event) => setID(event.target.value)}
+                        value={modelID}
+                        onChange={(event) => setModelID(event.target.value)}
                     />
                     <Controls.Input
                         label="Model Name"
@@ -188,4 +186,3 @@ export default function RegisterModelForm(props) {
       </div>
     );
   }
-  
