@@ -48,7 +48,7 @@ router.get("/", function (req, res, next) {
     WHERE 1=1
     `;
 
-    if (makeID) {
+    if (makeID && makeID != 0) {
       sql += ` AND MakeID='${makeID}'`;
     }
     if (evRange) {
@@ -57,7 +57,7 @@ router.get("/", function (req, res, next) {
     if (startPrice) {
       sql += ` AND StartPrice < ${startPrice}`;
     }
-    if (conditionID) {
+    if (conditionID && conditionID != 0) {
       sql += ` AND ConditionID = ${conditionID}`;
     }
 

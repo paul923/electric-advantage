@@ -154,4 +154,41 @@ router.put("/:dealershipID", function (req, res, next) {
   });
 });
 
+// PATCH list of inventory items
+router.patch("/:dealershipID/inventories", function (req, res, next) {
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var inventoryArr = req.body;
+    const promises = [];
+    inventoryArr.forEach((item) => {
+      var sql = `
+      UPDATE ??
+      SET StartPrice=${item.StartPrice}, Quantity=${item.Quantity}
+      WHERE 1=1
+        AND InventoryID=${item.InventoryID}
+      ;
+      `;
+      var parameters = ["ea_db.vehicle_inventory", item];
+      sql = mysql.format(sql, parameters);
+      console.log(sql);
+      const promise = new Promise((resolve, reject) => {
+        connection.query(sql, function (error, results, fields) {
+          if (error) {
+            console.log(error);
+            res.status(500).send({ error: "Database Error" });
+          } else {
+            resolve();
+          }
+        });
+      });
+      promises.push(promise);
+    });
+    Promise.all(promises).then(() => {
+      connection.release();
+      res.status(200).send({ body: "Successfuly updated" });
+    });
+  });
+});
+
 module.exports = router;

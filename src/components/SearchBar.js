@@ -25,8 +25,8 @@ export default function SearchBar(props) {
   const [makeList, setMakeList] = React.useState([]);
   const [priceValue, setPriceValue] = React.useState(PRICE_MAX / 2);
   const [rangeValue, setRangeValue] = React.useState(RANGE_MAX / 2);
-  const [selectedMake, setSelectedMake] = React.useState(1);
-  const [selectedConditionID, setSelectedConditionID] = React.useState(1);
+  const [selectedMake, setSelectedMake] = React.useState(0);
+  const [selectedConditionID, setSelectedConditionID] = React.useState(0);
 
   React.useEffect(() => {
     onLoadGetMakeList();
@@ -108,6 +108,13 @@ export default function SearchBar(props) {
                     setSelectedMake(e.target.value);
                   }}
                 >
+                  <option
+                    value={0}
+                    key={0}
+                    selected={0 === parseInt(selectedMake)}
+                  >
+                    Any
+                  </option>
                   {makeList.map((make) => (
                     <option
                       value={make.MakeID}
@@ -133,6 +140,12 @@ export default function SearchBar(props) {
                     setSelectedConditionID(e.target.value);
                   }}
                 >
+                  <option
+                    value={0}
+                    selected={0 === parseInt(selectedConditionID)}
+                  >
+                    Any
+                  </option>
                   <option
                     value={CONDITION.NEW}
                     selected={CONDITION.NEW === parseInt(selectedConditionID)}
