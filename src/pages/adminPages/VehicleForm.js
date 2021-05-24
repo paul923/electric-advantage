@@ -9,6 +9,7 @@ import {
     getMakeList,
     getModelListByMakeID,
     registerVehicleToDatabase,
+    updateVehicleByID,
  } from "../../api/VehicleAPI";
 
 const initialFValues = {
@@ -83,6 +84,19 @@ export default function VehicleForm(props) {
             Year: year,
         };
         let result = await registerVehicleToDatabase(vehicleObj);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
+
+    async function onClickUpdateVehicleByID() {
+        let vehicleObj = {
+          VehicleID: vehicleID,
+          ModelID: selectedModelID,
+          EVRange: evRange,
+          BatterySize: batterySize,
+          Trim: trim,
+          Year: year,
+        };
+        let result = await updateVehicleByID(vehicleObj);
         alert(`Status : ${result.status}, ${result.body}`);
     }
 
@@ -207,6 +221,12 @@ export default function VehicleForm(props) {
                                 type="submit"
                                 text="Submit"
                                 onClick= {() => onClickRegisterVehicleToDatabase()} />
+
+                            <Controls.Button
+                                type="update"
+                                text="Update"
+                                onClick= {() => onClickUpdateVehicleByID()} />
+
                             <Controls.Button
                                 text="Reset"
                                 color="default"

@@ -59,7 +59,7 @@ const headCells = [
     { id: 'batterySize', label: "Battery Size"},
     { id: 'trim', label: 'Trim' },
     { id: 'year', label: 'Year' },
-    { id: 'actions', label: 'Actions', disableSorting: true }
+    { id: 'actions', label: 'Delete', disableSorting: true }
 ]
 
 export default function Vehicles() {
@@ -215,7 +215,7 @@ export default function Vehicles() {
                         text="Vehicle"
                         color="#841584"
                         variant="outlined"
-                        startIcon={<AddIcon />}
+                        startIcon={<AddIcon />, <EditIcon fontSize="small" />}
                         className={classes.newButton}
                         onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
                     />
@@ -235,20 +235,24 @@ export default function Vehicles() {
                                     <TableCell>{v.trim}</TableCell>
                                     <TableCell>{v.year}</TableCell>
                                     <TableCell>
-                                        <Controls.ActionButton
+                                        {/* <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(v) }}>
+                                            onClick={() => { 
+                                                setVehicleID(v.vehicleID);
+                                                openInPopup(v); 
+                                                }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                        </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
+                                                setVehicleID(v.vehicleID);
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        setVehicleID(v.vehicleID); 
+                                                        // setVehicleID(v.vehicleID); 
                                                         onClickDeleteVehicleByID();
                                                         onDelete(); }
                                                 })
