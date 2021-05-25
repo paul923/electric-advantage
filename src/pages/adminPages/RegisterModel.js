@@ -180,7 +180,7 @@ export default function RegisterModel() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search Model Database"
                         className={classes.searchInput}
                         InputProps={{
@@ -189,7 +189,7 @@ export default function RegisterModel() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Register Model"
                         color="#841584"

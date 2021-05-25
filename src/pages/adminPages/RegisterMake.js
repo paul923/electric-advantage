@@ -144,7 +144,7 @@ export default function RegisterMake() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search Make Database"
                         className={classes.searchInput}
                         InputProps={{
@@ -153,7 +153,7 @@ export default function RegisterMake() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Make"
                         color="#841584"

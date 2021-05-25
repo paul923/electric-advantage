@@ -160,7 +160,7 @@ export default function Subscriptions() {
                     /> */}
                     <Controls.Button
                         text="Add New"
-                        color="#841584"
+                        color="#15845b"
                         variant="outlined"
                         startIcon={<AddIcon />}
                         className={classes.newButton}
