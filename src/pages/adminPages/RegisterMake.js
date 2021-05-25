@@ -14,7 +14,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup2 from "../../components/AdminPopup2";
-import { getMakeList } from "../../api/VehicleAPI";
+import { 
+    getMakeList,
+    updateVehicleMake,
+    deleteVehicleMake, 
+} from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -51,12 +55,19 @@ export default function RegisterMake() {
 
     const [make, setMake] = React.useState([]);
     const [makeList, setMakeList] = React.useState([]);
+    const [makeID, setMakeID] = React.useState("");
 
     let resultMake = [];
 
     React.useEffect(() => {
         onLoadGetMakeList();
     }, []);
+
+    async function onClickDeleteVehicleMake() {
+        let vID = makeID;
+        let result = await deleteVehicleMake(vID);
+        alert(`Status : ${result.status}, ${result.body}`); 
+    }
 
     async function onLoadGetMakeList() {
         resultMake = await getMakeList();
@@ -173,19 +184,21 @@ export default function RegisterMake() {
                                     <TableCell>{v.MakeID}</TableCell>
                                     <TableCell>{v.MakeName}</TableCell>                                    
                                     <TableCell>
-                                        <Controls.ActionButton
+                                        {/* <Controls.ActionButton
                                             //edit button color
                                             color="success"
                                             onClick={() => { openInPopup(v) }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                        </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
+                                                setMakeID(v.MakeID);
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
+                                                        onClickDeleteVehicleMake();
                                                         onDelete(); }
                                                 })
                                             }}>
