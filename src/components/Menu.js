@@ -68,13 +68,11 @@ const Menu = () => {
       Profile
     </NavLink>
     {currentUser ? (
-            <Button
-            onClick={() => logout()}
-          >
-          <h1>
-          logout
-          </h1>
-          </Button>
+      <NavLink to="/login" onClick={() => logout()} activeStyle>
+        Logout
+      </NavLink>
+
+
 
     ) : (
       <NavLink to="/login" activeStyle>
