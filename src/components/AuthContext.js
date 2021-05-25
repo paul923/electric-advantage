@@ -58,8 +58,6 @@ export function AuthProvider({ children }) {
         console.log("usertypeId")
         console.log(body.UserTypeID)
         setUserType(body.UserTypeID)
-      } else {
-        alert(`Status : ${statusCode}, ${resultUser.error}`);
       }
     }
   }
@@ -77,7 +75,7 @@ export function AuthProvider({ children }) {
         console.log(body)
         setUserObject(body)
       } else {
-        alert(`Status : ${statusCode}, ${resultUser.error}`);
+        alert(`Get UserObj Status : ${statusCode}, ${resultUser.error}`);
       }
     }
   }
