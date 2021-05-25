@@ -27,7 +27,6 @@ export default function DealerInventory() {
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
       let body = firstInventory.body;
-      console.log("SHEE" + body[0].ModelName);
       setRetrievedInventory(
         body.map((car) => {
           return {
@@ -144,26 +143,7 @@ export default function DealerInventory() {
     );
   }
 
-  // const updateHandler = (e) => {
-  //   let m = [{ hey: 1, you: "WOWZER" }, { hey: 2 }, { hey: 3 }];
-  //   let s = m.find((element) => element.hey === 1).you;
-  //   console.log("FOUNDME" + s);
-  // };
-
-  // updateHandler();
-
-  // updateDealershipInventoryItems(
-  //   [{ InventoryID: 131, StartPrice: 42843.01, Quantity: 3 }],
-  //   1
-  // );
-
   async function editHandler() {
-    console.log(
-      "HEREHERE" +
-        inventoryToUpdate[0].InventoryID +
-        inventoryToUpdate[0].StartPrice +
-        inventoryToUpdate[0].Quantity
-    );
     let apiResponse = await updateDealershipInventoryItems(
       inventoryToUpdate,
       "1"
