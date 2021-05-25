@@ -66,7 +66,7 @@ export default class App extends Component {
     const userType = "customer";
     return (
       <CoordinateContext.Provider value={this.state.coordinate}>
-        <div>
+        <div style={{ padding: "4vh" }}>
           <Menu />
 
           <Route exact path="/" component={Landing} />
@@ -108,9 +108,10 @@ export default class App extends Component {
             component={Subscription}
           />
           <DealershipPrivateRoute path="/inventory" component={Inventory} />
-          <DealershipPrivateRoute path="/dealerprofile" component={DealershipProfilePage} />
-
-          
+          <DealershipPrivateRoute
+            path="/dealerprofile"
+            component={DealershipProfilePage}
+          />
         </div>
       </CoordinateContext.Provider>
     );

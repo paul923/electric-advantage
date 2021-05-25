@@ -22,7 +22,9 @@
   padding-bottom: 5%;
 }
 
-h1,h3,h4 {
+h1,
+h3,
+h4 {
   margin-top: 3vh;
   margin-left: 3vw;
 }
@@ -49,7 +51,8 @@ h1,h3,h4 {
   vertical-align: top;
 }
 
-.searchResultContent, .carDetailsContent {
+.searchResultContent,
+.carDetailsContent {
   position: relative;
   height: 50%;
   width: 95%;
@@ -107,7 +110,6 @@ h1,h3,h4 {
 
 .logo {
   width: 12vh;
-  height: 10vh;
 }
 
 h2 {
@@ -116,7 +118,6 @@ h2 {
   margin-left: 3vw;
   color: green;
   font-weight: bold;
-
 }
 
 .btn-search {
@@ -173,7 +174,6 @@ td {
   width: 40vw;
   height: 20vh;
   margin-top: 3vh;
-
 }
 
 .carDetailsButton {
@@ -228,7 +228,8 @@ td {
   vertical-align: top;
 }
 
-.carDetails, .carSpecific {
+.carDetails,
+.carSpecific {
   position: relative;
   height: 50%;
   width: 95%;
@@ -248,7 +249,9 @@ td {
   margin-top: 5vh;
 }
 
-.countryTitle, .provinceTitle, .regionTitle {
+.countryTitle,
+.provinceTitle,
+.regionTitle {
   margin-left: -2.8vw;
 }
 
@@ -275,7 +278,6 @@ td {
   margin-left: -1.8vw;
 }
 
-
 .test {
   font-weight: bold;
 }
@@ -284,5 +286,3 @@ td {
   font-size: 10%;
   font-weight: bold;
 }
-
-
