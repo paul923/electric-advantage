@@ -80,7 +80,7 @@ const InventoryRow = ({
       <td>{carTrim}</td>
       <td>{carYear}</td>
       <td>{carColor}</td>
-      <td>{carCondition === 1 ? "New" : "Used"}</td>
+      <td>{carCondition}</td>
       <td>
         <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>
           {carPrice}

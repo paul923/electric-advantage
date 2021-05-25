@@ -37,7 +37,7 @@ export default function DealerInventory() {
             carColor: car.ColorID,
             carQty: car.Quantity,
             carPrice: car.StartPrice,
-            carCondition: car.ConditionID,
+            carCondition: `${car.ConditionID === 1 ? "New" : "Used"}`,
             inventoryID: car.InventoryID,
           };
         })
@@ -130,6 +130,10 @@ export default function DealerInventory() {
   function search(retrievedInventory) {
     return retrievedInventory.filter(
       (car) =>
+        car.carTrim.toString().toLowerCase().indexOf(query.toLowerCase()) >
+          -1 ||
+        car.carCondition.toString().toLowerCase().indexOf(query.toLowerCase()) >
+          -1 ||
         car.carYear.toString().toLowerCase().indexOf(query.toLowerCase()) >
           -1 ||
         car.carModel.toString().toLowerCase().indexOf(query.toLowerCase()) >
