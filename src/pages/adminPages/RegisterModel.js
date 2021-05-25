@@ -17,6 +17,8 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 import { 
     getMakeList,
     getModelsList,
+    updateVehicleModel,
+    deleteVehicleModel,
 } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
@@ -55,13 +57,13 @@ export default function RegisterModel() {
     const [openPopup3, setOpenPopup3] = useState(false)
 
     const [makeList, setMakeList] = React.useState([]);
-    const [selectedMake, setSelectedMake] = React.useState([]);
     const [carModel, setCarModel] = React.useState("");
     const [selectedModel, setSelectedModel] = React.useState("1");
     const [modelList, setModelList] = React.useState([]);
     const [make, setMake] = React.useState([]);
 
-    let resultMakeList = [];
+    const [makeID, setMakeID] = React.useState("");
+    const [modelID, setModelID] = React.useState("");
 
     let makeIDList = [];
 
@@ -114,6 +116,13 @@ export default function RegisterModel() {
         } else {
           alert(`Status : ${statusCode}, ${resultModelList.error}`);
         }
+      }
+
+      async function onClickDeleteVehicleModel() {
+          let makeid = makeID;
+          let modelid =  modelID;
+          let result = await deleteVehicleModel(makeid, modelid);
+        alert(`Status : ${result.status}, ${result.body}`); 
       }
 
     const {
@@ -211,19 +220,23 @@ export default function RegisterModel() {
                                     <TableCell>{m.ModelID}</TableCell>
                                     <TableCell>{m.ModelName}</TableCell>                                    
                                     <TableCell>
-                                        <Controls.ActionButton
+                                        {/* <Controls.ActionButton
                                             //edit button color
                                             color="success"
                                             onClick={() => { openInPopup(m) }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                        </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
+                                                setMakeID(m.MakeID);
+                                                setModelID(m.ModelID);
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(); }
+                                                    onConfirm: () => { 
+                                                        onClickDeleteVehicleModel();
+                                                        onDelete(); }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />

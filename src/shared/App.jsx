@@ -103,8 +103,8 @@ export default class App extends Component {
           <AdminPrivateRoute path="/1" component={Subscriptions} />
           <AdminPrivateRoute path="/2" component={Vehicles} />
           <AdminPrivateRoute path="/3" component={Dealers} />
-          <AdminPrivateRoute path="/4" component={RegisterMake} />
-          <AdminPrivateRoute path="/5" component={RegisterModel} />
+          <Route path="/4" component={RegisterMake} />
+          <Route path="/5" component={RegisterModel} />
 
           <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
           <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />

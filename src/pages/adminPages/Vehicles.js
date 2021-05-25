@@ -252,7 +252,6 @@ export default function Vehicles() {
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        // setVehicleID(v.vehicleID); 
                                                         onClickDeleteVehicleByID();
                                                         onDelete(); }
                                                 })
