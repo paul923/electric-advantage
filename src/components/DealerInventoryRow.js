@@ -11,6 +11,7 @@ const InventoryRow = ({
   carYear,
   carColor,
   carPrice,
+  carCondition,
   Qty,
   editText,
   inventoryID,
@@ -74,11 +75,12 @@ const InventoryRow = ({
 
   return (
     <tr>
-      <td>{carModel}</td>
       <td>{carMake}</td>
+      <td>{carModel}</td>
       <td>{carTrim}</td>
       <td>{carYear}</td>
       <td>{carColor}</td>
+      <td>{carCondition === 1 ? "New" : "Used"}</td>
       <td>
         <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>
           {carPrice}

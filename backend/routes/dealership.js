@@ -99,7 +99,7 @@ router.get("/:dealershipID/inventories", function (req, res, next) {
     var sql = `
     SELECT *
     FROM ??
-    JOIN (SELECT MakeName, ModelName, Year, VehicleID
+    JOIN (SELECT MakeName, ModelName, Year, VehicleID, Trim
               FROM ea_db.vehicle
           JOIN ea_db.vehicle_model
             ON vehicle.ModelID = vehicle_model.ModelID

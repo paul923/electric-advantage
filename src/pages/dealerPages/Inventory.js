@@ -31,12 +31,13 @@ export default function DealerInventory() {
         body.map((car) => {
           return {
             carModel: car.ModelName,
-            carTrim: car.Odometer,
+            carTrim: car.Trim,
             carMake: car.MakeName,
             carYear: car.Year,
             carColor: car.ColorID,
             carQty: car.Quantity,
             carPrice: car.StartPrice,
+            carCondition: car.ConditionID,
             inventoryID: car.InventoryID,
           };
         })
@@ -175,12 +176,12 @@ export default function DealerInventory() {
           <thead>
             <tr>
               <InventoryHeader
-                headerName="Car Model"
-                sortHandler={() => sortString("carModel")}
-              />
-              <InventoryHeader
                 headerName="Car Make"
                 sortHandler={() => sortString("carMake")}
+              />
+              <InventoryHeader
+                headerName="Car Model"
+                sortHandler={() => sortString("carModel")}
               />
               <InventoryHeader
                 headerName="Car Trim"
@@ -195,7 +196,11 @@ export default function DealerInventory() {
                 sortHandler={() => sortString("carColor")}
               />
               <InventoryHeader
-                headerName="Car Price"
+                headerName="Condition"
+                sortHandler={() => sortNumber("carCondition")}
+              />
+              <InventoryHeader
+                headerName="Price"
                 sortHandler={() => sortNumber("carPrice")}
               />
               <th className="tableHeaders">
@@ -216,10 +221,11 @@ export default function DealerInventory() {
               <InventoryRow
                 carModel={car.carModel}
                 carMake={car.carMake}
-                carTrim={car.carYear}
+                carTrim={car.carTrim}
                 carYear={car.carYear}
                 carColor={car.carColor}
                 carPrice={car.carPrice}
+                carCondition={car.carCondition}
                 Qty={car.carQty}
                 inventoryID={car.inventoryID}
                 updateInventory={getFirstInventoryList}
