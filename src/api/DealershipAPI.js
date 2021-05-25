@@ -243,6 +243,7 @@ export async function updateDealershipInventoryItems(
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(inventories),
     });
     let json = await response.json();
     json["status"] = response.status;

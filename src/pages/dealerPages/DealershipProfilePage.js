@@ -5,7 +5,6 @@ import Signup from "../Signup";
 import { registerDealership } from "../../api/DealershipAPI";
 import { Link, useHistory } from "react-router-dom";
 
-
 export default function DealershipProfilePage() {
   const history = useHistory();
   const { currentUser, userObject } = useAuth();
@@ -25,8 +24,8 @@ export default function DealershipProfilePage() {
   const [longtitude, setLongtitude] = React.useState(null);
   const [latitude, setLatitude] = React.useState(null);
 
-  
   React.useEffect(() => {}, []);
+  console.log("SHOO" + userObject.UserID);
 
   async function onPressCreateDealership() {
     let dealershipObj = {
@@ -50,7 +49,7 @@ export default function DealershipProfilePage() {
     let result = await registerDealership(dealershipObj);
     if (result.status === 201) {
       history.push("/");
-      console.log(userObject.UserID)
+      console.log(userObject.UserID);
     }
   }
 

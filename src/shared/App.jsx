@@ -15,6 +15,7 @@ import {
   Login,
 } from "../pages";
 import Menu from "../components/Menu";
+import AddList from "../pages/dealerPages/AddList";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
@@ -85,7 +86,7 @@ export default class App extends Component {
 
           <Switch>
             <Route path="/who-we-are" component={WhoWeAre} />
-            <Route path="/contact-us" component={ContactUs} /> 
+            <Route path="/contact-us" component={ContactUs} />
             <Route path="/profile" component={Profile} />
             <Route path="/search-result" component={SearchResult} />
           </Switch>
@@ -112,9 +113,11 @@ export default class App extends Component {
             component={Subscription}
           />
           <DealershipPrivateRoute path="/inventory" component={Inventory} />
-          <DealershipPrivateRoute path="/dealerprofile" component={DealershipProfilePage} />
-
-          
+          <DealershipPrivateRoute
+            path="/dealerprofile"
+            component={DealershipProfilePage}
+          />
+          <DealershipPrivateRoute path="/addList" component={AddList} />
         </div>
       </CoordinateContext.Provider>
     );
