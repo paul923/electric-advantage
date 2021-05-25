@@ -30,7 +30,7 @@ const InventoryRow = ({
   }
 
   const updatePriceHandler = (e) => {
-    console.log(e.target.value);
+    console.log("0" + e.target.value);
     let findResult = inventoryToUpdate.find(
       (element) => element.inventoryID === inventoryID
     );
@@ -39,13 +39,13 @@ const InventoryRow = ({
         ...inventoryToUpdate,
         {
           InventoryID: parseInt(inventoryID),
-          StartPrice: parseFloat(e.target.value),
+          StartPrice: parseFloat("0" + e.target.value),
           Quantity: parseInt(newQuantity),
         },
       ]);
       setNewPrice(e.target.value);
     } else {
-      findResult.StartPrice = parseFloat(e.target.value);
+      findResult.StartPrice = parseFloat("0" + e.target.value);
       findResult.Quantity = parseInt(newQuantity);
       setNewPrice(e.target.value);
     }
@@ -61,14 +61,13 @@ const InventoryRow = ({
         {
           InventoryID: parseInt(inventoryID),
           StartPrice: parseFloat(newPrice),
-          Quantity: parseInt(e.target.value),
+          Quantity: parseInt("0" + e.target.value),
         },
       ]);
       setNewQuantity(e.target.value);
     } else {
       findResult.StartPrice = parseFloat(newPrice);
-      findResult.Quantity = parseInt(e.target.value);
-      console.log("HEREHERE!" + findResult.StartPrice);
+      findResult.Quantity = parseInt("0" + e.target.value);
       setNewQuantity(e.target.value);
     }
   };
