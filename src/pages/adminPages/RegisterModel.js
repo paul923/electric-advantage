@@ -17,6 +17,7 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 import { 
     getMakeList,
     getModelsList,
+    updateVehicleModel,
     deleteVehicleModel,
 } from "../../api/VehicleAPI";
 
