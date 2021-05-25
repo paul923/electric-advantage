@@ -20,7 +20,7 @@ import { Button, TextField } from "@material-ui/core";
 const Menu = () => {
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("")
-  const { currentUser, userType, logout } = useAuth()
+  const { currentUser, userType, logout, dealerObjectId } = useAuth()
 
   async function signOut(e) {
       e.preventDefault()
@@ -36,15 +36,21 @@ const Menu = () => {
   </NavLink>
   <Bars />
   <NavMenu>
-  {userType === "DEALERSHIP" ? (
-        <NavLink to="/dealer" activeStyle>
-          Dealership
-        </NavLink>
-    ) : userType === "ADMIN" ? (
+    
+  { (userType === "DEALERSHIP" && dealerObjectId === null) ? (
+      <NavLink to="/dealerprofile" activeStyle>
+      Register dealership
+    </NavLink> 
+
+    )
+   : userType === "ADMIN" ? (
       <NavLink to="/admin" activeStyle>
           Admin
       </NavLink>
-    ) : (
+    ) :   userType === "DEALERSHIP" ? (
+      <NavLink to="/dealer" activeStyle>
+        Dealership
+      </NavLink>   ) : (
       null
     )}
 
