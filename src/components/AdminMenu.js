@@ -25,6 +25,16 @@ const adminMenu = () => {
             Dealers
           </NavLink>
         </li>
+        <li>
+          <NavLink exact to="/4" activeStyle={activeStyle}>
+            Register Make
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/5" activeStyle={activeStyle}>
+            Register Model
+          </NavLink>
+        </li>
       </ul>
      
       <hr />
