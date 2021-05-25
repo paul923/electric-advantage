@@ -13,7 +13,7 @@ import { auth } from "../firebase"
 
 
 
-export default function Signup() {
+export default function DealershipSignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -29,7 +29,7 @@ export default function Signup() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [userType, setUserType] = useState(TYPE.CUSTOMER);
+  const [userType, setUserType] = useState(TYPE.DEALERSHIP);
   const [userOpen, setUserOpen] = useState(false);
   const [makeList, setMakeList] = useState("");
   const [modelList, setModelList] = useState("");
@@ -44,7 +44,6 @@ export default function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setUserType("CUSTOMER")
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
@@ -87,7 +86,23 @@ export default function Signup() {
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+            <div className="text-center">
 
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              open={userOpen}
+              onClose={() => setUserOpen(false)}
+              onOpen={() => setUserOpen(true)}
+              value={userType}
+              onChange={(event) => {
+                setUserType(event.target.value);
+              }}   
+                       >
+              <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
+              <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
+            </Select>
+            </div>
             {/* <div className="display-none">
             <Form.Group id="userid" >
               <Form.Label>User id</Form.Label>

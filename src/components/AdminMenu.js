@@ -35,6 +35,11 @@ const adminMenu = () => {
             Register Model
           </NavLink>
         </li>
+        <li>
+          <NavLink exact to="/6" activeStyle={activeStyle}>
+            Signup dealership
+          </NavLink>
+        </li>
       </ul>
      
       <hr />
