@@ -22,10 +22,7 @@ const Menu = () => {
   const [userId, setUserId] = useState("")
   const { currentUser, userType, logout, dealerObjectId } = useAuth()
 
-  async function signOut(e) {
-      e.preventDefault()
-      logout()
-    }
+
   
 
 
@@ -68,22 +65,17 @@ const Menu = () => {
       Profile
     </NavLink>
     {currentUser ? (
-            <Button
-            onClick={() => logout()}
-          >
-          <h1>
-          logout
-          </h1>
-          </Button>
+      <NavLink to="/login" onClick={() => logout()} activeStyle>
+        Logout
+      </NavLink>
+
+
 
     ) : (
       <NavLink to="/login" activeStyle>
       Sign In
       </NavLink>
     ) }
-
-
-    
   </NavMenu>
   </Nav>
 

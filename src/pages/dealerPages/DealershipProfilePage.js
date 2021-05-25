@@ -8,7 +8,7 @@ import { Link, useHistory } from "react-router-dom";
 
 export default function DealershipProfilePage() {
   const history = useHistory();
-  const { currentUser, userObject } = useAuth();
+  const { dealerObjectId, userObject } = useAuth();
   const [regionCode, setRegionCode] = React.useState(null);
   const [groupName, setGroupName] = React.useState(null);
   const [streetAddress, setStreetAddress] = React.useState(null);
@@ -51,6 +51,8 @@ export default function DealershipProfilePage() {
     if (result.status === 201) {
       history.push("/");
       console.log(userObject.UserID)
+      console.log(userObject.dealerObjectId)
+
     }
   }
 

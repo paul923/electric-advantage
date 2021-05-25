@@ -149,7 +149,7 @@ export default function Signup() {
               </Form.Control>
             </Form.Group> */}
 
-            <Button disabled={loading} className="w-100" type="submit" onClick={() => onPressCreateUser()}>
+            <Button disabled={loading} className="w-100" type="submit">
               Sign Up
             </Button>
           </Form>
