@@ -69,16 +69,16 @@ export default function RegisterModel() {
     const [makeID, setMakeID] = React.useState("");
     const [modelID, setModelID] = React.useState("");
 
-    let makeIDList = [];
+    // let makeIDList = [];
 
 
-    makeIDList = makeList.map((m) => {
-        return {
-            makeID: m["MakeID"],
-        };
-    });
+    // makeIDList = makeList.map((m) => {
+    //     return {
+    //         makeID: m["MakeID"],
+    //     };
+    // });
 
-    console.log(makeIDList);
+    // console.log(makeIDList);
 
     React.useEffect(() => {
         onLoadGetMakeList();
@@ -136,35 +136,37 @@ export default function RegisterModel() {
         recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
-    const handleSearch = e => {
-        let target = e.target;
-        setFilterFn({
-            fn: items => {
-                if (target.value == "")
-                    return items;
-                else
-                    return items.filter(x => x.ModelID.toLowerCase().includes(target.value))
-            }
-        })
-    }
+    // const handleSearch = e => {
+    //     let target = e.target;
+    //     setFilterFn({
+    //         fn: items => {
+    //             if (target.value == "")
+    //                 return items;
+    //             else
+    //                 return items.filter(x => x.ModelID.toLowerCase().includes(target.value))
+    //         }
+    //     })
+    // }
 
     const addOrEdit = (vehicle, resetForm) => {
-        if (vehicle.id == 0)
-        vehicleService.insertVehicle(vehicle)
-        else
-        vehicleService.updateVehicle(vehicle)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setOpenPopup3(false)
-        setRecords(vehicleService.getAllVehicles())
-        setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
-        onLoadGetMakeList();
-        onLoadGetModelsList();
+        if (vehicle.id == 0) {
+            vehicleService.insertVehicle(vehicle);
+            onLoadGetMakeList();
+            onLoadGetModelsList();        
+        } else
+            vehicleService.updateVehicle(vehicle);
+            resetForm();
+            setRecordForEdit(null);
+            setOpenPopup(false);
+            setOpenPopup3(false);
+            setRecords(vehicleService.getAllVehicles())
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully',
+                type: 'success'
+            });
+            onLoadGetMakeList();
+            onLoadGetModelsList();
     }
 
     const openInPopup = item => {
@@ -195,7 +197,7 @@ export default function RegisterModel() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search Model Database"
                         className={classes.searchInput}
                         InputProps={{
@@ -204,7 +206,7 @@ export default function RegisterModel() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Model"
                         color="#841584"
@@ -253,7 +255,7 @@ export default function RegisterModel() {
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
+                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Register Model"

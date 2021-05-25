@@ -203,7 +203,7 @@ export default function Vehicles() {
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
+                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Add a new dealer"

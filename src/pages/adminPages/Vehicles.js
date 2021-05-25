@@ -139,21 +139,22 @@ export default function Vehicles() {
     }
 
     const addOrEdit = (vehicle, resetForm) => {
-        if (vehicle.id == 0)
-        vehicleService.insertVehicle(vehicle)
-        else
-        vehicleService.updateVehicle(vehicle)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setOpenPopup2(false)
-        setRecords(vehicleService.getAllVehicles())
-        setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
-        onLoadGetAllAvailableVehicles();
+        if (vehicle.id == 0) {
+            vehicleService.insertVehicle(vehicle);
+            onLoadGetAllAvailableVehicles();
+        } else
+            vehicleService.updateVehicle(vehicle);
+            resetForm();
+            setRecordForEdit(null);
+            setOpenPopup(false);
+            setOpenPopup2(false);
+            setRecords(vehicleService.getAllVehicles());
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully',
+                type: 'success'
+            });
+            onLoadGetAllAvailableVehicles();
     }
 
     const openInPopup = item => {
@@ -262,7 +263,7 @@ export default function Vehicles() {
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
+                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Add a new vehicle"

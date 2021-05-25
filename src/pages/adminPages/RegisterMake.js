@@ -114,27 +114,29 @@ export default function RegisterMake() {
     }
 
     const addOrEdit = (vehicle, resetForm) => {
-        if (vehicle.id == 0)
-        vehicleService.insertVehicle(vehicle)
-        else
-        vehicleService.updateVehicle(vehicle)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setOpenPopup2(false)
-        setRecords(vehicleService.getAllVehicles())
-        setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
-        onLoadGetMakeList();
+        if (vehicle.id == 0) {
+            vehicleService.insertVehicle(vehicle);
+            onLoadGetMakeList();
+        }
+        else 
+            vehicleService.updateVehicle(vehicle);
+            resetForm();
+            setRecordForEdit(null);
+            setOpenPopup(false);
+            setOpenPopup2(false);
+            setRecords(vehicleService.getAllVehicles());
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully',
+                type: 'success'
+            });
+            onLoadGetMakeList();
     }
 
     const openInPopup = item => {
-        setRecordForEdit(item)
-        setOpenPopup(true)
-        setOpenPopup2(true)
+        setRecordForEdit(item);
+        setOpenPopup(true);
+        setOpenPopup2(true);
     }
 
     const onDelete = id => {
@@ -153,13 +155,12 @@ export default function RegisterMake() {
         <>
             <PageHeader
                 title="Register Make"
-              
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search Make Database"
                         className={classes.searchInput}
                         InputProps={{
@@ -168,7 +169,7 @@ export default function RegisterMake() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Make"
                         color="#841584"
@@ -220,7 +221,7 @@ export default function RegisterMake() {
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
+                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Register Make"

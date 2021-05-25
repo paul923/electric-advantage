@@ -77,7 +77,6 @@ export default function Subscriptions() {
                     })
                 );
             } else setSubList([]);
-
             setSubscriptionPlans(body);
         } else {
             alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
@@ -104,19 +103,21 @@ export default function Subscriptions() {
     }
 
     const addOrEdit = (subscription, resetForm) => {
-        if (subscription.id == 0)
-        subscriptionService.insertSubscription(subscription)
-        else
-        subscriptionService.updateSubscription(subscription)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setRecords(subscriptionService.getAllSubscriptions())
-        setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
+        if (subscription.id == 0) {
+            subscriptionService.insertSubscription(subscription);
+            onLoadGetAllSubscriptionPlans();
+        } else
+            subscriptionService.updateSubscription(subscription);
+            resetForm();
+            setRecordForEdit(null);
+            setOpenPopup(false);
+            setRecords(subscriptionService.getAllSubscriptions());
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully',
+                type: 'success'
+            });
+            onLoadGetAllSubscriptionPlans();
     }
 
     const openInPopup = item => {
@@ -164,7 +165,11 @@ export default function Subscriptions() {
                         variant="outlined"
                         startIcon={<AddIcon />}
                         className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+                        onClick={() => { 
+                            setOpenPopup(true); 
+                            setRecordForEdit(null); 
+                            onLoadGetAllSubscriptionPlans();
+                        }}
                     />
                 </Toolbar>
                 <TblContainer>
@@ -202,7 +207,7 @@ export default function Subscriptions() {
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
+                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Add a new Subscription"
