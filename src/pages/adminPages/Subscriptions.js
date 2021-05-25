@@ -13,6 +13,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
+import {
+    getAllSubscriptionPlans,
+} from "../../api/SubscriptionAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -33,11 +36,10 @@ const headCells = [
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
-    { id: 'actions', label: 'Actions', disableSorting: true }
+    // { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function Subscriptions() {
-
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(subscriptionService.getAllSubscriptions())
@@ -45,6 +47,42 @@ export default function Subscriptions() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
+    const [subscriptionPlans, setSubscriptionPlans] = React.useState([]);
+    const [planID, setPlanID] = React.useState(1);
+    const [planName, setPlanName] = React.useState("test");
+    const [pricing, setPricing] = React.useState(0.99);
+    const [subList, setSubList] = React.useState([]);
+
+    let resultSubscriptionPlan  = [];
+
+    React.useEffect(() => {
+        onLoadGetAllSubscriptionPlans();
+    }, []);
+
+    async function onLoadGetAllSubscriptionPlans() {
+        resultSubscriptionPlan = await getAllSubscriptionPlans();
+        let statusCode = resultSubscriptionPlan.status;
+        if (statusCode === 200) {
+            let body = resultSubscriptionPlan.body;
+            
+            if (resultSubscriptionPlan["body"] != undefined) {
+                setSubList(
+                    resultSubscriptionPlan["body"].map((sub) => {
+                        return {
+                            planID: sub["PlanID"],
+                            planName: sub["PlanName"],
+                            pricing: "$" + sub["Pricing"],
+                        };
+                    })
+                );
+            } else setSubList([]);
+
+            setSubscriptionPlans(body);
+        } else {
+            alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
+        }
+    }
 
     const {
         TblContainer,
@@ -132,17 +170,18 @@ export default function Subscriptions() {
                 <TblContainer>
                     <TblHead />
                     <TableBody>
+
                         {
-                            recordsAfterPagingAndSorting().map(item =>
-                                (<TableRow key={item.id}>
-                                    <TableCell>{item.planID}</TableCell>
-                                    <TableCell>{item.subPlan}</TableCell>
-                                    <TableCell>{item.pricing}</TableCell>
-                                    <TableCell>
+                            subList.map(list =>
+                                (<TableRow key={list.id}>
+                                    <TableCell>{list.planID}</TableCell>
+                                    <TableCell>{list.planName}</TableCell>
+                                    <TableCell>{list.pricing}</TableCell>
+                                    {/* <TableCell>
                                         <Controls.ActionButton
                                         //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(item) }}>
+                                            onClick={() => { openInPopup(list) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
                                         <Controls.ActionButton
@@ -152,12 +191,12 @@ export default function Subscriptions() {
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(item.id) }
+                                                    onConfirm: () => { onDelete(list.id) }
                                                 })
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow>)
                             )
                         }

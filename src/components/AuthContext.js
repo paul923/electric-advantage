@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../firebase"
 import { getUserByUserId } from "../api/UserAPI";
+import { getDealershipByUserID } from "../api/DealershipAPI";
 
 
 const AuthContext = React.createContext()
@@ -16,6 +17,8 @@ export function AuthProvider({ children }) {
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("")
   const [userObject, setUserObject] = useState("")
+  const [dealerObjectId, setDealerObjectId] = useState("")
+
 
 
   function signup(email, password) {
@@ -79,14 +82,37 @@ export function AuthProvider({ children }) {
     }
   }
 
+  async function GetDealerObjectId(id) {
+    let resultUser = await getDealershipByUserID(id);
+    let statusCode = resultUser.status;
+    if (statusCode === 404) {
+      setDealerObjectId(null)
+
+    } else {
+
+      if (statusCode === 200) {
+        let body = resultUser.body[0];
+        setSearchedUser(body);
+        console.log("dealerobject")
+        console.log(body)
+        setDealerObjectId(body.DealershipID)
+      } else {
+        alert(`Status : ${statusCode}, ${resultUser.error}`);
+      }
+    }
+  }
+
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
       console.log(user)
       if (user) {
+      GetDealerObjectId(user.uid)
       GetUserType(user.uid)
       GetUserObject(user.uid)
-      }
+    }
+      
       setLoading(false)
     })
 
@@ -102,7 +128,8 @@ export function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     userType,
-    userObject
+    userObject,
+    dealerObjectId
   }
 
   return (
