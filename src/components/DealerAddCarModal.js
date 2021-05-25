@@ -27,7 +27,7 @@ const DealerAddCarModal = ({
   const [modelList, setModelList] = React.useState([]);
   const [selectedModel, setSelectedModel] = React.useState("1");
   const [trimList, setTrimList] = React.useState([]);
-  const [odo, setOdo] = React.useState("");
+  const [odo, setOdo] = React.useState("0");
   const [condition, setCondition] = React.useState("");
   const [carVehicle, setCarVehicle] = React.useState("");
   const [vehicleID, setVehicleID] = React.useState("");
@@ -270,6 +270,7 @@ const DealerAddCarModal = ({
             <div>
               Odometer:{" "}
               <input
+                disabled={condition !== "2"}
                 onChange={(e) => setOdo(e.target.value)}
                 className="columnInputs"
               ></input>
