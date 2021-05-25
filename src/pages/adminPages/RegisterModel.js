@@ -195,7 +195,6 @@ export default function RegisterModel() {
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
-                        // onClick={event =>  window.location.href='/4'}
                         onClick={() => { setOpenPopup3(true); setRecordForEdit3(null); }}
                     />
                     
