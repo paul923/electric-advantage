@@ -2,35 +2,46 @@ import React, { useState, useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
-import * as subscriptionService from "./subscriptionService";
-import { SettingsBackupRestoreOutlined } from '@material-ui/icons';
-import { createSubscriptionPlan } from "../../api/SubscriptionAPI";
+import * as vehicleService from "./vehicleService";
+
+import { 
+    registerMake,
+    updateVehicleMake,
+} from "../../api/VehicleAPI";
+
 
 const initialFValues = {
-   
     id: 0,
-    planID: '',
-    planName: '',
-    pricing: '',
+    MakeID: '',  
+    MakeName: '',  
 }
 
-export default function SubscriptionForm(props) {
+export default function RegisterMakeForm(props) {
     const { addOrEdit, recordForEdit } = props
+    const [id, setID] = React.useState("");
     const [name, setName] = React.useState("");
-    const [price, setPrice] = React.useState("");
 
-    async function onClickCreateSubscriptionPlan() {
-        let subscriptionObj = {
-            PlanName: name,
-            Pricing: price,
+    async function onClickRegisterMake() {
+        let makeObj = {
+            MakeID: id,
+            MakeName: name,
         };
-        let result = await createSubscriptionPlan(subscriptionObj);
+        let result = await registerMake(makeObj);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
+
+    async function onClickUpdateVehicleMake() {
+        let makeObj = {
+            MakeID: id,
+            MakeName: name,
+        };
+        let result = await updateVehicleMake(id, makeObj);
         alert(`Status : ${result.status}, ${result.body}`);
     }
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-
+    
         setErrors({
             ...temp
         })
@@ -67,26 +78,30 @@ export default function SubscriptionForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        label="Subscription Plan"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                       
+                        label="Make ID"
+                        value={id}
+                        onChange={(event) => setID(event.target.value)}
                     />
                     <Controls.Input
-                        label="Pricing"
-                        value={price}
-                        onChange={(event) => setPrice(event.target.value)}
+                        label="Make Name"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
                     />
+                   
                 </Grid>
                 <Grid item xs={6}>
                     <div>
                         <Controls.Button
                             type="submit"
                             text="Submit"
-                            onClick={() => onClickCreateSubscriptionPlan()} />
+                            onClick= {() => onClickRegisterMake()} />
+                        <Controls.Button
+                                type="update"
+                                text="Update"
+                                onClick= {() => onClickUpdateVehicleMake()} />
                         <Controls.Button
                             text="Reset"
-                            color="success"
+                            color="default"
                             onClick={resetForm} />
                     </div>
                 </Grid>

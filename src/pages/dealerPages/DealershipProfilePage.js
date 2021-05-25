@@ -12,7 +12,6 @@ import {
   NavMenu,
 } from "../pageComponents/NavbarElements";
 
-
 export default function DealershipProfilePage() {
   const history = useHistory();
   const [regionCode, setRegionCode] = React.useState(null);
@@ -36,8 +35,8 @@ export default function DealershipProfilePage() {
 
 
 
-  
   React.useEffect(() => {}, []);
+  console.log("SHOO" + userObject.UserID);
 
   async function GetDealerObjectId(id) {
     let resultUser = await getDealershipByUserID(id);
@@ -84,6 +83,7 @@ export default function DealershipProfilePage() {
       history.push("/");
       console.log(userObject.UserID) 
       GetDealerObjectId(userObject.UserID)
+
 
     }
   }

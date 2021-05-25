@@ -15,6 +15,7 @@ import {
   Login,
 } from "../pages";
 import Menu from "../components/Menu";
+import AddList from "../pages/dealerPages/AddList";
 import AccountInfo from "../pages/dealerPages/AccountInfo";
 import Inventory from "../pages/dealerPages/Inventory";
 import Subscription from "../pages/dealerPages/Subscription";
@@ -23,6 +24,8 @@ import AdminPrivateRoute from "../components/AdminPrivateRoute";
 import DealerMenu from "../components/DealersMenu";
 import AdminMenu from "../components/AdminMenu";
 import Subscriptions from "../pages/adminPages/Subscriptions";
+import RegisterMake from "../pages/adminPages/RegisterMake";
+import RegisterModel from "../pages/adminPages/RegisterModel";
 import Vehicles from "../pages/adminPages/Vehicles";
 import Dealers from "../pages/adminPages/Dealers";
 import DealershipPrivateRoute from "../components/DealershipPrivateRoute";
@@ -100,6 +103,8 @@ export default class App extends Component {
           <AdminPrivateRoute path="/1" component={Subscriptions} />
           <AdminPrivateRoute path="/2" component={Vehicles} />
           <AdminPrivateRoute path="/3" component={Dealers} />
+          <Route path="/4" component={RegisterMake} />
+          <Route path="/5" component={RegisterModel} />
 
           <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
           <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />
@@ -108,9 +113,11 @@ export default class App extends Component {
             component={Subscription}
           />
           <DealershipPrivateRoute path="/inventory" component={Inventory} />
-          <DealershipPrivateRoute path="/dealerprofile" component={DealershipProfilePage} />
-
-          
+          <DealershipPrivateRoute
+            path="/dealerprofile"
+            component={DealershipProfilePage}
+          />
+          <DealershipPrivateRoute path="/addList" component={AddList} />
         </div>
       </CoordinateContext.Provider>
     );

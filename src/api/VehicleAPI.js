@@ -23,7 +23,7 @@ export async function getMakeList() {
 export async function registerMake(make) {
   try {
     console.log(`Registering make with ID: ${make.makeID}`);
-    let url = `http://${database}:3000/make`;
+    let url = `http://${database}:3000/makes`;
     let response = await fetch(url, {
       method: "POST",
       headers: {
@@ -45,6 +45,20 @@ export async function getModelListByMakeID(makeID) {
   try {
     console.log(`Retrieving all the models belongs to ${makeID}`);
     let url = `http://${database}:3000/makes/${makeID}/models`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getModelsList() {
+  try {
+    console.log(`Retrieving all the models`);
+    let url = `http://${database}:3000/models`;
     let response = await fetch(url);
     let json = await response.json();
     json["status"] = response.status;
@@ -197,7 +211,7 @@ export async function deleteVehicleByID(vehicleID) {
  *         "Year" : int,
  *         "ModelID" : int
  *        } vehicle
- * @returns
+ * @returns message string
  */
 export async function updateVehicleByID(vehicle) {
   try {
@@ -234,6 +248,119 @@ export async function getInventoryByInventoryID(inventoryID) {
     let json = await response.json();
     json["status"] = response.status;
     console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Delete vehicle make found with makeID
+ * @param {string} makeID
+ * @returns message string
+ */
+export async function deleteVehicleMake(makeID) {
+  try {
+    console.log(`Deleting make with ID: ${makeID} from the database`);
+    let url = `http://${database}:3000/makes/${makeID}`;
+    let response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Delete vehicle model found with model and make id
+ * @param {string} makeID
+ * @param {string} modelID
+ * @returns message string
+ */
+export async function deleteVehicleModel(makeID, modelID) {
+  try {
+    console.log(`Deleting model with ID: ${modelID} from the database`);
+    let url = `http://${database}:3000/makes/${makeID}/models/${modelID}`;
+    let response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Updates vehicle make with make Object found by MakeID
+ * @param {string} makeID to find
+ * @param {
+ *          "MakeID" : string,
+ *          "MakeName" : string
+ *        } makeObj with desired updating values
+ * @returns message string
+ */
+export async function updateVehicleMake(makeID, makeObj) {
+  try {
+    console.log(`Updating make with ID: ${makeID} from the database`);
+    let url = `http://${database}:3000/makes/${makeID}`;
+    let response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(makeObj),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Updates vehicle model with modelObject found by MakeID and ModelID
+ * @param {string} makeID to find
+ * @param {string} modelID to find
+ * @param {
+ *          "ModelID" : string,
+ *          "MakeID" : string,
+ *          "ModelName" : string
+ *        } modelObj with desired updating values
+ * @returns message string
+ */
+export async function updateVehicleModel(makeID, modelID, modelObj) {
+  try {
+    console.log(`Updating model with ID: ${modelID} from the database`);
+    let url = `http://${database}:3000/makes/${makeID}/models/${modelID}`;
+    let response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(modelObj),
+    });
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(json.body);
     return json;
   } catch (error) {
     console.log(error);

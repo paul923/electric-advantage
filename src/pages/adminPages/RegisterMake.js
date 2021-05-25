@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import VehicleForm from "./VehicleForm";
+import RegisterMakeForm from "./RegisterMakeForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
@@ -15,11 +15,9 @@ import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup2 from "../../components/AdminPopup2";
 import { 
-    getAllAvailableVehicles,
-    registerVehicleToDatabase,
-    deleteVehicleByID,
-    updateVehicleByID,
- } from "../../api/VehicleAPI";
+    getMakeList,
+    deleteVehicleMake, 
+} from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -27,42 +25,27 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1)
     },
     searchInput: {
-        width: '50%'
+        width: '75%'
     },
     newButton: {
         position: 'absolute',
+        right: '10px'
+    },
+    makeButton: {
+        position: 'absolute',
         right: '0vw',
-        // width: '8%'
-    },
-    button1: {
-        position: 'absolute',
-        right: '30vw',
-        // width: '5%'
-    },
-    button2: {
-        position: 'absolute',
-        right: '15vw',
-        // width: '5%'
     }
-   
-
-    
 }))
 
 
 const headCells = [
-    { id: 'vehicleID', label: 'Vehicle ID' },
-    { id: 'modelID', label: 'Model ID' },
-    { id: 'priceLow', label: 'Price Lower' },
-    { id: 'priceUp', label: 'Price Upper' },
-    { id: 'evRange', label: 'EV Range' },
-    { id: 'batterySize', label: "Battery Size"},
-    { id: 'trim', label: 'Trim' },
-    { id: 'year', label: 'Year' },
-    { id: 'actions', label: 'Delete', disableSorting: true }
+    { id: 'MakeID', label: 'Make ID' },
+    { id: 'MakeName', label: 'Make Name' },
+    { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
-export default function Vehicles() {
+export default function RegisterMake() {
+
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState(vehicleService.getAllVehicles())
@@ -70,52 +53,44 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+    const [recordForEdit2, setRecordForEdit2] = useState(null)
     const [openPopup2, setOpenPopup2] = useState(false)
 
-    const [vehicles, setVehicles] = React.useState([]);
-    const [vehicleList, setVehicleList] = React.useState([]);
-    const [vehicleID, setVehicleID] = React.useState("");
+    const [make, setMake] = React.useState([]);
+    const [makeList, setMakeList] = React.useState([]);
+    const [makeID, setMakeID] = React.useState("");
 
-    async function onClickDeleteVehicleByID(vID) {
-        let result = await deleteVehicleByID(vID);
-        alert(`Status : ${result.status}, ${result.body}`);
-    }
-
-    let resultVehicles = [];
+    let resultMake = [];
 
     React.useEffect(() => {
-        onLoadGetAllAvailableVehicles();
+        onLoadGetMakeList();
     }, []);
 
-    async function onLoadGetAllAvailableVehicles() {
-        resultVehicles = await getAllAvailableVehicles();
-        let statusCode = resultVehicles.status;
+    async function onClickDeleteVehicleMake(vID) {
+        let result = await deleteVehicleMake(vID);
+        alert(`Status : ${result.status}, ${result.body}`); 
+    }
+    
+    async function onLoadGetMakeList() {
+        resultMake = await getMakeList();
+        let statusCode = resultMake.status;
         if (statusCode === 200) {
-            let body = resultVehicles.body;
-            
-            if (resultVehicles["body"] != undefined) {
-                setVehicleList(
-                    resultVehicles["body"].map((v) => {
+            let body = resultMake.body;
+            if (resultMake["body"] != undefined) {
+                setMakeList(
+                    resultMake["body"].map((m) => {
                         return {
-                            vehicleID: v["VehicleID"],
-                            priceLower: "$" + v["PriceLower"],
-                            priceUpper: "$" + v["PriceUpper"],
-                            evRange: v["EVRange"] + "km",
-                            batterySize: v["BatterySize"],
-                            trim: v["Trim"],
-                            year: v["Year"],
-                            modelID: v["ModelID"],
+                            MakeID: m["MakeID"],
+                            MakeName: m["MakeName"],
                         };
                     })
                 );
-            } else setVehicleList([]);
-
-            setVehicles(body);
+            } else setMakeList([]);
+            setMake(body);
         } else {
-            alert(`Status : ${statusCode}, ${resultVehicles.error}`);
+            alert(`Status : ${statusCode}, ${resultMake.error}`);
         }
     }
-
 
 
     const {
@@ -132,7 +107,7 @@ export default function Vehicles() {
                 if (target.value == "")
                     return items;
                 else
-                    return items.filter(x => x.dealerID.toLowerCase().includes(target.value))
+                    return items.filter(x => x.MakeID.toLowerCase().includes(target.value))
             }
         })
     }
@@ -175,7 +150,7 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Vehicle Database"
+                title="Register Make"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />
@@ -183,7 +158,7 @@ export default function Vehicles() {
 
                 <Toolbar>
                     <Controls.Input
-                        label="Search Vehicle Database"
+                        label="Search Make Database"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -196,51 +171,26 @@ export default function Vehicles() {
                         text="Make"
                         color="#841584"
                         variant="outlined"
-                        
-                        className={classes.button1}
-                        onClick={event =>  window.location.href='/4'}
-                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
+                        className={classes.makeButton}
+                        startIcon={<AddIcon />}
+                        // onClick={event =>  window.location.href='/4'}
+                        onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
-                    <Controls.Button
-                        text="Model"
-                        color="#841584"
-                        variant="outlined"
-                        
-                        className={classes.button2}
-                        onClick={event =>  window.location.href='/5'}
-                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
-                    />
-                    <Controls.Button
-                        text="Vehicle"
-                        color="#841584"
-                        variant="outlined"
-                        startIcon={<AddIcon />, <EditIcon fontSize="small" />}
-                        className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
-                    />
+                    
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
                     <TableBody>
                         {
-                            vehicleList.map(v =>
+                            makeList.map(v =>
                                 (<TableRow key={v.id}>
-                                    <TableCell>{v.vehicleID}</TableCell>
-                                    <TableCell>{v.modelID}</TableCell>
-                                    <TableCell>{v.priceLower}</TableCell>
-                                    <TableCell>{v.priceUpper}</TableCell>
-                                    <TableCell>{v.evRange}</TableCell>
-                                    <TableCell>{v.batterySize}</TableCell>
-                                    <TableCell>{v.trim}</TableCell>
-                                    <TableCell>{v.year}</TableCell>
+                                    <TableCell>{v.MakeID}</TableCell>
+                                    <TableCell>{v.MakeName}</TableCell>                                    
                                     <TableCell>
                                         {/* <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { 
-                                                setVehicleID(v.vehicleID);
-                                                openInPopup(v); 
-                                                }}>
+                                            onClick={() => { openInPopup(v) }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton> */}
                                         <Controls.ActionButton
@@ -250,9 +200,9 @@ export default function Vehicles() {
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        onClickDeleteVehicleByID(v.vehicleID);
+                                                        onClickDeleteVehicleMake(v.MakeID);
                                                         onDelete(); }
-                                                })
+                                                });
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
@@ -265,14 +215,15 @@ export default function Vehicles() {
                 <TblPagination />
             </Paper>
             <Popup
-                title="Add a new vehicle"
-                openPopup={openPopup}
-                setOpenPopup={setOpenPopup}
+                title="Register Make"
+                openPopup={openPopup2}
+                setOpenPopup={setOpenPopup2}
             >
-                <VehicleForm
+                <RegisterMakeForm
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit} />
             </Popup>
+           
             <Notification
                 notify={notify}
                 setNotify={setNotify}

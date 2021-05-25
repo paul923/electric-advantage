@@ -99,8 +99,16 @@ router.get("/:dealershipID/inventories", function (req, res, next) {
     var sql = `
     SELECT *
     FROM ??
+    JOIN (SELECT MakeName, ModelName, Year, VehicleID
+              FROM ea_db.vehicle
+          JOIN ea_db.vehicle_model
+            ON vehicle.ModelID = vehicle_model.ModelID
+              JOIN ea_db.vehicle_make
+            ON vehicle_model.MakeID = vehicle_make.MakeID
+          ) AS vehicle
+        ON vehicle.VehicleID = vehicle_inventory.VehicleID
     WHERE 1=1
-    AND DealershipID = ?
+      AND DealershipID = ?
     `;
     var parameters = ["ea_db.vehicle_inventory", dealershipID];
     sql = mysql.format(sql, parameters);
@@ -150,6 +158,43 @@ router.put("/:dealershipID", function (req, res, next) {
           error: `Dealership with ${dealershipID} could not be found`,
         });
       }
+    });
+  });
+});
+
+// PATCH list of inventory items
+router.patch("/:dealershipID/inventories", function (req, res, next) {
+  // Connecting to the database.
+  pool.getConnection(function (err, connection) {
+    if (err) throw err; // not connected!
+    var inventoryArr = req.body;
+    const promises = [];
+    inventoryArr.forEach((item) => {
+      var sql = `
+      UPDATE ??
+      SET StartPrice=${item.StartPrice}, Quantity=${item.Quantity}
+      WHERE 1=1
+        AND InventoryID=${item.InventoryID}
+      ;
+      `;
+      var parameters = ["ea_db.vehicle_inventory", item];
+      sql = mysql.format(sql, parameters);
+      console.log(sql);
+      const promise = new Promise((resolve, reject) => {
+        connection.query(sql, function (error, results, fields) {
+          if (error) {
+            console.log(error);
+            res.status(500).send({ error: "Database Error" });
+          } else {
+            resolve();
+          }
+        });
+      });
+      promises.push(promise);
+    });
+    Promise.all(promises).then(() => {
+      connection.release();
+      res.status(200).send({ body: "Successfuly updated" });
     });
   });
 });
