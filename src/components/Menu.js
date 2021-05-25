@@ -12,96 +12,74 @@ import {
   Bars,
   NavMenu,
 } from "../pages/pageComponents/NavbarElements";
-import logo from "../images/logo.png";
+import logo from "../images/ELECTRIC-ADVANTAGE-logo.png";
 import { useAuth } from "./AuthContext";
 import { Button, TextField } from "@material-ui/core";
 
-
 const Menu = () => {
   const [searchedUser, setSearchedUser] = useState(null);
-  const [userId, setUserId] = useState("")
-  const { currentUser, userType, logout, dealerObjectId } = useAuth()
+  const [userId, setUserId] = useState("");
+  const { currentUser, userType, logout, dealerObjectId } = useAuth();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       makeMenu();
+    });
 
-      
-    })
+    return unsubscribe;
+  }, []);
 
-    return unsubscribe
-  }, [])
-
-
-  
   const makeMenu = () => {
     return (
       <div>
-<Nav>
-  <NavLink to="/">
-    <img src={logo} alt="logo" className="logo" />
-  </NavLink>
-  <Bars />
-  <NavMenu>
-    
-  { (userType === "DEALERSHIP" && dealerObjectId === null) ? (
-      <NavLink to="/dealerprofile" activeStyle>
-      Register dealership
-    </NavLink> 
+        <Nav>
+          <NavLink to="/">
+            <img src={logo} alt="logo" className="logo" />
+          </NavLink>
+          <Bars />
+          <NavMenu>
+            {userType === "DEALERSHIP" && dealerObjectId === null ? (
+              <NavLink to="/dealerprofile" activeStyle>
+                Register dealership
+              </NavLink>
+            ) : userType === "ADMIN" ? (
+              <NavLink to="/admin" activeStyle>
+                Admin
+              </NavLink>
+            ) : userType === "DEALERSHIP" ? (
+              <NavLink to="/dealer" activeStyle>
+                Dealership
+              </NavLink>
+            ) : null}
 
-    )
-   : userType === "ADMIN" ? (
-      <NavLink to="/admin" activeStyle>
-          Admin
-      </NavLink>
-    ) :   userType === "DEALERSHIP" ? (
-      <NavLink to="/dealer" activeStyle>
-        Dealership
-      </NavLink>   ) : (
-      null
-    )}
-
-
-    <NavLink to="/api-test" activeStyle>
-      API Testing
-    </NavLink>
-    <NavLink to="/who-we-are" activeStyle>
-      Our History
-    </NavLink>
-    <NavLink to="/contact-us" activeStyle>
-      Contact Us
-    </NavLink>
-    <NavLink to="/profile" activeStyle>
-      Profile
-    </NavLink>
-    {currentUser ? (
-      <NavLink to="/login" onClick={() => logout()} activeStyle>
-        Logout
-      </NavLink>
-
-
-
-    ) : (
-      <NavLink to="/login" activeStyle>
-      Sign In
-      </NavLink>
-    ) }
-  </NavMenu>
-  </Nav>
+            <NavLink to="/api-test" activeStyle>
+              API Testing
+            </NavLink>
+            <NavLink to="/who-we-are" activeStyle>
+              Our History
+            </NavLink>
+            <NavLink to="/contact-us" activeStyle>
+              Contact Us
+            </NavLink>
+            <NavLink to="/profile" activeStyle>
+              Profile
+            </NavLink>
+            {currentUser ? (
+              <NavLink to="/login" onClick={() => logout()} activeStyle>
+                Logout
+              </NavLink>
+            ) : (
+              <NavLink to="/login" activeStyle>
+                Sign In
+              </NavLink>
+            )}
+          </NavMenu>
+        </Nav>
       </div>
     );
   };
 
-
-  return  (
-    <div>
-          {makeMenu()}
-
-    </div>
-  )
-
-  }
-    
-    
+  return <div>{makeMenu()}</div>;
+};
 
 export default Menu;

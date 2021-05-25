@@ -1,5 +1,5 @@
 .modal-header {
-  background-color: green;
+  background-color: #207567;
 }
 
 .box1 {
@@ -19,6 +19,51 @@
   width: 25%;
   height: 100px;
 }
+
+.banner {
+  padding: 5vh;
+  display: flex;
+  flex-direction: row;
+  height: 28vh;
+  background-color: #207567;
+  justify-content: space-around;
+}
+
+.countBox {
+  background-color: #207567;
+}
+.value {
+  color: #f6f4f1;
+  font-size: 40pt;
+  font-weight: 500;
+  text-align: center;
+  background-color: #207567;
+}
+.category {
+  color: #f6f4f1;
+  text-align: center;
+  font-size: 20pt;
+  background-color: #207567;
+}
+
+.regionContainer {
+  background-color: #207567;
+  text-align: center;
+  padding: 2vh;
+}
+
+.regionSelect {
+  font-size: 20pt;
+  background-color: #207567;
+  color: #f6f4f1;
+  width: 50vh;
+  text-align-last: center;
+}
+
+select option {
+  color: black;
+}
+
 h1 {
   color: black;
   text-align: center;
@@ -37,6 +82,7 @@ h4 {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background-color: #f6f4f1;
 }
 
 h2 {
@@ -63,16 +109,18 @@ td {
   grid-template-rows: auto;
   margin-top: 1vh;
   margin-bottom: 1vh;
-  margin-left: 5vw;
-  margin-right: 5vw;
   vertical-align: top;
-  padding-left: 0;
+  align-self: center;
+  justify-self: center;
 }
 
 .dealerImage {
-  margin-top: 3vh;
-  margin-left: 3vw;
-  width: 15vw;
+  margin: 3vh;
+  width: 15vh;
+  vertical-align: middle;
+}
+
+.dealerImageContainer {
   height: 20vh;
 }
 
@@ -83,29 +131,21 @@ td {
 
 .dealerTable {
   width: 60vw;
-  height: 20vh;
   margin-top: 3vh;
 }
 
 .searchButton {
   margin-top: 5vh;
   color: white;
-  background-color: green;
+  background-color: #207567;
 }
 
 .dealerResults {
   position: relative;
-  width: 95%;
-  text-align: left;
+  text-align: center;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-left: 5vw;
-  margin-right: 5vw;
-  vertical-align: top;
-  padding-left: 0;
 }
 
 .statusColumn {

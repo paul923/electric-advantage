@@ -69,7 +69,7 @@ export default class App extends Component {
     const userType = "customer";
     return (
       <CoordinateContext.Provider value={this.state.coordinate}>
-        <div>
+        <div style={{ padding: "4vh" }}>
           <Menu />
 
           <Route exact path="/" component={Landing} />
