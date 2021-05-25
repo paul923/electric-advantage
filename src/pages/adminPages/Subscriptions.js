@@ -148,7 +148,7 @@ export default function Subscriptions() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search Subscriptions"
                         className={classes.searchInput}
                         InputProps={{
@@ -157,7 +157,7 @@ export default function Subscriptions() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Add New"
                         color="#841584"

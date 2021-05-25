@@ -183,7 +183,7 @@ export default function Vehicles() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search Vehicle Database"
                         className={classes.searchInput}
                         InputProps={{
@@ -192,7 +192,7 @@ export default function Vehicles() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Make"
                         color="#841584"

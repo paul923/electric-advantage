@@ -157,7 +157,7 @@ export default function Vehicles() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
+                    {/* <Controls.Input
                         label="Search for dealers"
                         className={classes.searchInput}
                         InputProps={{
@@ -166,7 +166,7 @@ export default function Vehicles() {
                             </InputAdornment>)
                         }}
                         onChange={handleSearch}
-                    />
+                    /> */}
                     {/* removed add button */}
                     {/* <Controls.Button
                         text="Add New"
