@@ -17,7 +17,6 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 import { 
     getMakeList,
     getModelsList,
-    updateVehicleModel,
     deleteVehicleModel,
 } from "../../api/VehicleAPI";
 
@@ -32,6 +31,10 @@ const useStyles = makeStyles(theme => ({
     newButton: {
         position: 'absolute',
         right: '10px'
+    },
+    modelButton: {
+        position: 'absolute',
+        right: '0vw',
     }
 }))
 
@@ -200,10 +203,12 @@ export default function RegisterModel() {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                        text="Register Model"
+                        text="Model"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
+                        className={classes.modelButton}
+                        // onClick={event =>  window.location.href='/4'}
                         onClick={() => { setOpenPopup3(true); setRecordForEdit3(null); }}
                     />
                     

@@ -16,7 +16,6 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup2 from "../../components/AdminPopup2";
 import { 
     getMakeList,
-    updateVehicleMake,
     deleteVehicleMake, 
 } from "../../api/VehicleAPI";
 
@@ -31,6 +30,10 @@ const useStyles = makeStyles(theme => ({
     newButton: {
         position: 'absolute',
         right: '10px'
+    },
+    makeButton: {
+        position: 'absolute',
+        right: '0vw',
     }
 }))
 
@@ -68,7 +71,7 @@ export default function RegisterMake() {
         let result = await deleteVehicleMake(vID);
         alert(`Status : ${result.status}, ${result.body}`); 
     }
-
+    
     async function onLoadGetMakeList() {
         resultMake = await getMakeList();
         let statusCode = resultMake.status;
@@ -169,6 +172,7 @@ export default function RegisterMake() {
                         text="Make"
                         color="#841584"
                         variant="outlined"
+                        className={classes.makeButton}
                         startIcon={<AddIcon />}
                         // onClick={event =>  window.location.href='/4'}
                         onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
