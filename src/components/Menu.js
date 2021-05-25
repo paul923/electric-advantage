@@ -22,12 +22,22 @@ const Menu = () => {
   const [userId, setUserId] = useState("")
   const { currentUser, userType, logout, dealerObjectId } = useAuth()
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      makeMenu();
+
+      
+    })
+
+    return unsubscribe
+  }, [])
+
 
   
-
-
-
-  return  <Nav>
+  const makeMenu = () => {
+    return (
+      <div>
+<Nav>
   <NavLink to="/">
     <img src={logo} alt="logo" className="logo" />
   </NavLink>
@@ -78,6 +88,17 @@ const Menu = () => {
     ) }
   </NavMenu>
   </Nav>
+      </div>
+    );
+  };
+
+
+  return  (
+    <div>
+          {makeMenu()}
+
+    </div>
+  )
 
   }
     

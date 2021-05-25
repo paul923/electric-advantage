@@ -4,11 +4,17 @@ import { useAuth } from "../../components/AuthContext";
 import Signup from "../Signup";
 import { registerDealership } from "../../api/DealershipAPI";
 import { Link, useHistory } from "react-router-dom";
+import { getDealershipByUserID } from "../../api/DealershipAPI";
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+} from "../pageComponents/NavbarElements";
 
 
 export default function DealershipProfilePage() {
   const history = useHistory();
-  const { dealerObjectId, userObject } = useAuth();
   const [regionCode, setRegionCode] = React.useState(null);
   const [groupName, setGroupName] = React.useState(null);
   const [streetAddress, setStreetAddress] = React.useState(null);
@@ -24,9 +30,35 @@ export default function DealershipProfilePage() {
   const [billingEmail, setBillingEmail] = React.useState(null);
   const [longtitude, setLongtitude] = React.useState(null);
   const [latitude, setLatitude] = React.useState(null);
+  const [dealerObjectId, setDealerObjectId] = useState("")
+  const { currentUser, userType, logout, userObject } = useAuth()
+  const [searchedUser, setSearchedUser] = useState(null);
+
+
 
   
   React.useEffect(() => {}, []);
+
+  async function GetDealerObjectId(id) {
+    let resultUser = await getDealershipByUserID(id);
+    let statusCode = resultUser.status;
+    if (statusCode === 404) {
+      setDealerObjectId(null)
+
+    } else {
+
+      if (statusCode === 200) {
+        let body = resultUser.body[0];
+        setSearchedUser(body);
+        console.log("dealerobject")
+        console.log(body)
+        setDealerObjectId(null)
+        setDealerObjectId(body.DealershipID)
+      } else {
+        alert(`Status : ${statusCode}, ${resultUser.error}`);
+      }
+    }
+  }
 
   async function onPressCreateDealership() {
     let dealershipObj = {
@@ -50,11 +82,13 @@ export default function DealershipProfilePage() {
     let result = await registerDealership(dealershipObj);
     if (result.status === 201) {
       history.push("/");
-      console.log(userObject.UserID)
-      console.log(userObject.dealerObjectId)
+      console.log(userObject.UserID) 
+      GetDealerObjectId(userObject.UserID)
 
     }
   }
+
+  
 
   const createDealershipForm = () => {
     return (
@@ -187,6 +221,11 @@ export default function DealershipProfilePage() {
         >
           Create Dealership
         </Button>
+        <NavLink to="/dealer" activeStyle>
+        <h5>
+          back to dealership menu
+        </h5>
+    </NavLink> 
       </form>
     );
   };
