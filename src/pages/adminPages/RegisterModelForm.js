@@ -6,7 +6,8 @@ import * as vehicleService from "./vehicleService";
 import InputLabel from '@material-ui/core/InputLabel';
 import {
     getMakeList,
-    registerModelWithMakeID
+    registerModelWithMakeID,
+    updateVehicleModel,
   } from "../../api/VehicleAPI";
 import { Select, MenuItem } from "@material-ui/core";
 
@@ -21,9 +22,10 @@ const initialFValues = {
 export default function RegisterModelForm(props) {
     const { addOrEdit, recordForEdit } = props
     const [makeID, setMakeID] = React.useState("");
+    const [makeName, setMakeName] = React.useState("");
     const [modelID, setModelID] = React.useState("");
     const [modelName, setModelName] = React.useState("");
-
+  
     // let makeIDList = [];
 
     const [id, setID] = React.useState("");
@@ -48,6 +50,18 @@ export default function RegisterModelForm(props) {
       }
     }
 
+    async function onClickUpdateVehicleModel() {
+      let makeid = makeID;
+      let modelid = modelID;
+      let modelname = modelName;
+      let modelObj = {
+        MakeID: makeid,
+        ModelID: modelid,
+        ModelName: modelname,
+      }
+      let result = await updateVehicleModel(makeid, modelid, modelObj);
+      alert(`Status : ${result.status}, ${result.body}`);
+    }
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -160,6 +174,10 @@ export default function RegisterModelForm(props) {
                             type="submit"
                             text="Submit" 
                             onClick= {() => onClickRegisterModelWithMakeID()} />
+                         <Controls.Button
+                                type="update"
+                                text="Update"
+                                onClick= {() => onClickUpdateVehicleModel()} />
                         <Controls.Button
                             text="Reset"
                             color="default"
