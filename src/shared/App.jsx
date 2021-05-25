@@ -95,7 +95,7 @@ export default class App extends Component {
             <Route
               path="/search-detail/:inventoryID"
               component={SearchDetail}
-            />
+            />gdf
             <Route path="/search-detail" component={SearchDetail} />
           </Switch>
           <Route path="/api-test" component={TestingPage} />
