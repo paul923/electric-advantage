@@ -125,6 +125,8 @@ export default function RegisterModel() {
       async function onClickDeleteVehicleModel(makeid, modelid) {
           let result = await deleteVehicleModel(makeid, modelid);
         alert(`Status : ${result.status}, ${result.body}`); 
+        onLoadGetMakeList();
+        onLoadGetModelsList();
       }
 
     const {
@@ -161,6 +163,8 @@ export default function RegisterModel() {
             message: 'Submitted Successfully',
             type: 'success'
         })
+        onLoadGetMakeList();
+        onLoadGetModelsList();
     }
 
     const openInPopup = item => {

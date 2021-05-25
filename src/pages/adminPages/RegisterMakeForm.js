@@ -95,10 +95,10 @@ export default function RegisterMakeForm(props) {
                             type="submit"
                             text="Submit"
                             onClick= {() => onClickRegisterMake()} />
-                        <Controls.Button
+                        {/* <Controls.Button
                                 type="update"
                                 text="Update"
-                                onClick= {() => onClickUpdateVehicleMake()} />
+                                onClick= {() => onClickUpdateVehicleMake()} /> */}
                         <Controls.Button
                             text="Reset"
                             color="default"

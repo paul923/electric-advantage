@@ -11,11 +11,16 @@ const adminMenu = () => {
     <div>
       <ul>
         <li>
-          <NavLink exact to="/1" activeStyle={activeStyle}>
-            Subscriptions
+          <NavLink exact to="/4" activeStyle={activeStyle}>
+            Make
           </NavLink>
         </li>
         <li>
+          <NavLink exact to="/5" activeStyle={activeStyle}>
+            Model
+          </NavLink>
+        </li>
+         <li>
           <NavLink exact to="/2" activeStyle={activeStyle}>
             Vehicles
           </NavLink>
@@ -26,15 +31,12 @@ const adminMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/4" activeStyle={activeStyle}>
-            Register Make
+          <NavLink exact to="/1" activeStyle={activeStyle}>
+            Subscriptions
           </NavLink>
         </li>
-        <li>
-          <NavLink exact to="/5" activeStyle={activeStyle}>
-            Register Model
-          </NavLink>
-        </li>
+        
+        
       </ul>
      
       <hr />

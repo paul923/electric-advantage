@@ -221,12 +221,10 @@ export default function VehicleForm(props) {
                                 type="submit"
                                 text="Submit"
                                 onClick= {() => onClickRegisterVehicleToDatabase()} />
-
-                            <Controls.Button
+                            {/* <Controls.Button
                                 type="update"
                                 text="Update"
-                                onClick= {() => onClickUpdateVehicleByID()} />
-
+                                onClick= {() => onClickUpdateVehicleByID()} /> */}
                             <Controls.Button
                                 text="Reset"
                                 color="default"

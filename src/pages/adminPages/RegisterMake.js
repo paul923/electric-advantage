@@ -68,7 +68,8 @@ export default function RegisterMake() {
 
     async function onClickDeleteVehicleMake(vID) {
         let result = await deleteVehicleMake(vID);
-        alert(`Status : ${result.status}, ${result.body}`); 
+        alert(`Status : ${result.status}, ${result.body}`);
+        onLoadGetMakeList();
     }
     
     async function onLoadGetMakeList() {
@@ -127,6 +128,7 @@ export default function RegisterMake() {
             message: 'Submitted Successfully',
             type: 'success'
         })
+        onLoadGetMakeList();
     }
 
     const openInPopup = item => {
@@ -173,8 +175,11 @@ export default function RegisterMake() {
                         variant="outlined"
                         className={classes.makeButton}
                         startIcon={<AddIcon />}
-                        // onClick={event =>  window.location.href='/4'}
-                        onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
+                        onClick={() => { 
+                            setOpenPopup2(true); 
+                            setRecordForEdit2(null);
+                            onLoadGetMakeList();
+                         }}
                     />
                     
                 </Toolbar>
@@ -187,12 +192,15 @@ export default function RegisterMake() {
                                     <TableCell>{v.MakeID}</TableCell>
                                     <TableCell>{v.MakeName}</TableCell>                                    
                                     <TableCell>
-                                        {/* <Controls.ActionButton
+                                        <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(v) }}>
+                                            onClick={() => { 
+                                                openInPopup(v);
+                                                onLoadGetMakeList();
+                                                }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton> */}
+                                        </Controls.ActionButton>
                                         <Controls.ActionButton
                                             onClick={() => {
                                                 setConfirmDialog({

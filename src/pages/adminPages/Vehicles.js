@@ -79,6 +79,7 @@ export default function Vehicles() {
     async function onClickDeleteVehicleByID(vID) {
         let result = await deleteVehicleByID(vID);
         alert(`Status : ${result.status}, ${result.body}`);
+        onLoadGetAllAvailableVehicles();
     }
 
     let resultVehicles = [];
@@ -152,6 +153,7 @@ export default function Vehicles() {
             message: 'Submitted Successfully',
             type: 'success'
         })
+        onLoadGetAllAvailableVehicles();
     }
 
     const openInPopup = item => {
@@ -192,14 +194,13 @@ export default function Vehicles() {
                         }}
                         onChange={handleSearch}
                     />
-                    <Controls.Button
+                    {/* <Controls.Button
                         text="Make"
                         color="#841584"
                         variant="outlined"
                         
                         className={classes.button1}
                         onClick={event =>  window.location.href='/4'}
-                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
                         text="Model"
@@ -208,8 +209,7 @@ export default function Vehicles() {
                         
                         className={classes.button2}
                         onClick={event =>  window.location.href='/5'}
-                        // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
-                    />
+                    /> */}
                     <Controls.Button
                         text="Vehicle"
                         color="#841584"
@@ -234,7 +234,7 @@ export default function Vehicles() {
                                     <TableCell>{v.trim}</TableCell>
                                     <TableCell>{v.year}</TableCell>
                                     <TableCell>
-                                        {/* <Controls.ActionButton
+                                        <Controls.ActionButton
                                             //edit button color
                                             color="success"
                                             onClick={() => { 
@@ -242,7 +242,7 @@ export default function Vehicles() {
                                                 openInPopup(v); 
                                                 }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton> */}
+                                        </Controls.ActionButton>
                                         <Controls.ActionButton
                                             onClick={() => {
                                                 setConfirmDialog({

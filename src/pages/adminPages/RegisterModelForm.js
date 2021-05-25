@@ -174,10 +174,10 @@ export default function RegisterModelForm(props) {
                             type="submit"
                             text="Submit" 
                             onClick= {() => onClickRegisterModelWithMakeID()} />
-                         <Controls.Button
+                         {/* <Controls.Button
                                 type="update"
                                 text="Update"
-                                onClick= {() => onClickUpdateVehicleModel()} />
+                                onClick= {() => onClickUpdateVehicleModel()} /> */}
                         <Controls.Button
                             text="Reset"
                             color="default"
