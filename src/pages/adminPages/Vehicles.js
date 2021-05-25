@@ -199,7 +199,7 @@ export default function Vehicles() {
                         variant="outlined"
                         
                         className={classes.button1}
-                        onClick={event =>  window.location.href='/4'}
+                        onClick={event =>  window.location.href='/make'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
@@ -208,7 +208,7 @@ export default function Vehicles() {
                         variant="outlined"
                         
                         className={classes.button2}
-                        onClick={event =>  window.location.href='/5'}
+                        onClick={event =>  window.location.href='/model'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
