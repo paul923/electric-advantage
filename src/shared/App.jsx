@@ -95,7 +95,7 @@ export default class App extends Component {
             <Route
               path="/search-detail/:inventoryID"
               component={SearchDetail}
-            />
+            />gdf
             <Route path="/search-detail" component={SearchDetail} />
           </Switch>
           <Route path="/api-test" component={TestingPage} />
@@ -103,8 +103,8 @@ export default class App extends Component {
           <AdminPrivateRoute path="/1" component={Subscriptions} />
           <AdminPrivateRoute path="/2" component={Vehicles} />
           <AdminPrivateRoute path="/3" component={Dealers} />
-          <Route path="/4" component={RegisterMake} />
-          <Route path="/5" component={RegisterModel} />
+          <AdminPrivateRoute path="/4" component={RegisterMake} />
+          <AdminPrivateRoute path="/5" component={RegisterModel} />
 
           <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
           <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />
