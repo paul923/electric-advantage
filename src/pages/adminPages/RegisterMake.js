@@ -14,7 +14,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import Popup2 from "../../components/AdminPopup2";
-import { getMakeList } from "../../api/VehicleAPI";
+import { 
+    getMakeList,
+    deleteVehicleMake, 
+} from "../../api/VehicleAPI";
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -27,6 +30,10 @@ const useStyles = makeStyles(theme => ({
     newButton: {
         position: 'absolute',
         right: '10px'
+    },
+    makeButton: {
+        position: 'absolute',
+        right: '0vw',
     }
 }))
 
@@ -51,6 +58,7 @@ export default function RegisterMake() {
 
     const [make, setMake] = React.useState([]);
     const [makeList, setMakeList] = React.useState([]);
+    const [makeID, setMakeID] = React.useState("");
 
     let resultMake = [];
 
@@ -58,6 +66,11 @@ export default function RegisterMake() {
         onLoadGetMakeList();
     }, []);
 
+    async function onClickDeleteVehicleMake(vID) {
+        let result = await deleteVehicleMake(vID);
+        alert(`Status : ${result.status}, ${result.body}`); 
+    }
+    
     async function onLoadGetMakeList() {
         resultMake = await getMakeList();
         let statusCode = resultMake.status;
@@ -158,6 +171,7 @@ export default function RegisterMake() {
                         text="Make"
                         color="#841584"
                         variant="outlined"
+                        className={classes.makeButton}
                         startIcon={<AddIcon />}
                         // onClick={event =>  window.location.href='/4'}
                         onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
@@ -173,12 +187,12 @@ export default function RegisterMake() {
                                     <TableCell>{v.MakeID}</TableCell>
                                     <TableCell>{v.MakeName}</TableCell>                                    
                                     <TableCell>
-                                        <Controls.ActionButton
+                                        {/* <Controls.ActionButton
                                             //edit button color
                                             color="success"
                                             onClick={() => { openInPopup(v) }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                        </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
                                                 setConfirmDialog({
@@ -186,8 +200,9 @@ export default function RegisterMake() {
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
+                                                        onClickDeleteVehicleMake(v.MakeID);
                                                         onDelete(); }
-                                                })
+                                                });
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>

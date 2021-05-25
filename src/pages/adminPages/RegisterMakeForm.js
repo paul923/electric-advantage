@@ -4,7 +4,10 @@ import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
 import * as vehicleService from "./vehicleService";
 
-import { registerMake } from "../../api/VehicleAPI";
+import { 
+    registerMake,
+    updateVehicleMake,
+} from "../../api/VehicleAPI";
 
 
 const initialFValues = {
@@ -24,6 +27,15 @@ export default function RegisterMakeForm(props) {
             MakeName: name,
         };
         let result = await registerMake(makeObj);
+        alert(`Status : ${result.status}, ${result.body}`);
+    }
+
+    async function onClickUpdateVehicleMake() {
+        let makeObj = {
+            MakeID: id,
+            MakeName: name,
+        };
+        let result = await updateVehicleMake(id, makeObj);
         alert(`Status : ${result.status}, ${result.body}`);
     }
 
@@ -83,6 +95,10 @@ export default function RegisterMakeForm(props) {
                             type="submit"
                             text="Submit"
                             onClick= {() => onClickRegisterMake()} />
+                        <Controls.Button
+                                type="update"
+                                text="Update"
+                                onClick= {() => onClickUpdateVehicleMake()} />
                         <Controls.Button
                             text="Reset"
                             color="default"

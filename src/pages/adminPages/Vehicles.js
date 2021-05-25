@@ -76,8 +76,7 @@ export default function Vehicles() {
     const [vehicleList, setVehicleList] = React.useState([]);
     const [vehicleID, setVehicleID] = React.useState("");
 
-    async function onClickDeleteVehicleByID() {
-        let vID = vehicleID;
+    async function onClickDeleteVehicleByID(vID) {
         let result = await deleteVehicleByID(vID);
         alert(`Status : ${result.status}, ${result.body}`);
     }
@@ -199,7 +198,7 @@ export default function Vehicles() {
                         variant="outlined"
                         
                         className={classes.button1}
-                        onClick={event =>  window.location.href='/make'}
+                        onClick={event =>  window.location.href='/4'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
@@ -208,7 +207,7 @@ export default function Vehicles() {
                         variant="outlined"
                         
                         className={classes.button2}
-                        onClick={event =>  window.location.href='/model'}
+                        onClick={event =>  window.location.href='/5'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
@@ -246,14 +245,12 @@ export default function Vehicles() {
                                         </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
-                                                setVehicleID(v.vehicleID);
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        // setVehicleID(v.vehicleID); 
-                                                        onClickDeleteVehicleByID();
+                                                        onClickDeleteVehicleByID(v.vehicleID);
                                                         onDelete(); }
                                                 })
                                             }}>
