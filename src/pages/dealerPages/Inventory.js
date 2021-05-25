@@ -6,7 +6,10 @@ import { ChevronExpand } from "react-bootstrap-icons";
 import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
-import { getInventoryByDealershipID } from "../../api/DealershipAPI";
+import {
+  getInventoryByDealershipID,
+  updateDealershipInventoryItems,
+} from "../../api/DealershipAPI";
 import { useAuth } from "../../components/AuthContext";
 import { getColors } from "../../api/VehicleAPI";
 
@@ -16,6 +19,7 @@ export default function DealerInventory() {
   const [colorList, setColorList] = React.useState([]);
   const [selectedColor, setSelectedColor] = React.useState("");
   const [colorDictionary, setColordictioanry] = React.useState([]);
+  const [inventoryToUpdate, setInventoryToUpdate] = React.useState([]);
 
   async function getFirstInventoryList() {
     // let firstInventory = await getInventoryByDealershipID(userObject.UserID);
@@ -34,7 +38,7 @@ export default function DealerInventory() {
             carColor: car.ColorID,
             carQty: car.Quantity,
             carPrice: car.StartPrice,
-            rowID: car.InventoryID,
+            inventoryID: car.InventoryID,
           };
         })
       );
@@ -140,6 +144,39 @@ export default function DealerInventory() {
     );
   }
 
+  // const updateHandler = (e) => {
+  //   let m = [{ hey: 1, you: "WOWZER" }, { hey: 2 }, { hey: 3 }];
+  //   let s = m.find((element) => element.hey === 1).you;
+  //   console.log("FOUNDME" + s);
+  // };
+
+  // updateHandler();
+
+  // updateDealershipInventoryItems(
+  //   [{ InventoryID: 131, StartPrice: 42843.01, Quantity: 3 }],
+  //   1
+  // );
+
+  async function editHandler() {
+    console.log(
+      "HEREHERE" +
+        inventoryToUpdate[0].InventoryID +
+        inventoryToUpdate[0].StartPrice +
+        inventoryToUpdate[0].Quantity
+    );
+    let apiResponse = await updateDealershipInventoryItems(
+      inventoryToUpdate,
+      "1"
+    );
+    let statusCode = apiResponse.status;
+    if (statusCode === 200) {
+      getFirstInventoryList();
+      setInventoryToUpdate([]);
+    } else {
+      alert(`${statusCode}. ${apiResponse.error}`);
+    }
+  }
+
   React.useEffect(() => {
     setFilteredList(search(retrievedInventory));
   }, [query]);
@@ -204,12 +241,12 @@ export default function DealerInventory() {
                 carColor={car.carColor}
                 carPrice={car.carPrice}
                 Qty={car.carQty}
-                rowID={car.rowID}
+                inventoryID={car.inventoryID}
                 updateInventory={getFirstInventoryList}
-                // row={car}
-                setShowModal={setShowModal}
                 editText={editText}
                 showEditText={showEditText}
+                inventoryToUpdate={inventoryToUpdate}
+                setInventoryToUpdate={setInventoryToUpdate}
               />
             ))}
           </tbody>
@@ -220,11 +257,21 @@ export default function DealerInventory() {
           <Button className="bottomButtons">Add Cars</Button>
         </Link>
         <Button
-          className="bottomButtons"
+          className={`${!editText ? "hiddenUntilEdit" : ""} bottomButtons`}
           onClick={() => showEditText(!editText)}
         >
-          <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>Edit</text>
-          <text className={`${editText ? "hiddenUntilEdit" : ""}`}>Update</text>
+          <text>Edit</text>
+          {/* <text className={`${editText ? "hiddenUntilEdit" : ""} bottomButtons`}>Update</text> */}
+        </Button>
+        <Button
+          className={`${editText ? "hiddenUntilEdit" : ""} bottomButtons`}
+          onClick={() => {
+            showEditText(!editText);
+            editHandler();
+          }}
+        >
+          {/* <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>Edit</text> */}
+          <text>Update</text>
         </Button>
       </div>
     </div>

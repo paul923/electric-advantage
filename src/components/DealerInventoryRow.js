@@ -13,18 +13,65 @@ const InventoryRow = ({
   carPrice,
   Qty,
   editText,
-  rowID,
+  inventoryID,
   updateInventory,
-  showEditText,
-  row,
+  setInventoryToUpdate,
+  inventoryToUpdate,
 }) => {
+  const [newPrice, setNewPrice] = React.useState(0);
+  const [newQuantity, setNewQuantity] = React.useState(Qty);
+
   async function onDeleteHandler() {
-    let deleteResponse = await deleteItemByInventoryID(rowID);
+    let deleteResponse = await deleteItemByInventoryID(inventoryID);
     let deleteStatus = deleteResponse.status;
     if (deleteStatus == 200) {
       updateInventory();
     }
   }
+
+  const updatePriceHandler = (e) => {
+    console.log(e.target.value);
+    let findResult = inventoryToUpdate.find(
+      (element) => element.inventoryID === inventoryID
+    );
+    if (findResult === undefined) {
+      setInventoryToUpdate([
+        ...inventoryToUpdate,
+        {
+          InventoryID: parseInt(inventoryID),
+          StartPrice: parseFloat(e.target.value),
+          Quantity: parseInt(newQuantity),
+        },
+      ]);
+      setNewPrice(e.target.value);
+    } else {
+      findResult.StartPrice = parseFloat(e.target.value);
+      findResult.Quantity = parseInt(newQuantity);
+      setNewPrice(e.target.value);
+    }
+  };
+
+  const updateQtyHandler = (e) => {
+    let findResult = inventoryToUpdate.find(
+      (element) => element.inventoryID === inventoryID
+    );
+    if (findResult === undefined) {
+      setInventoryToUpdate([
+        ...inventoryToUpdate,
+        {
+          InventoryID: parseInt(inventoryID),
+          StartPrice: parseFloat(newPrice),
+          Quantity: parseInt(e.target.value),
+        },
+      ]);
+      setNewQuantity(e.target.value);
+    } else {
+      findResult.StartPrice = parseFloat(newPrice);
+      findResult.Quantity = parseInt(e.target.value);
+      console.log("HEREHERE!" + findResult.StartPrice);
+      setNewQuantity(e.target.value);
+    }
+  };
 
   return (
     <tr>
@@ -38,6 +85,9 @@ const InventoryRow = ({
           {carPrice}
         </text>
         <input
+          onChange={(e) => {
+            updatePriceHandler(e);
+          }}
           type="text"
           className={`inputsCell ${editText ? "hiddenUntilEdit" : ""}`}
           placeholder={carPrice}
@@ -46,6 +96,9 @@ const InventoryRow = ({
       <td>
         <text className={`${!editText ? "hiddenUntilEdit" : ""}`}>{Qty}</text>
         <input
+          onChange={(e) => {
+            updateQtyHandler(e);
+          }}
           type="text"
           className={`inputsCell ${editText ? "hiddenUntilEdit" : ""}`}
           placeholder={Qty}
