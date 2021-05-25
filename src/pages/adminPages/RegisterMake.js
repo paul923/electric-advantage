@@ -66,8 +66,7 @@ export default function RegisterMake() {
         onLoadGetMakeList();
     }, []);
 
-    async function onClickDeleteVehicleMake() {
-        let vID = makeID;
+    async function onClickDeleteVehicleMake(vID) {
         let result = await deleteVehicleMake(vID);
         alert(`Status : ${result.status}, ${result.body}`); 
     }
@@ -196,15 +195,14 @@ export default function RegisterMake() {
                                         </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
-                                                setMakeID(v.MakeID);
                                                 setConfirmDialog({
                                                     isOpen: true,
                                                     title: 'Confirm you wish to delete',
                                                     subTitle: "You cannot undo this",
                                                     onConfirm: () => { 
-                                                        onClickDeleteVehicleMake();
+                                                        onClickDeleteVehicleMake(v.MakeID);
                                                         onDelete(); }
-                                                })
+                                                });
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>

@@ -122,9 +122,7 @@ export default function RegisterModel() {
         }
       }
 
-      async function onClickDeleteVehicleModel() {
-          let makeid = makeID;
-          let modelid =  modelID;
+      async function onClickDeleteVehicleModel(makeid, modelid) {
           let result = await deleteVehicleModel(makeid, modelid);
         alert(`Status : ${result.status}, ${result.body}`); 
       }
@@ -233,16 +231,15 @@ export default function RegisterModel() {
                                         </Controls.ActionButton> */}
                                         <Controls.ActionButton
                                             onClick={() => {
-                                                setMakeID(m.MakeID);
-                                                setModelID(m.ModelID);
-                                                setConfirmDialog({
-                                                    isOpen: true,
-                                                    title: 'Confirm you wish to delete',
-                                                    subTitle: "You cannot undo this",
-                                                    onConfirm: () => { 
-                                                        onClickDeleteVehicleModel();
-                                                        onDelete(); }
-                                                })
+                                                setTimeout(
+                                                    setConfirmDialog({
+                                                        isOpen: true,
+                                                        title: 'Confirm you wish to delete',
+                                                        subTitle: "You cannot undo this",
+                                                        onConfirm: () => { 
+                                                            onClickDeleteVehicleModel(m.MakeID, m.ModelID);
+                                                            onDelete(); }
+                                                    }), 500);
                                             }}>
                                             <CloseIcon fontSize="small" />
                                         </Controls.ActionButton>
