@@ -301,6 +301,11 @@ const DealerAddCarModal = ({
         <Button
           className="btn-success footerButtons"
           onClick={() => {
+            {
+              if (condition !== 2) {
+                setOdo("0");
+              }
+            }
             setShowModal(false);
             addCarsHandler();
             resetAllFieldsHandler();
