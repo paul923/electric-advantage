@@ -35,3 +35,23 @@ export async function getCountingsList() {
     console.log(error);
   }
 }
+
+/**
+ * Retrieves list of dealership inventory counts in specific region
+ * @returns counting objects array
+ */
+export async function getDealershipsInventoryCountingsByRegion(regionCode) {
+  try {
+    console.log(
+      `Retrieving dealerships inventory counts in region ${regionCode}`
+    );
+    let url = `http://${database}:3000/regions/${regionCode}/dealerships/inventory-countings`;
+    let response = await fetch(url);
+    let json = await response.json();
+    json["status"] = response.status;
+    console.log(`Retrieved ${JSON.stringify(json.body, null, 4)}`);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
