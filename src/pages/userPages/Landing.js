@@ -29,7 +29,7 @@ export default function LandingPage() {
       let body = resultCountList.body;
       setCountings(body);
       setSelectedRegion(body[0]);
-      onChangeGetDealershipInventoryCountingsByRegion(body[0]);
+      // onChangeGetDealershipInventoryCountingsByRegion(body[0]);
     } else {
       alert(`Status : ${statusCode}, ${resultCountList.error}`);
     }
