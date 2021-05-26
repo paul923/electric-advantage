@@ -61,12 +61,6 @@ const DealerAddCarModal = ({
     getVehiclesList();
   }, [selectedModel]);
 
-  React.useEffect(() => {});
-
-  React.useEffect(() => {});
-
-  React.useEffect(() => {});
-
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
     let statusCode = resultMakeList.status;
@@ -74,7 +68,7 @@ const DealerAddCarModal = ({
       let body = resultMakeList.body;
       setMakeList(body);
     } else {
-      alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+      alert(`Status : ${statusCode}!\nThere are no makes to select.`);
     }
   }
 
@@ -87,7 +81,7 @@ const DealerAddCarModal = ({
       setCarModel(resultModelList.body[0].ModelName);
       setSelectedModel(resultModelList.body[0].ModelID);
     } else {
-      alert(`Status : ${statusCode}, ${resultModelList.error}`);
+      alert(`Status : ${statusCode}!\nThere will are no models to select.`);
     }
   }
 
@@ -106,7 +100,7 @@ const DealerAddCarModal = ({
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
       setTrimList(body);
     } else {
-      alert(`Status : ${statusCode}, ${resultTrimList.error}.`);
+      alert(`Status : ${statusCode}!\nThere will are no vehicles to select.`);
     }
   }
 

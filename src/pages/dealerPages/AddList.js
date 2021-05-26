@@ -3,16 +3,18 @@ import { Modal, Table, Button } from "react-bootstrap";
 import "../css/dealersAddPage.css";
 import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
 import DealerAddCarModal from "../../components/DealerAddCarModal";
-import { addInventoryItemToDealership } from "../../api/DealershipAPI";
-import { getInventoryByDealershipID } from "../../api/DealershipAPI";
-// import { useAuth } from "../../components/AuthContext";
+import {
+  addInventoryItemToDealership,
+  getAllDealerships,
+} from "../../api/DealershipAPI";
+import { useAuth } from "../../components/AuthContext";
 // import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [addList, setAddList] = React.useState([]);
-  // const { currentUser, userObject } = useAuth();
+  const { currentUser, userType, logout, userObject } = useAuth();
 
   React.useEffect(() => {
     addToDatabaseHandler();
@@ -30,12 +32,21 @@ export default function DealerAddList() {
     addToDatabaseHandler();
   }, [carsToAdd]);
 
-  const addToDatabaseHandler = () => {
+  async function addToDatabaseHandler() {
+    let userID = userObject.UserID;
+    let listOfDealers = await getAllDealerships();
+    let status = listOfDealers.status;
+    let foundUser = null;
+    if (status === 200) {
+      foundUser = listOfDealers.body.find(
+        (element) => element.UserID === userID
+      );
+    }
     setAddList(
       carsToAdd.map((car) => {
         return {
           VehicleID: car.vehicleID,
-          DealershipID: "1",
+          DealershipID: "14",
           ColorID: car.carColor,
           ConditionID: parseInt(car.carCondition),
           StartPrice: parseFloat(car.carPrice),
@@ -44,7 +55,7 @@ export default function DealerAddList() {
         };
       })
     );
-  };
+  }
 
   async function insertIntoDatabaseHandler() {
     let apiResponse = await addInventoryItemToDealership(addList);
