@@ -84,9 +84,6 @@ export default function DealershipProfilePage() {
     }
   }
 
-  const myfucntion() {
-    
-  }
 
   
 
