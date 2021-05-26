@@ -42,7 +42,8 @@ const Menu = () => {
               <NavLink to="/dealerprofile" activeStyle>
                 Register Dealership
               </NavLink>
-            ) : userType === "ADMIN" ? (
+              
+            ): userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
               </NavLink>
