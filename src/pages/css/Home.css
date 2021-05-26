@@ -116,7 +116,7 @@ h2 {
   margin-top: 5vh;
   margin-bottom: 3vh;
   margin-left: 3vw;
-  color: green;
+  color: #207567;
   font-weight: bold;
 }
 
@@ -316,3 +316,23 @@ h10 {
   top: 50%;
   width: 100%;
 }
+
+.email, .password {
+  width: 100px;
+  margin: auto;
+width: 60%;
+padding: 10px;
+
+}
+
+.w-1000 {
+  margin:auto;
+  display:block;
+
+}
+
+/* .w-200 {
+  width: 50%;
+  color: blue;
+
+} */

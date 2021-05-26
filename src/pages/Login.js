@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../components/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import Signup from "./Signup"
+import "./css/Home.css"
 
 export default function Login() {
   const emailRef = useRef()
@@ -39,15 +40,15 @@ export default function Login() {
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
+            <Form.Group className= "email" id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
-            <Form.Group id="password">
+            <Form.Group className="password" id="password">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-1000" type="submit">
               Log In
             </Button>
 

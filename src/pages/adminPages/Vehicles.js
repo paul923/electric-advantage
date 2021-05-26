@@ -189,7 +189,7 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Vehicle Database"
+                title="Vehicle"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />

@@ -229,7 +229,7 @@ export default function RegisterMake() {
                 </TblContainer>
             </Paper>
             <Popup
-                title="Register Make"
+                title="Make"
                 openPopup={openPopup2}
                 setOpenPopup={setOpenPopup2}
             >

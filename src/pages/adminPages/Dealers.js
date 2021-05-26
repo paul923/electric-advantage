@@ -138,7 +138,7 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Dealer Database"
+                title="Dealer"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />

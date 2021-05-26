@@ -167,7 +167,7 @@ export default function RegisterModel() {
     return (
         <>
             <PageHeader
-                title="Register Model"
+                title="Model"
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
