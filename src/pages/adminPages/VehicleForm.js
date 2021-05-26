@@ -55,7 +55,7 @@ export default function VehicleForm(props) {
           let body = resultMakeList.body;
           setMakeList(body);
         } else {
-          alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+          console.log(`Status : ${statusCode}, ${resultMakeList.error}`);
         }
     }
 
@@ -93,7 +93,7 @@ export default function VehicleForm(props) {
           Year: updateYear,
         };
         let result = await updateVehicleByID(vehicleObj);
-        alert(`Status : ${result.status}, ${result.body}`);
+        console.log(`Status : ${result.status}, ${result.body}`);
     }
 
     const validate = (fieldValues = values) => {
