@@ -2,15 +2,10 @@ import React, { useState } from 'react'
 import DealerForm from "./DealerForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as dealerService from "./dealerService";
-import Controls from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
-import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import {
@@ -39,7 +34,6 @@ const headCells = [
     { id: 'email', label: 'Email' }, 
     { id: 'phone', label: 'Phone' }, 
     { id: 'planID', label:'Plan ID' },
-    // { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function Vehicles() {
@@ -51,13 +45,7 @@ export default function Vehicles() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-
     const [dealerships, setDealerships] = React.useState([]);
-    const [dealershipID, setDealershipID] = React.useState("");
-    const [groupName, setGroupName] = React.useState("");
-    const [address, setAddress] = React.useState("");
-    const [salesEmail, setSalesEmail] = React.useState("");
-    const [salesPhone, setSalesPhone] = React.useState("");
     const [dealershipList, setDealershipList] = React.useState([]);
 
     let resultDealership = [];
@@ -96,21 +84,7 @@ export default function Vehicles() {
     const {
         TblContainer,
         TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
-
-    const handleSearch = e => {
-        let target = e.target;
-        setFilterFn({
-            fn: items => {
-                if (target.value == "")
-                    return items;
-                else
-                    return items.filter(x => x.dealerID.toLowerCase().includes(target.value))
-            }
-        })
-    }
 
     const addOrEdit = (dealer, resetForm) => {
         if (dealer.id == 0)
@@ -133,20 +107,6 @@ export default function Vehicles() {
         setOpenPopup(true)
     }
 
-    // const onDelete = id => {
-    //     setConfirmDialog({
-    //         ...confirmDialog,
-    //         isOpen: false
-    //     })
-    //     dealerService.deleteDealer(id);
-    //     setRecords(dealerService.getAllDealers())
-    //     setNotify({
-    //         isOpen: true,
-    //         message: 'Deleted Successfully',
-    //         type: 'error'
-    //     })
-    // }
-
     return (
         <>
             <PageHeader
@@ -155,28 +115,6 @@ export default function Vehicles() {
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
-
-                <Toolbar>
-                    <Controls.Input
-                        label="Search for dealers"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
-                    />
-                    {/* removed add button */}
-                    {/* <Controls.Button
-                        text="Add New"
-                        color="#841584"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
-                    /> */}
-                </Toolbar>
                 <TblContainer>
                     <TblHead />
                     <TableBody>
@@ -189,21 +127,11 @@ export default function Vehicles() {
                                     <TableCell>{list.dealerEmail}</TableCell>
                                     <TableCell>{list.dealerPhone}</TableCell>
                                     <TableCell>{list.dealerPlanID}</TableCell>
-                                                            
-                                    {/* <TableCell>
-                                        <Controls.ActionButton
-                                            //edit button color
-                                            color="success"
-                                            onClick={() => { openInPopup(list) }}>
-                                            <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
-                                    </TableCell> */}
                                 </TableRow>)
                             )
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
             </Paper>
             <Popup
                 title="Add a new dealer"

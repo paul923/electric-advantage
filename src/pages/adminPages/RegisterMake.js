@@ -2,18 +2,16 @@ import React, { useState } from 'react'
 import RegisterMakeForm from "./RegisterMakeForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as vehicleService from "./vehicleService";
 import Controls from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import Popup2 from "../../components/AdminPopup2";
 import { 
     getMakeList,
     deleteVehicleMake, 
@@ -22,21 +20,13 @@ import {
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
-        padding: theme.spacing(1)
-    },
-    searchInput: {
-        width: '75%'
-    },
-    newButton: {
-        position: 'absolute',
-        right: '10px'
+        padding: theme.spacing(3)
     },
     makeButton: {
         position: 'absolute',
-        right: '0vw',
+        right: '3vw',
     }
 }))
-
 
 const headCells = [
     { id: 'MakeID', label: 'Make ID' },
@@ -55,10 +45,7 @@ export default function RegisterMake() {
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
     const [recordForEdit2, setRecordForEdit2] = useState(null)
     const [openPopup2, setOpenPopup2] = useState(false)
-
-    const [make, setMake] = React.useState([]);
     const [makeList, setMakeList] = React.useState([]);
-    const [makeID, setMakeID] = React.useState("");
 
     let resultMake = [];
 
@@ -68,7 +55,8 @@ export default function RegisterMake() {
 
     async function onClickDeleteVehicleMake(vID) {
         let result = await deleteVehicleMake(vID);
-        alert(`Status : ${result.status}, ${result.body}`); 
+        alert(`Status : ${result.status}, ${result.body}`);
+        onLoadGetMakeList();
     }
     
     async function onLoadGetMakeList() {
@@ -77,62 +65,41 @@ export default function RegisterMake() {
         if (statusCode === 200) {
             let body = resultMake.body;
             if (resultMake["body"] != undefined) {
-                setMakeList(
-                    resultMake["body"].map((m) => {
-                        return {
-                            MakeID: m["MakeID"],
-                            MakeName: m["MakeName"],
-                        };
-                    })
-                );
-            } else setMakeList([]);
-            setMake(body);
+                setMakeList(body);
+            }
         } else {
-            alert(`Status : ${statusCode}, ${resultMake.error}`);
+            console.error(`Status : ${statusCode}, ${resultMake.error}`);
         }
     }
-
 
     const {
         TblContainer,
         TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
-    const handleSearch = e => {
-        let target = e.target;
-        setFilterFn({
-            fn: items => {
-                if (target.value == "")
-                    return items;
-                else
-                    return items.filter(x => x.MakeID.toLowerCase().includes(target.value))
-            }
-        })
-    }
-
     const addOrEdit = (vehicle, resetForm) => {
-        if (vehicle.id == 0)
-        vehicleService.insertVehicle(vehicle)
-        else
-        vehicleService.updateVehicle(vehicle)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setOpenPopup2(false)
-        setRecords(vehicleService.getAllVehicles())
-        setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
+        if (vehicle.id == 0) {
+            vehicleService.insertVehicle(vehicle);
+        } else {
+            vehicleService.updateVehicle(vehicle);
+            resetForm();
+            setRecordForEdit(null);
+            setOpenPopup(false);
+            setOpenPopup2(false);
+            setRecords(vehicleService.getAllVehicles());
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully',
+                type: 'success'
+            });
+        }
+        onLoadGetMakeList();
     }
 
     const openInPopup = item => {
-        setRecordForEdit(item)
-        setOpenPopup(true)
-        setOpenPopup2(true)
+        setRecordForEdit(item);
+        setOpenPopup(true);
+        setOpenPopup2(true);
     }
 
     const onDelete = id => {
@@ -151,32 +118,22 @@ export default function RegisterMake() {
         <>
             <PageHeader
                 title="Register Make"
-              
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
-
                 <Toolbar>
-                    <Controls.Input
-                        label="Search Make Database"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
-                    />
                     <Controls.Button
                         text="Make"
                         color="#841584"
                         variant="outlined"
                         className={classes.makeButton}
                         startIcon={<AddIcon />}
-                        // onClick={event =>  window.location.href='/4'}
-                        onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
+                        onClick={() => { 
+                            setOpenPopup2(true); 
+                            setRecordForEdit2(null);
+                            setRecordForEdit(null);
+                         }}
                     />
-                    
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
@@ -187,12 +144,14 @@ export default function RegisterMake() {
                                     <TableCell>{v.MakeID}</TableCell>
                                     <TableCell>{v.MakeName}</TableCell>                                    
                                     <TableCell>
-                                        {/* <Controls.ActionButton
+                                        <Controls.ActionButton
                                             //edit button color
                                             color="success"
-                                            onClick={() => { openInPopup(v) }}>
+                                            onClick={() => { 
+                                                openInPopup(v);
+                                                }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton> */}
+                                        </Controls.ActionButton>
                                         <Controls.ActionButton
                                             onClick={() => {
                                                 setConfirmDialog({
@@ -212,7 +171,6 @@ export default function RegisterMake() {
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
             </Paper>
             <Popup
                 title="Register Make"
