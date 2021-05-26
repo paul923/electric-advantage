@@ -5,7 +5,7 @@ import DealerAddInventoryRow from "../../components/DealerAddInventoryRow";
 import DealerAddCarModal from "../../components/DealerAddCarModal";
 import {
   addInventoryItemToDealership,
-  getAllDealerships,
+  getDealershipByUserID,
 } from "../../api/DealershipAPI";
 import { useAuth } from "../../components/AuthContext";
 // import { getVehicleSearchResult } from "../../api/DealershipAPI";
@@ -33,20 +33,12 @@ export default function DealerAddList() {
   }, [carsToAdd]);
 
   async function addToDatabaseHandler() {
-    let userID = userObject.UserID;
-    let listOfDealers = await getAllDealerships();
-    let status = listOfDealers.status;
-    let foundUser = null;
-    if (status === 200) {
-      foundUser = listOfDealers.body.find(
-        (element) => element.UserID === userID
-      );
-    }
+    let dealerObject = await getDealershipByUserID(userObject.UserID);
     setAddList(
       carsToAdd.map((car) => {
         return {
           VehicleID: car.vehicleID,
-          DealershipID: "14",
+          DealershipID: parseInt(dealerObject.body[0].DealershipID),
           ColorID: car.carColor,
           ConditionID: parseInt(car.carCondition),
           StartPrice: parseFloat(car.carPrice),

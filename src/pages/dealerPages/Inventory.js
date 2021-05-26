@@ -11,6 +11,7 @@ import {
   getAllDealerships,
   getInventoryByDealershipID,
   updateDealershipInventoryItems,
+  getDealershipByUserID,
 } from "../../api/DealershipAPI";
 import { useAuth } from "../../components/AuthContext";
 
@@ -21,17 +22,9 @@ export default function DealerInventory() {
   const [inventoryToUpdate, setInventoryToUpdate] = React.useState([]);
 
   async function getFirstInventoryList() {
-    let userID = userObject.UserID;
-    let listOfDealers = await getAllDealerships();
-    let status = listOfDealers.status;
-    let foundUser = null;
-    if (status === 200) {
-      foundUser = listOfDealers.body.find(
-        (element) => element.UserID === userID
-      );
-    }
+    let dealerObject = await getDealershipByUserID(userObject.UserID);
     let firstInventory = await getInventoryByDealershipID(
-      parseInt(foundUser.DealershipID)
+      parseInt(dealerObject.body[0].DealershipID)
     );
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
