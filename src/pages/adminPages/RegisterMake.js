@@ -75,8 +75,6 @@ export default function RegisterMake() {
     const {
         TblContainer,
         TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
     const addOrEdit = (vehicle, resetForm) => {

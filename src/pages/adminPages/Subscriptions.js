@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import SubscriptionForm from "./SubscriptionForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as subscriptionService from "./subscriptionService";
 import Controls from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
 import Notification from "../../components/AdminNotification";
@@ -20,12 +19,9 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(5),
         padding: theme.spacing(3)
     },
-    searchInput: {
-        width: '75%'
-    },
     newButton: {
         position: 'absolute',
-        right: '10px'
+        right: '3vw'
     }
 }))
 
@@ -81,18 +77,6 @@ export default function Subscriptions() {
         TblHead,
     } = useTable(records, headCells, filterFn);
 
-    const handleSearch = e => {
-        let target = e.target;
-        setFilterFn({
-            fn: items => {
-                if (target.value == "")
-                    return items;
-                else
-                    return items.filter(x => x.dealerID.toLowerCase().includes(target.value))
-            }
-        })
-    }
-
     const addOrEdit = (subscription, resetForm) => {
         if (subscription.id == 0) {
             subscriptionService.insertSubscription(subscription);
@@ -121,16 +105,6 @@ export default function Subscriptions() {
             <Paper className={classes.pageContent}>
 
                 <Toolbar>
-                    <Controls.Input
-                        label="Search Subscriptions"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
-                    />
                     <Controls.Button
                         text="Add New"
                         color="#841584"
@@ -158,7 +132,6 @@ export default function Subscriptions() {
                         }
                     </TableBody>
                 </TblContainer>
-                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Add a new Subscription"

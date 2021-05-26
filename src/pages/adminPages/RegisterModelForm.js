@@ -24,7 +24,6 @@ export default function RegisterModelForm(props) {
     const [modelID, setModelID] = React.useState("");
     const [modelName, setModelName] = React.useState("");
     const [updateMakeID, setUpdateMakeID] = React.useState("");
-    const [updateSelectedMakeID, setUpdateSelectedMakeID] = React.useState("");
     const [updateModelID, setUpdateModelID] = React.useState("");
     const [updateModelName, setUpdateModelName] = React.useState("");
     const [makeOpen, setMakeOpen] = React.useState(false);
@@ -39,7 +38,6 @@ export default function RegisterModelForm(props) {
       let statusCode = resultMakeList.status;
       if (statusCode === 200) {
         let body = resultMakeList.body;
-        console.log(body);
         setMakeList(body);
       } else {
         alert(`Status : ${statusCode}, ${resultMakeList.error}`);
@@ -201,7 +199,6 @@ export default function RegisterModelForm(props) {
                       <Controls.Button
                           type="submit"
                           text="Update"/>}
-                        
                     </div>
                 </Grid>
             </Grid>
@@ -210,15 +207,9 @@ export default function RegisterModelForm(props) {
       );
     };
   
-    const searchingForm = () => {
-      return <div></div>;
-
-      
-    };
     return (
       <div>  
         {vehiclesList()}
-        {searchingForm()}
       </div>
     );
   }
