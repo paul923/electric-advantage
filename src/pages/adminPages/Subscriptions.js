@@ -30,6 +30,7 @@ const headCells = [
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
+    { id: 'billing', label: 'Billing Cycle' },
 ]
 
 export default function Subscriptions() {
@@ -62,6 +63,7 @@ export default function Subscriptions() {
                             planID: sub["PlanID"],
                             planName: sub["PlanName"],
                             pricing: "$" + sub["Pricing"],
+                            billing: sub["Billing"]
                         };
                     })
                 );
@@ -127,6 +129,7 @@ export default function Subscriptions() {
                                     <TableCell>{list.planID}</TableCell>
                                     <TableCell>{list.planName}</TableCell>
                                     <TableCell>{list.pricing}</TableCell>
+                                    <TableCell>{list.billing}</TableCell>
                                 </TableRow>)
                             )
                         }
