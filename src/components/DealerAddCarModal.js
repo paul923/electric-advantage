@@ -51,6 +51,7 @@ const DealerAddCarModal = ({
     getColorsList();
     onLoadGetMakeList();
     getModelList();
+    getVehiclesList();
   }, []);
 
   React.useEffect(() => {
@@ -78,10 +79,12 @@ const DealerAddCarModal = ({
     if (statusCode === 200) {
       let body = resultModelList.body;
       setModelList(body);
-      setCarModel(resultModelList.body[0].ModelName);
-      setSelectedModel(resultModelList.body[0].ModelID);
+      // setCarModel(resultModelList.body[0].ModelName);
+      // setSelectedModel(resultModelList.body[0].ModelID);
     } else {
       alert(`Status : ${statusCode}!\nThere will are no models to select.`);
+      setModelDisabled(true);
+      setTrimDisabled(true);
     }
   }
 
@@ -92,6 +95,7 @@ const DealerAddCarModal = ({
     );
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
+      console.log("BODYBODY" + resultTrimList.body);
       let body = resultTrimList.body;
       console.log("MakeID:" + selectedMake);
       console.log("ModelID:" + selectedModel);
@@ -101,6 +105,7 @@ const DealerAddCarModal = ({
       setTrimList(body);
     } else {
       alert(`Status : ${statusCode}!\nThere will are no vehicles to select.`);
+      setTrimDisabled(true);
     }
   }
 
@@ -120,22 +125,26 @@ const DealerAddCarModal = ({
   const [trimDisabled, setTrimDisabled] = React.useState(true);
 
   const addCarsHandler = () => {
-    setCarsToAdd([
-      ...carsToAdd,
-      {
-        vehicleID: vehicleID,
-        carMake: carMake,
-        carVehicle: carVehicle,
-        Odo: odo,
-        Qty: carQty,
-        carPrice: carPrice,
-        carColor: carColor,
-        info: carInfo,
-        carCondition: condition,
-        images: carImgs,
-        carID: carID,
-      },
-    ]);
+    if (trimDisabled === modelDisabled && modelDisabled === false) {
+      setCarsToAdd([
+        ...carsToAdd,
+        {
+          vehicleID: vehicleID,
+          carMake: carMake,
+          carVehicle: carVehicle,
+          Odo: odo,
+          Qty: carQty,
+          carPrice: carPrice,
+          carColor: carColor,
+          info: carInfo,
+          carCondition: condition,
+          images: carImgs,
+          carID: carID,
+        },
+      ]);
+    } else {
+      alert("Invalid entry!");
+    }
   };
 
   return (
@@ -153,7 +162,6 @@ const DealerAddCarModal = ({
                 setModelDisabled(false);
                 setSelectedMake(carMakeObject.MakeID);
                 // setTrimDisabled(true);
-                setTrimList([]);
               }}
               as="select"
             >
