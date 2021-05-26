@@ -1,9 +1,11 @@
 import React, { useRef, useState, useContext } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Select, MenuItem } from "@material-ui/core";
 import { useAuth } from "../components/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import TYPE from "../constants/UserType";
 import { createUser } from "../api/UserAPI";
+import _uniqueId from 'lodash/uniqueId';
 import { auth } from "../firebase"
 
 
@@ -21,12 +23,11 @@ export default function Signup() {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState(TYPE.CUSTOMER);
+  const [userOpen, setUserOpen] = useState(false);
 
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setUserType("CUSTOMER")
-
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
@@ -60,11 +61,22 @@ export default function Signup() {
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-          <a className="w-100 text-center mt-3"  href="mailto:admin@electricadvantage.ca?subject=Dealer Register Request&body=Please fill out this information to register as dealership
-          %0AFirst name:
-          %0ALast name:
-          %0AEmail:
-          ">Dealership Registeration</a>
+            <div className="text-center">
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              open={userOpen}
+              onClose={() => setUserOpen(false)}
+              onOpen={() => setUserOpen(true)}
+              value={userType}
+              onChange={(event) => {
+                setUserType(event.target.value);
+              }}   
+                       >
+              <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
+              <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
+            </Select>
+            </div>
             <Form.Group id="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="text" ref={firstNameRef}  required value={firstname}
