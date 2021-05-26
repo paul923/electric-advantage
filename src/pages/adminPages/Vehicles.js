@@ -33,17 +33,32 @@ const useStyles = makeStyles(theme => ({
     newButton: {
         position: 'absolute',
         right: '0vw',
-        // width: '8%'
+        marginBottom: 30
     },
     button1: {
         position: 'absolute',
         right: '17.3vw',
-        // width: '5%'
+        marginBottom: 30
     },
     button2: {
         position: 'absolute',
         right: '10vw',
-        // width: '5%'
+        marginBottom: 30
+    },
+    subButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '2vw',
+        marginBottom: 30
+    },
+    dealerButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '14vw',
+        marginBottom: 30
+    },
+    customizeToolbar: {
+        minHeight: 20
     }
    
 
@@ -180,24 +195,30 @@ export default function Vehicles() {
             />
             <Paper className={classes.pageContent}>
 
-                <Toolbar>
-                    <Controls.Input
-                        label="Search Vehicle Database"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
+            <Toolbar className={classes.customizeToolbar}>
+
+                <Controls.Button
+                        text="Subscriptions"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.subButton}
+                        onClick={event =>  window.location.href='/adminSub'}
                     />
+                <Controls.Button
+                        text="Dealers"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.dealerButton}
+                        onClick={event =>  window.location.href='/adminDealer'}
+                    />
+                    
                     <Controls.Button
                         text="Make"
                         color="#841584"
                         variant="outlined"
                         
                         className={classes.button1}
-                        onClick={event =>  window.location.href='/4'}
+                        onClick={event =>  window.location.href='/adminMake'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button
@@ -206,7 +227,7 @@ export default function Vehicles() {
                         variant="outlined"
                         
                         className={classes.button2}
-                        onClick={event =>  window.location.href='/5'}
+                        onClick={event =>  window.location.href='/adminModel'}
                         // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
                     />
                     <Controls.Button

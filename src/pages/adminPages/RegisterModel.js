@@ -26,6 +26,33 @@ const useStyles = makeStyles(theme => ({
     modelButton: {
         position: 'absolute',
         right: '3vw',
+        marginBottom: 30
+    },
+    makeButton: {
+        position: 'absolute',
+        left: '35vw',
+        marginBottom: 30
+    },
+    subButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '2vw',
+        marginBottom: 30
+    },
+    dealerButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '15vw',
+        marginBottom: 30
+    },
+    vehicleButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '25vw',
+        marginBottom: 30
+    },
+    customizeToolbar: {
+        minHeight: 20
     }
 }))
 
@@ -144,7 +171,39 @@ export default function RegisterModel() {
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
-                <Toolbar>
+            <Toolbar className={classes.customizeToolbar}>
+                <Controls.Button
+                        text="Subscriptions"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.subButton}
+                        onClick={event =>  window.location.href='/adminSub'}
+                    />
+                <Controls.Button
+                        text="Dealers"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.dealerButton}
+                        onClick={event =>  window.location.href='/adminDealer'}
+                    />
+                <Controls.Button
+                        text="Vehicles"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.vehicleButton}
+                        onClick={event =>  window.location.href='/adminVehicle'}
+                    />
+                    <Controls.Button
+                        text="Makes"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.makeButton}
+                        onClick={event =>  window.location.href='/adminMake'}
+                    />
+
+
+
+
                     <Controls.Button
                         text="Model"
                         color="#841584"
