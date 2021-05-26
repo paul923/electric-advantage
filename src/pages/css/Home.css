@@ -130,6 +130,7 @@ h2 {
   font-size: 1.2vw;
 }
 
+
 .nav-search {
   color: white;
 }
@@ -286,3 +287,23 @@ td {
   font-size: 10%;
   font-weight: bold;
 }
+
+.profileTitle {
+  position: relative;
+  
+
+}
+
+.leftColumn {
+  margin-bottom: 20vh;
+}
+
+.rightColumnn {
+  margin-left: 7vw;
+
+}
+
+.btn-success {
+  background-color: #207567;
+}
+

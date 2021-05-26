@@ -1,10 +1,12 @@
+
 import React from "react";
 import { Button, Form, Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import "../css/Home.css";
 import SignUpModal from "../pageComponents/ProfilePopUp";
-import background from "../../images/background.jpg";
+// import background from "../../images/background.jpg";
+
 
 const Profile = () => {
   const [registrationState, setRegistrationState] = useState("customer");
@@ -12,12 +14,18 @@ const Profile = () => {
 
   return (
     <body className="body">
-      <div className="TopImage">
+
+<div className="banner">  </div>
+
+      {/* <div className="TopImage">
         <img className="d-block w-100" src={background} alt="background" className="background"/>
-      </div>
+      </div> */}
       <div>
         <div className="content">
-          <h2 className="registrationText">Profile</h2>
+          <div className= "profileTitle">
+          {/* <h2 className="registrationText">Profile</h2> */}
+          <h2 style={{ color: "#207567", fontSize: "22pt" }}>Profile</h2>
+          </div>
 
           <div className="login rightColumn">
             <h2 className="registrationText"></h2>
@@ -35,10 +43,10 @@ const Profile = () => {
             </Form>
 
           </div>
-          <div className="rightColumn">
+          <div className="rightColumnn">
             
             <Button
-              className="btn-success signUpButtons"
+              className="btn-success"
               onClick={() => {
                 setModalState(true);
                 setRegistrationState("password");
@@ -60,5 +68,6 @@ const Profile = () => {
 };
 
 export default Profile;
+
 
 
