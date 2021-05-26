@@ -1,45 +1,26 @@
 import React, { useRef, useState, useContext } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { Select, MenuItem, TextField } from "@material-ui/core";
 import { useAuth } from "../components/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import TYPE from "../constants/UserType";
-import { getUsersList, getUserByUserId, createUser } from "../api/UserAPI";
-import _uniqueId from 'lodash/uniqueId';
-import firebase from "firebase/app";
+import { createUser } from "../api/UserAPI";
 import { auth } from "../firebase"
-
-
-
 
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const customerRef = useRef();
   const lastNameRef = useRef();
   const firstNameRef = useRef();
-  const dealerRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const [userId, setUserId] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState(TYPE.CUSTOMER);
-  const [userOpen, setUserOpen] = useState(false);
-  const [makeList, setMakeList] = useState("");
-  const [modelList, setModelList] = useState("");
-  const [selectedMakeID, setSelectedMakeID] = useState("");
-  const [id] = useState(_uniqueId('testID-'));
-  
-
-
-  
-
 
 
   async function handleSubmit(e) {
@@ -49,7 +30,6 @@ export default function Signup() {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
-
     try {
       setError("");
       setLoading(true);
@@ -59,7 +39,6 @@ export default function Signup() {
     } catch {
       setError("Failed to create an account");
     }
-
     setLoading(false);
   }
 
@@ -72,11 +51,8 @@ export default function Signup() {
       Email: email,
       UserTypeID: userType,
     };
-    let result = await createUser(userObj);
+    await createUser(userObj);
   }
-
-
-
 
   return (
     <>
