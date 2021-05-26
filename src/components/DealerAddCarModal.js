@@ -27,7 +27,7 @@ const DealerAddCarModal = ({
   const [modelList, setModelList] = React.useState([]);
   const [selectedModel, setSelectedModel] = React.useState("1");
   const [trimList, setTrimList] = React.useState([]);
-  const [odo, setOdo] = React.useState("");
+  const [odo, setOdo] = React.useState("0");
   const [condition, setCondition] = React.useState("");
   const [carVehicle, setCarVehicle] = React.useState("");
   const [vehicleID, setVehicleID] = React.useState("");
@@ -259,7 +259,7 @@ const DealerAddCarModal = ({
           </Col>
           <Col>
             <div>
-              Price:{" "}
+              Start Price:{" "}
               <input
                 onChange={(e) => setCarPrice(e.target.value)}
                 className="columnInputs"
@@ -270,6 +270,7 @@ const DealerAddCarModal = ({
             <div>
               Odometer:{" "}
               <input
+                disabled={condition !== "2"}
                 onChange={(e) => setOdo(e.target.value)}
                 className="columnInputs"
               ></input>
@@ -300,6 +301,11 @@ const DealerAddCarModal = ({
         <Button
           className="btn-success footerButtons"
           onClick={() => {
+            {
+              if (condition !== 2) {
+                setOdo("0");
+              }
+            }
             setShowModal(false);
             addCarsHandler();
             resetAllFieldsHandler();
