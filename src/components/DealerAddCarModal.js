@@ -259,7 +259,7 @@ const DealerAddCarModal = ({
           </Col>
           <Col>
             <div>
-              Price:{" "}
+              Start Price:{" "}
               <input
                 onChange={(e) => setCarPrice(e.target.value)}
                 className="columnInputs"

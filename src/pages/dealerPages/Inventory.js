@@ -15,7 +15,7 @@ import { getColors } from "../../api/VehicleAPI";
 
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
-  const { currentUser, userObject } = useAuth();
+  const { currentUser, userType, logout, userObject } = useAuth();
   const [colorList, setColorList] = React.useState([]);
   const [selectedColor, setSelectedColor] = React.useState("");
   const [colorDictionary, setColordictioanry] = React.useState([]);
@@ -23,6 +23,7 @@ export default function DealerInventory() {
 
   async function getFirstInventoryList() {
     // let firstInventory = await getInventoryByDealershipID(userObject.UserID);
+    console.log("HEREHERE" + userObject.UserID);
     let firstInventory = await getInventoryByDealershipID("1");
     let statusCode = firstInventory.status;
     if (statusCode === 200) {

@@ -9,7 +9,7 @@ import { getDealershipByUserID } from "../../api/DealershipAPI";
 import { Nav, NavLink, Bars, NavMenu } from "../pageComponents/NavbarElements";
 import PageHeader from "../../components/AdminPageHeader";
 import CreateIcon from "@material-ui/icons/Create";
-import { Grid, FormGroup, Box, ButtonGroup } from "@material-ui/core";
+import { Box, ButtonGroup } from "@material-ui/core";
 
 export default function DealershipProfilePage() {
   const history = useHistory();
