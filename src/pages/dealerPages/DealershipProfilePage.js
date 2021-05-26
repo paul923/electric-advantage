@@ -48,13 +48,14 @@ export default function DealershipProfilePage() {
         setSearchedUser(body);
         console.log("dealerobject");
         console.log(body);
-        setDealerObjectId(null);
         setDealerObjectId(body.DealershipID);
+        console.log(body.dealershipObj)
       } else {
         alert(`Status : ${statusCode}, ${resultUser.error}`);
       }
     }
   }
+  
 
   async function onPressCreateDealership() {
     let dealershipObj = {
@@ -81,6 +82,10 @@ export default function DealershipProfilePage() {
       console.log(userObject.UserID);
       GetDealerObjectId(userObject.UserID);
     }
+  }
+
+  const myfucntion() {
+    
   }
 
   
@@ -260,6 +265,7 @@ export default function DealershipProfilePage() {
           <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
         </Select> */}
             <div className="bottomTwo">
+              
               <Button
                 color="primary"
                 variant="contained"

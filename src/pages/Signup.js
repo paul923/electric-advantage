@@ -73,7 +73,6 @@ export default function Signup() {
       UserTypeID: userType,
     };
     let result = await createUser(userObj);
-    alert(`Status : ${result.status}, ${result.body}`);
   }
 
 
