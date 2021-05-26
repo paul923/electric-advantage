@@ -2,18 +2,16 @@ import React, { useState } from 'react'
 import RegisterMakeForm from "./RegisterMakeForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as vehicleService from "./vehicleService";
 import Controls from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import Popup2 from "../../components/AdminPopup2";
 import { 
     getMakeList,
     deleteVehicleMake, 
@@ -48,7 +46,6 @@ export default function RegisterMake() {
     const [recordForEdit2, setRecordForEdit2] = useState(null)
     const [openPopup2, setOpenPopup2] = useState(false)
     const [makeList, setMakeList] = React.useState([]);
-    const [makeID, setMakeID] = React.useState("");
 
     let resultMake = [];
 
@@ -75,7 +72,6 @@ export default function RegisterMake() {
         }
     }
 
-
     const {
         TblContainer,
         TblHead,
@@ -99,7 +95,6 @@ export default function RegisterMake() {
                 type: 'success'
             });
         }
-        console.log("reached here")
         onLoadGetMakeList();
     }
 
@@ -139,10 +134,8 @@ export default function RegisterMake() {
                             setOpenPopup2(true); 
                             setRecordForEdit2(null);
                             setRecordForEdit(null);
-                            onLoadGetMakeList();
                          }}
                     />
-                    
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
@@ -180,7 +173,6 @@ export default function RegisterMake() {
                         }
                     </TableBody>
                 </TblContainer>
-                {/* <TblPagination /> */}
             </Paper>
             <Popup
                 title="Register Make"

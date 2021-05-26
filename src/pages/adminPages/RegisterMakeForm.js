@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
@@ -6,7 +6,6 @@ import {
     registerMake,
     updateVehicleMake,
 } from "../../api/VehicleAPI";
-
 
 const initialFValues = {
     id: 0,
@@ -41,11 +40,9 @@ export default function RegisterMakeForm(props) {
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-    
         setErrors({
             ...temp
         })
-
         if (fieldValues == values)
             return Object.values(temp).every(x => x == "")
     }
@@ -55,13 +52,12 @@ export default function RegisterMakeForm(props) {
         setValues,
         errors,
         setErrors,
-        handleInputChange,
         resetForm
     } = useForm(initialFValues, true, validate);
 
     const handleSubmit = async e => {
         e.preventDefault()
-        await recordForEdit === null ? onClickRegisterMake(): onClickUpdateVehicleMake()
+        await recordForEdit === null ? onClickRegisterMake() : onClickUpdateVehicleMake()
         if (validate()) {
             addOrEdit(values, resetForm);
         }
@@ -81,26 +77,28 @@ export default function RegisterMakeForm(props) {
             <Grid container>
                 <Grid item xs={6}>
                     {
-                        recordForEdit === null ? (<div><Controls.Input
+                        recordForEdit === null ? (<div>
+                            <Controls.Input
                             label="Make ID"
                             value={id}
                             onChange={(event) => setID(event.target.value)}
-                        />
-                        <Controls.Input
-                            label="Make Name"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                        /></div>) : 
-                        <div><Controls.Input
-                            label="Make ID"
-                            value={recordForEdit && updateID}
-                            onChange={(event) => setUpdateID(event.target.value)}
-                        />
-                        <Controls.Input
-                            label="Make Name"
-                            value={recordForEdit&&updateName}
-                            onChange={(event) => setUpdateName(event.target.value)}
-                        /></div>
+                            />
+                            <Controls.Input
+                                label="Make Name"
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
+                            /></div>) : 
+                            <div>
+                            {/* <Controls.Input
+                                label="Make ID"
+                                value={recordForEdit && updateID}
+                                onChange={(event) => setUpdateID(event.target.value)}
+                            /> */}
+                            <Controls.Input
+                                label="Make Name"
+                                value={recordForEdit&&updateName}
+                                onChange={(event) => setUpdateName(event.target.value)}
+                            /></div>
                     }
                     
                     
