@@ -17,7 +17,6 @@ import ConfirmDialog from "../../components/AdminConfirmDialog";
 import { 
     getMakeList,
     getModelsList,
-    updateVehicleModel,
     deleteVehicleModel,
 } from "../../api/VehicleAPI";
 
@@ -136,18 +135,6 @@ export default function RegisterModel() {
         recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
-    // const handleSearch = e => {
-    //     let target = e.target;
-    //     setFilterFn({
-    //         fn: items => {
-    //             if (target.value == "")
-    //                 return items;
-    //             else
-    //                 return items.filter(x => x.ModelID.toLowerCase().includes(target.value))
-    //         }
-    //     })
-    // }
-
     const addOrEdit = (vehicle, resetForm) => {
         if (vehicle.id == 0) {
             vehicleService.insertVehicle(vehicle);
@@ -229,12 +216,12 @@ export default function RegisterModel() {
                                     <TableCell>{m.ModelID}</TableCell>
                                     <TableCell>{m.ModelName}</TableCell>                                    
                                     <TableCell>
-                                        {/* <Controls.ActionButton
+                                        <Controls.ActionButton
                                             //edit button color
                                             color="success"
                                             onClick={() => { openInPopup(m) }}>
                                             <EditIcon fontSize="small" />
-                                        </Controls.ActionButton> */}
+                                        </Controls.ActionButton>
                                         <Controls.ActionButton
                                             onClick={() => {
                                                 setTimeout(

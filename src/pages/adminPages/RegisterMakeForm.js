@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
-import * as vehicleService from "./vehicleService";
-
-import { 
+import {
     registerMake,
     updateVehicleMake,
 } from "../../api/VehicleAPI";
@@ -17,7 +15,9 @@ const initialFValues = {
 }
 
 export default function RegisterMakeForm(props) {
-    const { addOrEdit, recordForEdit } = props
+    const { addOrEdit, recordForEdit } = props;
+    const [updateID, setUpdateID] = React.useState("");
+    const [updateName, setUpdateName] = React.useState("");
     const [id, setID] = React.useState("");
     const [name, setName] = React.useState("");
 
@@ -27,16 +27,16 @@ export default function RegisterMakeForm(props) {
             MakeName: name,
         };
         let result = await registerMake(makeObj);
-        alert(`Status : ${result.status}, ${result.body}`);
+        console.log(`Status : ${result.status}, ${result.body}`);
     }
 
     async function onClickUpdateVehicleMake() {
         let makeObj = {
-            MakeID: id,
-            MakeName: name,
+            MakeID: updateID,
+            MakeName: updateName,
         };
-        let result = await updateVehicleMake(id, makeObj);
-        alert(`Status : ${result.status}, ${result.body}`);
+        let result = await updateVehicleMake(updateID, makeObj);
+        console.log(`Status : ${result.status}, ${result.body}`);
     }
 
     const validate = (fieldValues = values) => {
@@ -59,15 +59,18 @@ export default function RegisterMakeForm(props) {
         resetForm
     } = useForm(initialFValues, true, validate);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
+        await recordForEdit === null ? onClickRegisterMake(): onClickUpdateVehicleMake()
         if (validate()) {
             addOrEdit(values, resetForm);
         }
     }
 
     useEffect(() => {
-        if (recordForEdit != null)
+        if (recordForEdit !== null)
+            recordForEdit && setUpdateID(recordForEdit.MakeID)
+            recordForEdit && setUpdateName(recordForEdit.MakeName)
             setValues({
                 ...recordForEdit
             })
@@ -77,32 +80,41 @@ export default function RegisterMakeForm(props) {
         <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    <Controls.Input
-                        label="Make ID"
-                        value={id}
-                        onChange={(event) => setID(event.target.value)}
-                    />
-                    <Controls.Input
-                        label="Make Name"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                    />
+                    {
+                        recordForEdit === null ? (<div><Controls.Input
+                            label="Make ID"
+                            value={id}
+                            onChange={(event) => setID(event.target.value)}
+                        />
+                        <Controls.Input
+                            label="Make Name"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                        /></div>) : 
+                        <div><Controls.Input
+                            label="Make ID"
+                            value={recordForEdit && updateID}
+                            onChange={(event) => setUpdateID(event.target.value)}
+                        />
+                        <Controls.Input
+                            label="Make Name"
+                            value={recordForEdit&&updateName}
+                            onChange={(event) => setUpdateName(event.target.value)}
+                        /></div>
+                    }
+                    
+                    
                    
                 </Grid>
                 <Grid item xs={6}>
                     <div>
+                        {recordForEdit === null ? 
                         <Controls.Button
                             type="submit"
-                            text="Submit"
-                            onClick= {() => onClickRegisterMake()} />
-                        {/* <Controls.Button
-                                type="update"
-                                text="Update"
-                                onClick= {() => onClickUpdateVehicleMake()} /> */}
+                            text="Submit"/> : 
                         <Controls.Button
-                            text="Reset"
-                            color="default"
-                            onClick={resetForm} />
+                            type="submit"
+                            text="Update"/>}
                     </div>
                 </Grid>
             </Grid>

@@ -22,21 +22,13 @@ import {
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
-        padding: theme.spacing(1)
-    },
-    searchInput: {
-        width: '75%'
-    },
-    newButton: {
-        position: 'absolute',
-        right: '10px'
+        padding: theme.spacing(3)
     },
     makeButton: {
         position: 'absolute',
-        right: '0vw',
+        right: '3vw',
     }
 }))
-
 
 const headCells = [
     { id: 'MakeID', label: 'Make ID' },
@@ -55,8 +47,6 @@ export default function RegisterMake() {
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
     const [recordForEdit2, setRecordForEdit2] = useState(null)
     const [openPopup2, setOpenPopup2] = useState(false)
-
-    const [make, setMake] = React.useState([]);
     const [makeList, setMakeList] = React.useState([]);
     const [makeID, setMakeID] = React.useState("");
 
@@ -78,18 +68,10 @@ export default function RegisterMake() {
         if (statusCode === 200) {
             let body = resultMake.body;
             if (resultMake["body"] != undefined) {
-                setMakeList(
-                    resultMake["body"].map((m) => {
-                        return {
-                            MakeID: m["MakeID"],
-                            MakeName: m["MakeName"],
-                        };
-                    })
-                );
-            } else setMakeList([]);
-            setMake(body);
+                setMakeList(body);
+            }
         } else {
-            alert(`Status : ${statusCode}, ${resultMake.error}`);
+            console.error(`Status : ${statusCode}, ${resultMake.error}`);
         }
     }
 
@@ -101,24 +83,10 @@ export default function RegisterMake() {
         recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
-    const handleSearch = e => {
-        let target = e.target;
-        setFilterFn({
-            fn: items => {
-                if (target.value == "")
-                    return items;
-                else
-                    return items.filter(x => x.MakeID.toLowerCase().includes(target.value))
-            }
-        })
-    }
-
     const addOrEdit = (vehicle, resetForm) => {
         if (vehicle.id == 0) {
             vehicleService.insertVehicle(vehicle);
-            onLoadGetMakeList();
-        }
-        else 
+        } else {
             vehicleService.updateVehicle(vehicle);
             resetForm();
             setRecordForEdit(null);
@@ -130,7 +98,9 @@ export default function RegisterMake() {
                 message: 'Submitted Successfully',
                 type: 'success'
             });
-            onLoadGetMakeList();
+        }
+        console.log("reached here")
+        onLoadGetMakeList();
     }
 
     const openInPopup = item => {
@@ -158,18 +128,7 @@ export default function RegisterMake() {
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
-
                 <Toolbar>
-                    {/* <Controls.Input
-                        label="Search Make Database"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
-                    /> */}
                     <Controls.Button
                         text="Make"
                         color="#841584"
@@ -179,6 +138,7 @@ export default function RegisterMake() {
                         onClick={() => { 
                             setOpenPopup2(true); 
                             setRecordForEdit2(null);
+                            setRecordForEdit(null);
                             onLoadGetMakeList();
                          }}
                     />
@@ -198,7 +158,6 @@ export default function RegisterMake() {
                                             color="success"
                                             onClick={() => { 
                                                 openInPopup(v);
-                                                onLoadGetMakeList();
                                                 }}>
                                             <EditIcon fontSize="small" />
                                         </Controls.ActionButton>
