@@ -17,7 +17,6 @@ export default function RegisterMakeForm(props) {
     const { addOrEdit, recordForEdit } = props;
     const [updateID, setUpdateID] = React.useState("");
     const [updateName, setUpdateName] = React.useState("");
-    const [newID, setNewID] = React.useState("");
     const [id, setID] = React.useState("");
     const [name, setName] = React.useState("");
     const [disabled, setDisabled] = React.useState(false);
@@ -33,7 +32,7 @@ export default function RegisterMakeForm(props) {
 
     async function onClickUpdateVehicleMake() {
         let makeObj = {
-            MakeID: newID,
+            MakeID: updateID,
             MakeName: updateName,
         };
         let result = await updateVehicleMake(updateID, makeObj);
@@ -96,11 +95,6 @@ export default function RegisterMakeForm(props) {
                                 disabled={true}
                                 value={recordForEdit && updateID}
                                 onChange={(event) => setUpdateID(event.target.value)}
-                            />
-                            <Controls.Input
-                                label="New Make ID"
-                                value={recordForEdit && newID}
-                                onChange={(event) => setNewID(event.target.value)}
                             />
                             <Controls.Input
                                 label="New Make Name"

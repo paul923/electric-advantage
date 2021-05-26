@@ -25,8 +25,6 @@ export default function RegisterModelForm(props) {
     const [modelName, setModelName] = React.useState("");
     const [updateMakeID, setUpdateMakeID] = React.useState("");
     const [updateModelID, setUpdateModelID] = React.useState("");
-    const [newMakeID, setNewMakeID] = React.useState("");
-    const [newModelID, setNewModelID] = React.useState("");
     const [updateModelName, setUpdateModelName] = React.useState("");
     const [makeOpen, setMakeOpen] = React.useState(false);
     const [makeList, setMakeList] = React.useState("");
@@ -78,8 +76,8 @@ export default function RegisterModelForm(props) {
 
     async function onClickUpdateVehicleModel() {
       let modelObj = {
-        MakeID: newMakeID,
-        ModelID: newModelID,
+        MakeID: updateMakeID,
+        ModelID: updateModelID,
         ModelName: updateModelName,
       }
       let result = await updateVehicleModel(updateMakeID, updateModelID, modelObj);
@@ -164,33 +162,6 @@ export default function RegisterModelForm(props) {
                     label="Model ID"
                     value={recordForEdit && updateModelID}
                     disabled={true}
-                  />
-                  <InputLabel>Choose New Make: </InputLabel>
-                    <Select
-                      open={makeOpen}
-                      onClose={() => setMakeOpen(false)}
-                      onOpen={() => setMakeOpen(true)}
-                      value={selectedMakeID}
-                      onChange={(event) => {
-                        setSelectedMakeID(event.target.value);
-                        setNewMakeID(event.target.value);
-                      }}
-                    >
-                      {makeList &&
-                        makeList.map((make, index) => {
-                          return (
-                            <MenuItem key={make.MakeID} value={make.MakeID}>
-                              {make.MakeName}
-                            </MenuItem>
-                          );
-                        })}
-                    </Select>
-                  <br />
-                  <br />
-                  <Controls.Input
-                      label="New Model ID"
-                      value={recordForEdit && newModelID}
-                      onChange={(event) => setNewModelID(event.target.value)}
                   />
                   <Controls.Input
                       label="New Model Name"

@@ -35,13 +35,13 @@ export default function VehicleForm(props) {
     const [batterySize, setBatterySize] = React.useState("");
     const [trim, setTrim] = React.useState("");
     const [year, setYear] = React.useState("");
-    const [updateMakeID, setUpdateMakeID] = React.useState("");
     const [updateModelID, setUpdateModelID] = React.useState("");
     const [updateVehicleID, setUpdateVehicleID] = React.useState("");
     const [updateEvRange, setUpdateEvRange] = React.useState("");
     const [updateBatterySize, setUpdateBatterySize] = React.useState("");
     const [updateTrim, setUpdateTrim] = React.useState("");
     const [updateYear, setUpdateYear] = React.useState("");
+    const [disabled, setDisabled] = React.useState(false);
 
     React.useEffect(() => {
         onLoadGetMakeList();
@@ -219,55 +219,16 @@ export default function VehicleForm(props) {
                         />
                         </div>) : 
                         <div>
-                        {/* <InputLabel>Choose Make:</InputLabel>
-                        <Select
-                          open={makeOpen}
-                          onClose={() => setMakeOpen(false)}
-                          onOpen={() => setMakeOpen(true)}
-                          value={selectedMakeID}
-                          onChange={(event) => {
-                            setSelectedMakeID(event.target.value);
-                            onSelectGetModelList(event.target.value);
-                          }}
-                        >
-                          {makeList &&
-                            makeList.map((make, index) => {
-                              return (
-                                <MenuItem key={make.MakeID} value={make.MakeID}>
-                                  {make.MakeName}
-                                </MenuItem>
-                              );
-                            })}
-                        </Select>
-                        <br />
-                        <br />
-                        <InputLabel>Choose Model:</InputLabel>
-                        <Select
-                          open={modelOpen}
-                          onClose={() => setModelOpen(false)}
-                          onOpen={() => setModelOpen(true)}
-                          value={selectedModelID}
-                          onChange={(event) => {
-                            setSelectedModelID(event.target.value);
-                          }}
-                        >
-                          {modelList &&
-                            modelList.map((model, index) => {
-                              return (
-                              <MenuItem key={index} value={model.ModelID}>
-                                {model.ModelName}
-                              </MenuItem>
-                              );
-                            })}
-                        </Select>
-                        <br/>
-                        <br/> */}
-                        {/* <Controls.Input
+                        <Controls.Input
+                            label="Model ID"
+                            value={recordForEdit && updateModelID}
+                            disabled={true}
+                        />
+                        <Controls.Input
                             label="Vehicle ID"
                             value={recordForEdit && updateVehicleID}
-                            onChange={(event) => setUpdateVehicleID(event.target.value)}
-                            error={errors.vehicleID}
-                        /> */}
+                            disabled={true}
+                        />
                         <Controls.Input
                             label="EV Range"
                             value={recordForEdit && updateEvRange}
