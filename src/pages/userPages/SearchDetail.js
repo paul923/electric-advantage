@@ -1,6 +1,6 @@
 import React from "react";
 import carImage from "../../images/tesla.jpg";
-import "../css/Home.css";
+import "../css/searchDetails.css";
 import { Card } from "react-bootstrap";
 import { getInventoryByInventoryID } from "../../api/VehicleAPI";
 import queryString from "query-string";
@@ -55,7 +55,7 @@ const SearchDetail = ({ match }) => {
           </div>
 
           <div className="additionalInfo">
-            <h3>Additional Information</h3>
+            <h3>Find It Here</h3>
 
             <Card className="infoCard">
               <div>{item.GroupName}</div>
