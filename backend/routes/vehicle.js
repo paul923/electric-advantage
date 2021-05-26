@@ -108,7 +108,7 @@ router.patch("/:vehicleID", function (req, res, next) {
       BatterySize = '${data.BatterySize}', 
       Trim = '${data.Trim}', 
       Year = ${data.Year}, 
-      ModelID = ${data.ModelID}  
+      ModelID = '${data.ModelID}'  
     WHERE 1=1
     AND VehicleID = ?
     ;
