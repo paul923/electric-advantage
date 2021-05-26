@@ -17,8 +17,10 @@ export default function RegisterMakeForm(props) {
     const { addOrEdit, recordForEdit } = props;
     const [updateID, setUpdateID] = React.useState("");
     const [updateName, setUpdateName] = React.useState("");
+    const [newID, setNewID] = React.useState("");
     const [id, setID] = React.useState("");
     const [name, setName] = React.useState("");
+    const [disabled, setDisabled] = React.useState(false);
 
     async function onClickRegisterMake() {
         let makeObj = {
@@ -31,7 +33,7 @@ export default function RegisterMakeForm(props) {
 
     async function onClickUpdateVehicleMake() {
         let makeObj = {
-            MakeID: updateID,
+            MakeID: newID,
             MakeName: updateName,
         };
         let result = await updateVehicleMake(updateID, makeObj);
@@ -89,13 +91,19 @@ export default function RegisterMakeForm(props) {
                                 onChange={(event) => setName(event.target.value)}
                             /></div>) : 
                             <div>
-                            {/* <Controls.Input
+                            <Controls.Input
                                 label="Make ID"
+                                disabled={true}
                                 value={recordForEdit && updateID}
                                 onChange={(event) => setUpdateID(event.target.value)}
-                            /> */}
+                            />
                             <Controls.Input
-                                label="Make Name"
+                                label="New Make ID"
+                                value={recordForEdit && newID}
+                                onChange={(event) => setNewID(event.target.value)}
+                            />
+                            <Controls.Input
+                                label="New Make Name"
                                 value={recordForEdit && updateName}
                                 onChange={(event) => setUpdateName(event.target.value)}
                             /></div>
