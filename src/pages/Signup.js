@@ -80,10 +80,7 @@ export default function Signup() {
 
   return (
     <>
-
-
       <Card>
-        
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -92,20 +89,6 @@ export default function Signup() {
           %0ALast name:
           %0AEmail:
           ">Dealership Registeration</a>
-
-            {/* <div className="display-none">
-            <Form.Group id="userid" >
-              <Form.Label>User id</Form.Label>
-              <Form.Control type="text" value={id} onChange={(event) => setUserId(event.target.value)} required />
-            </Form.Group>
-            </div> */}
-                    {/* <TextField
-          id="outlined-basic"
-          label="userid"
-          variant="outlined"
-          value={userId}
-          onChange={(event) => setUserId(event.target.value)}
-        /> */}
             <Form.Group id="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="text" ref={firstNameRef}  required value={firstname}
@@ -129,71 +112,12 @@ export default function Signup() {
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
-            
-            {/* <Form.Group id="plan">
-              <Form.Label> Plan </Form.Label>
-              <Form.Control as="select" defaultValue="Basic Plan">
-                <option>Basic Plan</option>
-                <option>Advanced Plan</option>
-              </Form.Control>
-            </Form.Group> */}
-
             <Button disabled={loading} className="w-100" type="submit">
               Sign Up
             </Button>
           </Form>
         </Card.Body>
       </Card>
-      {/* <TextField
-          id="outlined-basic"
-          label="userid"
-          variant="outlined"
-          value={userId}
-          onChange={(event) => setUserId(event.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="First name"
-          variant="outlined"
-          value={firstname}
-          onChange={(event) => setFirstname(event.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Last name"
-          variant="outlined"
-          value={lastname}
-          onChange={(event) => setLastname(event.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Email"
-          variant="outlined"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={userOpen}
-          onClose={() => setUserOpen(false)}
-          onOpen={() => setUserOpen(true)}
-          value={userType}
-          onChange={(event) => {
-            setUserType(event.target.value);
-          }}
-        >
-          <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
-          <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
-          <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
-        </Select>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => onPressCreateUser()}
-        >
-          Create User
-        </Button> */}
       <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
