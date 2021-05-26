@@ -9,7 +9,9 @@ import { getDealershipByUserID } from "../../api/DealershipAPI";
 import { Nav, NavLink, Bars, NavMenu } from "../pageComponents/NavbarElements";
 import PageHeader from "../../components/AdminPageHeader";
 import CreateIcon from "@material-ui/icons/Create";
-import { Box, ButtonGroup } from "@material-ui/core";
+import { Box, ButtonGroup, MenuItem  } from "@material-ui/core";
+import Select from '@material-ui/core/Select';
+
 
 export default function DealershipProfilePage() {
   const history = useHistory();
@@ -81,6 +83,8 @@ export default function DealershipProfilePage() {
     }
   }
 
+  
+
   const createDealershipForm = () => {
     return (
       <>
@@ -91,18 +95,33 @@ export default function DealershipProfilePage() {
         <body className="contentWrapper">
           <form className="dealerRegistrationForm">
             <Box mt={2} pt={2}>
-              <TextField
+              {/* <TextField
                 id="outlined-basic"
                 label="regionCode"
                 variant="outlined"
                 value={regionCode}
                 onChange={(event) => setRegionCode(event.target.value)}
-              />
-            </Box>
+              /> */}
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              displayEmpty
+              value={regionCode}
+              onChange={(event) => setRegionCode(event.target.value)}
+
+              >
+
+              <MenuItem value={"CBC001"}>CBC001</MenuItem>
+              <MenuItem value={"CBC002"}>CBC002</MenuItem>
+              <MenuItem value={"CBC003"}>CBC003</MenuItem>
+              <MenuItem value={"CBC004"}>CBC004</MenuItem>
+            </Select>
+        </Box>
+
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="groupName"
+                label="Group Name"
                 variant="outlined"
                 value={groupName}
                 onChange={(event) => setGroupName(event.target.value)}
@@ -111,7 +130,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="streetAddress"
+                label="Street Address"
                 variant="outlined"
                 value={streetAddress}
                 onChange={(event) => setStreetAddress(event.target.value)}
@@ -120,7 +139,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="city"
+                label="City"
                 variant="outlined"
                 value={city}
                 onChange={(event) => setCity(event.target.value)}
@@ -129,7 +148,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="province"
+                label="Province"
                 variant="outlined"
                 value={province}
                 onChange={(event) => setProvince(event.target.value)}
@@ -138,7 +157,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="zip"
+                label="Zip"
                 variant="outlined"
                 value={zip}
                 onChange={(event) => setZip(event.target.value)}
@@ -147,7 +166,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="country"
+                label="Country"
                 variant="outlined"
                 value={country}
                 onChange={(event) => setCountry(event.target.value)}
@@ -156,7 +175,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="salesContact"
+                label="Sales Contact"
                 variant="outlined"
                 value={salesContact}
                 onChange={(event) => setSalesContact(event.target.value)}
@@ -165,7 +184,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="salesEmail"
+                label="Sales Email"
                 variant="outlined"
                 value={salesEmail}
                 onChange={(event) => setSalesEmail(event.target.value)}
@@ -174,7 +193,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="salesPhone"
+                label="Sales Phone"
                 variant="outlined"
                 value={salesPhone}
                 onChange={(event) => setSalesPhone(event.target.value)}
@@ -183,7 +202,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="billingContactName"
+                label="Billing Contact Name"
                 variant="outlined"
                 value={billingContactName}
                 onChange={(event) => setBillingContactName(event.target.value)}
@@ -192,7 +211,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="billingEmail"
+                label="Billing Email"
                 variant="outlined"
                 value={billingEmail}
                 onChange={(event) => setBillingEmail(event.target.value)}
@@ -201,7 +220,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="billingPhone"
+                label="Biling Phone"
                 variant="outlined"
                 value={billingPhone}
                 onChange={(event) => setBillingPhone(event.target.value)}
@@ -210,7 +229,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="longtitude"
+                label="Longtitude"
                 variant="outlined"
                 value={longtitude}
                 onChange={(event) => setLongtitude(event.target.value)}
@@ -219,7 +238,7 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="latitude"
+                label="Latitidue"
                 variant="outlined"
                 value={latitude}
                 onChange={(event) => setLatitude(event.target.value)}
