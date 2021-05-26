@@ -30,6 +30,7 @@ import Vehicles from "../pages/adminPages/Vehicles";
 import Dealers from "../pages/adminPages/Dealers";
 import DealershipPrivateRoute from "../components/DealershipPrivateRoute";
 import DealershipSignUp  from "../pages/DealershipSignUp";
+import { AuthProvider } from "../components/AuthContext"
 
 
 export const CoordinateContext = createContext();
@@ -68,11 +69,12 @@ export default class App extends Component {
   };
 
   render() {
-    const userType = "customer";
     return (
+
       <CoordinateContext.Provider value={this.state.coordinate}>
         <div style={{ padding: "4vh" }}>
           <Menu />
+          <AuthProvider>
 
           <Route exact path="/" component={Landing} />
           <Switch>
@@ -121,6 +123,8 @@ export default class App extends Component {
             component={DealershipProfilePage}
           />
           <DealershipPrivateRoute path="/addList" component={AddList} />
+          </AuthProvider>
+
         </div>
       </CoordinateContext.Provider>
     );
