@@ -84,9 +84,15 @@ export default function Signup() {
 
 
       <Card>
+        
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+          <a className="w-100 text-center mt-3"  href="mailto:admin@electricadvantage.ca?subject=Dealer Register Request&body=Please fill out this information to register as dealership
+          %0AFirst name:
+          %0ALast name:
+          %0AEmail:
+          ">Dealership Registeration</a>
 
             {/* <div className="display-none">
             <Form.Group id="userid" >
