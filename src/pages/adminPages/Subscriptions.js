@@ -9,8 +9,6 @@ import Controls from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import {
@@ -36,7 +34,6 @@ const headCells = [
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
-    // { id: 'actions', label: 'Actions', disableSorting: true }
 ]
 
 export default function Subscriptions() {
@@ -47,11 +44,7 @@ export default function Subscriptions() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-
     const [subscriptionPlans, setSubscriptionPlans] = React.useState([]);
-    const [planID, setPlanID] = React.useState(1);
-    const [planName, setPlanName] = React.useState("test");
-    const [pricing, setPricing] = React.useState(0.99);
     const [subList, setSubList] = React.useState([]);
 
     let resultSubscriptionPlan  = [];
@@ -86,8 +79,6 @@ export default function Subscriptions() {
     const {
         TblContainer,
         TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
     const handleSearch = e => {
@@ -120,25 +111,6 @@ export default function Subscriptions() {
             onLoadGetAllSubscriptionPlans();
     }
 
-    const openInPopup = item => {
-        setRecordForEdit(item)
-        setOpenPopup(true)
-    }
-
-    const onDelete = id => {
-        setConfirmDialog({
-            ...confirmDialog,
-            isOpen: false
-        })
-        subscriptionService.deleteSubscription(id);
-        setRecords(subscriptionService.getAllSubscriptions())
-        setNotify({
-            isOpen: true,
-            message: 'Deleted Successfully',
-            type: 'error'
-        })
-    }
-
     return (
         <>
             <PageHeader
@@ -168,7 +140,6 @@ export default function Subscriptions() {
                         onClick={() => { 
                             setOpenPopup(true); 
                             setRecordForEdit(null); 
-                            onLoadGetAllSubscriptionPlans();
                         }}
                     />
                 </Toolbar>
@@ -182,26 +153,6 @@ export default function Subscriptions() {
                                     <TableCell>{list.planID}</TableCell>
                                     <TableCell>{list.planName}</TableCell>
                                     <TableCell>{list.pricing}</TableCell>
-                                    {/* <TableCell>
-                                        <Controls.ActionButton
-                                        //edit button color
-                                            color="success"
-                                            onClick={() => { openInPopup(list) }}>
-                                            <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
-                                        <Controls.ActionButton
-                                            
-                                            onClick={() => {
-                                                setConfirmDialog({
-                                                    isOpen: true,
-                                                    title: 'Confirm you wish to delete',
-                                                    subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(list.id) }
-                                                })
-                                            }}>
-                                            <CloseIcon fontSize="small" />
-                                        </Controls.ActionButton>
-                                    </TableCell> */}
                                 </TableRow>)
                             )
                         }

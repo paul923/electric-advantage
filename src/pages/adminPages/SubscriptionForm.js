@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/AdminUseForm';
-import * as subscriptionService from "./subscriptionService";
-import { SettingsBackupRestoreOutlined } from '@material-ui/icons';
 import { createSubscriptionPlan } from "../../api/SubscriptionAPI";
 
 const initialFValues = {
@@ -25,7 +23,7 @@ export default function SubscriptionForm(props) {
             Pricing: price,
         };
         let result = await createSubscriptionPlan(subscriptionObj);
-        alert(`Status : ${result.status}, ${result.body}`);
+        console.log(`Status : ${result.status}, ${result.body}`);
     }
 
     const validate = (fieldValues = values) => {
@@ -44,12 +42,12 @@ export default function SubscriptionForm(props) {
         setValues,
         errors,
         setErrors,
-        handleInputChange,
         resetForm
     } = useForm(initialFValues, true, validate);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
+        await onClickCreateSubscriptionPlan()
         if (validate()) {
             addOrEdit(values, resetForm);
         }
@@ -82,12 +80,7 @@ export default function SubscriptionForm(props) {
                     <div>
                         <Controls.Button
                             type="submit"
-                            text="Submit"
-                            onClick={() => onClickCreateSubscriptionPlan()} />
-                        <Controls.Button
-                            text="Reset"
-                            color="success"
-                            onClick={resetForm} />
+                            text="Submit" />
                     </div>
                 </Grid>
             </Grid>

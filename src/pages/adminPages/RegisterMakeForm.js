@@ -96,7 +96,7 @@ export default function RegisterMakeForm(props) {
                             /> */}
                             <Controls.Input
                                 label="Make Name"
-                                value={recordForEdit&&updateName}
+                                value={recordForEdit && updateName}
                                 onChange={(event) => setUpdateName(event.target.value)}
                             /></div>
                     }
