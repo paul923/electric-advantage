@@ -7,9 +7,9 @@ const WhoWeAre = () => {
     return (
         
         <div>
-            <img src={background} alt="background" className="background"/>
-            <h1>Our History</h1>
-            <h10>We started our company x years ago......</h10>
+            {/* <img src={background} alt="background" className="background"/> */}
+            
+            <h10>Currently out of service</h10>
         </div>
     )
 }
