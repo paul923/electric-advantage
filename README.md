@@ -2,9 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Initial setup
 
 In the project directory, you can run:
+
+## How to run the project
+
+There are 2 parts for this project and each part has to be run seperate
+
+To run the frontend part of the project, 
+navigate to project directory(../electric-advantage/), and run:
 
 ### `npm start`
 
@@ -13,6 +20,19 @@ Open [http://localhost:2000](http://localhost:2000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+To run the backend part of the project, 
+navigate to backend directory(../electric-advantage/backend), and run:
+
+### `npm start`
+
+Runs the MariaDB as the backend.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Your console will keep track of your backend activity and status.
+
+## Available Scripts
+
+In the project directory, you can run:
 
 ### `npm test`
 
