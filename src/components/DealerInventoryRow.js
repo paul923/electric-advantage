@@ -19,7 +19,7 @@ const InventoryRow = ({
   setInventoryToUpdate,
   inventoryToUpdate,
 }) => {
-  const [newPrice, setNewPrice] = React.useState(0);
+  const [newPrice, setNewPrice] = React.useState(carPrice);
   const [newQuantity, setNewQuantity] = React.useState(Qty);
 
   async function onDeleteHandler() {
