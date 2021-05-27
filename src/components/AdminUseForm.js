@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { makeStyles } from "@material-ui/core";
 
 export function useForm(initialFValues, validateOnChange = false, validate) {
-
-
     const [values, setValues] = useState(initialFValues);
     const [errors, setErrors] = useState({});
 
+    // When input value is changed
     const handleInputChange = e => {
         const { name, value } = e.target
         setValues({
@@ -17,11 +16,11 @@ export function useForm(initialFValues, validateOnChange = false, validate) {
             validate({ [name]: value })
     }
 
+    // Resets the form.
     const resetForm = () => {
         setValues(initialFValues);
         setErrors({})
     }
-
 
     return {
         values,
@@ -34,7 +33,7 @@ export function useForm(initialFValues, validateOnChange = false, validate) {
     }
 }
 
-
+// Styling for admin forms.
 const useStyles = makeStyles(theme => ({
     root: {
         '& .MuiFormControl-root': {
@@ -44,8 +43,8 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// Structures the admin form.
 export function Form(props) {
-
     const classes = useStyles();
     const { children, ...other } = props;
     return (

@@ -9,24 +9,19 @@ import {
   TableRow,
   TableCell,
   Toolbar,
-  InputAdornment,
 } from "@material-ui/core";
 import useTable from "../../components/AdminUseTable";
 import * as vehicleService from "./vehicleService";
 import Controls from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../components/AdminPopup";
 import EditIcon from "@material-ui/icons/Edit";
 import CloseIcon from "@material-ui/icons/Close";
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
-import Popup2 from "../../components/AdminPopup2";
 import {
   getAllAvailableVehicles,
-  registerVehicleToDatabase,
   deleteVehicleByID,
-  updateVehicleByID,
 } from "../../api/VehicleAPI";
 
 const useStyles = makeStyles((theme) => ({
@@ -210,7 +205,6 @@ export default function Vehicles() {
             variant="outlined"
             className={classes.button2}
             onClick={(event) => (window.location.href = "/adminModel")}
-            // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
           />
           <Controls.Button
             text="Vehicle"
@@ -258,7 +252,6 @@ export default function Vehicles() {
             ))}
           </TableBody>
         </TblContainer>
-        <TblPagination />
       </Paper>
       <Popup
         title="Add a new vehicle"

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DealerForm from "./DealerForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from "@material-ui/icons/LaptopMac";
 import {
@@ -12,24 +11,14 @@ import {
 } from "@material-ui/core";
 import useTable from "../../components/AdminUseTable";
 import * as dealerService from "./dealerService";
-import Popup from "../../components/AdminPopup";
 import Controls from "../../components/controls/Controls";
-import Notification from "../../components/AdminNotification";
-import ConfirmDialog from "../../components/AdminConfirmDialog";
 import { getAllDealerships } from "../../api/DealershipAPI";
 
+// Styling for dealers page.
 const useStyles = makeStyles((theme) => ({
   pageContent: {
     margin: theme.spacing(5),
     padding: theme.spacing(3),
-  },
-  searchInput: {
-    width: "75%",
-  },
-  newButton: {
-    position: "absolute",
-    right: "10px",
-    marginBottom: 30,
   },
   registerDealershipButton: {
     position: "absolute",
@@ -54,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Header for each columns on the dealership table.
 const headCells = [
   { id: "dealerID", label: "Dealer ID" },
   { id: "name", label: "Name" },
@@ -63,7 +53,8 @@ const headCells = [
   { id: "planID", label: "Plan ID" },
 ];
 
-export default function Vehicles() {
+// Responsible for creating dealers page.
+export default function Dealers() {
   const classes = useStyles();
   const [recordForEdit, setRecordForEdit] = useState(null);
   const [records, setRecords] = useState(dealerService.getAllDealers());
@@ -88,13 +79,17 @@ export default function Vehicles() {
 
   let resultDealership = [];
 
+  // Get all dealership information upon loading the page.
   React.useEffect(() => {
     onLoadGetAllDealerships();
   }, []);
 
+  // Function to retrieve all dealership information.
   async function onLoadGetAllDealerships() {
     resultDealership = await getAllDealerships();
     let statusCode = resultDealership.status;
+
+    // Assigns each dealership attributes to each columns When data retrieval is successful.
     if (statusCode === 200) {
       let body = resultDealership.body;
 
@@ -115,36 +110,21 @@ export default function Vehicles() {
 
       setDealerships(body);
     } else {
+      // Throws an alert when an error occurs.
       alert(`Status : ${statusCode}, ${resultDealership.error}`);
     }
   }
 
+  // Creates the dealership table with a header and a table.
   const { TblContainer, TblHead } = useTable(records, headCells, filterFn);
-
-  const addOrEdit = (dealer, resetForm) => {
-    if (dealer.id == 0) dealerService.insertDealer(dealer);
-    else dealerService.updateDealer(dealer);
-    resetForm();
-    setRecordForEdit(null);
-    setOpenPopup(false);
-    setRecords(dealerService.getAllDealers());
-    setNotify({
-      isOpen: true,
-      message: "Submitted Successfully",
-      type: "success",
-    });
-  };
-
-  const openInPopup = (item) => {
-    setRecordForEdit(item);
-    setOpenPopup(true);
-  };
 
   return (
     <>
+      {/* Structures the dealers page. */}
       <PageHeader title="Dealer" icon={<LaptopMacIcon fontSize="large" />} />
       <Paper className={classes.pageContent}>
         <Toolbar className={classes.customizeToolbar}>
+          {/* Button to go to subscriptions page. */}
           <Controls.Button
             text="Subscriptions"
             color="#841584"
@@ -152,6 +132,7 @@ export default function Vehicles() {
             className={classes.subButton}
             onClick={(event) => (window.location.href = "/adminSub")}
           />
+          {/* Button to go to vehicles page. */}
           <Controls.Button
             text="Vehicles"
             color="#841584"
@@ -159,6 +140,7 @@ export default function Vehicles() {
             className={classes.vehicleButton}
             onClick={(event) => (window.location.href = "/adminVehicle")}
           />
+          {/* Button to go to register dealership page. */}
           <Controls.Button
             text="Register Dealership"
             color="#841584"
@@ -167,9 +149,12 @@ export default function Vehicles() {
             onClick={(event) => (window.location.href = "/registerdealership")}
           />
         </Toolbar>
+        
+        {/* Delearship table. */}
         <TblContainer>
           <TblHead />
           <TableBody>
+            {/* Maps each dealership attributes to corresponding columns. */}
             {dealershipList.map((list) => (
               <TableRow key={list.id}>
                 <TableCell>{list.dealerID}</TableCell>
@@ -183,18 +168,6 @@ export default function Vehicles() {
           </TableBody>
         </TblContainer>
       </Paper>
-      <Popup
-        title="Add a new dealer"
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-      >
-        <DealerForm recordForEdit={recordForEdit} addOrEdit={addOrEdit} />
-      </Popup>
-      <Notification notify={notify} setNotify={setNotify} />
-      <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      />
     </>
   );
 }

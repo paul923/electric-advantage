@@ -10,6 +10,7 @@ import {
   updateVehicleModel,
 } from "../../api/VehicleAPI";
 
+// Initial input field values.
 const initialFValues = {
   id: 0,
   ModelID: "",
@@ -17,6 +18,7 @@ const initialFValues = {
   MakeID: "",
 };
 
+// Form used for creating a new model.
 export default function RegisterModelForm(props) {
   const { addOrEdit, recordForEdit } = props;
   const [selectedMakeID, setSelectedMakeID] = React.useState("");
@@ -29,10 +31,12 @@ export default function RegisterModelForm(props) {
   const [makeList, setMakeList] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
 
+  // Retrieves the list of makes upon loading the form. 
   React.useEffect(() => {
     onLoadGetMakeList();
   }, []);
 
+  // Retrieves all make information.
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
     let statusCode = resultMakeList.status;
@@ -44,6 +48,7 @@ export default function RegisterModelForm(props) {
     }
   }
 
+  // Validates input fields.
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     setErrors({
@@ -52,6 +57,7 @@ export default function RegisterModelForm(props) {
     if (fieldValues == values) return Object.values(temp).every((x) => x == "");
   };
 
+  // Retrieves all make information.
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
     let statusCode = resultMakeList.status;
@@ -63,6 +69,7 @@ export default function RegisterModelForm(props) {
     }
   }
 
+  // Onclick function to add a new model to the database with its makeID.
   async function onClickRegisterModelWithMakeID() {
     let modelObj = {
       ModelID: modelID,
@@ -75,6 +82,7 @@ export default function RegisterModelForm(props) {
     console.log(`Status : ${result.status}, ${result.body}`);
   }
 
+  // Onclick function to update existing model with makeID, modelID and a new model object.
   async function onClickUpdateVehicleModel() {
     let modelObj = {
       MakeID: updateMakeID,
@@ -94,10 +102,12 @@ export default function RegisterModelForm(props) {
     validate
   );
 
+  // Check if the input field is empty.
   function isEmpty(str) {
     return str.length === 0 || !str.trim();
   }
 
+  // Validates input and add or edit model when submit button is clicked.
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (recordForEdit === null) {
@@ -124,6 +134,8 @@ export default function RegisterModelForm(props) {
       }
     }
   };
+
+  // Set input field values to corresponding attributes in the model database.
   useEffect(() => {
     if (recordForEdit != null) {
       recordForEdit && setSelectedMakeID(recordForEdit.MakeID);
@@ -139,12 +151,14 @@ export default function RegisterModelForm(props) {
 
   const vehiclesList = () => {
     return (
+      // structures the model add/edit form.
       <div>
         <Form onSubmit={handleSubmit}>
           <Grid container>
             <Grid item xs={6}>
               {recordForEdit === null ? (
                 <div>
+                  {/* Dropdown menu for selecting make. */}
                   <InputLabel>Choose Make: </InputLabel>
                   <Select
                     open={makeOpen}
@@ -166,11 +180,13 @@ export default function RegisterModelForm(props) {
                   </Select>
                   <br />
                   <br />
+                  {/* Input field for modelID (adding a new ID). */}
                   <Controls.Input
                     label="Model ID"
                     value={modelID}
                     onChange={(event) => setModelID(event.target.value)}
                   />
+                  {/* Input field for modelName (adding a new name). */}
                   <Controls.Input
                     label="Model Name"
                     value={modelName}
@@ -180,6 +196,7 @@ export default function RegisterModelForm(props) {
               ) : (
                 makeList && (
                   <div>
+                    {/* Dropdown menu for updating the selected model's make. */}
                     <InputLabel>Choose Make: </InputLabel>
                     <Select
                       open={makeOpen}
@@ -200,11 +217,13 @@ export default function RegisterModelForm(props) {
                     </Select>
                     <br />
                     <br />
+                    {/* Input field for modelID (updating an existing ID). */}
                     <Controls.Input
                       label="Model ID"
                       value={recordForEdit && updateModelID}
                       onChange={(event) => setUpdateModelID(event.target.value)}
                     />
+                    {/* Input field for modelName (updating an existing name). */}
                     <Controls.Input
                       label="New Model Name"
                       value={recordForEdit && updateModelName}
@@ -219,8 +238,10 @@ export default function RegisterModelForm(props) {
             <Grid item xs={6}>
               <div>
                 {recordForEdit === null ? (
+                  // When add button is clicked.
                   <Controls.Button type="submit" text="Submit" />
                 ) : (
+                  //  When update button is clicked.
                   <Controls.Button type="submit" text="Update" />
                 )}
               </div>
@@ -231,5 +252,6 @@ export default function RegisterModelForm(props) {
     );
   };
 
+  // Returns the model form.
   return <div>{vehiclesList()}</div>;
 }

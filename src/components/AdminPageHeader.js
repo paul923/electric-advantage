@@ -1,6 +1,7 @@
 import React from 'react'
 import { Paper, Card, Typography, makeStyles } from '@material-ui/core'
 
+// Header used on each admin pages.
 const useStyles = makeStyles(theme => ({
     root: {
         //header color
@@ -26,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// Creates the admin page header.
 export default function PageHeader(props) {
 
     const classes = useStyles();
