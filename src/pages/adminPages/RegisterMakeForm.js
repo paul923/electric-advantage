@@ -63,7 +63,7 @@ export default function RegisterMakeForm(props) {
       if (isEmpty(id) || isEmpty(name)) {
         alert("ID and Name cannot be empty!");
       } else {
-        await onClickRegisterMake()();
+        await onClickRegisterMake();
         if (validate()) {
           addOrEdit(values, resetForm);
         }
