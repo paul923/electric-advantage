@@ -100,11 +100,11 @@ export default class App extends Component {
           </Switch>
           <Route path="/api-test" component={TestingPage} />
           <AdminPrivateRoute path="/admin" component={AdminMenu} />
-          <AdminPrivateRoute path="/1" component={Subscriptions} />
-          <AdminPrivateRoute path="/2" component={Vehicles} />
-          <AdminPrivateRoute path="/3" component={Dealers} />
-          <AdminPrivateRoute path="/4" component={RegisterMake} />
-          <AdminPrivateRoute path="/5" component={RegisterModel} />
+          <AdminPrivateRoute path="/adminSub" component={Subscriptions} />
+          <AdminPrivateRoute path="/adminVehicle" component={Vehicles} />
+          <AdminPrivateRoute path="/adminDealer" component={Dealers} />
+          <AdminPrivateRoute path="/adminMake" component={RegisterMake} />
+          <AdminPrivateRoute path="/adminModel" component={RegisterModel} />
 
           <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
           <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />

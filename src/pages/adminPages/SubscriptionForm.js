@@ -10,12 +10,15 @@ const initialFValues = {
     planID: '',
     planName: '',
     pricing: '',
+    billing: ''
 }
 
 export default function SubscriptionForm(props) {
     const { addOrEdit, recordForEdit } = props
     const [name, setName] = React.useState("");
     const [price, setPrice] = React.useState("");
+    const [billing, setBilling] = React.useState("");
+
 
     async function onClickCreateSubscriptionPlan() {
         let subscriptionObj = {
@@ -75,6 +78,12 @@ export default function SubscriptionForm(props) {
                         value={price}
                         onChange={(event) => setPrice(event.target.value)}
                     />
+                    <Controls.Input
+                        label="Billing Cycle"
+                        value={billing}
+                        onChange={(event) => setBilling(event.target.value)}
+                    />
+
                 </Grid>
                 <Grid item xs={6}>
                     <div>

@@ -40,9 +40,10 @@ const Menu = () => {
           <NavMenu>
             {userType === "DEALERSHIP" && dealerObjectId === null ? (
               <NavLink to="/dealerprofile" activeStyle>
-                Register dealership
+                Register Dealership
               </NavLink>
-            ) : userType === "ADMIN" ? (
+              
+            ): userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
               </NavLink>

@@ -6,6 +6,7 @@ import { ChevronExpand } from "react-bootstrap-icons";
 import InventoryRow from "../../components/DealerInventoryRow";
 import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
+import Controls from "../../components/controls/Controls";
 import {
   getInventoryByDealershipID,
   updateDealershipInventoryItems,
@@ -169,6 +170,33 @@ export default function DealerInventory() {
 
   return (
     <div>
+      <br/>
+      <Controls.Button
+                        text="Subscriptions"
+                        color="#841584"
+                        variant="outlined"
+                        // className={classes.subButton}
+                        onClick={event =>  window.location.href='/subscription'}
+                    />
+                    <Controls.Button
+                        text="Account"
+                        color="#841584"
+                        variant="outlined"
+                        // className={classes.subButton}
+                        onClick={event =>  window.location.href='/accountInfo'}
+                    />
+      
+      <Controls.Button
+                        text="Dealer Profile"
+                        color="#841584"
+                        variant="outlined"
+                        // className={classes.subButton}
+                        onClick={event =>  window.location.href='/dealerprofile'}
+                    />
+      
+      <br/>
+      <br/>
+
       <input
         type="text"
         placeholder="Search..."
@@ -176,6 +204,11 @@ export default function DealerInventory() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
+       
+      
+      
+                    
+                       
       <div className="tableCustomize">
         <Table bordered hover search>
           <thead>

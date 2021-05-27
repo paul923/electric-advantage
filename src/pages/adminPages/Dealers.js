@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import DealerForm from "./DealerForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import { Paper, makeStyles, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as dealerService from "./dealerService";
 import Popup from "../../components/AdminPopup";
+import Controls from "../../components/controls/Controls";
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import {
@@ -22,7 +23,34 @@ const useStyles = makeStyles(theme => ({
     },
     newButton: {
         position: 'absolute',
-        right: '10px'
+        right: '10px',
+        marginBottom: 30
+    },
+    modelButton: {
+        position: 'absolute',
+        right: '48vw',
+        marginBottom: 30
+    },
+    makeButton: {
+        position: 'absolute',
+        left: '22vw',
+        marginBottom: 30
+    },
+    subButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '1vw',
+        marginBottom: 30
+    },
+
+    vehicleButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '13vw',
+        marginBottom: 30
+    },
+    customizeToolbar: {
+        minHeight: 20
     }
 }))
 
@@ -110,11 +138,42 @@ export default function Vehicles() {
     return (
         <>
             <PageHeader
-                title="Dealer Database"
+                title="Dealer"
               
                 icon={<LaptopMacIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
+            <Toolbar className={classes.customizeToolbar}>
+            <Controls.Button
+                        text="Subscriptions"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.subButton}
+                        onClick={event =>  window.location.href='/adminSub'}
+                    />
+                <Controls.Button
+                        text="Vehicles"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.vehicleButton}
+                        onClick={event =>  window.location.href='/adminVehicle'}
+                    />
+                    
+                    <Controls.Button
+                        text="Make"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.makeButton}
+                        onClick={event =>  window.location.href='/adminMake'}
+                    />
+                    <Controls.Button
+                        text="Model"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.modelButton}
+                        onClick={event =>  window.location.href='/adminModel'}
+                    />
+                    </Toolbar>
                 <TblContainer>
                     <TblHead />
                     <TableBody>

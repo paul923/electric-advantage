@@ -23,12 +23,12 @@ h2 {
   position: sticky;
   top: 1px;
   z-index: 1000;
-  background-color: green;
+  background-color: #207567;
 }
 
 .headerButtons {
-  background-color: green;
-  border-color: green;
+  background-color: #207567;
+  border-color: #207567;
 }
 
 .tableCustomize {
@@ -45,7 +45,7 @@ h2 {
 .bottomButtons {
   text-align: center;
   margin-left: 2.5vw;
-  background-color: green;
+  background-color: #6b949c;
 }
 
 .buttonToAddList {

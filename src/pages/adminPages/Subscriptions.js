@@ -21,7 +21,34 @@ const useStyles = makeStyles(theme => ({
     },
     newButton: {
         position: 'absolute',
-        right: '3vw'
+        right: '3vw',
+        marginBottom: 30
+    },
+    makeButton: {
+        position: 'absolute',
+        left: '31.5vw',
+        marginBottom: 30
+    },
+    dealerButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '4vw',
+        marginBottom: 30
+    },
+    vehicleButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '13vw',
+        marginBottom: 30
+    },
+    modelButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '22.5vw',
+        marginBottom: 30
+    },
+    customizeToolbar: {
+        minHeight: 20
     }
 }))
 
@@ -30,6 +57,7 @@ const headCells = [
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
+    { id: 'billing', label: 'Billing Cycle' },
 ]
 
 export default function Subscriptions() {
@@ -62,6 +90,7 @@ export default function Subscriptions() {
                             planID: sub["PlanID"],
                             planName: sub["PlanName"],
                             pricing: "$" + sub["Pricing"],
+                            billing: sub["Billing"]
                         };
                     })
                 );
@@ -104,7 +133,38 @@ export default function Subscriptions() {
             />
             <Paper className={classes.pageContent}>
 
-                <Toolbar>
+            <Toolbar className={classes.customizeToolbar}>
+
+                <Controls.Button
+                        text="Dealers"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.dealerButton}
+                        onClick={event =>  window.location.href='/adminDealer'}
+                    />
+                <Controls.Button
+                        text="Vehicles"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.vehicleButton}
+                        onClick={event =>  window.location.href='/adminVehicle'}
+                    />
+                    <Controls.Button
+                        text="Models"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.modelButton}
+                        onClick={event =>  window.location.href='/adminModel'}
+                    />
+                    <Controls.Button
+                        text="Makes"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.makeButton}
+                        onClick={event =>  window.location.href='/adminMake'}
+                    />
+                   
+                    
                     <Controls.Button
                         text="Add New"
                         color="#841584"
@@ -127,6 +187,7 @@ export default function Subscriptions() {
                                     <TableCell>{list.planID}</TableCell>
                                     <TableCell>{list.planName}</TableCell>
                                     <TableCell>{list.pricing}</TableCell>
+                                    <TableCell>{list.billing}</TableCell>
                                 </TableRow>)
                             )
                         }
