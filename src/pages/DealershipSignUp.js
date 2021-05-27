@@ -271,7 +271,7 @@ export default function DealershipProfilePage() {
               >
                 Create Dealership
               </Button>
-              <NavLink to="/dealer" activeStyle>
+              <NavLink to="/admin" activeStyle>
                 <Button variant="contained" color="primary">
                   Back
                 </Button>

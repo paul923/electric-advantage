@@ -22,6 +22,11 @@
     padding-right: 3vw;
 }
 
+.setTextColor {
+    color:'white',
+
+}
+
 .detailsCard {
     margin-right: 10vw;
 }
