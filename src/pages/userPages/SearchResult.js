@@ -70,9 +70,9 @@ const SearchResult = ({ location }) => {
               </Table>
 
                 <Button className="carDetailsButton">
-                <a href={`/search-detail/${vehicle.InventoryID}`}>
+                <a className="nav-search" href={`/search-detail/${vehicle.InventoryID}`}>
+                Details
                   </a>
-                  Details
                   </Button>
             </div>
           ))
