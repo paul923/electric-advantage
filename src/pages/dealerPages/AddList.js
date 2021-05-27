@@ -19,18 +19,6 @@ export default function DealerAddList() {
     addToDatabaseHandler();
   }, [carsToAdd]);
 
-  React.useEffect(() => {
-    addToDatabaseHandler();
-  }, [carsToAdd]);
-
-  React.useEffect(() => {
-    addToDatabaseHandler();
-  }, [carsToAdd]);
-
-  React.useEffect(() => {
-    addToDatabaseHandler();
-  }, [carsToAdd]);
-
   async function addToDatabaseHandler() {
     let dealerObject = await getDealershipByUserID(userObject.UserID);
     setAddList(
@@ -38,7 +26,7 @@ export default function DealerAddList() {
         return {
           VehicleID: car.vehicleID,
           DealershipID: parseInt(dealerObject.body[0].DealershipID),
-          ColorID: car.carColor,
+          ColorID: car.colorID,
           ConditionID: parseInt(car.carCondition),
           StartPrice: parseFloat(car.carPrice),
           Odometer: parseFloat(car.Odo),

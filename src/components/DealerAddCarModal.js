@@ -7,6 +7,7 @@ import {
   getVehicleListByMakeIDAndModelID,
   getColors,
 } from "../api/VehicleAPI";
+import CONDITION from "../constants/VehicleCondition";
 
 const DealerAddCarModal = ({
   showModal,
@@ -19,22 +20,30 @@ const DealerAddCarModal = ({
   const [carPrice, setCarPrice] = React.useState("0");
   const [carQty, setQty] = React.useState("0");
   const [carColor, setColor] = React.useState(null);
+  const [carCondition, setCarCondition] = React.useState(null);
   const [carID, setID] = React.useState("");
   const [carInfo, setInfo] = React.useState("");
   const [carImgs, setImgs] = React.useState("");
+
   const [makeList, setMakeList] = React.useState([]);
-  const [selectedMake, setSelectedMake] = React.useState("1");
   const [modelList, setModelList] = React.useState([]);
-  const [selectedModel, setSelectedModel] = React.useState("1");
   const [trimList, setTrimList] = React.useState([]);
-  const [odo, setOdo] = React.useState("0");
-  const [condition, setCondition] = React.useState("");
   const [carVehicle, setCarVehicle] = React.useState("");
-  const [vehicleID, setVehicleID] = React.useState("");
   const [colorList, setColorList] = React.useState([]);
 
+  const [selectedMakeID, setSelectedMakeID] = React.useState("");
+  const [selectedModelID, setSelectedModelID] = React.useState("");
+  const [vehicleID, setVehicleID] = React.useState("");
+  const [odo, setOdo] = React.useState("0");
+  const [selectedCondition, setSelectedCondition] = React.useState("");
+  const [selectedColorID, setSelectedColorID] = React.useState("");
+
   const resetAllFieldsHandler = () => {
-    setSelectedModel("1");
+    setSelectedMakeID("");
+    setSelectedModelID("");
+    setVehicleID("");
+    setSelectedColorID("");
+    setSelectedCondition("");
     setCarMake("");
     setCarModel("");
     setCarPrice("");
@@ -50,17 +59,7 @@ const DealerAddCarModal = ({
   React.useEffect(() => {
     getColorsList();
     onLoadGetMakeList();
-    getModelList();
-    getVehiclesList();
   }, []);
-
-  React.useEffect(() => {
-    getModelList();
-  }, [selectedMake]);
-
-  React.useEffect(() => {
-    getVehiclesList();
-  }, [selectedModel]);
 
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
@@ -73,31 +72,31 @@ const DealerAddCarModal = ({
     }
   }
 
-  async function getModelList() {
-    let resultModelList = await getModelListByMakeID(selectedMake);
+  async function getModelList(makeID) {
+    console.log(makeID);
+    let resultModelList = await getModelListByMakeID(makeID);
     let statusCode = resultModelList.status;
     if (statusCode === 200) {
       let body = resultModelList.body;
       setModelList(body);
-      // setCarModel(resultModelList.body[0].ModelName);
-      // setSelectedModel(resultModelList.body[0].ModelID);
     } else {
       alert(`Status : ${statusCode}!\nThere will are no models to select.`);
+      setModelList([]);
       setModelDisabled(true);
       setTrimDisabled(true);
     }
   }
 
-  async function getVehiclesList() {
+  async function getVehiclesList(modelID) {
     let resultTrimList = await getVehicleListByMakeIDAndModelID(
-      selectedModel,
-      selectedMake
+      selectedMakeID,
+      modelID
     );
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
       let body = resultTrimList.body;
-      console.log("MakeID:" + selectedMake);
-      console.log("ModelID:" + selectedModel);
+      console.log("MakeID:" + selectedMakeID);
+      console.log("ModelID:" + selectedModelID);
       console.log("Model:" + carModel);
       console.log("body:" + body[0].VehicleID);
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
@@ -123,12 +122,22 @@ const DealerAddCarModal = ({
   const [modelDisabled, setModelDisabled] = React.useState(true);
   const [trimDisabled, setTrimDisabled] = React.useState(true);
 
+  // Check if the input field is empty.
+  function isEmpty(str) {
+    return str.length === 0 || !str.trim();
+  }
+
   const addCarsHandler = () => {
     if (
-      trimDisabled === modelDisabled &&
-      modelDisabled === false &&
-      carColor !== null
+      isEmpty(selectedMakeID) ||
+      isEmpty(selectedModelID) ||
+      isEmpty(vehicleID) ||
+      isEmpty(odo) ||
+      isEmpty(selectedCondition) ||
+      isEmpty(selectedColorID)
     ) {
+      alert("Fields cannot be empty");
+    } else {
       setCarsToAdd([
         ...carsToAdd,
         {
@@ -140,13 +149,15 @@ const DealerAddCarModal = ({
           carPrice: carPrice,
           carColor: carColor,
           info: carInfo,
-          carCondition: condition,
+          carCondition: selectedCondition,
           images: carImgs,
           carID: carID,
+          colorID: selectedColorID,
         },
       ]);
-    } else {
-      alert("Invalid entry!");
+
+      setShowModal(false);
+      resetAllFieldsHandler();
     }
   };
 
@@ -160,94 +171,104 @@ const DealerAddCarModal = ({
           <Form.Group controlId="carMake">
             <Form.Control
               onChange={(e) => {
-                let carMakeObject = JSON.parse(e.target.value);
-                setCarMake(carMakeObject.MakeName);
-                setModelDisabled(false);
-                setSelectedMake(carMakeObject.MakeID);
-                // setTrimDisabled(true);
+                let index = e.target.selectedIndex;
+                let label = e.target[index].text;
+                setCarMake(label);
+                setSelectedMakeID(e.target.value);
+                getModelList(e.target.value);
+                setSelectedModelID("");
+                setVehicleID("");
+                setTrimList([]);
               }}
               as="select"
+              value={selectedMakeID}
             >
-              <option disabled selected>
+              <option disabled value="">
                 Select Make...
               </option>
               {makeList.map((carMake) => (
-                <option value={JSON.stringify(carMake)}>
-                  {carMake.MakeName}
-                </option>
+                <option value={carMake.MakeID}>{carMake.MakeName}</option>
               ))}
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="carModel">
             <Form.Control
               onChange={(e) => {
-                let carModelObject = JSON.parse(e.target.value);
-                setCarModel(carModelObject.ModelName);
-                setSelectedModel(carModelObject.ModelID);
-                setTrimDisabled(false);
+                let index = e.target.selectedIndex;
+                let label = e.target[index].text;
+                setCarModel(label);
+                setSelectedModelID(e.target.value);
+                setVehicleID("");
+                getVehiclesList(e.target.value);
               }}
               as="select"
-              disabled={modelDisabled}
+              disabled={selectedMakeID === ""}
+              value={selectedModelID}
             >
-              <option disabled selected>
+              <option disabled value="">
                 Select Model...
               </option>
-              {modelList.map((carModel) => (
-                <option value={JSON.stringify(carModel)}>
-                  {carModel.ModelName}
-                </option>
-              ))}
+              {modelList.map((carModel) => {
+                return (
+                  <option value={carModel.ModelID}>{carModel.ModelName}</option>
+                );
+              })}
             </Form.Control>
           </Form.Group>
-          <Form.Group
-            onChange={(e) => {
-              let vehicleObject = JSON.parse(e.target.value);
-              setCarVehicle(
-                carModel + " " + vehicleObject.Trim + " " + vehicleObject.Year
-              );
-              setVehicleID(vehicleObject.VehicleID);
-              console.log(
-                "vehicleObject.VehicleID: " + vehicleObject.VehicleID
-              );
-            }}
-            controlId="carTrim"
-          >
-            <Form.Control as="select" disabled={trimDisabled}>
-              <option disabled selected>
+          <Form.Group controlId="carTrim">
+            <Form.Control
+              onChange={(e) => {
+                let index = e.target.selectedIndex;
+                let label = e.target[index].text;
+                setCarVehicle(label);
+                setVehicleID(e.target.value);
+              }}
+              as="select"
+              disabled={selectedModelID === ""}
+              value={vehicleID}
+            >
+              <option disabled value="">
                 Select Vehicle...
               </option>
               {trimList.map((vehicle) => (
-                <option value={JSON.stringify(vehicle)}>
+                <option value={vehicle.VehicleID}>
                   {carModel + " " + vehicle.Trim + " " + vehicle.Year}
                 </option>
               ))}
             </Form.Control>
           </Form.Group>
-          <Form.Group
-            onChange={(e) => {
-              setCondition(e.target.value);
-            }}
-          >
-            <Form.Control as="select" disabled={modelDisabled}>
-              <option disabled selected>
+          {/* Condition */}
+          <Form.Group>
+            <Form.Control
+              onChange={(e) => {
+                setSelectedCondition(e.target.value);
+              }}
+              as="select"
+              value={selectedCondition}
+            >
+              <option disabled value="">
                 Select Condition...
               </option>
-              <option value={parseInt("1", 10)}>New</option>
-              <option value={parseInt("2", 10)}>Used</option>
+              <option value={CONDITION.NEW}>New</option>
+              <option value={CONDITION.USED}>Used</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group
-            onChange={(e) => {
-              let colorObject = JSON.parse(e.target.value);
-              setColor(colorObject.ColorID);
-            }}
-          >
-            <Form.Control as="select" disabled={trimDisabled}>
-              <option disabled selected>
+          <Form.Group>
+            <Form.Control
+              onChange={(e) => {
+                let index = e.target.selectedIndex;
+                let label = e.target[index].text;
+                setColor(label);
+                setSelectedColorID(e.target.value);
+              }}
+              as="select"
+              value={selectedColorID}
+            >
+              <option disabled value="">
                 Select Color...
               </option>
               {colorList.map((color) => (
-                <option value={JSON.stringify(color)}>{color.ColorName}</option>
+                <option value={color.ColorID}>{color.ColorName}</option>
               ))}
             </Form.Control>
           </Form.Group>
@@ -275,7 +296,7 @@ const DealerAddCarModal = ({
             <div>
               Odometer:{" "}
               <input
-                disabled={condition !== "2"}
+                disabled={selectedCondition !== "2"}
                 onChange={(e) => setOdo(e.target.value)}
                 className="columnInputs"
               ></input>
@@ -307,13 +328,11 @@ const DealerAddCarModal = ({
           className="btn-success footerButtons"
           onClick={() => {
             {
-              if (condition !== 2) {
+              if (selectedCondition !== 2) {
                 setOdo("0");
               }
             }
-            setShowModal(false);
             addCarsHandler();
-            resetAllFieldsHandler();
           }}
         >
           Add

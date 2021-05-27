@@ -97,8 +97,9 @@ router.get("/:makeID/models/:modelID", function (req, res, next) {
     WHERE 1=1
     AND ModelID = ?
     `;
-    var parameters = ["ea_db.vehicle", req.params.makeID];
+    var parameters = ["ea_db.vehicle", req.params.modelID];
     sql = mysql.format(sql, parameters);
+    console.log(sql);
     connection.query(sql, function (error, results, fields) {
       connection.release();
       if (error) {
