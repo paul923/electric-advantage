@@ -170,22 +170,15 @@ export default function DealerInventory() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search..."
-        className="InventorySearchBar"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-       <Controls.Button
+      <br/>
+      <Controls.Button
                         text="Subscriptions"
                         color="#841584"
                         variant="outlined"
                         // className={classes.subButton}
                         onClick={event =>  window.location.href='/subscription'}
                     />
-      
-      <Controls.Button
+                    <Controls.Button
                         text="Account"
                         color="#841584"
                         variant="outlined"
@@ -200,6 +193,20 @@ export default function DealerInventory() {
                         // className={classes.subButton}
                         onClick={event =>  window.location.href='/dealerprofile'}
                     />
+      
+      <br/>
+      <br/>
+
+      <input
+        type="text"
+        placeholder="Search..."
+        className="InventorySearchBar"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+       
+      
+      
                     
                        
       <div className="tableCustomize">
