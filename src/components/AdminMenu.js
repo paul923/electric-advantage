@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
 
 const adminMenu = () => {
   const activeStyle = {
@@ -7,8 +7,8 @@ const adminMenu = () => {
     fontSize: "2rem",
   };
 
-  return (
-    <div>
+  const SubMenu = () => {
+    return (
       <ul>
         <li>
           <NavLink exact to="/adminMake" activeStyle={activeStyle}>
@@ -20,7 +20,7 @@ const adminMenu = () => {
             Model
           </NavLink>
         </li>
-         <li>
+        <li>
           <NavLink exact to="/adminVehicle" activeStyle={activeStyle}>
             Vehicles
           </NavLink>
@@ -41,6 +41,13 @@ const adminMenu = () => {
           </NavLink>
         </li>
       </ul>
+    );
+  };
+
+  return (
+    <div>
+      <hr />
+      <SubMenu />
       <hr />
     </div>
   );

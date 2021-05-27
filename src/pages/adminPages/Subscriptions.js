@@ -160,20 +160,6 @@ export default function Subscriptions() {
             className={classes.vehicleButton}
             onClick={(event) => (window.location.href = "/adminVehicle")}
           />
-          <Controls.Button
-            text="Models"
-            color="#841584"
-            variant="outlined"
-            className={classes.modelButton}
-            onClick={(event) => (window.location.href = "/adminModel")}
-          />
-          <Controls.Button
-            text="Makes"
-            color="#841584"
-            variant="outlined"
-            className={classes.makeButton}
-            onClick={(event) => (window.location.href = "/adminMake")}
-          />
 
           <Controls.Button
             text="Add New"

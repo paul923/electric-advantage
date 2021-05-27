@@ -111,6 +111,8 @@ export default class App extends Component {
               component={DealershipSignUp}
             />
 
+            <Route path="/z" component={Subscriptions} />
+
             <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
             <DealershipPrivateRoute
               path="/accountinfo"
