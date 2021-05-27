@@ -14,23 +14,13 @@ import {
 } from "../pages/pageComponents/NavbarElements";
 import logo from "../images/ELECTRIC-ADVANTAGE-logo.png";
 import { useAuth } from "./AuthContext";
-import { Button, TextField } from "@material-ui/core";
-import { getDealershipByUserID } from "../api/DealershipAPI";
 
 
 export default function Menu() {
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("");
-  const { currentUser, userType, logout } = useAuth();
-  const [dealerObjectId, setDealerObjectId] = useState("")
+  const { currentUser, userType, logout, dealerObjectId } = useAuth();
 
-  const renderMenu = () => {
-    return(
-    <NavLink to="/dealer" activeStyle>
-    Dealership
-    </NavLink>
-    )
-  }
 
   const makeMenu = () => {
     return (
@@ -41,15 +31,15 @@ export default function Menu() {
           </NavLink>
           <Bars />
           <NavMenu>
-            {userType === "DEALERSHIP" && dealerObjectId !== null ? (
-              <NavLink to="/dealerprofile" onClick={() => renderMenu()} activeStyle>
-                Register dealership
+            {userType === "DEALERSHIP" && dealerObjectId === null ? (
+              <NavLink to="/dealerprofile"  activeStyle>
+                Dealership
               </NavLink>
             ) : userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
               </NavLink>
-            ) : userType === "DEALERSHIP" && dealerObjectId === null ? (
+            ) : userType === "DEALERSHIP" && dealerObjectId !== null ? (
               <NavLink to="/dealer" activeStyle>
                 Dealership
               </NavLink>

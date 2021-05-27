@@ -85,7 +85,6 @@ export function AuthProvider({ children }) {
     let statusCode = resultUser.status;
     if (statusCode === 404) {
       setDealerObjectId(null)
-
     } else {
 
       if (statusCode === 200) {
