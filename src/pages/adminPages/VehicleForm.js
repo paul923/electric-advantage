@@ -81,7 +81,7 @@ export default function VehicleForm(props) {
       EVRange: !evRange ? 0 : evRange,
       BatterySize: !batterySize ? 0 : batterySize,
       Trim: trim,
-      Year: !year && 0,
+      Year: !year ? 0 : year,
     };
     let result = await registerVehicleToDatabase(vehicleObj);
     if (result.status !== 201) {

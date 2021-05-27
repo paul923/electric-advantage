@@ -31,7 +31,7 @@ export default function RegisterModelForm(props) {
   const [makeList, setMakeList] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
 
-  // Retrieves the list of makes on upon loading the form. 
+  // Retrieves the list of makes upon loading the form. 
   React.useEffect(() => {
     onLoadGetMakeList();
   }, []);
