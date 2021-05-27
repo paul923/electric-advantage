@@ -21,7 +21,8 @@ export async function getAllSubscriptionPlans() {
 /**
  * Creating subscription plan to the database
  * @param {"PlanName": string,
- *         "Pricing": float} plan
+ *         "Pricing": float,
+ *         "BillingCyle": string} plan
  * @returns json object
  */
 export async function createSubscriptionPlan(plan) {

@@ -1,5 +1,9 @@
 import { database } from "../constants/Environment";
 
+/**
+ * Get make list
+ * @returns Make objects array
+ */
 export async function getMakeList() {
   try {
     console.log(`Retrieving all the makes`);
@@ -41,6 +45,11 @@ export async function registerMake(make) {
   }
 }
 
+/**
+ * Retrieves model list belongs to specific MakeID
+ * @param {string} makeID
+ * @returns Model objects array
+ */
 export async function getModelListByMakeID(makeID) {
   try {
     console.log(`Retrieving all the models belongs to ${makeID}`);
@@ -55,6 +64,10 @@ export async function getModelListByMakeID(makeID) {
   }
 }
 
+/**
+ * Retrieves all model lists existing in database
+ * @returns Model objects array
+ */
 export async function getModelsList() {
   try {
     console.log(`Retrieving all the models`);
@@ -70,10 +83,10 @@ export async function getModelsList() {
 }
 
 /**
- *
+ * Register model with makeID
  * @param {"ModelID": string,
  *         "ModelName": string} model
- * @returns
+ * @returns message string
  */
 export async function registerModelWithMakeID(model, makeID) {
   try {
@@ -96,6 +109,12 @@ export async function registerModelWithMakeID(model, makeID) {
   }
 }
 
+/**
+ * Retrieves list of vehicle that belongs to specific model
+ * @param {string} makeID
+ * @param {string} modelID
+ * @returns vehicle object array
+ */
 export async function getVehicleListByMakeIDAndModelID(makeID, modelID) {
   try {
     console.log(`Retrieving all the vehicles belongs to ${modelID}`);

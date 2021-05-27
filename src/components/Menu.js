@@ -10,10 +10,8 @@ import {
 import logo from "../images/ELECTRIC-ADVANTAGE-logo.png";
 import { useAuth } from "./AuthContext";
 
-
 export default function Menu() {
   const { currentUser, userType, logout, dealerObjectId } = useAuth();
-
 
   const makeMenu = () => {
     return (
@@ -25,10 +23,10 @@ export default function Menu() {
           <Bars />
           <NavMenu>
             {userType === "DEALERSHIP" && dealerObjectId === null ? (
-              <NavLink to="/dealerprofile"  activeStyle>
+              <NavLink to="/dealerprofile" activeStyle>
                 Dealership
               </NavLink>
-            ): userType === "ADMIN" ? (
+            ) : userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
               </NavLink>
@@ -37,9 +35,6 @@ export default function Menu() {
                 Dealership
               </NavLink>
             ) : null}
-            <NavLink to="/api-test" activeStyle>
-              API Testing
-            </NavLink>
             <NavLink to="/who-we-are" activeStyle>
               Our History
             </NavLink>
@@ -65,5 +60,4 @@ export default function Menu() {
   };
 
   return <div>{makeMenu()}</div>;
-};
-
+}

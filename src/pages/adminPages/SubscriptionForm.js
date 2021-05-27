@@ -1,98 +1,116 @@
-import React, { useEffect } from 'react'
-import { Grid, } from '@material-ui/core';
+import React, { useEffect } from "react";
+import { Grid } from "@material-ui/core";
 import Controls from "../../components/controls/Controls";
-import { useForm, Form } from '../../components/AdminUseForm';
+import { useForm, Form } from "../../components/AdminUseForm";
 import { createSubscriptionPlan } from "../../api/SubscriptionAPI";
+import { Select, MenuItem, InputLabel } from "@material-ui/core";
+import BILLINGCYCLE from "../../constants/BillingCycle";
 
 const initialFValues = {
-   
-    id: 0,
-    planID: '',
-    planName: '',
-    pricing: '',
-    billing: ''
-}
+  id: 0,
+  planID: "",
+  planName: "",
+  pricing: "",
+  billing: "",
+};
 
 export default function SubscriptionForm(props) {
-    const { addOrEdit, recordForEdit } = props
-    const [name, setName] = React.useState("");
-    const [price, setPrice] = React.useState("");
-    const [billing, setBilling] = React.useState("");
+  const { addOrEdit, recordForEdit } = props;
+  const [name, setName] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [selectedBillingCyle, setSelectedBillingCycle] = React.useState("");
+  const [cycleOpen, setCycleOpen] = React.useState(false);
 
-
-    async function onClickCreateSubscriptionPlan() {
-        let subscriptionObj = {
-            PlanName: name,
-            Pricing: price,
-        };
-        let result = await createSubscriptionPlan(subscriptionObj);
-        console.log(`Status : ${result.status}, ${result.body}`);
+  async function onClickCreateSubscriptionPlan() {
+    let subscriptionObj = {
+      PlanName: name,
+      Pricing: price,
+      BillingCycle: selectedBillingCyle,
+    };
+    let result = await createSubscriptionPlan(subscriptionObj);
+    if (result.status !== 201) {
+      alert("Failed to create a plan. Please try again later.");
     }
+    console.log(`Status : ${result.status}, ${result.body}`);
+  }
 
-    const validate = (fieldValues = values) => {
-        let temp = { ...errors }
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
 
-        setErrors({
-            ...temp
-        })
+    setErrors({
+      ...temp,
+    });
 
-        if (fieldValues == values)
-            return Object.values(temp).every(x => x == "")
+    if (fieldValues == values) return Object.values(temp).every((x) => x == "");
+  };
+
+  const { values, setValues, errors, setErrors, resetForm } = useForm(
+    initialFValues,
+    true,
+    validate
+  );
+
+  function isEmpty(str) {
+    return str.length === 0 || !str.trim();
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isEmpty(name) || isEmpty(price) || isEmpty(selectedBillingCyle)) {
+      alert("Values cannot be empty!");
+    } else {
+      await onClickCreateSubscriptionPlan();
+      if (validate()) {
+        addOrEdit(values, resetForm);
+      }
     }
+  };
 
-    const {
-        values,
-        setValues,
-        errors,
-        setErrors,
-        resetForm
-    } = useForm(initialFValues, true, validate);
+  useEffect(() => {
+    if (recordForEdit != null)
+      setValues({
+        ...recordForEdit,
+      });
+  }, [recordForEdit]);
 
-    const handleSubmit = async e => {
-        e.preventDefault()
-        await onClickCreateSubscriptionPlan()
-        if (validate()) {
-            addOrEdit(values, resetForm);
-        }
-    }
-
-    useEffect(() => {
-        if (recordForEdit != null)
-            setValues({
-                ...recordForEdit
-            })
-    }, [recordForEdit])
-
-    return (
-        <Form onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
-                    <Controls.Input
-                        label="Subscription Plan"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                       
-                    />
-                    <Controls.Input
-                        label="Pricing"
-                        value={price}
-                        onChange={(event) => setPrice(event.target.value)}
-                    />
-                    <Controls.Input
-                        label="Billing Cycle"
-                        value={billing}
-                        onChange={(event) => setBilling(event.target.value)}
-                    />
-
-                </Grid>
-                <Grid item xs={6}>
-                    <div>
-                        <Controls.Button
-                            type="submit"
-                            text="Submit" />
-                    </div>
-                </Grid>
-            </Grid>
-        </Form>
-    )
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Grid container>
+        <Grid item xs={6}>
+          <Controls.Input
+            label="Subscription Plan"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+          <Controls.Input
+            label="Pricing"
+            value={price}
+            onChange={(event) => setPrice(event.target.value)}
+          />
+          <Select
+            style={{ width: "20vh", marginLeft: "1vh" }}
+            open={cycleOpen}
+            displayEmpty
+            onClose={() => setCycleOpen(false)}
+            onOpen={() => setCycleOpen(true)}
+            value={selectedBillingCyle}
+            onChange={(event) => {
+              setSelectedBillingCycle(event.target.value);
+            }}
+          >
+            <MenuItem value="" disabled>
+              - Select Billing Cycle -
+            </MenuItem>
+            <MenuItem value={BILLINGCYCLE.MONTH}>Monthly</MenuItem>
+            <MenuItem value={BILLINGCYCLE.ANNUAL}>Annually</MenuItem>
+          </Select>
+        </Grid>
+        <Grid item xs={6}>
+          <div>
+            <Controls.Button type="submit" text="Submit" />
+          </div>
+        </Grid>
+      </Grid>
+    </Form>
+  );
 }
