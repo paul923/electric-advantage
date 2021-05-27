@@ -16,9 +16,9 @@ const DealerAddCarModal = ({
 }) => {
   const [carMake, setCarMake] = React.useState("");
   const [carModel, setCarModel] = React.useState("");
-  const [carPrice, setCarPrice] = React.useState("");
-  const [carQty, setQty] = React.useState("");
-  const [carColor, setColor] = React.useState("");
+  const [carPrice, setCarPrice] = React.useState("0");
+  const [carQty, setQty] = React.useState("0");
+  const [carColor, setColor] = React.useState(null);
   const [carID, setID] = React.useState("");
   const [carInfo, setInfo] = React.useState("");
   const [carImgs, setImgs] = React.useState("");
@@ -95,7 +95,6 @@ const DealerAddCarModal = ({
     );
     let statusCode = resultTrimList.status;
     if (statusCode === 200) {
-      console.log("BODYBODY" + resultTrimList.body);
       let body = resultTrimList.body;
       console.log("MakeID:" + selectedMake);
       console.log("ModelID:" + selectedModel);
@@ -125,7 +124,11 @@ const DealerAddCarModal = ({
   const [trimDisabled, setTrimDisabled] = React.useState(true);
 
   const addCarsHandler = () => {
-    if (trimDisabled === modelDisabled && modelDisabled === false) {
+    if (
+      trimDisabled === modelDisabled &&
+      modelDisabled === false &&
+      carColor !== null
+    ) {
       setCarsToAdd([
         ...carsToAdd,
         {
