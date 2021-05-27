@@ -19,18 +19,6 @@ export default function DealerAddList() {
     addToDatabaseHandler();
   }, [carsToAdd]);
 
-  React.useEffect(() => {
-    addToDatabaseHandler();
-  }, [carsToAdd]);
-
-  React.useEffect(() => {
-    addToDatabaseHandler();
-  }, [carsToAdd]);
-
-  React.useEffect(() => {
-    addToDatabaseHandler();
-  }, [carsToAdd]);
-
   async function addToDatabaseHandler() {
     let dealerObject = await getDealershipByUserID(userObject.UserID);
     setAddList(
