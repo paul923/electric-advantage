@@ -4,7 +4,6 @@ var pool = require("../database").pool;
 var mysql = require("../database").mysql;
 
 // GET all dealerships in database
-// TODO: Cache the data
 router.get("/", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err; // When not connected
