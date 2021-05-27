@@ -10,7 +10,6 @@ import {
   PostsPage,
   ForgotPassword,
   Signup,
-  TestingPage,
   AboutPage,
   Login,
 } from "../pages";
@@ -100,7 +99,6 @@ export default class App extends Component {
               gdf
               <Route path="/search-detail" component={SearchDetail} />
             </Switch>
-            <Route path="/api-test" component={TestingPage} />
             <AdminPrivateRoute path="/admin" component={AdminMenu} />
 
             <AdminPrivateRoute path="/adminSub" component={Subscriptions} />

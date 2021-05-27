@@ -131,7 +131,11 @@ export default function Vehicles() {
     }
   }
 
-  const { TblContainer, TblHead } = useTable(records, headCells, filterFn);
+  const { TblContainer, TblHead, TblPagination } = useTable(
+    records,
+    headCells,
+    filterFn
+  );
 
   const addOrEdit = (vehicle, resetForm) => {
     if (vehicle.id == 0) {
@@ -223,14 +227,14 @@ export default function Vehicles() {
           <TableBody>
             {vehicleList.map((v) => (
               <TableRow key={v.id}>
-                <TableCell>{v.vehicleID}</TableCell>
-                <TableCell>{v.modelID}</TableCell>
-                <TableCell>{v.priceLower}</TableCell>
-                <TableCell>{v.priceUpper}</TableCell>
-                <TableCell>{v.evRange}</TableCell>
-                <TableCell>{v.batterySize}</TableCell>
-                <TableCell>{v.trim}</TableCell>
-                <TableCell>{v.year}</TableCell>
+                <TableCell>{v.VehicleID}</TableCell>
+                <TableCell>{v.ModelID}</TableCell>
+                <TableCell>{v.PriceLower}</TableCell>
+                <TableCell>{v.PriceUpper}</TableCell>
+                <TableCell>{v.EVRange}</TableCell>
+                <TableCell>{v.BatterySize}</TableCell>
+                <TableCell>{v.Trim}</TableCell>
+                <TableCell>{v.Year}</TableCell>
                 <TableCell>
                   <Controls.ActionButton
                     onClick={() => {

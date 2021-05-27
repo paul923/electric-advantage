@@ -57,17 +57,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useStyles = makeStyles((theme) => ({
-  pageContent: {
-    margin: theme.spacing(5),
-    padding: theme.spacing(3),
-  },
-  newButton: {
-    position: "absolute",
-    right: "3vw",
-  },
-}));
-
 const headCells = [
   { id: "planID", label: "Plan ID" },
   { id: "subPlan", label: "Subscription Plan" },
