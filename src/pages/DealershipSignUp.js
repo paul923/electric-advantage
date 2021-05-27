@@ -8,7 +8,7 @@ import { getDealershipByUserID } from "../api/DealershipAPI";
 import { Nav, NavLink, Bars, NavMenu } from "./pageComponents/NavbarElements";
 import PageHeader from "../components/AdminPageHeader";
 import CreateIcon from "@material-ui/icons/Create";
-import { Box, ButtonGroup, MenuItem  } from "@material-ui/core";
+import { Box, ButtonGroup, MenuItem, FormHelperText   } from "@material-ui/core";
 import Select from '@material-ui/core/Select';
 
 
@@ -34,8 +34,6 @@ export default function DealershipProfilePage() {
   const { currentUser, userType, logout, userObject } = useAuth();
   const [searchedUser, setSearchedUser] = useState(null);
 
-  React.useEffect(() => {}, []);
-  console.log("SHOO" + userObject.UserID);
 
   async function GetDealerObjectId(id) {
     let resultUser = await getDealershipByUserID(id);
@@ -100,7 +98,6 @@ export default function DealershipProfilePage() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              displayEmpty
               value={regionCode}
               onChange={(event) => setRegionCode(event.target.value)}
 
@@ -111,6 +108,8 @@ export default function DealershipProfilePage() {
               <MenuItem value={"CBC003"}>CBC003</MenuItem>
               <MenuItem value={"CBC004"}>CBC004</MenuItem>
             </Select>
+            <FormHelperText>Region Code</FormHelperText>
+
         </Box>
 
             <Box mt={1} pt={1}>
