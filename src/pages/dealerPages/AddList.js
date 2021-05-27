@@ -8,7 +8,6 @@ import {
   getDealershipByUserID,
 } from "../../api/DealershipAPI";
 import { useAuth } from "../../components/AuthContext";
-// import { getVehicleSearchResult } from "../../api/DealershipAPI";
 
 export default function DealerAddList() {
   const [carsToAdd, setCarsToAdd] = React.useState([]);

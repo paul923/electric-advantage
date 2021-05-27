@@ -8,7 +8,6 @@ import InventoryHeader from "../../components/DealerInventoryHeader";
 import { Link } from "react-router-dom";
 import Controls from "../../components/controls/Controls";
 import {
-  getAllDealerships,
   getInventoryByDealershipID,
   updateDealershipInventoryItems,
   getDealershipByUserID,
@@ -18,7 +17,6 @@ import { useAuth } from "../../components/AuthContext";
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
   const { currentUser, userType, logout, userObject } = useAuth();
-  const [colorList, setColorList] = React.useState([]);
   const [inventoryToUpdate, setInventoryToUpdate] = React.useState([]);
 
   async function getFirstInventoryList() {
