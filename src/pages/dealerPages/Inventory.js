@@ -10,22 +10,20 @@ import Controls from "../../components/controls/Controls";
 import {
   getInventoryByDealershipID,
   updateDealershipInventoryItems,
+  getDealershipByUserID,
 } from "../../api/DealershipAPI";
 import { useAuth } from "../../components/AuthContext";
-import { getColors } from "../../api/VehicleAPI";
 
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
   const { currentUser, userType, logout, userObject } = useAuth();
-  const [colorList, setColorList] = React.useState([]);
-  const [selectedColor, setSelectedColor] = React.useState("");
-  const [colorDictionary, setColordictioanry] = React.useState([]);
   const [inventoryToUpdate, setInventoryToUpdate] = React.useState([]);
 
   async function getFirstInventoryList() {
-    // let firstInventory = await getInventoryByDealershipID(userObject.UserID);
-    console.log("HEREHERE" + userObject.UserID);
-    let firstInventory = await getInventoryByDealershipID("1");
+    let dealerObject = await getDealershipByUserID(userObject.UserID);
+    let firstInventory = await getInventoryByDealershipID(
+      parseInt(dealerObject.body[0].DealershipID)
+    );
     let statusCode = firstInventory.status;
     if (statusCode === 200) {
       let body = firstInventory.body;
@@ -46,46 +44,20 @@ export default function DealerInventory() {
       );
     } else if (statusCode === 404) {
       setRetrievedInventory([]);
-      alert(`Error ${statusCode}. ${firstInventory.error}.`);
+      // alert(`Error ${statusCode}. ${firstInventory.error}.`);
     } else {
+      setRetrievedInventory([]);
       alert(`Status : ${statusCode}. ${firstInventory.error}.`);
     }
   }
 
   React.useEffect(() => {
-    // getColorsList();
     getFirstInventoryList();
   }, []);
 
   React.useEffect(() => {
     setFilteredList(retrievedInventory);
   }, [retrievedInventory]);
-
-  // async function getColorsList() {
-  //   let resultColorList = await getColors();
-  //   let statusCode = resultColorList.status;
-  //   if (statusCode === 200) {
-  //     let body = resultColorList.body;
-  //     console.log(body);
-  //     setColorList(
-  //       body.map((colorObject) => {
-  //         setSelectedColor(colorObject.ColorID);
-  //         return {
-  //           selectedColor: colorObject.colorName,
-  //         };
-  //       })
-  //     );
-  //   } else {
-  //     alert(`Status : ${statusCode}, ${resultColorList.error}.`);
-  //   }
-  // }
-
-  // function getColor(colorID) {
-  //   let filtered = colorList.filter(
-  //     (colorObject) => colorObject.ColorID === colorID
-  //   );
-  //   return filtered[0].ColorName;
-  // }
 
   const [filteredList, setFilteredList] = React.useState([]);
   const [query, setQuery] = React.useState("");

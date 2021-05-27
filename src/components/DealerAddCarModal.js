@@ -16,9 +16,9 @@ const DealerAddCarModal = ({
 }) => {
   const [carMake, setCarMake] = React.useState("");
   const [carModel, setCarModel] = React.useState("");
-  const [carPrice, setCarPrice] = React.useState("");
-  const [carQty, setQty] = React.useState("");
-  const [carColor, setColor] = React.useState("");
+  const [carPrice, setCarPrice] = React.useState("0");
+  const [carQty, setQty] = React.useState("0");
+  const [carColor, setColor] = React.useState(null);
   const [carID, setID] = React.useState("");
   const [carInfo, setInfo] = React.useState("");
   const [carImgs, setImgs] = React.useState("");
@@ -51,6 +51,7 @@ const DealerAddCarModal = ({
     getColorsList();
     onLoadGetMakeList();
     getModelList();
+    getVehiclesList();
   }, []);
 
   React.useEffect(() => {
@@ -61,12 +62,6 @@ const DealerAddCarModal = ({
     getVehiclesList();
   }, [selectedModel]);
 
-  React.useEffect(() => {});
-
-  React.useEffect(() => {});
-
-  React.useEffect(() => {});
-
   async function onLoadGetMakeList() {
     let resultMakeList = await getMakeList();
     let statusCode = resultMakeList.status;
@@ -74,7 +69,7 @@ const DealerAddCarModal = ({
       let body = resultMakeList.body;
       setMakeList(body);
     } else {
-      alert(`Status : ${statusCode}, ${resultMakeList.error}`);
+      alert(`Status : ${statusCode}!\nThere are no makes to select.`);
     }
   }
 
@@ -84,10 +79,12 @@ const DealerAddCarModal = ({
     if (statusCode === 200) {
       let body = resultModelList.body;
       setModelList(body);
-      setCarModel(resultModelList.body[0].ModelName);
-      setSelectedModel(resultModelList.body[0].ModelID);
+      // setCarModel(resultModelList.body[0].ModelName);
+      // setSelectedModel(resultModelList.body[0].ModelID);
     } else {
-      alert(`Status : ${statusCode}, ${resultModelList.error}`);
+      alert(`Status : ${statusCode}!\nThere will are no models to select.`);
+      setModelDisabled(true);
+      setTrimDisabled(true);
     }
   }
 
@@ -106,7 +103,8 @@ const DealerAddCarModal = ({
       setCarVehicle(carModel + " " + body[0].Trim + " " + body[0].Year);
       setTrimList(body);
     } else {
-      alert(`Status : ${statusCode}, ${resultTrimList.error}.`);
+      alert(`Status : ${statusCode}!\nThere will are no vehicles to select.`);
+      setTrimDisabled(true);
     }
   }
 
@@ -126,22 +124,30 @@ const DealerAddCarModal = ({
   const [trimDisabled, setTrimDisabled] = React.useState(true);
 
   const addCarsHandler = () => {
-    setCarsToAdd([
-      ...carsToAdd,
-      {
-        vehicleID: vehicleID,
-        carMake: carMake,
-        carVehicle: carVehicle,
-        Odo: odo,
-        Qty: carQty,
-        carPrice: carPrice,
-        carColor: carColor,
-        info: carInfo,
-        carCondition: condition,
-        images: carImgs,
-        carID: carID,
-      },
-    ]);
+    if (
+      trimDisabled === modelDisabled &&
+      modelDisabled === false &&
+      carColor !== null
+    ) {
+      setCarsToAdd([
+        ...carsToAdd,
+        {
+          vehicleID: vehicleID,
+          carMake: carMake,
+          carVehicle: carVehicle,
+          Odo: odo,
+          Qty: carQty,
+          carPrice: carPrice,
+          carColor: carColor,
+          info: carInfo,
+          carCondition: condition,
+          images: carImgs,
+          carID: carID,
+        },
+      ]);
+    } else {
+      alert("Invalid entry!");
+    }
   };
 
   return (
@@ -159,7 +165,6 @@ const DealerAddCarModal = ({
                 setModelDisabled(false);
                 setSelectedMake(carMakeObject.MakeID);
                 // setTrimDisabled(true);
-                setTrimList([]);
               }}
               as="select"
             >
