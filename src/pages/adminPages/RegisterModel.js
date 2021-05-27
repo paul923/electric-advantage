@@ -20,11 +20,11 @@ import Popup from "../../components/AdminPopup";
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import {
-  getMakeList,
   getModelsList,
   deleteVehicleModel,
 } from "../../api/VehicleAPI";
 
+// Styling for admin model page.
 const useStyles = makeStyles((theme) => ({
   pageContent: {
     margin: theme.spacing(5),
@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Header for each columns on the model table.
 const headCells = [
   { id: "ModelID", label: "Model ID" },
   { id: "ModelName", label: "Model Name" },
@@ -71,6 +72,7 @@ const headCells = [
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
+// Responsible for creating model page.
 export default function RegisterModel() {
   const classes = useStyles();
   const [recordForEdit, setRecordForEdit] = useState(null);
@@ -98,10 +100,12 @@ export default function RegisterModel() {
   const [modelList, setModelList] = React.useState([]);
   const [make, setMake] = React.useState([]);
 
+  // Get all model information upon loading the page.
   React.useEffect(() => {
     onLoadGetModelsList();
   }, []);
 
+  // Function to retrieve all model information.
   async function onLoadGetModelsList() {
     let resultModelList = await getModelsList();
     let statusCode = resultModelList.status;
@@ -115,15 +119,17 @@ export default function RegisterModel() {
     }
   }
 
+  // Function to delete a model with its makeID and modelID.
   async function onClickDeleteVehicleModel(makeid, modelid) {
     let result = await deleteVehicleModel(makeid, modelid);
     alert(`Status : ${result.status}, ${result.body}`);
     onLoadGetModelsList();
   }
 
-  const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
-    useTable(records, headCells, filterFn);
+  // Creates the model table with a header and a table.
+  const { TblContainer, TblHead} = useTable(records, headCells, filterFn);
 
+  // Actions taken when a model is added/edited.
   const addOrEdit = (vehicle, resetForm) => {
     if (vehicle.id == 0) {
       vehicleService.insertVehicle(vehicle);
@@ -143,12 +149,14 @@ export default function RegisterModel() {
     onLoadGetModelsList();
   };
 
+  // Opens the form popup.
   const openInPopup = (item) => {
     setRecordForEdit(item);
     setOpenPopup(true);
     setOpenPopup3(true);
   };
 
+  // When delete button is pressed.
   const onDelete = (id) => {
     setConfirmDialog({
       ...confirmDialog,
@@ -163,9 +171,11 @@ export default function RegisterModel() {
 
   return (
     <>
+      {/* Structures the model page. */}
       <PageHeader title="Model" icon={<LaptopMacIcon fontSize="large" />} />
       <Paper className={classes.pageContent}>
         <Toolbar className={classes.customizeToolbar}>
+          {/* Button to go to subscription page. */}
           <Controls.Button
             text="Subscriptions"
             color="#841584"
@@ -173,6 +183,7 @@ export default function RegisterModel() {
             className={classes.subButton}
             onClick={(event) => (window.location.href = "/adminSub")}
           />
+          {/* Button to go to dealers page. */}
           <Controls.Button
             text="Dealers"
             color="#841584"
@@ -180,6 +191,7 @@ export default function RegisterModel() {
             className={classes.dealerButton}
             onClick={(event) => (window.location.href = "/adminDealer")}
           />
+          {/* Button to go to vehicles page. */}
           <Controls.Button
             text="Vehicles"
             color="#841584"
@@ -187,6 +199,7 @@ export default function RegisterModel() {
             className={classes.vehicleButton}
             onClick={(event) => (window.location.href = "/adminVehicle")}
           />
+          {/* Button to go to register dealership page. */}
           <Controls.Button
             text="Register Dealership"
             color="#841584"
@@ -195,6 +208,7 @@ export default function RegisterModel() {
             onClick={(event) => (window.location.href = "/registerdealership")}
           />
 
+          {/* Button to open the form for creating vehicle model. */}
           <Controls.Button
             text="Model"
             color="#841584"
@@ -208,9 +222,11 @@ export default function RegisterModel() {
             }}
           />
         </Toolbar>
+        {/* Model Table. */}
         <TblContainer>
           <TblHead />
           <TableBody>
+            {/* Maps each model attributes to corresponding columns. */}
             {modelList.map((m) => (
               <TableRow key={m.id}>
                 <TableCell>{m.MakeID}</TableCell>
@@ -218,6 +234,7 @@ export default function RegisterModel() {
                 <TableCell>{m.ModelID}</TableCell>
                 <TableCell>{m.ModelName}</TableCell>
                 <TableCell>
+                  {/* Edit action button. */}
                   <Controls.ActionButton
                     //edit button color
                     color="success"
@@ -227,6 +244,7 @@ export default function RegisterModel() {
                   >
                     <EditIcon fontSize="small" />
                   </Controls.ActionButton>
+                  {/* Delete action button. */}
                   <Controls.ActionButton
                     onClick={() => {
                       setConfirmDialog({
@@ -248,6 +266,7 @@ export default function RegisterModel() {
           </TableBody>
         </TblContainer>
       </Paper>
+      {/* Popup for create model form. */}
       <Popup
         title="Register Model"
         openPopup={openPopup3}
@@ -259,7 +278,9 @@ export default function RegisterModel() {
         />
       </Popup>
 
+      {/* Notification when changes are made. */}
       <Notification notify={notify} setNotify={setNotify} />
+      {/* Confirm dialog when delete button is pressed. */}
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}

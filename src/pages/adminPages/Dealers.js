@@ -84,7 +84,7 @@ export default function Dealers() {
     onLoadGetAllDealerships();
   }, []);
 
-// Function to retrieve all dealership information.
+  // Function to retrieve all dealership information.
   async function onLoadGetAllDealerships() {
     resultDealership = await getAllDealerships();
     let statusCode = resultDealership.status;

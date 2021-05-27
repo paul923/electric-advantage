@@ -21,6 +21,7 @@ import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import { getMakeList, deleteVehicleMake } from "../../api/VehicleAPI";
 
+// Styling for admin make page.
 const useStyles = makeStyles((theme) => ({
   pageContent: {
     margin: theme.spacing(5),
@@ -60,12 +61,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Header for each columns on the make table.
 const headCells = [
   { id: "MakeID", label: "Make ID" },
   { id: "MakeName", label: "Make Name" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
+// Responsible for creating makes page.
 export default function RegisterMake() {
   const classes = useStyles();
   const [recordForEdit, setRecordForEdit] = useState(null);
@@ -92,16 +95,19 @@ export default function RegisterMake() {
 
   let resultMake = [];
 
+  // Get all make information upon loading the page.
   React.useEffect(() => {
     onLoadGetMakeList();
   }, []);
 
+  // Function to delete make make with its makeID.
   async function onClickDeleteVehicleMake(vID) {
     let result = await deleteVehicleMake(vID);
     alert(`Status : ${result.status}, ${result.body}`);
     onLoadGetMakeList();
   }
 
+  // Function to retrieve all make information.
   async function onLoadGetMakeList() {
     resultMake = await getMakeList();
     let statusCode = resultMake.status;
@@ -115,8 +121,10 @@ export default function RegisterMake() {
     }
   }
 
+  // Creates the make table with a header and a table.
   const { TblContainer, TblHead } = useTable(records, headCells, filterFn);
 
+  // Actions taken when a make is added.
   const addOrEdit = (vehicle, resetForm) => {
     if (vehicle.id == 0) {
       vehicleService.insertVehicle(vehicle);
@@ -136,12 +144,14 @@ export default function RegisterMake() {
     onLoadGetMakeList();
   };
 
+  // Opens the form popup.
   const openInPopup = (item) => {
     setRecordForEdit(item);
     setOpenPopup(true);
     setOpenPopup2(true);
   };
 
+  // When delete action button is pressed.
   const onDelete = (id) => {
     setConfirmDialog({
       ...confirmDialog,
@@ -156,12 +166,14 @@ export default function RegisterMake() {
 
   return (
     <>
+      {/* Structures the make page. */}
       <PageHeader
         title="Register Make"
         icon={<LaptopMacIcon fontSize="large" />}
       />
       <Paper className={classes.pageContent}>
         <Toolbar className={classes.customizeToolbar}>
+          {/* Button to go to subscriptions page. */}
           <Controls.Button
             text="Subscriptions"
             color="#841584"
@@ -169,6 +181,7 @@ export default function RegisterMake() {
             className={classes.subButton}
             onClick={(event) => (window.location.href = "/adminSub")}
           />
+          {/* Button to go to dealers page. */}
           <Controls.Button
             text="Dealers"
             color="#841584"
@@ -176,6 +189,7 @@ export default function RegisterMake() {
             className={classes.dealerButton}
             onClick={(event) => (window.location.href = "/adminDealer")}
           />
+          {/* Button to go to vehicles page. */}
           <Controls.Button
             text="Vehicles"
             color="#841584"
@@ -183,6 +197,7 @@ export default function RegisterMake() {
             className={classes.vehicleButton}
             onClick={(event) => (window.location.href = "/adminVehicle")}
           />
+          {/* Button to go to register dealership page. */}
           <Controls.Button
             text="Register Dealership"
             color="#841584"
@@ -190,6 +205,7 @@ export default function RegisterMake() {
             className={classes.registerDealershipButton}
             onClick={(event) => (window.location.href = "/registerdealership")}
           />
+          {/* Button to open the form for creating vehicle make. */}
           <Controls.Button
             text="Make"
             color="#841584"
@@ -203,16 +219,18 @@ export default function RegisterMake() {
             }}
           />
         </Toolbar>
+        {/* Make table. */}
         <TblContainer>
           <TblHead />
           <TableBody>
+            {/* Maps each make attributes to corresponding columns. */}
             {makeList.map((v) => (
               <TableRow key={v.id}>
                 <TableCell>{v.MakeID}</TableCell>
                 <TableCell>{v.MakeName}</TableCell>
                 <TableCell>
+                  {/* Edit action button. */}
                   <Controls.ActionButton
-                    //edit button color
                     color="success"
                     onClick={() => {
                       openInPopup(v);
@@ -220,6 +238,7 @@ export default function RegisterMake() {
                   >
                     <EditIcon fontSize="small" />
                   </Controls.ActionButton>
+                  {/* Delete action button. */}
                   <Controls.ActionButton
                     onClick={() => {
                       setConfirmDialog({
@@ -241,11 +260,16 @@ export default function RegisterMake() {
           </TableBody>
         </TblContainer>
       </Paper>
+      
+      {/* Popup for create make form. */}
       <Popup title="Make" openPopup={openPopup2} setOpenPopup={setOpenPopup2}>
         <RegisterMakeForm recordForEdit={recordForEdit} addOrEdit={addOrEdit} />
       </Popup>
 
+      {/* Notification when changes are made. */}
       <Notification notify={notify} setNotify={setNotify} />
+      
+      {/* Confirm dialog when delete button is pressed. */}
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
