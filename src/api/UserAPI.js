@@ -1,5 +1,9 @@
 import { database } from "../constants/Environment";
 
+/**
+ * Retrieves all users in the database
+ * @returns user object array
+ */
 export async function getUsersList() {
   try {
     console.log(`Retrieving all the users`);
@@ -14,6 +18,11 @@ export async function getUsersList() {
   }
 }
 
+/**
+ * Get user by UserID
+ * @param {string} userId
+ * @returns user object
+ */
 export async function getUserByUserId(userId) {
   try {
     console.log(`Retrieving user ${userId}`);
@@ -28,6 +37,14 @@ export async function getUserByUserId(userId) {
   }
 }
 
+/**
+ * Create a user to the database
+ * @param {"FirstName": string
+ *         "LastName": string,
+ *         "Email": string
+ *         "UserTypeID": int} User
+ * @returns message string
+ */
 export async function createUser(User) {
   try {
     let response = await fetch(`http://${database}:3000/users`, {
