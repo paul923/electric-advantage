@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, makeStyl
 import Controls from "../components/controls/Controls";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
-
+// Styling for the confirm dialog that appears when action button is pressed.
 const useStyles = makeStyles(theme => ({
     dialog: {
         padding: theme.spacing(2),
@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// Creates a confirm dialog.
 export default function ConfirmDialog(props) {
 
     const { confirmDialog, setConfirmDialog } = props;

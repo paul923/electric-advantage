@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button as MuiButton, makeStyles } from "@material-ui/core";
 
-
+// Styling for buttons.
 const useStyles = makeStyles(theme => ({
     root: {
         margin: theme.spacing(0.5)
@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// Creates a button.
 export default function Button(props) {
 
     const { text, size, color, variant, onClick, ...other } = props

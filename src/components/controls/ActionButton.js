@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, makeStyles } from '@material-ui/core';
 
-
+// Styling for action buttons (Edit, Delete)
 const useStyles = makeStyles(theme => ({
     root: {
         minWidth: 0,
@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+// Creates an action button.
 export default function ActionButton(props) {
 
     const { color, children, onClick } = props;

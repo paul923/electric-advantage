@@ -2,12 +2,14 @@ import React from 'react'
 import { Snackbar, makeStyles } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
+// Styling for notifications when an action is made.
 const useStyles = makeStyles(theme => ({
     root: {
         top: theme.spacing(9)
     }
 }))
 
+// Creates a notification.
 export default function Notification(props) {
 
     const { notify, setNotify } = props;

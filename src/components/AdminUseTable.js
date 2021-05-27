@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Table, TableHead, TableRow, TableCell, makeStyles, TablePagination, TableSortLabel } from '@material-ui/core'
 
+// Structures for tables in admin pages.
 const useStyles = makeStyles(theme => ({
     table: {
         marginTop: theme.spacing(3),
@@ -16,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+// Sets up the table to be used in admin pages.
 export default function useTable(records, headCells,filterFn) {
 
     const classes = useStyles();
@@ -60,6 +62,7 @@ export default function useTable(records, headCells,filterFn) {
         </TableHead>)
     }
 
+    // When changes are made, e.g. switch to a different table page.
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     }
@@ -69,6 +72,10 @@ export default function useTable(records, headCells,filterFn) {
         setPage(0);
     }
 
+    /* 
+     * Table pagination to set number of item to show per page, and change the page. 
+     * Feature that is currently taken out of the app.
+     */
     const TblPagination = () => (<TablePagination
         component="div"
         page={page}
@@ -79,6 +86,7 @@ export default function useTable(records, headCells,filterFn) {
         onChangeRowsPerPage={handleChangeRowsPerPage}
     />)
 
+    // Function to sort the database on each column.
     function stableSort(array, comparator) {
         const stabilizedThis = array.map((el, index) => [el, index]);
         stabilizedThis.sort((a, b) => {
@@ -89,12 +97,14 @@ export default function useTable(records, headCells,filterFn) {
         return stabilizedThis.map((el) => el[0]);
     }
 
+    // Choose between descending or ascending sort.
     function getComparator(order, orderBy) {
         return order === 'desc'
             ? (a, b) => descendingComparator(a, b, orderBy)
             : (a, b) => -descendingComparator(a, b, orderBy);
     }
 
+    // Function to sort in descending order.
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {
             return -1;
@@ -105,11 +115,13 @@ export default function useTable(records, headCells,filterFn) {
         return 0;
     }
 
+    // Records the sorted result.
     const recordsAfterPagingAndSorting = () => {
         return stableSort(filterFn.fn(records), getComparator(order, orderBy))
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
 
+    // Returns the sorted result.
     return {
         TblContainer,
         TblHead,

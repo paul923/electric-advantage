@@ -3,6 +3,7 @@ import { Dialog, DialogTitle, DialogContent, makeStyles, Typography } from '@mat
 import Controls from "../components/controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 
+// Styling for popup 3 used in admin page.
 const useStyles = makeStyles(theme => ({
     dialogWrapper: {
         padding: theme.spacing(2),
@@ -14,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// Creates the popup 3 used in admin page.
 export default function Popup3(props) {
 
     const { title, children, openPopup3, setOpenPopup3 } = props;
