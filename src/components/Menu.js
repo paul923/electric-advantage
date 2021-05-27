@@ -34,8 +34,10 @@ export default function Menu() {
             {userType === "DEALERSHIP" && dealerObjectId === null ? (
               <NavLink to="/dealerprofile"  activeStyle>
                 Dealership
+
               </NavLink>
-            ) : userType === "ADMIN" ? (
+              
+            ): userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
               </NavLink>

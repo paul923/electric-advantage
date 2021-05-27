@@ -69,12 +69,11 @@ const SearchResult = ({ location }) => {
                 </tbody>
               </Table>
 
-              <a
-                href={`/search-detail/${vehicle.InventoryID}`}
-                className="nav-search"
-              >
-                <Button className="carDetailsButton">Details</Button>
-              </a>
+                <Button className="carDetailsButton">
+                <a href={`/search-detail/${vehicle.InventoryID}`}>
+                  </a>
+                  Details
+                  </Button>
             </div>
           ))
         ) : (

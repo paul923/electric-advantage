@@ -2,15 +2,12 @@ import React, { useState } from 'react'
 import SubscriptionForm from "./SubscriptionForm";
 import PageHeader from "../../components/AdminPageHeader";
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar } from '@material-ui/core';
 import useTable from  "../../components/AdminUseTable";
 import * as subscriptionService from "./subscriptionService";
 import Controls from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../components/AdminPopup";
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
 import Notification from "../../components/AdminNotification";
 import ConfirmDialog from "../../components/AdminConfirmDialog";
 import {
@@ -22,12 +19,36 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(5),
         padding: theme.spacing(3)
     },
-    searchInput: {
-        width: '75%'
-    },
     newButton: {
         position: 'absolute',
-        right: '10px'
+        right: '3vw',
+        marginBottom: 30
+    },
+    makeButton: {
+        position: 'absolute',
+        left: '31.5vw',
+        marginBottom: 30
+    },
+    dealerButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '4vw',
+        marginBottom: 30
+    },
+    vehicleButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '13vw',
+        marginBottom: 30
+    },
+    modelButton: {
+        position: 'absolute',
+        //lower the number, the more left
+        left: '22.5vw',
+        marginBottom: 30
+    },
+    customizeToolbar: {
+        minHeight: 20
     }
 }))
 
@@ -36,7 +57,7 @@ const headCells = [
     { id: 'planID', label: 'Plan ID' }, 
     { id: 'subPlan', label: 'Subscription Plan' }, 
     { id: 'pricing', label: 'Pricing' }, 
-    // { id: 'actions', label: 'Actions', disableSorting: true }
+    { id: 'billing', label: 'Billing Cycle' },
 ]
 
 export default function Subscriptions() {
@@ -47,11 +68,7 @@ export default function Subscriptions() {
     const [openPopup, setOpenPopup] = useState(false)
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-
     const [subscriptionPlans, setSubscriptionPlans] = React.useState([]);
-    const [planID, setPlanID] = React.useState(1);
-    const [planName, setPlanName] = React.useState("test");
-    const [pricing, setPricing] = React.useState(0.99);
     const [subList, setSubList] = React.useState([]);
 
     let resultSubscriptionPlan  = [];
@@ -73,11 +90,11 @@ export default function Subscriptions() {
                             planID: sub["PlanID"],
                             planName: sub["PlanName"],
                             pricing: "$" + sub["Pricing"],
+                            billing: sub["Billing"]
                         };
                     })
                 );
             } else setSubList([]);
-
             setSubscriptionPlans(body);
         } else {
             alert(`Status : ${statusCode}, ${resultSubscriptionPlan.error}`);
@@ -87,55 +104,24 @@ export default function Subscriptions() {
     const {
         TblContainer,
         TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
-    const handleSearch = e => {
-        let target = e.target;
-        setFilterFn({
-            fn: items => {
-                if (target.value == "")
-                    return items;
-                else
-                    return items.filter(x => x.dealerID.toLowerCase().includes(target.value))
-            }
-        })
-    }
-
     const addOrEdit = (subscription, resetForm) => {
-        if (subscription.id == 0)
-        subscriptionService.insertSubscription(subscription)
-        else
-        subscriptionService.updateSubscription(subscription)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setRecords(subscriptionService.getAllSubscriptions())
-        setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
-    }
-
-    const openInPopup = item => {
-        setRecordForEdit(item)
-        setOpenPopup(true)
-    }
-
-    const onDelete = id => {
-        setConfirmDialog({
-            ...confirmDialog,
-            isOpen: false
-        })
-        subscriptionService.deleteSubscription(id);
-        setRecords(subscriptionService.getAllSubscriptions())
-        setNotify({
-            isOpen: true,
-            message: 'Deleted Successfully',
-            type: 'error'
-        })
+        if (subscription.id == 0) {
+            subscriptionService.insertSubscription(subscription);
+            onLoadGetAllSubscriptionPlans();
+        } else
+            subscriptionService.updateSubscription(subscription);
+            resetForm();
+            setRecordForEdit(null);
+            setOpenPopup(false);
+            setRecords(subscriptionService.getAllSubscriptions());
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully',
+                type: 'success'
+            });
+            onLoadGetAllSubscriptionPlans();
     }
 
     return (
@@ -147,24 +133,48 @@ export default function Subscriptions() {
             />
             <Paper className={classes.pageContent}>
 
-                <Toolbar>
-                    <Controls.Input
-                        label="Search Subscriptions"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
+            <Toolbar className={classes.customizeToolbar}>
+
+                <Controls.Button
+                        text="Dealers"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.dealerButton}
+                        onClick={event =>  window.location.href='/adminDealer'}
                     />
+                <Controls.Button
+                        text="Vehicles"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.vehicleButton}
+                        onClick={event =>  window.location.href='/adminVehicle'}
+                    />
+                    <Controls.Button
+                        text="Models"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.modelButton}
+                        onClick={event =>  window.location.href='/adminModel'}
+                    />
+                    <Controls.Button
+                        text="Makes"
+                        color="#841584"
+                        variant="outlined"
+                        className={classes.makeButton}
+                        onClick={event =>  window.location.href='/adminMake'}
+                    />
+                   
+                    
                     <Controls.Button
                         text="Add New"
                         color="#841584"
                         variant="outlined"
                         startIcon={<AddIcon />}
                         className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+                        onClick={() => { 
+                            setOpenPopup(true); 
+                            setRecordForEdit(null); 
+                        }}
                     />
                 </Toolbar>
                 <TblContainer>
@@ -177,32 +187,12 @@ export default function Subscriptions() {
                                     <TableCell>{list.planID}</TableCell>
                                     <TableCell>{list.planName}</TableCell>
                                     <TableCell>{list.pricing}</TableCell>
-                                    {/* <TableCell>
-                                        <Controls.ActionButton
-                                        //edit button color
-                                            color="success"
-                                            onClick={() => { openInPopup(list) }}>
-                                            <EditIcon fontSize="small" />
-                                        </Controls.ActionButton>
-                                        <Controls.ActionButton
-                                            
-                                            onClick={() => {
-                                                setConfirmDialog({
-                                                    isOpen: true,
-                                                    title: 'Confirm you wish to delete',
-                                                    subTitle: "You cannot undo this",
-                                                    onConfirm: () => { onDelete(list.id) }
-                                                })
-                                            }}>
-                                            <CloseIcon fontSize="small" />
-                                        </Controls.ActionButton>
-                                    </TableCell> */}
+                                    <TableCell>{list.billing}</TableCell>
                                 </TableRow>)
                             )
                         }
                     </TableBody>
                 </TblContainer>
-                <TblPagination />
             </Paper>
             <Popup
                 title="Add a new Subscription"

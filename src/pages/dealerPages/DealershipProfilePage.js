@@ -46,6 +46,7 @@ export default function DealershipProfilePage() {
           %0AUser id: ${userObject.UserID}
           `}
           >Dealership Registeration</a>
+
       </>
     );
   };

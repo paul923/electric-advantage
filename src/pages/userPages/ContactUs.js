@@ -9,20 +9,7 @@ const ContactUs = () => {
     return (
 
         <div className = "contactus">
-            <img src={background} alt="background" className="background" />
-            <h1>Contact Us</h1>
-
-        <div className = "textArea">
-            <textarea placeholder='Send us a message..'></textarea>
-        </div>
-            <Button className="btn-send"
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                Send
-        </Button>
+            <h10>Currently out of service</h10>
         </div>
 
 

@@ -1,11 +1,9 @@
+
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/landing.css";
 import { getMakeList } from "../../api/VehicleAPI";
-import {
-  getDealershipsInventoryCountingsByRegion,
-  getCountingsList,
-} from "../../api/MiscAPI";
+import { getRegionsList, getCountingsList } from "../../api/MiscAPI";
 import SearchBar from "../../components/SearchBar";
 import carImage1 from "../../images/kia.jpg";
 import carImage2 from "../../images/bmw.jpg";
@@ -16,7 +14,6 @@ import { Table } from "react-bootstrap";
 export default function LandingPage() {
   const [countings, setCountings] = React.useState([]);
   const [selectedRegion, setSelectedRegion] = React.useState([]);
-  const [inventoryCountArray, setInventoryCountArray] = React.useState([]);
 
   React.useEffect(() => {
     onLoadGetCountingsList();
@@ -29,45 +26,37 @@ export default function LandingPage() {
       let body = resultCountList.body;
       setCountings(body);
       setSelectedRegion(body[0]);
-      // onChangeGetDealershipInventoryCountingsByRegion(body[0]);
     } else {
       alert(`Status : ${statusCode}, ${resultCountList.error}`);
     }
   }
 
-  async function onChangeGetDealershipInventoryCountingsByRegion(region) {
-    let resultList = await getDealershipsInventoryCountingsByRegion(
-      region.RegionCode
-    );
-    let statusCode = resultList.status;
-    if (statusCode === 200) {
-      let body = resultList.body;
-      setInventoryCountArray(body);
-    } else {
-      console.error(`Status : ${statusCode}, ${resultList.error}`);
-      setInventoryCountArray([]);
-    }
-  }
-
-  const renderCard = (obj, index) => {
-    if (index < 3)
-      return (
-        <div className="dealerCard">
-          <div className="dealerImageContainer">
-            <img src={carImage1} className="dealerImage" />
-          </div>
-
-          <Table striped hover className="dealerTable">
-            <tbody>
-              <tr>
-                <td>{obj.GroupName}</td>
-                <td className="inventory">Inventory: {obj.InventoryCount}</td>
-              </tr>
-            </tbody>
-          </Table>
+  const renderCard = (card, index) => {
+    return (
+      <div className="dealerCard">
+        <div className="dealerImageContainer">
+          <img src={card.image} className="dealerImage" />
         </div>
-      );
+
+        <Table striped hover className="dealerTable">
+          <tbody>
+            <tr>
+              <td>{card.name}</td>
+              <td className="inventory">Inventory: {card.number}</td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+    );
   };
+
+  const cardInfo = [
+    { image: carImage1, name: "Downtown Kia", number: "50" },
+    { image: carImage2, name: "Brian Jessel Downtown", number: "37" },
+    { image: carImage3, name: "Jim Pattison Downtown", number: "2" },
+    { image: carImage4, name: "Ford Downtown", number: "28" },
+    
+  ];
 
   return (
     <body>
@@ -76,9 +65,6 @@ export default function LandingPage() {
           className="regionSelect"
           onChange={(e) => {
             setSelectedRegion(JSON.parse(e.target.value));
-            onChangeGetDealershipInventoryCountingsByRegion(
-              JSON.parse(e.target.value)
-            );
           }}
         >
           {countings.map((region) => {
@@ -93,28 +79,26 @@ export default function LandingPage() {
 
       <div className="banner">
         <div className="countBox">
-          <div className="value">{selectedRegion.DealershipCount}</div>
+          <div className="value" style={{ fontSize: "25pt" }}>
+            {selectedRegion.DealershipCount}</div>
           <div className="category">Dealerships</div>
         </div>
         <div className="countBox">
-          <div className="value" style={{ fontSize: "45pt" }}>
+          <div className="value" style={{ fontSize: "25pt" }}>
             {selectedRegion.UsedCount}
           </div>
           <div className="category">New Cars</div>
         </div>
         <div className="countBox">
-          <div className="value">{selectedRegion.NewCount}</div>
+          <div className="value" style={{ fontSize: "25pt" }}
+          >{selectedRegion.NewCount}</div>
           <div className="category">Used Cars</div>
         </div>
       </div>
 
       <div className="dealerResults">
-        <h2 style={{ color: "#207567" }}>Top 3 Dealerships in this Region</h2>
-        {inventoryCountArray.length > 0 ? (
-          inventoryCountArray.map(renderCard)
-        ) : (
-          <h3>No Dealerships found in this region :(</h3>
-        )}
+        <h2 style={{ color: "#207567", fontSize: "22pt" }}>Top 4 Dealerships in your Region</h2>
+        {cardInfo.map(renderCard)}
       </div>
 
       <SearchBar />
@@ -205,3 +189,6 @@ export default function LandingPage() {
     </body>
   );
 }
+
+
+
