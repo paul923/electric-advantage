@@ -11,16 +11,6 @@ const adminMenu = () => {
     return (
       <ul>
         <li>
-          <NavLink exact to="/adminMake" activeStyle={activeStyle}>
-            Make
-          </NavLink>
-        </li>
-        <li>
-          <NavLink exact to="/adminModel" activeStyle={activeStyle}>
-            Model
-          </NavLink>
-        </li>
-        <li>
           <NavLink exact to="/adminVehicle" activeStyle={activeStyle}>
             Vehicles
           </NavLink>

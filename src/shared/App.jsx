@@ -99,11 +99,11 @@ export default class App extends Component {
               gdf
               <Route path="/search-detail" component={SearchDetail} />
             </Switch>
-            <AdminPrivateRoute path="/admin" component={AdminMenu} />
+            {/* <AdminPrivateRoute path="/admin" component={AdminMenu} /> */}
 
+            <AdminPrivateRoute path="/adminDealer" component={Dealers} />
             <AdminPrivateRoute path="/adminSub" component={Subscriptions} />
             <AdminPrivateRoute path="/adminVehicle" component={Vehicles} />
-            <AdminPrivateRoute path="/adminDealer" component={Dealers} />
             <AdminPrivateRoute path="/adminMake" component={RegisterMake} />
             <AdminPrivateRoute path="/adminModel" component={RegisterModel} />
             <AdminPrivateRoute
@@ -111,7 +111,7 @@ export default class App extends Component {
               component={DealershipSignUp}
             />
 
-            <Route path="/z" component={Subscriptions} />
+            <Route path="/z" component={Vehicles} />
 
             <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
             <DealershipPrivateRoute

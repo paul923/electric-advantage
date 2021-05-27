@@ -69,6 +69,9 @@ export default function RegisterModelForm(props) {
       ModelName: modelName,
     };
     let result = await registerModelWithMakeID(modelObj, selectedMakeID);
+    if (result.status !== 201) {
+      alert("Failed to create the model. Please try again later.");
+    }
     console.log(`Status : ${result.status}, ${result.body}`);
   }
 
@@ -80,7 +83,7 @@ export default function RegisterModelForm(props) {
     };
     let result = await updateVehicleModel(selectedMakeID, modelID, modelObj);
     if (result.status !== 200) {
-      alert("Failed to update the make. Please try again later.");
+      alert("Failed to update the model. Please try again later.");
     }
     console.log(`Status : ${result.status}, ${result.body}`);
   }
@@ -101,7 +104,7 @@ export default function RegisterModelForm(props) {
       if (isEmpty(selectedMakeID) || isEmpty(modelID) || isEmpty(modelName)) {
         alert("Values cannot be empty!");
       } else {
-        await onClickRegisterModelWithMakeID()();
+        await onClickRegisterModelWithMakeID();
         if (validate()) {
           addOrEdit(values, resetForm);
         }

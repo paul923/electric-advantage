@@ -1,6 +1,4 @@
-import React, {
-  useState
-} from "react";
+import React, { useState } from "react";
 import {
   Nav,
   NavLink,
@@ -27,7 +25,7 @@ export default function Menu() {
                 Dealership
               </NavLink>
             ) : userType === "ADMIN" ? (
-              <NavLink to="/admin" activeStyle>
+              <NavLink to="/adminDealer" activeStyle>
                 Admin
               </NavLink>
             ) : userType === "DEALERSHIP" && dealerObjectId !== null ? (

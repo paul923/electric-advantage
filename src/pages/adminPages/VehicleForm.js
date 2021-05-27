@@ -72,8 +72,8 @@ export default function VehicleForm(props) {
     let vehicleObj = {
       VehicleID: vehicleID,
       ModelID: selectedModelID,
-      EVRange: !evRange && 0,
-      BatterySize: !batterySize && 0,
+      EVRange: !evRange ? 0 : evRange,
+      BatterySize: !batterySize ? 0 : batterySize,
       Trim: trim,
       Year: !year && 0,
     };

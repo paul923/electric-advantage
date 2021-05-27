@@ -8,9 +8,8 @@ import { getDealershipByUserID } from "../api/DealershipAPI";
 import { NavLink } from "./pageComponents/NavbarElements";
 import PageHeader from "../components/AdminPageHeader";
 import CreateIcon from "@material-ui/icons/Create";
-import { Box, MenuItem, FormHelperText   } from "@material-ui/core";
-import Select from '@material-ui/core/Select';
-
+import { Box, MenuItem, FormHelperText } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
 
 export default function DealershipProfilePage() {
   const history = useHistory();
@@ -34,7 +33,6 @@ export default function DealershipProfilePage() {
   const { userObject } = useAuth();
   const [searchedUser, setSearchedUser] = useState(null);
 
-
   async function GetDealerObjectId(id) {
     let resultUser = await getDealershipByUserID(id);
     let statusCode = resultUser.status;
@@ -48,7 +46,6 @@ export default function DealershipProfilePage() {
       }
     }
   }
-  
 
   async function onPressCreateDealership() {
     let dealershipObj = {
@@ -76,7 +73,6 @@ export default function DealershipProfilePage() {
     }
   }
 
-
   const createDealershipForm = () => {
     return (
       <>
@@ -87,19 +83,19 @@ export default function DealershipProfilePage() {
         <body className="contentWrapper">
           <form className="dealerRegistrationForm">
             <Box mt={2} pt={2}>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={regionCode}
-              onChange={(event) => setRegionCode(event.target.value)}
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={regionCode}
+                onChange={(event) => setRegionCode(event.target.value)}
               >
-              <MenuItem value={"CBC001"}>CBC001</MenuItem>
-              <MenuItem value={"CBC002"}>CBC002</MenuItem>
-              <MenuItem value={"CBC003"}>CBC003</MenuItem>
-              <MenuItem value={"CBC004"}>CBC004</MenuItem>
-            </Select>
-            <FormHelperText>Region Code</FormHelperText>
-        </Box>
+                <MenuItem value={"CBC001"}>CBC001</MenuItem>
+                <MenuItem value={"CBC002"}>CBC002</MenuItem>
+                <MenuItem value={"CBC003"}>CBC003</MenuItem>
+                <MenuItem value={"CBC004"}>CBC004</MenuItem>
+              </Select>
+              <FormHelperText>Region Code</FormHelperText>
+            </Box>
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
@@ -243,11 +239,13 @@ export default function DealershipProfilePage() {
               >
                 Create Dealership
               </Button>
-              <NavLink to="/admin" activeStyle>
-                <Button variant="contained" color="primary">
-                  Back
-                </Button>
-              </NavLink>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => window.history.back()}
+              >
+                Back
+              </Button>
             </div>
           </form>
         </body>

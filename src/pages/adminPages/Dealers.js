@@ -31,12 +31,7 @@ const useStyles = makeStyles((theme) => ({
     right: "10px",
     marginBottom: 30,
   },
-  modelButton: {
-    position: "absolute",
-    right: "48vw",
-    marginBottom: 30,
-  },
-  makeButton: {
+  registerDealershipButton: {
     position: "absolute",
     left: "22vw",
     marginBottom: 30,
@@ -163,6 +158,13 @@ export default function Vehicles() {
             variant="outlined"
             className={classes.vehicleButton}
             onClick={(event) => (window.location.href = "/adminVehicle")}
+          />
+          <Controls.Button
+            text="Register Dealership"
+            color="#841584"
+            variant="outlined"
+            className={classes.registerDealershipButton}
+            onClick={(event) => (window.location.href = "/registerdealership")}
           />
         </Toolbar>
         <TblContainer>

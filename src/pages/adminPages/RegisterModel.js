@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     right: "3vw",
     marginBottom: 30,
   },
-  makeButton: {
+  registerDealershipButton: {
     position: "absolute",
     left: "35vw",
     marginBottom: 30,
@@ -188,11 +188,11 @@ export default function RegisterModel() {
             onClick={(event) => (window.location.href = "/adminVehicle")}
           />
           <Controls.Button
-            text="Makes"
+            text="Register Dealership"
             color="#841584"
             variant="outlined"
-            className={classes.makeButton}
-            onClick={(event) => (window.location.href = "/adminMake")}
+            className={classes.registerDealershipButton}
+            onClick={(event) => (window.location.href = "/registerdealership")}
           />
 
           <Controls.Button

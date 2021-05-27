@@ -109,6 +109,9 @@ export default function Vehicles() {
 
   async function onClickDeleteVehicleByID(vID) {
     let result = await deleteVehicleByID(vID);
+    if (result.status === 200) {
+      onLoadGetAllAvailableVehicles();
+    }
     alert(`Status : ${result.status}, ${result.body}`);
   }
 
@@ -200,7 +203,6 @@ export default function Vehicles() {
             variant="outlined"
             className={classes.button1}
             onClick={(event) => (window.location.href = "/adminMake")}
-            // onClick={() => { setOpenPopup2(true); setRecordForEdit2(null); }}
           />
           <Controls.Button
             text="Model"
@@ -226,7 +228,7 @@ export default function Vehicles() {
           <TblHead />
           <TableBody>
             {vehicleList.map((v) => (
-              <TableRow key={v.id}>
+              <TableRow key={v.VehicleID}>
                 <TableCell>{v.VehicleID}</TableCell>
                 <TableCell>{v.ModelID}</TableCell>
                 <TableCell>{v.PriceLower}</TableCell>
@@ -243,7 +245,7 @@ export default function Vehicles() {
                         title: `Deleting ${v.VehicleID} will remove anything that relates to ${v.VehicleID} such as inventory`,
                         subTitle: `Do you want to delete?`,
                         onConfirm: () => {
-                          onClickDeleteVehicleByID(v.vehicleID);
+                          onClickDeleteVehicleByID(v.VehicleID);
                           onDelete();
                         },
                       });
