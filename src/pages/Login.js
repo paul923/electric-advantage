@@ -48,10 +48,11 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
+            <div className="w-100 text-center mt-3">
             <Button disabled={loading} className="w-1000" type="submit">
-             
               Log In
             </Button>
+            </div>
 
           </Form>
           <div className="w-100 text-center mt-3">
