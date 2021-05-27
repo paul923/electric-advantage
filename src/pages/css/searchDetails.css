@@ -1,39 +1,68 @@
+.searchDetailsBody {
+    max-width: 100%;
+}
+
+.detailsHeader {
+    margin-bottom: 5vh;
+}
+
 .carDetailsImage {
-    width: 30vw;
+    width: 25vw;
     height: 30vh;
-    margin-top: 1vh;
-    margin-left: 3vw;
+    margin-left: 10vw;
   }
   
-  .carDetailsWithImage {
+.carDetailsWithImage {
     position: relative;
-    height: 50%;
-    width: 95%;
+    width: 100%;
     text-align: left;
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    margin: 0 auto;
-    vertical-align: top;
-  }
-  
-  .carDetails,
-  .carSpecific {
+    grid-template-columns: auto auto;
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+
+.detailsCard {
+    margin-right: 10vw;
+}
+
+.carDetails {
     position: relative;
-    height: 50%;
-    width: 95%;
     text-align: left;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: auto auto;
     grid-template-rows: auto auto auto auto auto auto;
+}
+
+.carAttributes,
+.carSpecific {
+    position: relative;
+    text-align: left;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vh;
+}
+
+.additionalInfo {
+    width: 30vw;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
     margin: 0 auto;
-    vertical-align: top;
-  }
-  
-  .additionalInfo {
-    max-width: 30vw;
-  }
-  
-  .infoCard {
-    margin-top: 5vh;
-  }
-  
+}
+
+.groupName,
+.salesCont,
+.salesEmail,
+.salesPhone {
+    text-align: center;
+    margin-top: 0.5vh;
+    font-size: 1.5vh;
+}
+
+.cardHeader {
+    position: relative;
+    text-align: center;
+    font-size: 2.5vh;
+    /* background-color: rgb(27, 118, 204);
+    color: white; */
+}
