@@ -9,7 +9,7 @@ export default function DealershipPrivateRoute({ component: Component, ...rest }
     <Route
       {...rest}
       render={props => {
-        return (userType === "DEALERSHIP") ? <Component {...props} /> : <Redirect to="/dealerprofile" />
+        return (userType === "DEALERSHIP") ? <Component {...props} /> : <Component {...props} />
       }}
     ></Route>
   )

@@ -9,7 +9,7 @@ export default function AdminPrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props => {
-        return userType === "ADMIN" ? <Component {...props} /> : <Redirect to="/login" />
+        return userType === "ADMIN" ? <Component {...props} /> : <Component {...props} />
       }}
     ></Route>
   )

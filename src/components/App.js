@@ -11,24 +11,62 @@ import UpdateProfile from "./UpdateProfile"
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Router>
+    <CoordinateContext.Provider value={this.state.coordinate}>
+        <div style={{ padding: "4vh" }}>
+          <Menu />
           <AuthProvider>
-            <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-            </Switch>
+
+          <Route exact path="/" component={Landing} />
+          <Switch>
+            <Route path="/about/:name" component={AboutPage} />
+            <Route path="/about" component={AboutPage} />
+          </Switch>
+          <Route path="/posts" component={PostsPage} />
+          <Switch>
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/forgot-password" component={ForgotPassword} />
+          </Switch>
+
+          <Switch>
+            <Route path="/who-we-are" component={WhoWeAre} />
+            <Route path="/contact-us" component={ContactUs} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/search-result" component={SearchResult} />
+          </Switch>
+
+          <Switch>
+            <Route
+              path="/search-detail/:inventoryID"
+              component={SearchDetail}
+            />gdf
+            <Route path="/search-detail" component={SearchDetail} />
+          </Switch>
+          <Route path="/api-test" component={TestingPage} />
+          <AdminPrivateRoute path="/admin" component={AdminMenu} />
+          <AdminPrivateRoute path="/1" component={Subscriptions} />
+          <AdminPrivateRoute path="/2" component={Vehicles} />
+          <AdminPrivateRoute path="/3" component={Dealers} />
+          <AdminPrivateRoute path="/4" component={RegisterMake} />
+          <AdminPrivateRoute path="/5" component={RegisterModel} />
+          <AdminPrivateRoute path="/6" component={DealershipSignUp} />
+
+          <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
+          <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />
+          <DealershipPrivateRoute
+            path="/subscription"
+            component={Subscription}
+          />
+          <DealershipPrivateRoute path="/inventory" component={Inventory} />
+          <DealershipPrivateRoute
+            path="/dealerprofile"
+            component={DealershipProfilePage}
+          />
+          <DealershipPrivateRoute path="/addList" component={AddList} />
           </AuthProvider>
-        </Router>
-      </div>
-    </Container>
+
+        </div>
+      </CoordinateContext.Provider>
   )
 }
 

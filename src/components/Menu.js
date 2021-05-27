@@ -14,20 +14,13 @@ import {
 } from "../pages/pageComponents/NavbarElements";
 import logo from "../images/ELECTRIC-ADVANTAGE-logo.png";
 import { useAuth } from "./AuthContext";
-import { Button, TextField } from "@material-ui/core";
 
-const Menu = () => {
+
+export default function Menu() {
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("");
   const { currentUser, userType, logout, dealerObjectId } = useAuth();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      makeMenu();
-    });
-
-    return unsubscribe;
-  }, []);
 
   const makeMenu = () => {
     return (
@@ -39,15 +32,16 @@ const Menu = () => {
           <Bars />
           <NavMenu>
             {userType === "DEALERSHIP" && dealerObjectId === null ? (
-              <NavLink to="/dealerprofile" activeStyle>
-                Register Dealership
+              <NavLink to="/dealerprofile"  activeStyle>
+                Dealership
+
               </NavLink>
               
             ): userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
               </NavLink>
-            ) : userType === "DEALERSHIP" ? (
+            ) : userType === "DEALERSHIP" && dealerObjectId !== null ? (
               <NavLink to="/dealer" activeStyle>
                 Dealership
               </NavLink>
@@ -83,4 +77,3 @@ const Menu = () => {
   return <div>{makeMenu()}</div>;
 };
 
-export default Menu;

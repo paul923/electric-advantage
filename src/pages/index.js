@@ -4,6 +4,7 @@ export { default as Post } from "./PostPage";
 export { default as TestingPage } from "./TestingPage";
 export { default as ForbiddenPage } from "./ForbiddenPage";
 export { default as Signup } from "./Signup";
+export { default as DealershipSignUp } from "./DealershipSignUp";
 export { default as Login } from "./Login";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Updateprofile } from "./UpdateProfile";
