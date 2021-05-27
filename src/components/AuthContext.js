@@ -55,8 +55,6 @@ export function AuthProvider({ children }) {
       if (statusCode === 200) {
         let body = resultUser.body[0];
         setSearchedUser(body);
-        console.log("usertypeId")
-        console.log(body.UserTypeID)
         setUserType(body.UserTypeID)
       }
     }
@@ -71,12 +69,8 @@ export function AuthProvider({ children }) {
       if (statusCode === 200) {
         let body = resultUser.body[0];
         setSearchedUser(body);
-        console.log("userobject")
-        console.log(body)
         setUserObject(body)
-      } else {
-        alert(`Get UserObj Status : ${statusCode}, ${resultUser.error}`);
-      }
+      } 
     }
   }
 
@@ -86,16 +80,13 @@ export function AuthProvider({ children }) {
     if (statusCode === 404) {
       setDealerObjectId(null)
     } else {
-
       if (statusCode === 200) {
         let body = resultUser.body[0];
         setSearchedUser(body);
         console.log("dealerobject")
         console.log(body)
         setDealerObjectId(body.DealershipID)
-      } else {
-        alert(`Status : ${statusCode}, ${resultUser.error}`);
-      }
+      } 
     }
   }
 
@@ -103,13 +94,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
-      console.log(user)
       if (user) {
       GetDealerObjectId(user.uid)
       GetUserType(user.uid)
       GetUserObject(user.uid)
     }
-      
       setLoading(false)
     })
 

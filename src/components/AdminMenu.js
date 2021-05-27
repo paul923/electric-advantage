@@ -40,9 +40,7 @@ const adminMenu = () => {
             Register Dealership
           </NavLink>
         </li>
-
       </ul>
-     
       <hr />
     </div>
   );

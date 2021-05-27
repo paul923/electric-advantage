@@ -2,7 +2,6 @@ export { default as AboutPage } from "./AboutPage";
 export { default as PostsPage } from "./PostsPage";
 export { default as Post } from "./PostPage";
 export { default as TestingPage } from "./TestingPage";
-export { default as ForbiddenPage } from "./ForbiddenPage";
 export { default as Signup } from "./Signup";
 export { default as DealershipSignUp } from "./DealershipSignUp";
 export { default as Login } from "./Login";

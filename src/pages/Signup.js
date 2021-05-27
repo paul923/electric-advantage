@@ -55,6 +55,7 @@ export default function Signup() {
     await createUser(userObj);
   }
 
+  
   return (
     <>
       <Card>
@@ -72,7 +73,7 @@ export default function Signup() {
               onChange={(event) => {
                 setUserType(event.target.value);
               }}   
-                       >
+              >
               <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
               <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
             </Select>

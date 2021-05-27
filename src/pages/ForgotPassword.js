@@ -22,7 +22,6 @@ export default function ForgotPassword() {
     } catch {
       setError("Failed to reset password")
     }
-
     setLoading(false)
   }
 

@@ -1,9 +1,9 @@
 import React from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route } from "react-router-dom"
 import { useAuth } from "./AuthContext"
 
 export default function DealershipPrivateRoute({ component: Component, ...rest }) {
-  const { currentUser, userType, dealerObjectId } = useAuth()
+  const { userType } = useAuth()
 
   return (
     <Route

@@ -1,11 +1,6 @@
 import React, {
-  useContext,
-  useState,
-  useEffect,
-  componentDidMount,
-  componentDidUpdate,
+  useState
 } from "react";
-import { auth } from "../firebase";
 import {
   Nav,
   NavLink,
@@ -17,8 +12,6 @@ import { useAuth } from "./AuthContext";
 
 
 export default function Menu() {
-  const [searchedUser, setSearchedUser] = useState(null);
-  const [userId, setUserId] = useState("");
   const { currentUser, userType, logout, dealerObjectId } = useAuth();
 
 
@@ -34,9 +27,7 @@ export default function Menu() {
             {userType === "DEALERSHIP" && dealerObjectId === null ? (
               <NavLink to="/dealerprofile"  activeStyle>
                 Dealership
-
               </NavLink>
-              
             ): userType === "ADMIN" ? (
               <NavLink to="/admin" activeStyle>
                 Admin
@@ -46,7 +37,6 @@ export default function Menu() {
                 Dealership
               </NavLink>
             ) : null}
-
             <NavLink to="/api-test" activeStyle>
               API Testing
             </NavLink>
