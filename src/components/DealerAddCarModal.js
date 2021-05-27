@@ -81,6 +81,7 @@ const DealerAddCarModal = ({
       setModelList(body);
     } else {
       alert(`Status : ${statusCode}!\nThere will are no models to select.`);
+      setModelList([]);
       setModelDisabled(true);
       setTrimDisabled(true);
     }
@@ -148,9 +149,10 @@ const DealerAddCarModal = ({
           carPrice: carPrice,
           carColor: carColor,
           info: carInfo,
-          carCondition: carCondition,
+          carCondition: selectedCondition,
           images: carImgs,
           carID: carID,
+          colorID: selectedColorID,
         },
       ]);
 
@@ -176,6 +178,7 @@ const DealerAddCarModal = ({
                 getModelList(e.target.value);
                 setSelectedModelID("");
                 setVehicleID("");
+                setTrimList([]);
               }}
               as="select"
               value={selectedMakeID}
@@ -238,9 +241,6 @@ const DealerAddCarModal = ({
           <Form.Group>
             <Form.Control
               onChange={(e) => {
-                let index = e.target.selectedIndex;
-                let label = e.target[index].text;
-                setCarCondition(label);
                 setSelectedCondition(e.target.value);
               }}
               as="select"
