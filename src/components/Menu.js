@@ -1,11 +1,6 @@
 import React, {
-  useContext,
-  useState,
-  useEffect,
-  componentDidMount,
-  componentDidUpdate,
+  useState
 } from "react";
-import { auth } from "../firebase";
 import {
   Nav,
   NavLink,
@@ -16,8 +11,6 @@ import logo from "../images/ELECTRIC-ADVANTAGE-logo.png";
 import { useAuth } from "./AuthContext";
 
 export default function Menu() {
-  const [searchedUser, setSearchedUser] = useState(null);
-  const [userId, setUserId] = useState("");
   const { currentUser, userType, logout, dealerObjectId } = useAuth();
 
   const makeMenu = () => {
@@ -42,7 +35,6 @@ export default function Menu() {
                 Dealership
               </NavLink>
             ) : null}
-
             <NavLink to="/who-we-are" activeStyle>
               Our History
             </NavLink>

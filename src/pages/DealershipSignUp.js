@@ -1,37 +1,37 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { useAuth } from "../components/AuthContext";
 import "./css/dealerRegistration.css";
 import { registerDealership } from "../api/DealershipAPI";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getDealershipByUserID } from "../api/DealershipAPI";
-import { Nav, NavLink, Bars, NavMenu } from "./pageComponents/NavbarElements";
+import { NavLink } from "./pageComponents/NavbarElements";
 import PageHeader from "../components/AdminPageHeader";
 import CreateIcon from "@material-ui/icons/Create";
-import { Box, ButtonGroup, MenuItem, FormHelperText   } from "@material-ui/core";
+import { Box, MenuItem, FormHelperText   } from "@material-ui/core";
 import Select from '@material-ui/core/Select';
 
 
 export default function DealershipProfilePage() {
   const history = useHistory();
-  const [userId, setUserId] = React.useState(null);
-  const [regionCode, setRegionCode] = React.useState(null);
-  const [groupName, setGroupName] = React.useState(null);
-  const [streetAddress, setStreetAddress] = React.useState(null);
-  const [city, setCity] = React.useState(null);
-  const [province, setProvince] = React.useState(null);
-  const [zip, setZip] = React.useState(null);
-  const [country, setCountry] = React.useState(null);
-  const [salesContact, setSalesContact] = React.useState(null);
-  const [salesEmail, setSalesEmail] = React.useState(null);
-  const [salesPhone, setSalesPhone] = React.useState(null);
-  const [billingContactName, setBillingContactName] = React.useState(null);
-  const [billingPhone, setBillingPhone] = React.useState(null);
-  const [billingEmail, setBillingEmail] = React.useState(null);
-  const [longtitude, setLongtitude] = React.useState(null);
-  const [latitude, setLatitude] = React.useState(null);
+  const [userId, setUserId] = useState(null);
+  const [regionCode, setRegionCode] = useState(null);
+  const [groupName, setGroupName] = useState(null);
+  const [streetAddress, setStreetAddress] = useState(null);
+  const [city, setCity] = useState(null);
+  const [province, setProvince] = useState(null);
+  const [zip, setZip] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [salesContact, setSalesContact] = useState(null);
+  const [salesEmail, setSalesEmail] = useState(null);
+  const [salesPhone, setSalesPhone] = useState(null);
+  const [billingContactName, setBillingContactName] = useState(null);
+  const [billingPhone, setBillingPhone] = useState(null);
+  const [billingEmail, setBillingEmail] = useState(null);
+  const [longtitude, setLongtitude] = useState(null);
+  const [latitude, setLatitude] = useState(null);
   const [dealerObjectId, setDealerObjectId] = useState("");
-  const { currentUser, userType, logout, userObject } = useAuth();
+  const { userObject } = useAuth();
   const [searchedUser, setSearchedUser] = useState(null);
 
 
@@ -44,12 +44,7 @@ export default function DealershipProfilePage() {
       if (statusCode === 200) {
         let body = resultUser.body[0];
         setSearchedUser(body);
-        console.log("dealerobject");
-        console.log(body);
         setDealerObjectId(body.DealershipID);
-        console.log(body.dealershipObj)
-      } else {
-        alert(`Status : ${statusCode}, ${resultUser.error}`);
       }
     }
   }
@@ -77,13 +72,10 @@ export default function DealershipProfilePage() {
     let result = await registerDealership(dealershipObj);
     if (result.status === 201) {
       history.push("/");
-      console.log(userObject.UserID);
       GetDealerObjectId(userObject.UserID);
     }
   }
 
-
-  
 
   const createDealershipForm = () => {
     return (
@@ -100,18 +92,14 @@ export default function DealershipProfilePage() {
               id="demo-simple-select"
               value={regionCode}
               onChange={(event) => setRegionCode(event.target.value)}
-
               >
-
               <MenuItem value={"CBC001"}>CBC001</MenuItem>
               <MenuItem value={"CBC002"}>CBC002</MenuItem>
               <MenuItem value={"CBC003"}>CBC003</MenuItem>
               <MenuItem value={"CBC004"}>CBC004</MenuItem>
             </Select>
             <FormHelperText>Region Code</FormHelperText>
-
         </Box>
-
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
@@ -247,23 +235,7 @@ export default function DealershipProfilePage() {
                 onChange={(event) => setLatitude(event.target.value)}
               />
             </Box>
-            {/* <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={userOpen}
-          onClose={() => setUserOpen(false)}
-          onOpen={() => setUserOpen(true)}
-          value={userType}
-          onChange={(event) => {
-            setUserType(event.target.value);
-          }}
-        >
-          <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
-          <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
-          <MenuItem value={TYPE.ADMIN}>Admin</MenuItem>
-        </Select> */}
             <div className="bottomTwo">
-              
               <Button
                 color="primary"
                 variant="contained"

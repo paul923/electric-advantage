@@ -1,13 +1,9 @@
 import React from "react"
 import Signup from "./Signup"
-import { Container } from "react-bootstrap"
 import { AuthProvider } from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Dashboard from "./Dashboard"
 import Login from "./Login"
-import PrivateRoute from "./PrivateRoute"
 import ForgotPassword from "./ForgotPassword"
-import UpdateProfile from "./UpdateProfile"
 
 function App() {
   return (
@@ -50,7 +46,6 @@ function App() {
           <AdminPrivateRoute path="/4" component={RegisterMake} />
           <AdminPrivateRoute path="/5" component={RegisterModel} />
           <AdminPrivateRoute path="/6" component={DealershipSignUp} />
-
           <DealershipPrivateRoute path="/dealer" component={DealerMenu} />
           <DealershipPrivateRoute path="/accountinfo" component={AccountInfo} />
           <DealershipPrivateRoute
@@ -64,7 +59,6 @@ function App() {
           />
           <DealershipPrivateRoute path="/addList" component={AddList} />
           </AuthProvider>
-
         </div>
       </CoordinateContext.Provider>
   )

@@ -2,20 +2,18 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../components/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import Signup from "./Signup"
 import "./css/Home.css"
 
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login, logout, userType } = useAuth()
+  const { login, logout } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
   async function handleSubmit(e) {
     e.preventDefault()
-
     try {
       setError("")
       setLoading(true)
@@ -24,14 +22,9 @@ export default function Login() {
     } catch {
       setError("Failed to log in")
     }
-
     setLoading(false)
   }
 
-  async function handleSubmit2(e) {
-    e.preventDefault()
-    logout()
-  }
 
   return (
     <>
@@ -53,7 +46,6 @@ export default function Login() {
               Log In
             </Button>
             </div>
-
           </Form>
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">Forgot Password?</Link>
