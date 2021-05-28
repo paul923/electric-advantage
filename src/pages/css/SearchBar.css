@@ -1,17 +1,19 @@
 .movePrice {
-    margin-left: 16vw;
+    margin-left: 13vw;
 }
 
 .moveRange {
-    margin-left: 4vw;
+    margin-left: 5vw;   
 }
 
 .moveMake {
-    margin-left: -25vw;
+    margin-left: -11vw;
+    max-width: 280px;
 }
 
+
 .moveStatus {
-    margin-left: 2vw;
+    margin-left: 1vw;
 }
 
 .status-dropdown {
