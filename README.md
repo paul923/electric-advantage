@@ -56,6 +56,16 @@ To run the commands for the project you will need these requirements on your loc
 
 ## How to run the project
 
+### Installing npm
+Go to https://www.npmjs.com/get-npm and click "Download Node.js and npm".
+
+### `npm -v`
+### `npm install npm@latest -g`
+
+Checks if npm is installed, command will retrieve the npm version you currently have installed.\
+Updates the version of npm installed.
+
+
 There are 2 parts for this project and each part has to be run seperate
 
 To run the frontend part of the project, 
