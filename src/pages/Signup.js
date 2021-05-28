@@ -8,8 +8,6 @@ import { createUser } from "../api/UserAPI";
 import _uniqueId from 'lodash/uniqueId';
 import { auth } from "../firebase"
 
-import "./css/Home.css"
-
 
 export default function Signup() {
   const emailRef = useRef();
@@ -80,34 +78,32 @@ export default function Signup() {
               <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
             </Select>
             </div>
-            <Form.Group className= "firstName" id="firstName">
+            <Form.Group id="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="text" ref={firstNameRef}  required value={firstname}
           onChange={(event) => setFirstname(event.target.value)}/>
             </Form.Group>
-            <Form.Group className= "lastName" id="lastName">
+            <Form.Group id="lastName">
               <Form.Label>Last Name</Form.Label>
               <Form.Control type="text" ref={lastNameRef} required value={lastname}
           onChange={(event) => setLastname(event.target.value)}/>
             </Form.Group>
-            <Form.Group className= "email" id="email">
+            <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required value={email}
           onChange={(event) => setEmail(event.target.value)}/>
             </Form.Group>
-            <Form.Group className= "password" id="password">
+            <Form.Group id="password">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Form.Group className= "password-confirm" id="password-confirm">
+            <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
-            <div className="w-100 text-center mt-3">
-            <Button disabled={loading} className="w-1000" type="submit">
+            <Button disabled={loading} className="w-100" type="submit">
               Sign Up
             </Button>
-            </div>
           </Form>
         </Card.Body>
       </Card>
