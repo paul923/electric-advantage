@@ -153,45 +153,6 @@ export default function SearchBar(props) {
                 </select>
               </div>
             </Col>
-
-            {/* <Col>
-              <section className="range">
-                <div className="priceColumn">
-                  <div className="priceTitle">
-                    <h3>Price</h3>
-                  </div>
-
-                  <Container>
-                    <RangeSlider
-                      max={PRICE_MAX}
-                      value={priceValue}
-                      onChange={(e) => setPriceValue(e.target.value)}
-                      variant="success"
-                    />
-                  </Container>
-                </div>
-              </section>
-            </Col>
-
-            <Col>
-              <section className="range">
-                <div className="rangeColumn">
-                  <div className="rangeTitle">
-                    <h3 className="">Range</h3>
-                  </div>
-
-                  <Container>
-                    <RangeSlider
-                      max={RANGE_MAX}
-                      value={rangeValue}
-                      onChange={(e) => setRangeValue(e.target.value)}
-                      variant="success"
-                    />
-                  </Container>
-                </div>
-              </section>
-            </Col> */}
-
             <Col>
               <a
                 href={`/search-result?make=${selectedMake}&condition=${selectedConditionID}&price=${priceValue}&range=${rangeValue}&lat=${state.lat}&lng=${state.lng}`}

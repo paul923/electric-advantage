@@ -1,6 +1,5 @@
 .modal-header {
   background-color: #207567;
-
 }
 
 .box1 {
@@ -151,11 +150,11 @@ td {
 }
 
 .statusColumn {
-  margin-left: 4vw;
+  margin-left: 10px;
 }
 
 .makeColumn {
-  margin-left: 13vw;
+  /* margin-left: 13vw; */
 }
 
 .whatitem {
@@ -181,11 +180,11 @@ td {
 }
 
 .makeTitle {
-  margin-left: -2.8vw;
+  /* margin-left: -2.8vw; */
 }
 
 .statusTitle {
-  margin-left: -2.8vw;
+  /* margin-left: -2.8vw; */
 }
 
 .priceTitle {
@@ -195,6 +194,3 @@ td {
 .rangeTitle {
   margin-left: -1.8vw;
 }
-
-
-

@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Select, MenuItem } from "@material-ui/core";
 import { useAuth } from "../components/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TYPE from "../constants/UserType";
 import { createUser } from "../api/UserAPI";
 import _uniqueId from "lodash/uniqueId";
@@ -19,7 +19,6 @@ export default function Signup() {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
