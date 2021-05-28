@@ -13,11 +13,16 @@ This project is made with:
 ## Initial setup
 
 Authorization configuration
-    To enable authentication on the applcation you will need to follow these steps:
-        1. create a ".env.local" file in the project directory.
-        2. sign in to your [Firebase](https://firebase.google.com/) account
-        3. click on your firebase project.
-        ![Alt text](./src/images/background.jpg?raw=true "Optional Title")
+
+To enable authentication on the applcation you will need to follow these steps:
+
+1. create a ".env.local" file in the project directory.
+
+2. sign in to your [Firebase](https://firebase.google.com/) account
+        
+3. click on your firebase project.
+
+![Alt text](./src/images/background.jpg?raw=true "Optional Title")
 
 
 
