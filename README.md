@@ -4,7 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Initial setup
 
-In the project directory, you can run:
+To run the commands for the project you will need these requirements on your local machine:
+    Node.js and npm (https://www.npmjs.com/get-npm)
+    Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## How to run the project
 
@@ -13,6 +15,7 @@ There are 2 parts for this project and each part has to be run seperate
 To run the frontend part of the project, 
 navigate to project directory(../electric-advantage/), and run:
 
+### `npm install`
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -24,6 +27,7 @@ You will also see any lint errors in the console.
 To run the backend part of the project, 
 navigate to backend directory(../electric-advantage/backend), and run:
 
+### `npm install`
 ### `npm start`
 
 Runs the MariaDB as the backend.\
