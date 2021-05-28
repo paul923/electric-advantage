@@ -2,13 +2,11 @@
 
 This project is made with:
 
- Frontend: [React](https://reactjs.org/)
+Frontend: [React](https://reactjs.org/)
 
- Backend: [MariaDB](https://mariadb.org/)
- 
- Authtentication: [Firebase](https://firebase.google.com/)
+Backend: [MariaDB](https://mariadb.org/)
 
-
+Authtentication: [Firebase](https://firebase.google.com/)
 
 ## Initial setup
 
@@ -21,7 +19,6 @@ To enable authentication on the applcation you will need to follow these steps:
 ![directory](./src/images/directory.png?raw=true "directory")
 
 2. Sign in to your [Firebase](https://firebase.google.com/) account
-        
 3. Click on your firebase project.
 
 ![console](./src/images/console.png?raw=true "console")
@@ -40,9 +37,20 @@ To enable authentication on the applcation you will need to follow these steps:
 
 7. Now you are all set with authentication!
 
-
 ### Database configuration:
-    TODO: paul
+
+1. Setup MariaDB or MySQL on your drive and do basic setup including user, ip, and port.
+2. Create file with name `.env` under `electric-advantage/backend`
+3. Fill in `.env` with content underneath and replace following information (Remove double quotes):
+
+```
+DATABASE_HOST="Database HOST IP"
+DATABASE_PORT="Database PORT"
+DATABASE_USERNAME="Database username goes here"
+DATABASE_PASSWORD="Database password goes here"
+```
+
+4. If you would like to change the port of the server running, port could be changed from `electric-advantage/backend/backend.js`. It is located on the very bottom of the file. Currently it is set to 3000.
 
 ### Basic setup for the frontend:
 
@@ -57,21 +65,23 @@ To run the commands for the project you will need these requirements on your loc
 ## How to run the project
 
 ### Installing npm
+
 Go to https://www.npmjs.com/get-npm and click "Download Node.js and npm".
 
 ### `npm -v`
+
 ### `npm install npm@latest -g`
 
 Checks if npm is installed, command will retrieve the npm version you currently have installed.\
 Updates the version of npm installed.
 
-
 There are 2 parts for this project and each part has to be run seperate
 
-To run the frontend part of the project, 
-navigate to project directory(../electric-advantage/), and run:
+To run the frontend part of the project,
+navigate to project directory(../electric-advantage/) in cmd, and run:
 
 ### `npm install`
+
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -80,13 +90,14 @@ Open [http://localhost:2000](http://localhost:2000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-To run the backend part of the project, 
-navigate to backend directory(../electric-advantage/backend), and run:
+To run the backend part of the project,
+navigate to backend directory(../electric-advantage/backend) in another cmd, and run:
 
 ### `npm install`
+
 ### `npm start`
 
-Runs the MariaDB as the backend.\
+Runs the server as the backend.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 Your console will keep track of your backend activity and status.
 
@@ -165,12 +176,10 @@ Dealerships will have access to the dealership menu only if they are registered.
 
 ![dealershipreg](./src/images/dealershipreg.png?raw=true "dealershipreg")
 
-
 2. When dealership registeration is clicked, it will make an email draft to send it to the admin.
 
 ![email](./src/images/email.png?raw=true "email")
 
-        
 3. When admin receive the email, log in with admin account and navigate to "dealership registeration" page
 
 ![register](./src/images/register.png?raw=true "register")
