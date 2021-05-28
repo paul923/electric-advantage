@@ -12,7 +12,7 @@ This project is made with:
 
 ## Initial setup
 
-Authorization configuration
+### Authorization configuration
 
 To enable authentication on the applcation you will need to follow these steps:
 
@@ -41,12 +41,18 @@ To enable authentication on the applcation you will need to follow these steps:
 7. Now you are all set with authentication!
 
 
-Database configuration:
+### Database configuration:
+    TODO: paul
+
+### Basic setup for the frontend:
 
 Frontend setup:
-    To run the commands for the project you will need these requirements on your local machine:
-        [Node.js and npm](https://www.npmjs.com/get-npm)
-        [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+To run the commands for the project you will need these requirements on your local machine:
+
+[Node.js and npm](https://www.npmjs.com/get-npm)
+
+[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## How to run the project
 
