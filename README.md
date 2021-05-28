@@ -28,7 +28,7 @@ To enable authentication on the applcation you will need to follow these steps:
 
 4. Click on settings for your project
 
-![settings](./src/images/console.png?raw=true "settings")
+![settings](./src/images/settings.png?raw=true "settings")
 
 5. Scrolldown to "SDK setup and configuration" and copy and paste corresponding values to .env.local.
 
