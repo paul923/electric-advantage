@@ -39,78 +39,13 @@ export default function DealerAddList() {
   async function insertIntoDatabaseHandler() {
     let apiResponse = await addInventoryItemToDealership(addList);
     let statusCode = apiResponse.status;
-    if (statusCode === 500) {
-      alert(`${statusCode}. ${apiResponse.error}.`);
-    }
-    if (statusCode === 400) {
-      alert(`${statusCode}. ${apiResponse.error}.`);
-    }
-  }
-
-  async function insertIntoDatabaseHandler() {
-    let apiResponse = await addInventoryItemToDealership(addList);
-    let statusCode = apiResponse.status;
-    if (statusCode === 500) {
-      alert(`${statusCode}. ${apiResponse.error}.`);
-    }
-    if (statusCode === 400) {
+    if (statusCode === 201) {
+      alert(`Items added.`);
+      window.location.href = "/inventory";
+    } else {
       alert(`${statusCode}. ${apiResponse.error}.`);
     }
   }
-
-  // const addCarsHandler = (
-  //   carMakeInput,
-  //   carModelInput,
-  //   carTrimInput,
-  //   qtyInput,
-  //   priceInput,
-  //   colorInput,
-  //   infoInput,
-  //   imagesInput,
-  //   carID
-  // ) => {
-  //   setCarsToAdd([
-  //     ...carsToAdd,
-  //     {
-  //       carMake: carMakeInput,
-  //       carModel: carModelInput,
-  //       carTrim: carTrimInput,
-  //       qtyInput: qtyInput,
-  //       price: priceInput,
-  //       color: colorInput,
-  //       info: infoInput,
-  //       images: imagesInput,
-  //       carID: carID,
-  //     },
-  //   ]);
-  // };
-
-  // const addCarsHandler = (
-  //   carMakeInput,
-  //   carModelInput,
-  //   carTrimInput,
-  //   qtyInput,
-  //   priceInput,
-  //   colorInput,
-  //   infoInput,
-  //   imagesInput,
-  //   carID
-  // ) => {
-  //   setCarsToAdd([
-  //     ...carsToAdd,
-  //     {
-  //       carMake: carMakeInput,
-  //       carModel: carModelInput,
-  //       carTrim: carTrimInput,
-  //       qtyInput: qtyInput,
-  //       price: priceInput,
-  //       color: colorInput,
-  //       info: infoInput,
-  //       images: imagesInput,
-  //       carID: carID,
-  //     },
-  //   ]);
-  // };
 
   return (
     <div>

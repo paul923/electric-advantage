@@ -56,7 +56,13 @@ const useStyles = makeStyles((theme) => ({
   dealerButton: {
     position: "absolute",
     //lower the number, the more left
-    left: "14vw",
+    left: "13vw",
+    marginBottom: 30,
+  },
+  registerDealershipButton: {
+    position: "absolute",
+    //lower the number, the more left
+    left: "20vw",
     marginBottom: 30,
   },
   customizeToolbar: {
@@ -190,6 +196,13 @@ export default function Vehicles() {
             variant="outlined"
             className={classes.dealerButton}
             onClick={(event) => (window.location.href = "/adminDealer")}
+          />
+          <Controls.Button
+            text="Register Dealership"
+            color="#841584"
+            variant="outlined"
+            className={classes.registerDealershipButton}
+            onClick={(event) => (window.location.href = "/registerdealership")}
           />
 
           <Controls.Button

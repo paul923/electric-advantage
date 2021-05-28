@@ -29,7 +29,7 @@ export default function Menu() {
                 Admin
               </NavLink>
             ) : userType === "DEALERSHIP" && dealerObjectId !== null ? (
-              <NavLink to="/dealer" activeStyle>
+              <NavLink to="/inventory" activeStyle>
                 Dealership
               </NavLink>
             ) : null}
