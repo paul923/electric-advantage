@@ -1,10 +1,58 @@
-# Getting Started with Create React App
+# Getting Started with Electric Advantage.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is made with:
+
+ Frontend: [React](https://reactjs.org/)
+
+ Backend: [MariaDB](https://mariadb.org/)
+ 
+ Authtentication: [Firebase](https://firebase.google.com/)
+
+
 
 ## Initial setup
 
-In the project directory, you can run:
+### Authorization configuration
+
+To enable authentication on the applcation you will need to follow these steps:
+
+1. Find the ".env.local" file in the project directory.
+
+![directory](./src/images/directory.png?raw=true "directory")
+
+2. Sign in to your [Firebase](https://firebase.google.com/) account
+        
+3. Click on your firebase project.
+
+![console](./src/images/console.png?raw=true "console")
+
+4. Click on settings for your project
+
+![settings](./src/images/settings.png?raw=true "settings")
+
+5. Scrolldown to "SDK setup and configuration" and copy and paste corresponding values to .env.local.
+
+![configuration](./src/images/configuration.png?raw=true "configuration")
+
+6. When copying and paste values, values SHOULD NOT BE wrapped in "".
+
+![envlocal](./src/images/envlocal.png?raw=true "envlocal")
+
+7. Now you are all set with authentication!
+
+
+### Database configuration:
+    TODO: paul
+
+### Basic setup for the frontend:
+
+Frontend setup:
+
+To run the commands for the project you will need these requirements on your local machine:
+
+[Node.js and npm](https://www.npmjs.com/get-npm)
+
+[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## How to run the project
 
@@ -13,6 +61,7 @@ There are 2 parts for this project and each part has to be run seperate
 To run the frontend part of the project, 
 navigate to project directory(../electric-advantage/), and run:
 
+### `npm install`
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -24,6 +73,7 @@ You will also see any lint errors in the console.
 To run the backend part of the project, 
 navigate to backend directory(../electric-advantage/backend), and run:
 
+### `npm install`
 ### `npm start`
 
 Runs the MariaDB as the backend.\
@@ -88,3 +138,37 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Dealership Registeration
+
+Dealerships can signup in the signup page.
+
+To complete the registeration, dealership account will send the admin an email including their information.
+
+Once the admin received the email, admin can register the dealership based on the information.
+
+Dealerships will have access to the dealership menu only if they are registered.
+
+### Dealership Registeration Flow
+
+1. When a new dealership signs up, they will be blocked from accessing dealer menus and see dealership regsiteration.
+
+![dealershipreg](./src/images/dealershipreg.png?raw=true "dealershipreg")
+
+
+2. When dealership registeration is clicked, it will make an email draft to send it to the admin.
+
+![email](./src/images/email.png?raw=true "email")
+
+        
+3. When admin receive the email, log in with admin account and navigate to "dealership registeration" page
+
+image todo
+
+4. Register the dealership based on the information email from a dealership.
+
+image todo
+
+5. If the dealership registeration is complete, dealership account will have access to the dealer menu.
+
+image todo
