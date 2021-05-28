@@ -282,13 +282,14 @@ h10 {
   width: 100%;
 }
 
-.email, .password {
+.email, .password, .firstName, .lastName, .password-confirm {
   
   margin: auto;
 width: 50%;
 padding: 10px;
 
 }
+
 
  .w-1000 {
    margin:auto;
