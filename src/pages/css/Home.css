@@ -130,7 +130,6 @@ h2 {
   font-size: 1.2vw;
 }
 
-
 .nav-search {
   color: white;
 }
@@ -175,7 +174,11 @@ td {
   width: 40vw;
   height: 20vh;
   margin-top: 3vh;
+}
 
+.detailsButton {
+  max-height: 5vh;
+  width: 10vw;
 }
 
 .carDetailsButton {
@@ -188,9 +191,8 @@ td {
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: green;
-  
-
+  background-color: #0d6efd;
+  overflow: hidden;
 }
 
 .emailAlertButton {
@@ -255,8 +257,6 @@ td {
 
 .profileTitle {
   position: relative;
-  
-
 }
 
 .leftColumn {
@@ -265,7 +265,6 @@ td {
 
 .rightColumnn {
   margin-left: 7vw;
-
 }
 
 .btn-success {
@@ -282,20 +281,17 @@ h10 {
   width: 100%;
 }
 
-.email, .password {
-  
+.email,
+.password {
   margin: auto;
-width: 50%;
-padding: 10px;
-
+  width: 50%;
+  padding: 10px;
 }
 
- .w-1000 {
-   margin:auto;
-  display:block; 
-  
-
-} 
+.w-1000 {
+  margin: auto;
+  display: block;
+}
 
 /* .w-200 {
   width: 50%;
