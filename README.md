@@ -1,12 +1,29 @@
-# Getting Started with Create React App
+# Getting Started with Electric Advantage.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is made with:
+ Frontend: [React](https://reactjs.org/).
+ Backend: [MariaDB](https://mariadb.org/)
+ Authtentication: [Firebase](https://firebase.google.com/)
+
+
 
 ## Initial setup
 
-To run the commands for the project you will need these requirements on your local machine:
-    Node.js and npm (https://www.npmjs.com/get-npm)
-    Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+Authorization configuration
+    To enable authentication on the applcation you will need to follow these steps:
+        1. create a ".env.local" file in the project directory.
+        2. sign in to your [Firebase](https://firebase.google.com/) account
+        3. click on your firebase project.
+        ![Alt text](./src/images/background.jpg?raw=true "Optional Title")
+
+
+
+Database configuration:
+
+Frontend setup:
+    To run the commands for the project you will need these requirements on your local machine:
+        [Node.js and npm](https://www.npmjs.com/get-npm)
+        [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## How to run the project
 
