@@ -104,7 +104,7 @@ export default function LandingPage() {
           <div className="value" style={{ fontSize: "25pt" }}>
             {selectedRegion.NewCount}
           </div>
-          <div className="category">Used Cars</div>
+          <div className="category">Pre-Owned Cars</div>
         </div>
       </div>
 
