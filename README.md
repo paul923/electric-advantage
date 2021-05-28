@@ -1,8 +1,11 @@
 # Getting Started with Electric Advantage.
 
 This project is made with:
- Frontend: [React](https://reactjs.org/).
+
+ Frontend: [React](https://reactjs.org/)
+
  Backend: [MariaDB](https://mariadb.org/)
+ 
  Authtentication: [Firebase](https://firebase.google.com/)
 
 
