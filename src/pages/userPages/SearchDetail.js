@@ -4,9 +4,15 @@ import "../css/searchDetails.css";
 import { Card } from "react-bootstrap";
 import { getInventoryByInventoryID } from "../../api/VehicleAPI";
 import queryString from "query-string";
+import { useAuth } from "../../components/AuthContext";
+import {
+  NavLink,
+} from "../pageComponents/NavbarElements";
 
 const SearchDetail = ({ match }) => {
   const [item, setItem] = React.useState("");
+  const { currentUser, userType, logout, dealerObjectId } = useAuth();
+
 
   React.useEffect(() => {
     onLoadGetInventoryItem();
@@ -62,14 +68,20 @@ const SearchDetail = ({ match }) => {
         
 
           <div className="additionalInfo">
-              
+          <h5>Interested? Find your vehicle from this dealership!</h5>
+              {currentUser ? (
               <Card className="infoCard">
-                <Card.Header className="cardHeader">Find It Here</Card.Header>
                 <div className="groupName">{item.GroupName}</div>
                 <div className="salesCont">{item.SalesContact}</div>
                 <div className="salesEmail">{item.SalesEmail}</div>
                 <div className="salesPhone">{item.SalesPhone}</div>
               </Card>
+              ) : (
+                <NavLink to="/login" activeStyle>
+                Press here to login to see the dealership information
+                </NavLink>
+              )
+              }
             </div>
       </div>
     </body>
