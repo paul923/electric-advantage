@@ -281,7 +281,7 @@ h10 {
   width: 100%;
 }
 
-.email,
+.email, .firstName, .lastName, .password-confirm,
 .password {
   margin: auto;
   width: 50%;
