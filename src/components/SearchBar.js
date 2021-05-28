@@ -148,7 +148,7 @@ export default function SearchBar(props) {
                     value={CONDITION.USED}
                     selected={CONDITION.USED === parseInt(selectedConditionID)}
                   >
-                    Used
+                    Pre-Owned
                   </option>
                 </select>
               </div>
