@@ -9,9 +9,8 @@ import { getDealershipByUserID } from "../../api/DealershipAPI";
 import { Nav, NavLink, Bars, NavMenu } from "../pageComponents/NavbarElements";
 import PageHeader from "../../components/AdminPageHeader";
 import CreateIcon from "@material-ui/icons/Create";
-import { Box, ButtonGroup, MenuItem  } from "@material-ui/core";
-import Select from '@material-ui/core/Select';
-
+import { Box, ButtonGroup, MenuItem } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
 
 export default function DealershipProfilePage() {
   const history = useHistory();
@@ -35,18 +34,26 @@ export default function DealershipProfilePage() {
   const [searchedUser, setSearchedUser] = useState(null);
   const [userId, setUserId] = useState("");
 
-
   const createDealershipForm = () => {
     return (
       <>
-          <a className="w-100 text-center mt-3"  href={`mailto:admin@electricadvantage.ca?subject=Dealer Register Request&body=Please fill out this information to register as dealership
+        <a
+          className="w-100 text-center mt-3"
+          href={`mailto:admin@electricadvantage.ca?subject=Dealer Register Request&body=Please fill out this information to register as dealership
           %0AFirst name:
           %0ALast name:
           %0AEmail:
           %0AUser id: ${userObject.UserID}
           `}
-          >Dealership Registeration</a>
-
+        >
+          <Button
+            style={{ marginTop: "10vh" }}
+            variant="contained"
+            color="primary"
+          >
+            Request Dealership Registration
+          </Button>
+        </a>
       </>
     );
   };

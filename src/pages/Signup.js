@@ -5,10 +5,10 @@ import { useAuth } from "../components/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import TYPE from "../constants/UserType";
 import { createUser } from "../api/UserAPI";
-import _uniqueId from 'lodash/uniqueId';
-import { auth } from "../firebase"
+import _uniqueId from "lodash/uniqueId";
+import { auth } from "../firebase";
 
-import "./css/Home.css"
+import "./css/Home.css";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -36,7 +36,7 @@ export default function Signup() {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
       await onPressCreateUser();
-      history.push("/");
+      window.location.href = "/";
     } catch {
       setError("Failed to create an account");
     }
@@ -54,7 +54,6 @@ export default function Signup() {
     await createUser(userObj);
   }
 
-  
   return (
     <>
       <Card>
@@ -62,48 +61,63 @@ export default function Signup() {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <div className="text-center">
-            <Select
-              labelId="demo-controlled-open-select-label"
-              id="demo-controlled-open-select"
-              open={userOpen}
-              onClose={() => setUserOpen(false)}
-              onOpen={() => setUserOpen(true)}
-              value={userType}
-              onChange={(event) => {
-                setUserType(event.target.value);
-              }}   
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={userOpen}
+                onClose={() => setUserOpen(false)}
+                onOpen={() => setUserOpen(true)}
+                value={userType}
+                onChange={(event) => {
+                  setUserType(event.target.value);
+                }}
               >
-              <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
-              <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
-            </Select>
+                <MenuItem value={TYPE.CUSTOMER}>Customer</MenuItem>
+                <MenuItem value={TYPE.DEALERSHIP}>Dealership</MenuItem>
+              </Select>
             </div>
-            <Form.Group className= "firstName" id="firstName">
+            <Form.Group className="firstName" id="firstName">
               <Form.Label>First Name</Form.Label>
-              <Form.Control type="text" ref={firstNameRef}  required value={firstname}
-          onChange={(event) => setFirstname(event.target.value)}/>
+              <Form.Control
+                type="text"
+                ref={firstNameRef}
+                required
+                value={firstname}
+                onChange={(event) => setFirstname(event.target.value)}
+              />
             </Form.Group>
-            <Form.Group className= "lastName" id="lastName">
+            <Form.Group className="lastName" id="lastName">
               <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" ref={lastNameRef} required value={lastname}
-          onChange={(event) => setLastname(event.target.value)}/>
+              <Form.Control
+                type="text"
+                ref={lastNameRef}
+                required
+                value={lastname}
+                onChange={(event) => setLastname(event.target.value)}
+              />
             </Form.Group>
-            <Form.Group className= "email" id="email">
+            <Form.Group className="email" id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required value={email}
-          onChange={(event) => setEmail(event.target.value)}/>
+              <Form.Control
+                type="email"
+                ref={emailRef}
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </Form.Group>
-            <Form.Group className= "password" id="password">
+            <Form.Group className="password" id="password">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Form.Group className= "password-confirm" id="password-confirm">
+            <Form.Group className="password-confirm" id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
             <div className="w-100 text-center mt-3">
-            <Button disabled={loading} className="w-1000" type="submit">
-              Sign Up
-            </Button>
+              <Button disabled={loading} className="w-1000" type="submit">
+                Sign Up
+              </Button>
             </div>
           </Form>
         </Card.Body>
@@ -114,4 +128,3 @@ export default function Signup() {
     </>
   );
 }
-

@@ -12,15 +12,14 @@ import {
   updateDealershipInventoryItems,
   getDealershipByUserID,
 } from "../../api/DealershipAPI";
-import { useAuth } from "../../components/AuthContext";
+import { auth } from "../../firebase";
 
 export default function DealerInventory() {
   const [retrievedInventory, setRetrievedInventory] = React.useState([]);
-  const { currentUser, userType, logout, userObject } = useAuth();
   const [inventoryToUpdate, setInventoryToUpdate] = React.useState([]);
 
   async function getFirstInventoryList() {
-    let dealerObject = await getDealershipByUserID(userObject.UserID);
+    let dealerObject = await getDealershipByUserID(auth.currentUser.uid);
     let firstInventory = await getInventoryByDealershipID(
       parseInt(dealerObject.body[0].DealershipID)
     );
@@ -142,32 +141,24 @@ export default function DealerInventory() {
 
   return (
     <div>
-      <br/>
+      <br />
       <Controls.Button
-                        text="Subscriptions"
-                        color="#841584"
-                        variant="outlined"
-                        // className={classes.subButton}
-                        onClick={event =>  window.location.href='/subscription'}
-                    />
-                    <Controls.Button
-                        text="Account"
-                        color="#841584"
-                        variant="outlined"
-                        // className={classes.subButton}
-                        onClick={event =>  window.location.href='/accountInfo'}
-                    />
-      
+        text="Subscriptions"
+        color="#841584"
+        variant="outlined"
+        // className={classes.subButton}
+        onClick={(event) => (window.location.href = "/subscription")}
+      />
       <Controls.Button
-                        text="Dealer Profile"
-                        color="#841584"
-                        variant="outlined"
-                        // className={classes.subButton}
-                        onClick={event =>  window.location.href='/dealerprofile'}
-                    />
-      
-      <br/>
-      <br/>
+        text="Account"
+        color="#841584"
+        variant="outlined"
+        // className={classes.subButton}
+        onClick={(event) => (window.location.href = "/accountInfo")}
+      />
+
+      <br />
+      <br />
 
       <input
         type="text"
@@ -176,11 +167,7 @@ export default function DealerInventory() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-       
-      
-      
-                    
-                       
+
       <div className="tableCustomize">
         <Table bordered hover search>
           <thead>

@@ -29,23 +29,6 @@ export default function DealershipProfilePage() {
   const [billingEmail, setBillingEmail] = useState(null);
   const [longtitude, setLongtitude] = useState(null);
   const [latitude, setLatitude] = useState(null);
-  const [dealerObjectId, setDealerObjectId] = useState("");
-  const { userObject } = useAuth();
-  const [searchedUser, setSearchedUser] = useState(null);
-
-  async function GetDealerObjectId(id) {
-    let resultUser = await getDealershipByUserID(id);
-    let statusCode = resultUser.status;
-    if (statusCode === 404) {
-      setDealerObjectId(null);
-    } else {
-      if (statusCode === 200) {
-        let body = resultUser.body[0];
-        setSearchedUser(body);
-        setDealerObjectId(body.DealershipID);
-      }
-    }
-  }
 
   async function onPressCreateDealership() {
     let dealershipObj = {
@@ -68,8 +51,10 @@ export default function DealershipProfilePage() {
     };
     let result = await registerDealership(dealershipObj);
     if (result.status === 201) {
-      history.push("/");
-      GetDealerObjectId(userObject.UserID);
+      alert("Dealership created.");
+      history.push("/adminDealer");
+    } else {
+      alert("Something went wrong.");
     }
   }
 
@@ -216,19 +201,19 @@ export default function DealershipProfilePage() {
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="Longtitude"
+                label="Latitidue"
                 variant="outlined"
-                value={longtitude}
-                onChange={(event) => setLongtitude(event.target.value)}
+                value={latitude}
+                onChange={(event) => setLatitude(event.target.value)}
               />
             </Box>
             <Box mt={1} pt={1}>
               <TextField
                 id="outlined-basic"
-                label="Latitidue"
+                label="Longtitude"
                 variant="outlined"
-                value={latitude}
-                onChange={(event) => setLatitude(event.target.value)}
+                value={longtitude}
+                onChange={(event) => setLongtitude(event.target.value)}
               />
             </Box>
             <div className="bottomTwo">
