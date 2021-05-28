@@ -149,6 +149,8 @@ Once the admin received the email, admin can register the dealership based on th
 
 Dealerships will have access to the dealership menu only if they are registered.
 
+### Dealership Registeration Flow
+
 1. When a new dealership signs up, they will be blocked from accessing dealer menus and see dealership regsiteration.
 
 ![dealershipreg](./src/images/dealershipreg.png?raw=true "dealershipreg")
