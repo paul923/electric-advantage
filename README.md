@@ -16,17 +16,29 @@ Authorization configuration
 
 To enable authentication on the applcation you will need to follow these steps:
 
-1. create a ".env.local" file in the project directory.
+1. Find the ".env.local" file in the project directory.
 
-2. sign in to your [Firebase](https://firebase.google.com/) account
+![directory](./src/images/directory.png?raw=true "directory")
 
-![directory](./src/images/directory.png?raw=true "Optional Title")
-
+2. Sign in to your [Firebase](https://firebase.google.com/) account
         
-3. click on your firebase project.
+3. Click on your firebase project.
 
-![console](./src/images/console.png?raw=true "Optional Title")
+![console](./src/images/console.png?raw=true "console")
 
+4. Click on settings for your project
+
+![settings](./src/images/console.png?raw=true "settings")
+
+5. Scrolldown to "SDK setup and configuration" and copy and paste corresponding values to .env.local.
+
+![configuration](./src/images/configuration.png?raw=true "configuration")
+
+6. When copying and paste values, make sure no values are wrapped in "".
+
+![envlocal](./src/images/envlocal.png?raw=true "envlocal")
+
+7. Now you are all set with authentication!
 
 
 Database configuration:
