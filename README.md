@@ -163,12 +163,12 @@ Dealerships will have access to the dealership menu only if they are registered.
         
 3. When admin receive the email, log in with admin account and navigate to "dealership registeration" page
 
-image todo
+![register](./src/images/register.png?raw=true "register")
 
 4. Register the dealership based on the information email from a dealership.
 
-image todo
+![register2](./src/images/register2.png?raw=true "register2")
 
 5. If the dealership registeration is complete, dealership account will have access to the dealer menu.
 
-image todo
+![dealer](./src/images/dealer.png?raw=true "dealer")

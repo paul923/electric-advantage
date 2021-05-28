@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 package-lock.json
+.env.local
+
 
 
 # testing
@@ -15,7 +17,6 @@ package-lock.json
 
 # misc
 .DS_Store
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
